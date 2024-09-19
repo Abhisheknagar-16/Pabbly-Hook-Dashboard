@@ -501,7 +501,7 @@ export function OverviewEcommerceView() {
 
             <Divider sx={{ borderStyle: 'dashed', mt: 1 }} />
             <DialogContent sx={{ mb: 2 }}>
-              <Typography sx={{ mt: 2 }}>Connection Name</Typography>
+              {/* <Typography sx={{ mt: 2 }}>Connection Name</Typography> */}
 
               <TextField
                 autoFocus
@@ -510,7 +510,7 @@ export function OverviewEcommerceView() {
                 margin="dense"
                 variant="outlined"
                 placeholder='Name of the Connection'
-                // label="Name of the Connection"
+                label="Connection Name"
                 helperText="Enter the name of the connection."
               />
             </DialogContent>
