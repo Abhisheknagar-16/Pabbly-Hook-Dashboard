@@ -4,13 +4,13 @@ import {useState, useCallback } from 'react';
 import Stack from '@mui/material/Stack';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
 // import IconButton from '@mui/material/IconButton';
 import { Tooltip, Typography } from '@mui/material';
-import InputAdornment from '@mui/material/InputAdornment';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import InputAdornment from '@mui/material/InputAdornment';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 // import { formHelperTextClasses } from '@mui/material/FormHelperText';
 
 import { Iconify } from 'src/components/iconify';
@@ -69,7 +69,7 @@ export function OrderTableToolbar({ filters, onResetPage }) {
     </Tooltip>
   </Typography>
 
-  <Stack direction="row" alignItems="center" spacing={2}>
+  {/* <Stack direction="row" alignItems="center" spacing={2}>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
         label="Start Date"
@@ -107,7 +107,7 @@ export function OrderTableToolbar({ filters, onResetPage }) {
         }}
       />
     </Tooltip>
-  </Stack>
+  </Stack> */}
 
   {/* Uncomment and use if you want to add the filter icon button */}
   {/* <IconButton

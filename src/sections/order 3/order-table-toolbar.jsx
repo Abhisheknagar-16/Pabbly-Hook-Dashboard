@@ -13,8 +13,8 @@ import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers';
 import IconButton from '@mui/material/IconButton';
 import FormControl from '@mui/material/FormControl';
+import { Tooltip, FormLabel, Typography } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { Tooltip, FormLabel, Typography, InputAdornment } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 import { Iconify } from 'src/components/iconify';
@@ -91,8 +91,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           </Typography>
 
           {/* Stack for Filters and Search */}
-          <Stack ml={{ xs: 0, md: 'auto' }} direction="row" alignItems="center" spacing={1} flexWrap="wrap">
-            {/* Date Pickers */}
+          {/* <Stack ml={{ xs: 0, md: 'auto' }} direction="row" alignItems="center" spacing={1} flexWrap="wrap">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Start Date"
@@ -115,7 +114,6 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               />
             </LocalizationProvider>
 
-            {/* Search Field */}
             <Tooltip title="Click here to search by event name or ID's." arrow placement="top">
               <TextField
                 sx={{ width: { xs: '100%', sm: '384px' }, mr: { xs: 0, md: '7.5px' }, mb: { xs: 2, md: 0 } }} // Responsive width
@@ -131,7 +129,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
                 }}
               />
             </Tooltip>
-          </Stack>
+          </Stack> */}
 
           {/* Filter Button */}
           <Stack>

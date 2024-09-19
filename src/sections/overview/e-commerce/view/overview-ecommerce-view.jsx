@@ -282,7 +282,7 @@ export function OverviewEcommerceView() {
       <Grid container spacing={3}>
         <Grid item xs={12} md={3} lg={3}>
           <Card sx={{ pl: 3, pr: 3, pt: 3, pb: 2 }}>
-            <Typography sx={{ fontSize: '18px', fontWeight: '600', }}>
+            <Typography sx={{ fontSize: '24px', fontWeight: '700', }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Tooltip title="Manage folders" arrow placement='top'>
                 Folder
@@ -398,15 +398,14 @@ export function OverviewEcommerceView() {
                   </Tooltip>
                 </IconButton>
                 <Dialog open={dopen} onClose={handledlose}>
-                  <DialogTitle>
+                  <DialogTitle sx={{fontSize:'24px', fontWeight:'700'}}>
                   <Tooltip title="Create a connection with a name and folder location." arrow placement='top'>
                    Create Folder
                    </Tooltip>
                    </DialogTitle>
 
-                  <DialogContent>
-                    <Typography sx={{ mb: 0 }}>Folder Name</Typography>
-
+                  <DialogContent sx={{mt:-1}}>
+                   
                     <TextField
                       autoFocus
                       fullWidth
@@ -414,7 +413,7 @@ export function OverviewEcommerceView() {
                       margin="dense"
                       variant="outlined"
                       placeholder='Name of the Connection'
-                      // label="Name of the Connection"
+                      label="Folder Name"
                       // defaultValue="Name of the Connection"
                       helperText={
                         <>
@@ -426,7 +425,7 @@ export function OverviewEcommerceView() {
                       }
                     />
 
-                    <Typography sx={{ mt: 1 }}>Select Folder</Typography>
+                    <Typography sx={{ mt:2}}>Select Folder</Typography>
 
                     <TextField
                      id="outlined-select-currency"
@@ -485,7 +484,7 @@ export function OverviewEcommerceView() {
         </Grid>
         <Grid xs={12} md={9}>
           <Card>
-            <CardHeader sx={{ mt: -1 }}
+            <CardHeader sx={{ mt: 0 }}
               title="Setup Connections"
               subheader={
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -499,8 +498,8 @@ export function OverviewEcommerceView() {
               }
             />
 
-            <Divider sx={{ borderStyle: 'dashed', mt: 1 }} />
-            <DialogContent sx={{ mb: 2 }}>
+            <Divider sx={{ borderStyle: 'dashed', mt: 2 }} />
+            <DialogContent sx={{ mb: 1 }}>
               {/* <Typography sx={{ mt: 2 }}>Connection Name</Typography> */}
 
               <TextField
@@ -512,11 +511,12 @@ export function OverviewEcommerceView() {
                 placeholder='Name of the Connection'
                 label="Connection Name"
                 helperText="Enter the name of the connection."
+                sx={{mt:3}}
               />
             </DialogContent>
 
-            <DialogContent sx={{ mb: 2 }}>
-              <Typography sx={{ mb: 0 }}>Webhook URL</Typography>
+            <DialogContent sx={{ mb: 3 }}>
+              {/* <Typography sx={{ mb: 0 }}>Webhook URL</Typography> */}
 
               <TextField
                 autoFocus
@@ -524,7 +524,7 @@ export function OverviewEcommerceView() {
                 type="email"
                 margin="dense"
                 variant="outlined"
-                // label="Enter URL"
+                label="Webhook URL"
                 placeholder='Enter URL'
                 helperText="Enter the webhook URL."
                 value={url}
@@ -561,7 +561,7 @@ export function OverviewEcommerceView() {
             </DialogContent>
 
             <DialogContent sx={{ mb: 2 }}>
-              <Typography sx={{ mb: 0 }}>Destination URL</Typography>
+              {/* <Typography sx={{ mb: 0 }}>Destination URL</Typography> */}
 
               <TextField
                 autoFocus
@@ -569,7 +569,7 @@ export function OverviewEcommerceView() {
                 type="email"
                 margin="dense"
                 variant="outlined"
-                // label="Enter Webhook URL"
+                label="Destination URl"
                 placeholder='Enter Webhook URL'
                 helperText="Define where your events should be sent. Destinations can be reused across multiple connections."
               />
@@ -789,14 +789,14 @@ export function OverviewEcommerceView() {
             />
               {showBatchSizeField && (
                 <>
-                  <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Batch Size</Typography>
+                  {/* <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Batch Size</Typography> */}
                   <TextField
                     fullWidth
-                    // label="Enter any number"
+                    label="Batch Size"
                     placeholder='Enter any number'
                     variant="outlined"
                     helperText="Define a Batch Size for the event."
-                    sx={{ mb: 2 }}
+                    sx={{ mb: 2,  mt:2}}
                   />
                 </>
               )}
