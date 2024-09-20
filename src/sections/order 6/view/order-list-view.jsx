@@ -50,7 +50,8 @@ const STATUS_REQUEST = [{ value: 'all', label: 'All' }, ...ORDER_REQUEST_OPTIONS
 const TABLE_HEAD = [
   { id: 'orderNumber', label: (<Tooltip title="View request status and date of creation." arrow placement='top'>STATUS/DATE/NAME</Tooltip>) },
   // { id: 'name', label: (<Tooltip title="Name of the requests." arrow placement='top'>REQUEST NAME</Tooltip>) },
-  { id: 'totalAmount', label: (<Tooltip title="View request id and their summary." arrow placement='top'>REQUEST ID </Tooltip>), align: 'right' },
+  { id: 'name', label: (<Tooltip title="View request ID's." arrow placement='top'>REQUEST ID</Tooltip>) },
+  { id: 'totalAmount', label: (<Tooltip title="View request id and their summary." arrow placement='top'>REQUEST CODE </Tooltip>), align: 'right' },
 
 ];
 
@@ -205,6 +206,7 @@ export function OrderListView0() {
 
           <Box sx={{ position: 'relative', width: '100%' }}>
             <TableSelectedAction
+              sx={{ width: '100%' }}  
               dense={table.dense}
               numSelected={table.selected.length}
               rowCount={dataFiltered.length}

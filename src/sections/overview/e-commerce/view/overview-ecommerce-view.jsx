@@ -224,6 +224,10 @@ export function OverviewEcommerceView() {
     setOpen(true);
   };
 
+  const handle = () => {
+    setdopen(true);
+  };
+
   const handledopen = () => {
     setdopen(true);
   };
@@ -282,12 +286,12 @@ export function OverviewEcommerceView() {
       <Grid container spacing={3}>
         <Grid item xs={12} md={3} lg={3}>
           <Card sx={{ pl: 3, pr: 3, pt: 3, pb: 2 }}>
-            <Typography sx={{ fontSize: '18px', fontWeight: '600', }}>
+            <Typography sx={{ fontSize: '24px', fontWeight: '700', }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Tooltip title="Manage folders" arrow placement='top'>
                 Folder
                 </Tooltip>
-                <IconButton onClick={handledopen} edge="end">
+                <IconButton onClick={handle} edge="end">
                   <Tooltip title="Create a new folder." arrow placement='top'>
                       <Iconify icon="icon-park-solid:add" style={{ color: 'black' }} width="12" />
                   </Tooltip>
@@ -398,15 +402,14 @@ export function OverviewEcommerceView() {
                   </Tooltip>
                 </IconButton>
                 <Dialog open={dopen} onClose={handledlose}>
-                  <DialogTitle>
+                  <DialogTitle sx={{fontSize:'24px', fontWeight:'700'}}>
                   <Tooltip title="Create a connection with a name and folder location." arrow placement='top'>
                    Create Folder
                    </Tooltip>
                    </DialogTitle>
 
-                  <DialogContent>
-                    <Typography sx={{ mb: 0 }}>Folder Name</Typography>
-
+                  <DialogContent sx={{mt:-1}}>
+                   
                     <TextField
                       autoFocus
                       fullWidth
@@ -414,7 +417,7 @@ export function OverviewEcommerceView() {
                       margin="dense"
                       variant="outlined"
                       placeholder='Name of the Connection'
-                      // label="Name of the Connection"
+                      label="Folder Name"
                       // defaultValue="Name of the Connection"
                       helperText={
                         <>
@@ -426,7 +429,7 @@ export function OverviewEcommerceView() {
                       }
                     />
 
-                    <Typography sx={{ mt: 1 }}>Select Folder</Typography>
+                    <Typography sx={{ mt:2}}>Select Folder</Typography>
 
                     <TextField
                      id="outlined-select-currency"
@@ -483,12 +486,13 @@ export function OverviewEcommerceView() {
             </Typography>
           </Card>
         </Grid>
+
         <Grid xs={12} md={9}>
           <Card>
-            <CardHeader sx={{ mt: -1 }}
+            <CardHeader sx={{mt:-1}}
               title="Setup Connections"
               subheader={
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                <Typography variant="body2" sx={{ color: 'text.secondary',mt:1 }}>
                  Define where your events come from, and Webhook will provide a corresponding
                  endpoint URL when your connection is created. Sources can be reused across
                  multiple connections.{' '}
@@ -499,8 +503,8 @@ export function OverviewEcommerceView() {
               }
             />
 
-            <Divider sx={{ borderStyle: 'dashed', mt: 1 }} />
-            <DialogContent sx={{ mb: 2 }}>
+            <Divider sx={{ borderStyle: 'dashed', mt: 2 }} />
+            <DialogContent sx={{ mb: 1 }}>
               {/* <Typography sx={{ mt: 2 }}>Connection Name</Typography> */}
 
               <TextField
@@ -512,11 +516,12 @@ export function OverviewEcommerceView() {
                 placeholder='Name of the Connection'
                 label="Connection Name"
                 helperText="Enter the name of the connection."
+                sx={{mt:3}}
               />
             </DialogContent>
 
-            <DialogContent sx={{ mb: 2 }}>
-              <Typography sx={{ mb: 0 }}>Webhook URL</Typography>
+            <DialogContent sx={{ mb: 3 }}>
+              {/* <Typography sx={{ mb: 0 }}>Webhook URL</Typography> */}
 
               <TextField
                 autoFocus
@@ -524,7 +529,7 @@ export function OverviewEcommerceView() {
                 type="email"
                 margin="dense"
                 variant="outlined"
-                // label="Enter URL"
+                label="Webhook URL"
                 placeholder='Enter URL'
                 helperText="Enter the webhook URL."
                 value={url}
@@ -561,7 +566,7 @@ export function OverviewEcommerceView() {
             </DialogContent>
 
             <DialogContent sx={{ mb: 2 }}>
-              <Typography sx={{ mb: 0 }}>Destination URL</Typography>
+              {/* <Typography sx={{ mb: 0 }}>Destination URL</Typography> */}
 
               <TextField
                 autoFocus
@@ -569,7 +574,7 @@ export function OverviewEcommerceView() {
                 type="email"
                 margin="dense"
                 variant="outlined"
-                // label="Enter Webhook URL"
+                label="Destination URl"
                 placeholder='Enter Webhook URL'
                 helperText="Define where your events should be sent. Destinations can be reused across multiple connections."
               />
@@ -789,14 +794,14 @@ export function OverviewEcommerceView() {
             />
               {showBatchSizeField && (
                 <>
-                  <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Batch Size</Typography>
+                  {/* <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Batch Size</Typography> */}
                   <TextField
                     fullWidth
-                    // label="Enter any number"
+                    label="Batch Size"
                     placeholder='Enter any number'
                     variant="outlined"
                     helperText="Define a Batch Size for the event."
-                    sx={{ mb: 2 }}
+                    sx={{ mb: 2,  mt:2}}
                   />
                 </>
               )}
@@ -930,11 +935,12 @@ export function OverviewEcommerceView() {
                 <Dialog open={open} onClose={handleClose}>
                   <DialogTitle>Connection Successfully Setup!</DialogTitle>
                   <DialogContent>
-                    <Typography>Webhook URL</Typography>
+                    {/* <Typography>Webhook URL</Typography> */}
                     <TextField
                       autoFocus
                       margin="dense"
-                      label="webhook URL copy"
+                      label="Webhook URL"
+                      placeholder='webhook URL copy'
                       fullWidth
                       variant="outlined"
                       helperText='Use this URL to receive your requests from "dfsg". Valid requests to this URL will be sent to your destination "dfaddf", and Hookdeck will reply immediately with an HTTP 200.'
@@ -981,13 +987,13 @@ export function OverviewEcommerceView() {
                   </DialogActions>
                 </Dialog>
               </>
-
               <Button onClick={handleClose} variant="outlined" color="inherit">
                 Cancel
               </Button>
             </DialogContent>
           </Card>
         </Grid>
+        
         <Grid xs={12} md={3}>
           {/* <Card sx={{ pl: 3, pr: 3, pt: 3, pb: 2 }}>
 

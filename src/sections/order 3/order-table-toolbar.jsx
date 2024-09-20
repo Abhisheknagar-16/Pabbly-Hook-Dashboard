@@ -5,7 +5,7 @@ import { useState, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import Select from '@mui/material/Select';
+// import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
@@ -24,6 +24,42 @@ const filterStatusOptions = [
   { value: 'success', label: 'Success' },
   { value: 'Rejected', label: 'Rejected' },
   { value: 'Scheduled', label: 'Scheduled' },
+];
+const Strategy = [
+  {
+    value: 'USD',
+    label: 'Select Connection',
+  },
+  {
+    value: 'EUR',
+    label: 'Test 1',
+  },
+  {
+    value: 'FUR',
+    label: 'Test 2',
+  },
+  {
+    value: 'DUR',
+    label: 'Test 3',
+  },
+  {
+    value: 'INR',
+    label: 'Test 4',
+  },
+];
+const Selectstatus = [
+  {
+    value: 'USD',
+    label: 'Select Status',
+  },
+  {
+    value: 'EUR',
+    label: 'Active',
+  },
+  {
+    value: 'tUR',
+    label: 'Inactive',
+  },
 ];
 
 export function OrderTableToolbar({ filters, onResetPage, dateError }) {
@@ -84,16 +120,15 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           flexGrow={1}
           sx={{ width: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
         >
-          <Typography>
-            <Tooltip arrow title="List of all event requests and their status." placement="top">
-              <b>Events</b>
-            </Tooltip>
+          <Typography fontSize={18} fontWeight={700} lineHeight={2} >
+          <Tooltip  title="List of all Events ID's and there status." arrow placement="top">
+           Events
+          </Tooltip>
           </Typography>
 
           {/* Stack for Filters and Search */}
           <Stack ml={{ xs: 0, md: 'auto' }} direction="row" alignItems="center" spacing={1} flexWrap="wrap">
-            {/* Date Pickers */}
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Start Date"
                 value={startDate}
@@ -113,9 +148,8 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
                 slotProps={{ textField: { fullWidth: false } }}
                 sx={{ width: { xs: '100%', sm: '191px' }, mb: { xs: 2, md: 0 } }} // Responsive width
               />
-            </LocalizationProvider>
+            </LocalizationProvider> */}
 
-            {/* Search Field */}
             <Tooltip title="Click here to search by event name or ID's." arrow placement="top">
               <TextField
                 sx={{ width: { xs: '100%', sm: '384px' }, mr: { xs: 0, md: '7.5px' }, mb: { xs: 2, md: 0 } }} // Responsive width
@@ -177,8 +211,8 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
         <MenuList sx={{ height: 'auto', width: 'auto' }}>
           <Box sx={{ padding: 1 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <h4 style={{ padding: 5, margin: 0 }}>Filter Events</h4>
+              <Grid item xs={12} sx={{mb:2}}>
+                <h3 style={{ padding: 5, margin: 0 }}>Filter Events</h3>
               </Grid>
 
               <Grid container spacing={2}>
@@ -226,18 +260,25 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
                     </Grid>
 
                     <Grid item xs={8}>
-                      <TextField
-                        fullWidth
-                        label="Request ID"
-                        value={requestIdValue}
-                        onChange={handleRequestIdChange}
-
-                      />
+                    <TextField
+                    id="outlined-select-numbers"
+                    size='small'
+                    select
+                    fullWidth
+                    defaultValue="USD"
+                    >
+                    {Strategy.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                   </TextField>
                     </Grid>
 
                     <Grid item xs={12}>
                       <TextField
                         fullWidth
+                        size='small'
                         label="Event ID"
                         value={EventIdValue}
                         onChange={handleEventIdChange}
@@ -245,18 +286,19 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <FormControl fullWidth>
-                        <Select
-                          value={selectedStatusFilter}
-                          onChange={handleStatusChange}
-                        >
-                          {filterStatusOptions.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                              {option.label}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
+                    <TextField
+                    size='small'
+                    id="outlined-select-numbers"
+                    select
+                    fullWidth
+                    defaultValue="USD"
+                    >
+                    {Selectstatus.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                   </TextField>
                     </Grid>
                   </Grid>
                 </Grid>
