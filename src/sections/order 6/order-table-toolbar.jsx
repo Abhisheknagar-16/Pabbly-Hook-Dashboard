@@ -49,11 +49,11 @@ const Selectstatus = [
   },
   {
     value: 'EUR',
-    label: 'Active',
+    label: 'Accepted',
   },
   {
     value: 'tUR',
-    label: 'Inactive',
+    label: 'Blocked',
   },
 ];
 
