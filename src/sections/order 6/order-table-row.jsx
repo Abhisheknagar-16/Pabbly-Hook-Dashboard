@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -36,7 +37,6 @@ import { Iconify } from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
-
 // import { AppBar } from 'src/theme/core/components/appbar';
 // import { Typography } from 'src/theme/core';
 
@@ -51,7 +51,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     setOpenSnackbar(false);
   };
   const evtItems = [
-    { id: 1, text: 'req_66c87b54a2b7dc2c1740d639', label: 'req_66c87b54a2b7dc2c1740d639' },
+    { id: 1, text: 'req_66c87b54a2b7dc2c1740d639', label: '(request,context) =>' },
 
     // Add more items as needed
   ];
@@ -114,13 +114,42 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 {row.status}
               </Label>
             </Tooltip>
-           <Box sx={{ mt: 0.5,}} fontSize={14}>Ankit Singh Parmar</Box>  
+           <Box sx={{ mt: 0}} fontSize={14}>Ankit Singh Parmar</Box>  
             <Box
               component="span"
               sx={{ color: 'text.disabled', mt: 0, fontSize: '12px', fontWeight: 400 }}
             >
               Aug 23, 2024 17:36:44.929
             </Box>
+          </Stack>
+        </Stack>
+      </TableCell>
+
+      <TableCell>
+        <Stack spacing={2} direction="row" alignItems="center">
+          <Stack
+            sx={{
+              typography: 'body2',
+              flex: '1 1 auto',
+              alignItems: 'flex-start',
+            }}
+          >
+            <Box component="span">
+            <Tooltip title="Request ID " arrow placement="top">req_66c87b54a2b7dc2c1740d639</Tooltip>
+              <Tooltip title="Copy request_id " arrow placement="bottom">
+                <IconButton
+                  edge="end"
+                  sx={{ color: 'text.disabled' }}
+                  onClick={() => navigator.clipboard.writeText('req_66c87b54a2b7dc2c1740d639')}
+                >
+                  <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
+                </IconButton>
+              </Tooltip>
+            </Box>
+            <Box
+              component="span"
+              sx={{ color: 'text.disabled', fontSize: '12px', fontWeight: 400 }}
+            />
           </Stack>
         </Stack>
       </TableCell>
@@ -136,18 +165,11 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           >
             {evtItems.map((item) => (
               <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Tooltip title="Copy request_id " arrow placement="bottom">
-                  <IconButton
-                    edge="end"
-                    sx={{ color: 'text.disabled' }}
-                    onClick={() => navigator.clipboard.writeText('req_66c87b54a2b7dc2c1740d639')}
-                  >
-                    <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
-                  </IconButton>
-                </Tooltip>
+                <Tooltip title="Tap to view full request details " arrow placement="top">
                 <Typography onClick={handleOpenDrawer} fontSize={14} color="primary.main">
                   {item.label}
                 </Typography>
+                </Tooltip>
               </Box>
             ))}
             <Box
@@ -287,7 +309,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               fontWeight: 700,
             }}
           >
-            Ankit parmar
+            Rajpal Singh Tomar
           </Typography>
           <Typography
             sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '14px', fontWeight: 400 }}
@@ -379,48 +401,125 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               <Typography variant="body2">Body</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField
-                disabled
-                value={`(request, context) => {
-                        // Initialize a counter
-                        let itemCounter = 0;
-                        // Process a list of items
-                        request.payload.items = request.payload.items || [];
-                        request.payload.items.forEach(item => {
+            <Box
+                sx={{
+                  position: 'relative',
+                  maxHeight: 400,
+                  overflowY: 'auto',  // Control vertical overflow
+                  overflowX: 'hidden',  // Hide horizontal overflow to avoid scroll
+                  border: '1px solid #E5E8EB',
+                  borderRadius: 1,
+                  // Custom scrollbar styling
+                  '&::-webkit-scrollbar': {
+                    width: '8px',  // Set the width of the scrollbar
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: '#888',  // Color of the scrollbar thumb
+                    borderRadius: '10px',  // Border radius for rounded scrollbar
+                  },
+                  '&::-webkit-scrollbar-thumb:hover': {
+                    backgroundColor: '#555',  // Color on hover
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    backgroundColor: '#f1f1f1',  // Background of the scrollbar track
+                    borderRadius: '10px',  // Border radius for the track
+                  },
+                }}
+              >
+                <SyntaxHighlighter
+                  language="javascript"
+                  customStyle={{
+                    backgroundColor: 'transparent',
+                    wordWrap: 'break-word',  // Ensure long lines wrap
+                    whiteSpace: 'pre-wrap',  // Maintain formatting while allowing wrapping
+                  }}
+                  wrapLongLines  // Ensure code lines don't overflow horizontally
+                >
+                  {`(request, context) => {
+    // Initialize a counter
+    let itemCounter = 0;
+    // Process a list of items
+    request.payload.items = request.payload.items || [];
+    request.payload.items.forEach(item => {
+      if (item.status === 'active') {
+        itemCounter++;
+        item.updated_at = new Date().toISOString();
+      } else {
+        item.status = 'inactive';
+      }
+    });
+
+    // Add a summary field
+    request.payload.summary = {
+      activeItemCount: itemCounter,
+      totalItems: request.payload.items.length
+    };
+
+    // Add a new header
+    request.headers['X-Item-Count'] = itemCounter.toString();
+
+    // Process query parameters
+    request.queryParams.processedAt = new Date().toISOString();
+
+    // Error handling for missing fields
+    if (!request.payload.items.length) {
+      throw new Error('No items to process');
+    }
+
+    return request;
+  }`}
+                </SyntaxHighlighter>
+
+                {/* Copy button */}
+                <IconButton
+                  edge="end"
+                  sx={{
+                    position: 'absolute',
+                    top: 15, // Adjust as needed
+                    right: 10, // Adjust as needed
+                    color: 'text.disabled',
+                  }}
+                  onClick={() =>
+                    navigator.clipboard.writeText((request, context) => {
+                      // Initialize a counter
+                      let itemCounter = 0;
+                      // Process a list of items
+                      request.payload.items = request.payload.items || [];
+                      request.payload.items.forEach((item) => {
                         if (item.status === 'active') {
-                        itemCounter++;
-                        item.updated_at = new Date().toISOString();
+                          itemCounter += 1; // Avoiding ++ operator
+                          item.updated_at = new Date().toISOString();
                         } else {
-                        item.status = 'inactive';
+                          item.status = 'inactive';
                         }
-                        });
+                      });
 
-                        // Add a summary field
-                        request.payload.summary = {
+                      // Add a summary field
+                      request.payload.summary = {
                         activeItemCount: itemCounter,
-                        totalItems: request.payload.items.length
-                        };
+                        totalItems: request.payload.items.length,
+                      };
 
-                        // Add a new header
-                        request.headers['X-Item-Count'] = itemCounter.toString();
+                      // Add a new header
+                      request.headers['X-Item-Count'] = itemCounter.toString();
 
-                        // Process query parameters
-                        request.queryParams.processedAt = new Date().toISOString();
+                      // Process query parameters
+                      request.queryParams.processedAt = new Date().toISOString();
 
-                        // Error handling for missing fields
-                        if (!request.payload.items.length) {
+                      // Error handling for missing fields
+                      if (!request.payload.items.length) {
                         throw new Error('No items to process');
-                        }
+                      }
 
-                        return request;
-                        }`}
-                fullWidth
-                variant="outlined"
-                size="auto"
-                multiline
-                minRows={3} // Minimum number of rows
-                maxRows={10} // Maximum number of rows
-              />
+                      return request;
+                    })
+                  }
+                >
+                  <Tooltip title="Copy request_code" arrow placement="bottom">
+                    <Iconify width={16} icon="solar:copy-bold" />
+                  </Tooltip>
+                </IconButton>
+              </Box>
             </Grid>
           </Grid>
         </Box>

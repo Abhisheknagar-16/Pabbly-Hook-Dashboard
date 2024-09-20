@@ -81,8 +81,8 @@ export function FormDialog() {
       <Dialog open={dialog.value} onClose={dialog.onFalse}>
         <DialogTitle><Tooltip title="Create a connection with a name and folder location." arrow placement="top">Create Connection</Tooltip></DialogTitle>
 
-        <DialogContent>
-          <Typography sx={{ mb: 0 }}>Connection Name</Typography>
+        <DialogContent sx={{mt:-1}}>
+          {/* <Typography sx={{ mb: 0 }}>Connection Name</Typography> */}
 
           <TextField
             autoFocus
@@ -90,7 +90,7 @@ export function FormDialog() {
             type="email"
             margin="dense"
             variant="outlined"
-            // label="Name of the Connection"
+            label="Connection Name"
             placeholder='Name of the Connection'
             helperText={
               <>
@@ -101,7 +101,7 @@ export function FormDialog() {
               </>
             }
           />
-          <Typography sx={{ mt: 1 }}>Select Folder</Typography>
+          <Typography sx={{ mt: 2}}>Select Folder</Typography>
 
           <TextField
             id="outlined-select-currency"

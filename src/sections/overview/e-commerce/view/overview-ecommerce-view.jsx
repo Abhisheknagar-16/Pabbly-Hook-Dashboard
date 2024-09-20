@@ -224,6 +224,10 @@ export function OverviewEcommerceView() {
     setOpen(true);
   };
 
+  const handle = () => {
+    setdopen(true);
+  };
+
   const handledopen = () => {
     setdopen(true);
   };
@@ -287,7 +291,7 @@ export function OverviewEcommerceView() {
               <Tooltip title="Manage folders" arrow placement='top'>
                 Folder
                 </Tooltip>
-                <IconButton onClick={handledopen} edge="end">
+                <IconButton onClick={handle} edge="end">
                   <Tooltip title="Create a new folder." arrow placement='top'>
                       <Iconify icon="icon-park-solid:add" style={{ color: 'black' }} width="12" />
                   </Tooltip>
@@ -482,12 +486,13 @@ export function OverviewEcommerceView() {
             </Typography>
           </Card>
         </Grid>
+
         <Grid xs={12} md={9}>
           <Card>
-            <CardHeader sx={{ mt: 0 }}
+            <CardHeader sx={{mt:-1}}
               title="Setup Connections"
               subheader={
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                <Typography variant="body2" sx={{ color: 'text.secondary',mt:1 }}>
                  Define where your events come from, and Webhook will provide a corresponding
                  endpoint URL when your connection is created. Sources can be reused across
                  multiple connections.{' '}
@@ -930,11 +935,12 @@ export function OverviewEcommerceView() {
                 <Dialog open={open} onClose={handleClose}>
                   <DialogTitle>Connection Successfully Setup!</DialogTitle>
                   <DialogContent>
-                    <Typography>Webhook URL</Typography>
+                    {/* <Typography>Webhook URL</Typography> */}
                     <TextField
                       autoFocus
                       margin="dense"
-                      label="webhook URL copy"
+                      label="Webhook URL"
+                      placeholder='webhook URL copy'
                       fullWidth
                       variant="outlined"
                       helperText='Use this URL to receive your requests from "dfsg". Valid requests to this URL will be sent to your destination "dfaddf", and Hookdeck will reply immediately with an HTTP 200.'
@@ -981,13 +987,13 @@ export function OverviewEcommerceView() {
                   </DialogActions>
                 </Dialog>
               </>
-
               <Button onClick={handleClose} variant="outlined" color="inherit">
                 Cancel
               </Button>
             </DialogContent>
           </Card>
         </Grid>
+        
         <Grid xs={12} md={3}>
           {/* <Card sx={{ pl: 3, pr: 3, pt: 3, pb: 2 }}>
 

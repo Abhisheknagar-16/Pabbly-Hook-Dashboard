@@ -1,29 +1,64 @@
-import {useState,useCallback } from 'react';
+// import dayjs from 'dayjs';
+import * as React from 'react';
+import { useCallback } from 'react';
 
 import Stack from '@mui/material/Stack';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
-// import TextField from '@mui/material/TextField';
+import TextField from '@mui/material/TextField';
 // import IconButton from '@mui/material/IconButton';
-// import InputAdornment from '@mui/material/InputAdornment';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-// import { formHelperTextClasses } from '@mui/material/FormHelperText';
-import dayjs from 'dayjs';
-
-import { Tooltip, Typography } from '@mui/material';
+import InputAdornment from '@mui/material/InputAdornment';
+import { Box,Grid, Button, Tooltip,FormLabel,IconButton, Typography,FormControl, } from '@mui/material';
 // import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 // import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { formHelperTextClasses } from '@mui/material/FormHelperText';
 
 import { Iconify } from 'src/components/iconify';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
-export function OrderTableToolbar({ filters, onResetPage }) {
+const Strategy = [
+  {
+    value: 'USD',
+    label: 'Select Connection',
+  },
+  {
+    value: 'EUR',
+    label: 'Test 1',
+  },
+  {
+    value: 'FUR',
+    label: 'Test 2',
+  },
+  {
+    value: 'DUR',
+    label: 'Test 3',
+  },
+  {
+    value: 'INR',
+    label: 'Test 4',
+  },
+];
+
+const Selectstatus = [
+  {
+    value: 'USD',
+    label: 'Select Status',
+  },
+  {
+    value: 'EUR',
+    label: 'Active',
+  },
+  {
+    value: 'tUR',
+    label: 'Inactive',
+  },
+];
+
+export function OrderTableToolbar({ filters, onResetPage, dateError }) {
   const popover = usePopover();
-  const [startDate, setStartDate] = useState(dayjs(new Date()));
-  const [endDate, setEndDate] = useState(dayjs(new Date()));
 
   const handleFilterName = useCallback(
     (event) => {
@@ -41,17 +76,13 @@ export function OrderTableToolbar({ filters, onResetPage }) {
     [filters, onResetPage]
   );
 
-  const handleFilterEndDate = useCallback(
-    (newValue) => {
-      onResetPage();
-      filters.setState({ endDate: newValue });
-    },
-    [filters, onResetPage]
-  );
+  const handleSubmit = () => {
+    console.log('Form submitted!');
+  };
 
   return (
     <>
-      <Stack
+     <Stack
         spacing={2}
         alignItems={{ xs: 'flex-end', md: 'center' }}
         direction={{ xs: 'column', md: 'row' }}
@@ -65,21 +96,21 @@ export function OrderTableToolbar({ filters, onResetPage }) {
   spacing={2}  // Adjust spacing between elements
   sx={{ width: '100%' }}  // Ensures the stack takes full width
 >
-  <Typography fontSize={18} fontWeight={700} lineHeight={2}>
+  <Typography fontSize={18} fontWeight={700} lineHeight={2} >
   <Tooltip  title="List of all request ID's and there status." arrow placement="top">
-    Requests
+    Request
     </Tooltip>
   </Typography>
 
-  {/* <Stack direction="row" alignItems="center" spacing={2}>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+  <Stack direction="row" alignItems="center" spacing={2}>
+    {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
         label="Start Date"
         value={startDate}
         minDate={dayjs('2017-01-01')}
         onChange={(newValue) => setStartDate(newValue)}
         slotProps={{ textField: { fullWidth: false } }}
-        sx={{ width: '200px' }}  // Custom width for Start Date
+        sx={{ width: '191px' }}  // Custom width for Start Date
       />
     </LocalizationProvider>
 
@@ -90,13 +121,13 @@ export function OrderTableToolbar({ filters, onResetPage }) {
         minDate={dayjs('2017-01-01')}
         onChange={(newValue) => setEndDate(newValue)}
         slotProps={{ textField: { fullWidth: false } }}
-        sx={{ width: '200px' }}  // Custom width for End Date
+        sx={{ width: '191px' }}  // Custom width for End Date
       />
-    </LocalizationProvider>
+    </LocalizationProvider> */}
 
-    <Tooltip title="Click here to search by request name or ID's." arrow placement="top">
+    <Tooltip title="Click here to request by request name or ID's." arrow placement="top">
       <TextField
-        sx={{ width: '394px', mr: '5px' }}  // Custom width for TextField
+        sx={{ width: '394px' }}  // Custom width for TextField
         value={filters.state.name}
         onChange={handleFilterName}
         placeholder="Search your request name or ID's"
@@ -109,7 +140,38 @@ export function OrderTableToolbar({ filters, onResetPage }) {
         }}
       />
     </Tooltip>
-  </Stack> */}
+
+    <Stack>
+            <Tooltip placement="top" arrow title="Filter request by status or name.">
+              <IconButton
+                onClick={popover.onOpen}
+                sx={{
+                  mt: 0.9,
+                  position: 'relative',
+                  '&:hover': {
+                    backgroundColor: 'transparent', // Ensures there's no background ellipse
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: 2,
+                      left: 0,
+                      width: '100%',
+                      height: '80%',
+                      backgroundColor: '#919eab14', // Square background on hover
+                      borderRadius: '5px', // Ensures the shape is square, not rounded
+                      zIndex: -1, // Places the background behind the content
+                    },
+                  },
+                }}
+              >
+                <Iconify icon="solar:filter-bold" sx={{ mt: -0.4, color: 'black' }} />
+                <Typography sx={{ color: 'black', fontWeight: '700', ml: 1, mt: -0.4 }}>
+                  Filter
+                </Typography>
+              </IconButton>
+            </Tooltip>
+          </Stack>
+  </Stack>
 
   {/* Uncomment and use if you want to add the filter icon button */}
   {/* <IconButton
@@ -144,35 +206,112 @@ export function OrderTableToolbar({ filters, onResetPage }) {
         open={popover.open}
         anchorEl={popover.anchorEl}
         onClose={popover.onClose}
-        slotProps={{ arrow: { placement: 'right-top' } }}
+        slotProps={{ arrow: { placement: 'bottom-top' } }}
       >
-        <MenuList>
-          <MenuItem
-            onClick={() => {
-              popover.onClose();
-            }}
-          >
-            <Iconify icon="solar:printer-minimalistic-bold" />
-            Print
-          </MenuItem>
+        {/* //////////////////////Custom filter popover////////////////////// */}
+        <MenuList sx={{ height: 'auto', width: 'auto' }}>
+          <Box sx={{ padding: 1 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sx={{mb:2}}>
+                <h3 style={{ padding: 5, margin: 0 }}>Filter Request</h3>
+              </Grid>
 
-          <MenuItem
-            onClick={() => {
-              popover.onClose();
-            }}
-          >
-            <Iconify icon="solar:import-bold" />
-            Import
-          </MenuItem>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={3}>
+                  <FormControl fullWidth>
+                    <FormLabel sx={{ ml: 3, fontSize: 16, mt: 1 }}>Request Name</FormLabel>
+                    <FormLabel sx={{ ml: 3, fontSize: 16, mt: 3 }}>Request ID</FormLabel>
+                    <FormLabel sx={{ ml: 3, fontSize: 16, mt: 2.5 }}>Request Folder</FormLabel>
+                    {/* <FormLabel sx={{ ml: 3, fontSize: 16, mt: 3 }}>Status</FormLabel> */}
+                  </FormControl>
+                </Grid>
 
-          <MenuItem
-            onClick={() => {
-              popover.onClose();
-            }}
-          >
-            <Iconify icon="solar:export-bold" />
-            Export
-          </MenuItem>
+                <Grid item xs={12} sm={3}>
+                  <Grid container spacing={1} direction="column">
+                    {['Equal to', 'Equal to', 'In'].map((label, index) => (
+                      <Grid item xs={12} key={index}>
+                        <FormControl fullWidth>
+                          <Button
+                            variant="outlined"
+                            style={{ fontSize: '12.5px', padding: '8px 40px' }}
+                          >
+                            {label}
+                          </Button>
+                        </FormControl>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Grid>
+
+
+                <Grid item xs={12} sm={6}>
+                  <Grid container spacing={1} direction="column">
+                    <Grid item xs={12}>
+                      {/* <Stack direction="column" spacing={1} flexGrow={1} sx={{ width: '100%' }}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DatePicker
+                            label=""
+                            value={startDate}
+                            minDate={dayjs('2017-01-01')}
+                            onChange={(newValue) => setStartDate(newValue)}
+                            slotProps={{ textField: { fullWidth: true } }}
+                          />
+                        </LocalizationProvider>
+                      </Stack> */}
+                    </Grid>
+
+                    <Grid item xs={8} sx={{mt:-1}}>
+                    <TextField
+                    id="outlined-select-numbers"
+                    size='small'
+                    select
+                    fullWidth
+                    defaultValue="USD"
+                    >
+                    {Strategy.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                   </TextField>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                    <TextField
+                    size='small'
+                    id="outlined-select-numbers"
+                    select
+                    fullWidth
+                    defaultValue="USD"
+                    >
+                    {Selectstatus.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                   </TextField>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                    <TextField
+                    size='small'
+                    autoFocus
+                    fullWidth
+                    variant="outlined"
+                    placeholder='Home'
+                   // label="Connection Name"
+                   />
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end',mb:1,mt:1 }}>
+                <Button variant="contained" onClick={handleSubmit} size="small">
+                  Apply Filter
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
         </MenuList>
       </CustomPopover>
     </>
