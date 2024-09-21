@@ -52,7 +52,7 @@ export function JwtSignUpView() {
   const defaultValues = {
     firstName: 'Hello',
     lastName: 'Friend',
-    email: 'hello@gmail.com',
+    email: 'hello@Pabbly.com',
     password: '@demo1',
   };
 
