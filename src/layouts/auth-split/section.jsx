@@ -16,8 +16,8 @@ export function Section({
   method,
   layoutQuery,
   methods,
-  title = 'Manage the job',
-  imgUrl = `${CONFIG.site.basePath}/assets/illustrations/illustration-dashboard.webp`,
+  title = 'No Restrictions  on Features',
+  imgUrl = `${CONFIG.site.basePath}/assets/illustrations/pabbly.gif`,
   subtitle = 'More effectively with optimized workflows.',
   ...other
 }) {
@@ -33,8 +33,9 @@ export function Section({
           )}, ${varAlpha(theme.vars.palette.background.defaultChannel, 0.92)}`,
           imgUrl: `${CONFIG.site.basePath}/assets/background/background-3-blur.webp`,
         }),
+        backgroundColor: '#ECFFF7', // Added background color
         px: 3,
-        pb: 3,
+        pb: 5,
         width: 1,
         maxWidth: 480,
         display: 'none',

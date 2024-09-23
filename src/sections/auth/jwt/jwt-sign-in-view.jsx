@@ -142,7 +142,7 @@ export function JwtSignInView() {
       {renderHead}
 
       <Alert severity="info" sx={{ mb: 3 }}>
-        Use <strong>{defaultValues.email}</strong>
+        Use <strong>demo@pabbly.com</strong>
         {' with password '}
         <strong>{defaultValues.password}</strong>
       </Alert>
