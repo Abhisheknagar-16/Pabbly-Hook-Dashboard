@@ -33,7 +33,7 @@ const selectfolder = [
   },
 ];
 
-export function FormDialog() {
+export function FormDialog({height,width}) {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const dialog = useBoolean();
   const handleOpenSnackbar = () => {
@@ -45,7 +45,7 @@ export function FormDialog() {
   };
 
   return (
-    <div>
+    <div > 
       <Tooltip
         title="Start building a new connections "
         arrow
@@ -72,6 +72,9 @@ export function FormDialog() {
                 />
               </svg>
             }
+            style={{ width, height }}
+
+
           >
             Create Connections
           </Button>

@@ -106,7 +106,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
 
 
       <TableCell>
-        <Stack spacing={2} direction="row" alignItems="left" sx={{mr:3}}>
+        <Stack spacing={2} direction="row" alignItems="left" >
           <Stack
 
             sx={{

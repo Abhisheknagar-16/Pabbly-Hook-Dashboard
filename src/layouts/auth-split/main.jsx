@@ -16,6 +16,7 @@ export function Main({ sx, children, layoutQuery, ...other }) {
         display: 'flex',
         flex: '1 1 auto',
         flexDirection: 'column',
+        backgroundColor: '#f5fffa', // Add your desired background color here
         [theme.breakpoints.up(layoutQuery)]: {
           flexDirection: 'row',
         },
@@ -26,6 +27,7 @@ export function Main({ sx, children, layoutQuery, ...other }) {
       {children}
     </Box>
   );
+  
 }
 
 // ----------------------------------------------------------------------

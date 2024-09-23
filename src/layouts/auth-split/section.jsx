@@ -4,7 +4,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-import { RouterLink } from 'src/routes/components';
+// import { RouterLink } from 'src/routes/components';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha, bgGradient } from 'src/theme/styles';
@@ -35,14 +35,14 @@ export function Section({
         }),
         backgroundColor: '#ECFFF7', // Added background color
         px: 3,
-        pb: 5,
+        pb: 1,
         width: 1,
         maxWidth: 480,
         display: 'none',
         position: 'relative',
         pt: 'var(--layout-header-desktop-height)',
         [theme.breakpoints.up(layoutQuery)]: {
-          gap: 8,
+          gap: 18,
           display: 'flex',
           alignItems: 'center',
           flexDirection: 'column',
@@ -72,7 +72,7 @@ export function Section({
       />
 
       {!!methods?.length && method && (
-        <Box component="ul" gap={2} display="flex">
+        <Box component="ul" gap={5} display="flex">
           {methods.map((option) => {
             const selected = method === option.label.toLowerCase();
 
@@ -87,22 +87,31 @@ export function Section({
                   }),
                 }}
               >
-                <Tooltip title={option.label} placement="top">
-                  <Link
-                    component={RouterLink}
-                    href={option.path}
-                    sx={{
-                      ...(!selected && { pointerEvents: 'none' }),
-                    }}
-                  >
-                    <Box
-                      component="img"
-                      alt={option.label}
-                      src={option.icon}
-                      sx={{ width: 32, height: 32 }}
-                    />
-                  </Link>
-                </Tooltip>
+                <Tooltip
+  title={
+    <Box sx={{ textAlign: 'center' }}>
+      Pabbly adheres to rigorous information security standards, ensuring the protection and confidentiality of your data within our automation and integration solutions.
+    </Box>
+  }
+  placement="top"
+  arrow
+>
+  <Link
+    // component={RouterLink}
+    // href={option.path}
+    sx={{
+      ...(!selected && { pointerEvents: 'none' }),
+    }}
+  >
+    <Box
+      component="img"
+      alt={option.label}
+      src={option.icon}
+      sx={{ width: 80, height: 80 }}
+    />
+  </Link>
+</Tooltip>
+
               </Box>
             );
           })}

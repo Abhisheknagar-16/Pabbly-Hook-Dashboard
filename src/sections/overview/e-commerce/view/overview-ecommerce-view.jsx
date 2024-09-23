@@ -39,7 +39,7 @@ import { MotivationIllustration } from 'src/assets/illustrations';
 
 import { Iconify } from 'src/components/iconify';
 
-import { FormDialog } from 'src/sections/dialog-view/form-dialog1';
+import { FormDialog } from 'src/sections/dialog-view/form-dialog';
 import { CustomStyling } from 'src/sections/tree-view/custom-styling';
 
 import { EcommerceWelcome } from '../ecommerce-welcome';
@@ -384,7 +384,10 @@ export function OverviewEcommerceView() {
                 <MotivationIllustration hideBackground />
               </div>
             </Tooltip>}
-            action={<FormDialog/>}
+            action={<FormDialog
+            width='200px'
+            height='43px'
+            />}
             
           />
         </Grid>
