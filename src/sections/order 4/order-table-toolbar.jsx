@@ -95,7 +95,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
     spacing={2}
     sx={{ width: '100%' }}
   >
-    <Typography fontSize={{ xs: 16, md: 18 }} fontWeight={700} lineHeight={2}>
+    <Typography variant="h6" fontWeight={700} lineHeight={2}>
       <Tooltip title="List of all issue ID's and their status." arrow placement="top">
         Issues
       </Tooltip>
@@ -104,9 +104,9 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
     <Stack direction="row" alignItems="center" spacing={2}>
       <Tooltip title="Click here to search by issue name or ID's." arrow placement="top">
         <TextField
-          sx={{
-            width: { xs: '100%', sm: '300px', md: '394px' }, // Adjust width based on screen size
-          }}
+         sx={{
+          width: { xs: '100%', sm: '300px', md: '394px' },  // Responsive width for TextField
+        }}
           value={filters.state.name}
           onChange={handleFilterName}
           placeholder="Search your issue name or ID's"
@@ -172,9 +172,9 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={3}>
                   <FormControl fullWidth>
-                    <FormLabel sx={{ ml: 3, fontSize: 16, mt: 1 }}>Issue Name</FormLabel>
-                    <FormLabel sx={{ ml: 3, fontSize: 16, mt: 3 }}>Issue ID</FormLabel>
-                    <FormLabel sx={{ ml: 3, fontSize: 16, mt: 2.5 }}>Issue Folder</FormLabel>
+                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 1 }}>Issue Name</FormLabel>
+                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 3 }}>Issue ID</FormLabel>
+                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 2.5 }}>Issue Folder</FormLabel>
                     {/* <FormLabel sx={{ ml: 3, fontSize: 16, mt: 3 }}>Status</FormLabel> */}
                   </FormControl>
                 </Grid>
@@ -182,7 +182,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
                 <Grid item xs={12} sm={3}>
                   <Grid container spacing={1} direction="column">
                     {['Equal to', 'Equal to', 'In'].map((label, index) => (
-                      <Grid item xs={12} key={index}>
+                      <Grid item xs={12} key={index} ml={2}>
                         <FormControl fullWidth>
                           <Button
                             variant="outlined"
@@ -213,7 +213,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
                       </Stack> */}
                     </Grid>
 
-                    <Grid item xs={8} sx={{mt:-1}}>
+                    <Grid item xs={8} sx={{mt:-1,ml:2}}>
                     <TextField
                     id="outlined-select-numbers"
                     size='small'
@@ -229,7 +229,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
                    </TextField>
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} ml={2}>
                     <TextField
                     size='small'
                     id="outlined-select-numbers"
@@ -245,7 +245,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
                    </TextField>
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} ml={2}>
                     <TextField
                     size='small'
                     autoFocus

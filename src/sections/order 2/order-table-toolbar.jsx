@@ -96,7 +96,7 @@
     spacing={2}  // Adjust spacing between elements
     sx={{ width: '100%' }}  // Ensures the stack takes full width
   >
-    <Typography fontSize={18} fontWeight={700} lineHeight={2} >
+    <Typography variant="h6" fontWeight={700} lineHeight={2} >
     <Tooltip  title="List of all Transformation ID's and there status." arrow placement="top">
       Transformation
       </Tooltip>
@@ -127,7 +127,9 @@
 
       <Tooltip title="Click here to search by Transformation name or ID's." arrow placement="top">
         <TextField
-          sx={{ width: '394px' }}  // Custom width for TextField
+          sx={{
+            width: { xs: '100%', sm: '300px', md: '394px' },  // Responsive width for TextField
+          }}
           value={filters.state.name}
           onChange={handleFilterName}
           placeholder="Search your Transformation name or ID's"
@@ -219,9 +221,9 @@
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={3}>
                     <FormControl fullWidth>
-                      <FormLabel sx={{ ml: 3, fontSize: 16, mt: 1 }}>Transformation Name</FormLabel>
-                      <FormLabel sx={{ ml: 3, fontSize: 16, mt: 3 }}>Transformation ID</FormLabel>
-                      <FormLabel sx={{ ml: 3, fontSize: 16, mt: 2.5 }}>Transformation Folder</FormLabel>
+                      <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 1 }}>Transformation Name</FormLabel>
+                      <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 3 }}>Transformation ID</FormLabel>
+                      <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 2.5 }}>Transformation Folder</FormLabel>
                       {/* <FormLabel sx={{ ml: 3, fontSize: 16, mt: 3 }}>Status</FormLabel> */}
                     </FormControl>
                   </Grid>
@@ -229,7 +231,7 @@
                   <Grid item xs={12} sm={3}>
                     <Grid container spacing={1} direction="column">
                       {['Equal to', 'Equal to', 'In'].map((label, index) => (
-                        <Grid item xs={12} key={index}>
+                        <Grid item xs={12} key={index} ml={2}>
                           <FormControl fullWidth>
                             <Button
                               variant="outlined"
@@ -260,7 +262,7 @@
                         </Stack> */}
                       </Grid>
 
-                      <Grid item xs={12} sm={6} sx={{mt:-1}}>
+                      <Grid item xs={12} sm={6} sx={{mt:-1,ml:2}}>
                       <TextField
                       id="outlined-select-numbers"
                       size='small'
@@ -276,7 +278,7 @@
                     </TextField>
                       </Grid>
 
-                      <Grid item xs={12}>
+                      <Grid item xs={12} ml={2}>
                       <TextField
                       size='small'
                       id="outlined-select-numbers"
@@ -292,7 +294,7 @@
                     </TextField>
                       </Grid>
 
-                      <Grid item xs={12}>
+                      <Grid item xs={12} ml={2}>
                       <TextField
                       size='small'
                       autoFocus

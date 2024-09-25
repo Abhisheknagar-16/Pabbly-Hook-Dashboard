@@ -5,24 +5,24 @@ import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 import {
   Box,
-  Tab,
-  Tabs,
+  // Tab,
+  // Tabs,
   Card,
   Dialog,
-  Switch,
+  // Switch,
   Divider,
   Tooltip,
   MenuItem,
-  Checkbox,
+  // Checkbox,
   TextField,
-  CardHeader,
+  // CardHeader,
   Typography,
   IconButton,
   DialogTitle,
   DialogActions,
   DialogContent,
-  InputAdornment,
-  FormControlLabel,
+  // InputAdornment,
+  // FormControlLabel,
 } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -32,8 +32,8 @@ import { OrderListView } from 'src/sections/order/view';
 import { useMockedUser } from 'src/auth/hooks';
 // import { EcommerceNewProducts } from '../ecommerce-new-products';
 
-import Alert from '@mui/material/Alert';
-import Snackbar from '@mui/material/Snackbar';
+// import Alert from '@mui/material/Alert';
+// import Snackbar from '@mui/material/Snackbar';
 
 import { MotivationIllustration } from 'src/assets/illustrations';
 
@@ -284,23 +284,46 @@ export function OverviewEcommerceView() {
   return (
     <DashboardContent maxWidth="xl" sx={{ px: { xs: 3.2, sm: 3, lg: 8, xl: 15 } }}>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={3} lg={3}>
-          <Card sx={{ pl: 3, pr: 3, pt: 3, pb: 2 }}>
-            <Typography sx={{ fontSize: '24px', fontWeight: '700', }}>
+        <Grid item xs={12} md={3} lg={3} >
+          <Card sx={{ pl: 2.4, pr: 2, pt: 2, pb: 2 }}>
+            <Typography variant="h6" fontWeight={700}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Tooltip title="Manage folders" arrow placement='top'>
-                Folder
+                <Tooltip title="Manage folders" arrow placement='top'>
+                  Folder
                 </Tooltip>
-                <IconButton onClick={handle} edge="end">
-                  <Tooltip title="Create a new folder." arrow placement='top'>
-                      <Iconify icon="icon-park-solid:add" style={{ color: 'black' }} width="12" />
-                  </Tooltip>
-                </IconButton>
-                <Dialog open={folderopen} onClose={folderclose}>
-                  <DialogTitle>Create Connection</DialogTitle>
+                {/* <Button size='large' variant='contained' onClick={handledopen} edge="end" sx={{mr:0.5}} >
+                  
+                </Button> */}
+                <Tooltip title="Create a new folder." arrow placement='top'>
+                <Button
+                  onClick={handledopen}
+                  edge="end"
+                  variant="contained"
+                  sx={{ 
+                    height: '30px', 
+                    width: '30px', 
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    alignItems: 'center', 
+                    padding: 0,
+                    mr:0.9,
+                    minWidth: 0, // Ensures no default min-width is applied
+                    // borderRadius:'100%'
+                  }}
+                >
+                  <Iconify icon="mingcute:add-line" />
+                </Button>
+                </Tooltip>
 
-                  <DialogContent>
-                    <Typography sx={{ mb: 0 }}>Folder Name</Typography>
+
+                <Dialog open={dopen} onClose={handledlose}>
+                  <DialogTitle >
+                    <Tooltip title="Create a connection with a name and folder location." arrow placement='top'>
+                      Create Folder
+                    </Tooltip>
+                  </DialogTitle>
+
+                  <DialogContent sx={{ mt: -1 }}>
 
                     <TextField
                       autoFocus
@@ -308,26 +331,38 @@ export function OverviewEcommerceView() {
                       type="text"
                       margin="dense"
                       variant="outlined"
-                      label="Name of the Connection"
+                      placeholder='Name of the Connection'
+                      label="Folder Name"
+                      // defaultValue="Name of the Connection"
+                      helperText={
+                        <>
+                          Enter the name of the connection.{' '}
+                          <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                            Learn more
+                          </a>
+                        </>
+                      }
                     />
 
-                    <Typography sx={{ mb: 3, color: 'text.secondary', fontSize: '13px' }}>
-                      Enter the name of the connection.
-                    </Typography>
-
-                    <Typography sx={{ mb: 0 }}>Select Folder</Typography>
+                    <Typography sx={{ mt: 2 }}>Select Folder</Typography>
 
                     <TextField
+                      id="outlined-select-currency"
+                      select
                       fullWidth
-                      type="text"
+                      //  label="Select"
                       margin="dense"
-                      variant="outlined"
-                      label="Home"
-                    />
+                      defaultValue="USD"
+                      helperText={<> Select the folder or subfolder where you want to create the connection.{' '}
+                        <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}> Learn more </a> </>}
+                    >
+                      {selectfolder.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
 
-                    <Typography sx={{ mb: 3, color: 'text.secondary', fontSize: '13px' }}>
-                      Select the folder or subfolder where you want to create the connection.
-                    </Typography>
                   </DialogContent>
 
                   <DialogActions>
@@ -341,10 +376,10 @@ export function OverviewEcommerceView() {
                 </Dialog>
               </Box>
             </Typography>
-            <Divider sx={{ borderStyle: 'dashed', mb: 1.2 }} />
+            <Divider sx={{ borderStyle: 'dashed', mb: 0.6,mt:2 }} />
             <CustomStyling />
             <Divider sx={{ borderStyle: 'dashed', mt: 1 }} />
-            <Typography sx={{ fontSize: '14px', mb: 0, mt: 1, color: 'text.secondary' }}>
+            <Typography sx={{ fontSize: '14px', mb: 0, mt: 1.5, color: 'text.secondary' }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Tooltip
                   title={
@@ -358,9 +393,9 @@ export function OverviewEcommerceView() {
                   <div>Trash(10)</div>
                 </Tooltip>
                 <Tooltip title="Clear trash." arrow placement='top'>
-                <IconButton edge="end">
-                  <Iconify icon="solar:trash-bin-trash-bold" />
-                </IconButton>
+                  <IconButton edge="end" sx={{ mr: 0.8 }} >
+                    <Iconify icon="solar:trash-bin-trash-bold" />
+                  </IconButton>
                 </Tooltip>
               </Box>
             </Typography>
@@ -369,12 +404,15 @@ export function OverviewEcommerceView() {
 
         <Grid item xs={12} md={9} lg={9} sx={{ height: '100%' }}>
           <EcommerceWelcome
-            title={<Tooltip  title={
-                    <Typography style={{ fontSize: '12px', textAlign: 'center' }}>
-                      No existing connections. Create a new one using the steps below.
-                    </Typography>
-                  } arrow placement='top'>No Connections found!
-                   </Tooltip>}
+            title={<Tooltip title={
+              <Typography style={{ fontSize: '12px', textAlign: 'center' }}>
+                No existing connections. Create a new one using the steps below.
+              </Typography>
+            } arrow placement='top'>
+              <Typography variant="h6" fontWeight={700}>
+                No Connections found!
+              </Typography>
+            </Tooltip>}
             description="There may be no Connections in the folder or for the applied filter conditions. You can create a Connection by following the steps below-."
             step1=" Click on the 'Create Connection' button available in the top right section."
             step2=" Now select apps you want to integrate into the trigger and action step."
@@ -385,16 +423,16 @@ export function OverviewEcommerceView() {
               </div>
             </Tooltip>}
             action={<FormDialog
-            width='200px'
-            height='43px'
+              width='200px'
+              height='40px'
             />}
-            
+
           />
         </Grid>
 
         <Grid item xs={12} md={3} lg={3}>
-          <Card sx={{ pl: 3, pr: 3, pt: 1.5, pb: 1 }}>
-            <Typography sx={{ fontSize: '18px', fontWeight: '600', mb: 1 }}>
+          {/* <Card sx={{ pl: 3, pr: 3, pt: 1.5, pb: 1 }}>
+            <Typography sx={{ fontSize: '18px', fontWeight: '700', mb: 1 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Tooltip title="Manage folders" arrow placement='top'>
                 Folder
@@ -487,595 +525,18 @@ export function OverviewEcommerceView() {
                 </Tooltip>
               </Box>
             </Typography>
-          </Card>
-        </Grid>
-
-        <Grid xs={12} md={9}>
-          <Card>
-            <CardHeader sx={{mt:-1}}
-              title="Setup Connections"
-              subheader={
-                <Typography variant="body2" sx={{ color: 'text.secondary',mt:1 }}>
-                 Define where your events come from, and Webhook will provide a corresponding
-                 endpoint URL when your connection is created. Sources can be reused across
-                 multiple connections.{' '}
-                 <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
-                   Learn more
-                 </a>
-                </Typography>
-              }
-            />
-
-            <Divider sx={{ borderStyle: 'dashed', mt: 2 }} />
-            <DialogContent sx={{ mb: 1 }}>
-              {/* <Typography sx={{ mt: 2 }}>Connection Name</Typography> */}
-
-              <TextField
-                autoFocus
-                fullWidth
-                type="email"
-                margin="dense"
-                variant="outlined"
-                placeholder='Name of the Connection'
-                label="Connection Name"
-                helperText="Enter the name of the connection."
-                sx={{mt:3}}
-              />
-            </DialogContent>
-
-            <DialogContent sx={{ mb: 3 }}>
-              {/* <Typography sx={{ mb: 0 }}>Webhook URL</Typography> */}
-
-              <TextField
-                autoFocus
-                fullWidth
-                type="email"
-                margin="dense"
-                variant="outlined"
-                label="Webhook URL"
-                placeholder='Enter URL'
-                helperText="Enter the webhook URL."
-                value={url}
-                onChange={handleChange}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Tooltip title="Copy URL" arrow placement="bottom">
-                      <IconButton edge="end" onClick={handleCopy}>
-                        <Iconify width={18} icon="solar:copy-bold" />
-                      </IconButton></Tooltip>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </DialogContent>
-
-            <DialogContent>
-              <Typography sx={{ mb: 1 }}>HTTP Methods</Typography>
-
-              <FormControlLabel label="GET" control={<Checkbox size="normal" defaultChecked />} />
-              <FormControlLabel label="POST" control={<Checkbox size="normal" Checked />} />
-              <FormControlLabel label="PUT" control={<Checkbox size="normal" Checked />} />
-              <FormControlLabel label="PATCH" control={<Checkbox size="normal" Checked />} />
-              <FormControlLabel
-                label="DELETE"
-                control={<Checkbox size="normal" Checked />}
-              />
-
-              <Typography sx={{ mb: 2, color: 'text.secondary', fontSize: '13px', mt: 1 }}>
-                Allow only specific HTTP methods to be accepted by Webhook. Requests that dont match
-                the allowed HTTP will be logged.
-              </Typography>
-            </DialogContent>
-
-            <DialogContent sx={{ mb: 2 }}>
-              {/* <Typography sx={{ mb: 0 }}>Destination URL</Typography> */}
-
-              <TextField
-                autoFocus
-                fullWidth
-                type="email"
-                margin="dense"
-                variant="outlined"
-                label="Destination URl"
-                placeholder='Enter Webhook URL'
-                helperText="Define where your events should be sent. Destinations can be reused across multiple connections."
-              />
-            </DialogContent>
-
-            <DialogContent>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography sx={{ mb: 0 }}>Rate limit</Typography>
-                <Box sx={{ flexGrow: 1 }} /> {/* This will take up the available space */}
-                <Tooltip title="Activate request limit."
-                  arrow
-                  placement="top"> 
-                <FormControlLabel
-                  justifyContent="end"
-                  control={<Switch onChange={handleRatelimitToggle} />}
-                />
-                </Tooltip>
-              </Box>
-
-              {showRatelimitField && (
-                <TextField
-                  id="outlined-Rate-limit"
-                  select
-                  fullWidth
-                  // label="Select"
-                  defaultValue="USD"
-                  helperText=" Enable events rate limit to control the maximum throughput of events delivered to your destination."
-                  sx={{ mt: 2 }}
-                >
-                  {Ratelimit.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              )}
-            </DialogContent>
-
-            <DialogContent>
-              <Typography sx={{ mb: 2, mt: 2 }}>Time Frame</Typography>
-
-              <TextField
-                id="outlined-select-currency"
-                select
-                fullWidth
-                // label="Select"
-                defaultValue="USD"
-                helperText="Please select your time frame"
-              >
-                {currencies.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </DialogContent>
-
-            <DialogContent sx={{ mb: 2 }}>
-              <Typography sx={{ mb: 2, mt: 3 }}>Destination HTTP Method</Typography>
-
-              <TextField
-                id="outlined-select-currency"
-                select
-                fullWidth
-                // label="Select"
-                defaultValue="USD"
-                helperText="Force the requests to your destination to use a specific HTTP method. By default, the request will be made with the same method as the original request."
-              >
-                {Destination.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </DialogContent>
-
-            <Divider sx={{ borderStyle: 'dashed' }} />
-            <CardHeader
-              title="Set Connections Rules"
-              subheader="Configure rules to change the behavior of events traveling through your connection."
-              sx={{ mb: 2 }}
-            />
-
-            <DialogContent>
-            <FormControlLabel control={
-                <Tooltip title="Enable retries on failure."arrow placement="top">
-                <Switch onChange={handleRetryToggle} />
-                </Tooltip>
-                }
-                label="Retry"
-                sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
-            />
-              {showRetryField && (
-                <>
-                  <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Strategy</Typography>
-                  <TextField
-                    id="outlined-select-numbers"
-                    select
-                    fullWidth
-                    defaultValue="USD"
-                    helperText="Configure a automatic retry strategy for any events delivery failures."
-                  >
-                    {Strategy.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-
-                  <Typography sx={{ mb: 1, mt: 2, fontSize: '15px' }}>Interval</Typography>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    fullWidth
-                    defaultValue="USD"
-                    helperText="Configure a automatic retry strategy for any events delivery failures."
-                    sx={{ mb: 1 }}
-                  >
-                    {Interval.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-
-                  <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Every</Typography>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    fullWidth
-                    defaultValue="USD"
-                    helperText="Configure a automatic retry strategy for any events delivery failures."
-                    sx={{ mb: 1 }}
-                  >
-                    {Maximum.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-
-                  <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Maximum Count</Typography>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    fullWidth
-                    defaultValue="USD"
-                    helperText="Configure a automatic retry strategy for any events delivery failures."
-                    sx={{ mb: 2 }}
-                  >
-                    {Maximum.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </>
-              )}
-            </DialogContent>
-
-            <DialogContent>
-            <FormControlLabel control={
-                <Tooltip title="Activate retry delay."arrow placement="top">
-                <Switch onChange={handleDelayToggle} />
-                </Tooltip>
-                }
-                label="Delay"
-                sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
-            />
-              {showDelayField && (
-                <>
-                  <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Backoff Interval</Typography>
-                  <TextField
-                    id="outlined-Rate-limit"
-                    select
-                    fullWidth
-                    // label="Delay between retries"
-                    defaultValue="USD"
-                    helperText="Incase destination endpoint is down."
-                    sx={{ mt: 2 }}
-                  >
-                    {Ratelimit.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <Typography sx={{ mb: 1, mt: 2, fontSize: '15px' }}>
-                    Number of Retries When Backoff
-                  </Typography>
-                  <TextField
-                    id="time select"
-                    select
-                    fullWidth
-                    defaultValue="USD"
-                    helperText="Incase destination endpoint is down."
-                    sx={{ mb: 2 }}
-                  >
-                    {Time.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </>
-              )}
-            </DialogContent>
-
-            <DialogContent>
-            <FormControlLabel control={
-                <Tooltip title="Batch size to process."arrow placement="top">
-                <Switch onChange={handleBatchSizeToggle} />
-                </Tooltip>
-                }
-                label="BatchSize"
-                sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
-            />
-              {showBatchSizeField && (
-                <>
-                  {/* <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Batch Size</Typography> */}
-                  <TextField
-                    fullWidth
-                    label="Batch Size"
-                    placeholder='Enter any number'
-                    variant="outlined"
-                    helperText="Define a Batch Size for the event."
-                    sx={{ mb: 2,  mt:2}}
-                  />
-                </>
-              )}
-            </DialogContent>
-
-            <DialogContent>
-       
-            <FormControlLabel control={
-                  <Tooltip title="Apply filter." arrow placement='top'>
-                  <Switch onChange={handleFilterToggle} />
-                  </Tooltip>
-                  }
-                  label="Filter"
-                  sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
-            />
-              
-              {showFilterField && (
-                <Box sx={{ width: '100%' }}>
-                  <Tabs value={selectedTab} onChange={handleTabChange} variant="fullWidth">
-                    <Tab label="Body" />
-                    <Tab label="Headers" />
-                    <Tab label="Query" />
-                    <Tab label="Path" />
-                  </Tabs>
-                  <Box sx={{ pt: 2 }}>
-                    {selectedTab === 0 && (
-                      <TextField
-                        fullWidth
-                        // label="Body Content"
-                        placeholder='Body Content'
-                        variant="outlined"
-                        helperText="Set the body content."
-                        multiline
-                        rows={4}
-                        value={url}
-                        onChange={handleChange}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment sx={{ mt: -9.5 }}>
-                               <Tooltip title="Copy Text" arrow placement="bottom">
-                               <IconButton edge="end" onClick={handleCopy}>
-                               <Iconify width={18} icon="solar:copy-bold" />
-                               </IconButton>
-                               </Tooltip>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    )}
-                    {selectedTab === 1 && (
-                      <TextField
-                        fullWidth
-                        // label="Headers Content"
-                        placeholder='Header Content'
-                        variant="outlined"
-                        helperText="Set the headers content."
-                        multiline
-                        rows={4}
-                        value={url}
-                        onChange={handleChange}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Copy Text" arrow placement="bottom">
-                               <IconButton edge="end" onClick={handleCopy}>
-                               <Iconify width={18} icon="solar:copy-bold" />
-                               </IconButton>
-                               </Tooltip>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    )}
-                    {selectedTab === 2 && (
-                      <TextField
-                        fullWidth
-                        // label="Query Parameters"
-                        placeholder='Query Parameters'
-                        variant="outlined"
-                        helperText="Set the query parameters."
-                        multiline
-                        rows={4}
-                        value={url}
-                        onChange={handleChange}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Copy Text" arrow placement="bottom">
-                               <IconButton edge="end" onClick={handleCopy}>
-                               <Iconify width={18} icon="solar:copy-bold" />
-                               </IconButton>
-                               </Tooltip>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    )}
-                    {selectedTab === 3 && (
-                      <TextField
-                        fullWidth
-                        // label="Path Parameters"
-                        placeholder='Path Parameters'
-                        variant="outlined"
-                        helperText="Set the path parameters."
-                        multiline
-                        rows={4}
-
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Copy Text" arrow placement="bottom">
-                               <IconButton edge="end" onClick={handleCopy}>
-                               <Iconify width={18} icon="solar:copy-bold" />
-                               </IconButton>
-                               </Tooltip>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    )}
-                  </Box>
-                </Box>
-              )}
-            </DialogContent>
-
-            <DialogContent sx={{ mb: 3, mt: 2 }}>
-              <>
-                <Button variant="contained" sx={{ mr: 2 }} onClick={handleClickOpen}>
-                  Create
-                </Button>
-                <Dialog open={open} onClose={handleClose}>
-                  <DialogTitle>Connection Successfully Setup!</DialogTitle>
-                  <DialogContent>
-                    {/* <Typography>Webhook URL</Typography> */}
-                    <TextField
-                      autoFocus
-                      margin="dense"
-                      label="Webhook URL"
-                      placeholder='webhook URL copy'
-                      fullWidth
-                      variant="outlined"
-                      helperText='Use this URL to receive your requests from "dfsg". Valid requests to this URL will be sent to your destination "dfaddf", and Hookdeck will reply immediately with an HTTP 200.'
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton edge="end">
-                              <Iconify width={18} icon="solar:copy-bold" />
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                    {/* <TextField
-                margin="dense"
-                label="Description"
-               fullWidth
-               variant="outlined"
-               helperText='Select the folder or subfolder where you want to create the connection.'
-          /> */}
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleClose} variant="outlined" color="inherit">
-                      Cancel
-                    </Button>
-                    <Button onClick={handleOpenSnackbar} variant="contained" color="inherit">
-                      Create
-                    </Button>
-                    <Snackbar
-
-                      open={openSnackbar}
-                      autoHideDuration={4000}
-                      onClose={handleCloseSnackbar}
-                      message="This is an error Alert."
-                      anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',  // Changed to 'center' from 'mid 10%' to use a valid Material-UI position
-                      }}
-                    >
-                      <Alert onClose={handleCloseSnackbar} severity="success">
-                        Connection successfully setup.
-                      </Alert>
-                    </Snackbar>
-                  </DialogActions>
-                </Dialog>
-              </>
-              <Button onClick={handleClose} variant="outlined" color="inherit">
-                Cancel
-              </Button>
-            </DialogContent>
-          </Card>
-        </Grid>
-        
-        <Grid xs={12} md={3}>
-          {/* <Card sx={{ pl: 3, pr: 3, pt: 3, pb: 2 }}>
-
-            <Typography sx={{ fontSize: '18px', fontWeight: '600', mb: 2 }}>
-
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                Folder
-                <IconButton onClick={handleOpen} edge="end">
-                  <Iconify icon="icon-park-solid:add" style={{ color: 'black' }} width="12" />
-                </IconButton>
-                <Dialog open={open} onClose={handleClose}>
-                  <DialogTitle>Create Connection</DialogTitle>
-
-                  <DialogContent>
-                    <Typography sx={{ mb: 0 }}>
-                      Folder Name
-                    </Typography>
-
-                    <TextField
-                      autoFocus
-                      fullWidth
-                      type="text"
-                      margin="dense"
-                      variant="outlined"
-                      label="Name of the Connection"
-                    />
-
-                    <Typography sx={{ mb: 3, color: 'text.secondary', fontSize: '13px' }}>
-                      Enter the name of the connection.
-                    </Typography>
-
-                    <Typography sx={{ mb: 0 }}>
-                      Select Folder
-                    </Typography>
-
-                    <TextField
-                      fullWidth
-                      type="text"
-                      margin="dense"
-                      variant="outlined"
-                      label="Home"
-                    />
-
-                    <Typography sx={{ mb: 3, color: 'text.secondary', fontSize: '13px' }}>
-                      Select the folder or subfolder where you want to create the connection.
-                    </Typography>
-                  </DialogContent>
-
-                  <DialogActions>
-                    <Button onClick={handleClose} variant="outlined" color="inherit">
-                      Cancel
-                    </Button>
-                    <Button onClick={handleClose} variant="contained">
-                      Create
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-
-              </Box>
-
-            </Typography>
-            <Divider sx={{ borderStyle: 'dashed', mb: 2 }} />
-            <CustomStyling />
-            <Divider sx={{ borderStyle: 'dashed', mt: 2 }} />
-            <Typography sx={{ fontSize: '14px', mb: 0, mt: 2, color: 'text.secondary' }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                Trash(10)
-                <IconButton edge="end">
-                  <Iconify icon="solar:trash-bin-trash-bold" />
-                </IconButton>
-              </Box>
-            </Typography>
           </Card> */}
         </Grid>
-        <Grid xs={12} md={9}>
+
+
+        <Grid item xs={12} md={9} lg={9} sx={{ height: '100%' }}>
           <OrderListView />
         </Grid>
 
       </Grid>
+
+
     </DashboardContent>
+
   );
 }
