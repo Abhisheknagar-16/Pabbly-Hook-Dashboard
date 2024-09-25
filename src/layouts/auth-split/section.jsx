@@ -42,7 +42,7 @@ export function Section({
         position: 'relative',
         pt: 'var(--layout-header-desktop-height)',
         [theme.breakpoints.up(layoutQuery)]: {
-          gap: 18,
+          gap: 1,
           display: 'flex',
           alignItems: 'center',
           flexDirection: 'column',
