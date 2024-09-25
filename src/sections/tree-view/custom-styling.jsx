@@ -15,7 +15,7 @@ const ITEMS = [
   { id: '12', label: 'Home (0)' },
   {
     id: '1',
-    label: 'Main Folder (4)',
+    label: 'Main Folder (2)',
     children: [
       { id: '2', label: 'Hello' },
       {
