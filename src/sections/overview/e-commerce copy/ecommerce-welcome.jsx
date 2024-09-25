@@ -30,7 +30,7 @@ export function EcommerceWelcome({
           )}`,
           imgUrl: `${CONFIG.site.basePath}/assets/background/`,
         }),
-        pt: 2.4,
+        pt: 3,
         pb: 4.2,
         pr: { xs: 2, md: 3.5 },
         gap: 3,

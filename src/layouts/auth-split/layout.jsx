@@ -1,6 +1,10 @@
 import Alert from '@mui/material/Alert';
 
+// import { paths } from 'src/routes/paths';
+
 import { useBoolean } from 'src/hooks/use-boolean';
+
+import { CONFIG } from 'src/config-global';
 
 import { Section } from './section';
 import { Main, Content } from './main';
@@ -63,7 +67,21 @@ export function AuthSplitLayout({ sx, section, children }) {
           title={section?.title}
           layoutQuery={layoutQuery}
           imgUrl={section?.imgUrl}
+          method={CONFIG.auth.method}
           subtitle={section?.subtitle}
+          methods={[
+            {
+              label: 'Jwt',
+              // path: paths.auth.jwt.signIn,
+              icon: `${CONFIG.site.basePath}/assets/icons/platforms/image 11.svg`,
+            },
+
+            {
+              label: 'Jwt',
+              // path: paths.auth.jwt.signUp,
+              icon: `${CONFIG.site.basePath}/assets/icons/platforms/image 10.svg`,
+            },
+          ]}
         />
         <Content layoutQuery={layoutQuery}>{children}</Content>
       </Main>

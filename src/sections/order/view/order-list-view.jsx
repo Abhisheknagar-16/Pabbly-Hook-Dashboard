@@ -25,7 +25,7 @@ import { _connection, ORDER_STATUS_CONNECTION } from 'src/_mock/connectiontable'
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
-// import { Scrollbar } from 'src/components/scrollbar';
+import { Scrollbar } from 'src/components/scrollbar';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import {
   useTable,
@@ -49,7 +49,7 @@ const STATUS_CONNECTION = [{ value: 'all', label: 'All' }, ...ORDER_STATUS_CONNE
 
 const TABLE_HEAD = [
   { id: 'orderNumber', label: (<Tooltip title="View connections status and date of creation." arrow placement='top'>STATUS/DATE</Tooltip>) },
-  { id: 'name', label: (<Tooltip title="Name of connection and folder where it is located." arrow placement='top'>CONNECTION NAME</Tooltip>), align: 'left' },
+  { id: 'name', label: (<Tooltip title="Name of connection and folder where it is located." arrow placement='top'>CONNECTION NAME</Tooltip>) },
   { id: 'createdAt', label: (<Tooltip title="Status of the requests and events." arrow placement='top'>REQUEST/EVENTS</Tooltip>), align: 'center' },
 ];
 
@@ -144,37 +144,37 @@ export function OrderListView() {
             }}
           >
             {STATUS_CONNECTION.map((tab) => (
-  <Tab
-    key={tab.value}
-    iconPosition="end"
-    value={tab.value}
-    label={
-      ['Active', 'Inactive'].includes(tab.value) ? (
-        <Tooltip placement='top' arrow title={`This is ${tab.value} tab`}>
-          <span>{tab.label}</span>
-        </Tooltip>
-      ) : (
-        tab.label
-      )
-    }
-    icon={
-      <Label
-        variant={
-          ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') || 'soft'
-        }
-        color={
-          (tab.value === 'Active' && 'success') ||
-          (tab.value === 'Inactive' && 'error') ||
-          'default'
-        }
-      >
-        {['Active', 'pending', 'rejected', 'Inactive'].includes(tab.value)
-          ? tableData.filter((user) => user.status === tab.value).length
-          : tableData.length}
-      </Label>
-    }
-  />
-))}
+              <Tab
+                key={tab.value}
+                iconPosition="end"
+                value={tab.value}
+                label={
+                  ['Active', 'Inactive'].includes(tab.value) ? (
+                    <Tooltip placement='top' arrow title={`This is ${tab.value} tab`}>
+                      <span>{tab.label}</span>
+                    </Tooltip>
+                  ) : (
+                    tab.label
+                  )
+                }
+                icon={
+                  <Label
+                    variant={
+                      ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') || 'soft'
+                    }
+                    color={
+                      (tab.value === 'Active' && 'success') ||
+                      (tab.value === 'Inactive' && 'error') ||
+                      'default'
+                    }
+                  >
+                    {['Active', 'pending', 'rejected', 'Inactive'].includes(tab.value)
+                      ? tableData.filter((user) => user.status === tab.value).length
+                      : tableData.length}
+                  </Label>
+                }
+              />
+            ))}
 
           </Tabs>
 
@@ -213,8 +213,8 @@ export function OrderListView() {
               }
             />
 
-            {/* <Scrollbar sx={{ minHeight: 444, width: '100%' }}> */}
-              <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: '103.8%' }}>
+            <Scrollbar sx={{ minHeight: 444, width: '100%' }}>
+              <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: '100%' }}>
                 <TableHeadCustom
                   order={table.order}
                   orderBy={table.orderBy}
@@ -256,7 +256,7 @@ export function OrderListView() {
                   <TableNoData notFound={notFound} />
                 </TableBody>
               </Table>
-            {/* </Scrollbar> */}
+            </Scrollbar>
           </Box>
 
           <TablePaginationCustom

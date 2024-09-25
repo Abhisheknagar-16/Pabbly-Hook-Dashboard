@@ -106,13 +106,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
 
 
       <TableCell>
-        <Stack spacing={2} direction="row" alignItems="left" sx={{mr:3}}>
+        <Stack spacing={2} direction="row" alignItems="left" sx={{mr:0}}>
           <Stack
 
             sx={{
               typography: 'body2',
               flex: '1 1 auto',
               alignItems: 'flex-end',
+              mr:2.2
             }}
           >
             <Box component="span">
@@ -146,7 +147,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           <Stack spacing={2} direction="row"  alignItems="right">
           <Stack>
             <IconButton
-              sx={{ mt: 0.5}}
+              sx={{ mt: 0.5,mr:-1.2}}
               color={popover.open ? 'inherit' : 'default'}
               onClick={popover.onOpen}
             >
@@ -161,7 +162,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
 
   const renderSecondary = (
     <TableRow>
-      <TableCell sx={{ p: 0, border: 'none' }} colSpan={8}>
+     <TableCell sx={{ p: 0, border: 'none' }} colSpan={8}>
         <Collapse
           in={collapse.value}
           timeout="auto"

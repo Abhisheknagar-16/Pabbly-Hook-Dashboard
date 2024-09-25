@@ -12,9 +12,10 @@ import { Iconify } from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 const ITEMS = [
+  { id: '12', label: 'Home (0)' },
   {
     id: '1',
-    label: 'Main',
+    label: 'Main Folder (4)',
     children: [
       { id: '2', label: 'Hello' },
       {
@@ -38,6 +39,9 @@ const ITEMS = [
       { id: '5', label: 'Something something' },
     ],
   },
+  { id: '13', label: 'Pabbly Subcription Billi..(0)'},
+  { id: '14', label: 'Pabbly Email Marketing (0)' },
+  // { id: '15', label: 'Pabbly Hook (0)' }, 
 ];
 
 const StyledTreeItem = styled((props) => {
@@ -68,7 +72,7 @@ const StyledTreeItem = styled((props) => {
             <span>{props.label}</span>
           </Tooltip>
           <IconButton color={popoverOpen ? 'inherit' : 'default'} onClick={handlePopoverOpen}>
-            <Iconify icon="eva:more-vertical-fill" />
+            <Iconify icon="eva:more-vertical-fill"  />
           </IconButton>
           <Popover
             open={popoverOpen}
@@ -131,7 +135,7 @@ export function CustomStyling() {
     <RichTreeView
       aria-label="customized"
       defaultExpandedItems={['1']}
-      sx={{ overflowX: 'hidden', minHeight: 200, width: 1, mt: 1.6 }}
+      sx={{ overflowX: 'hidden', minHeight: 200, width: 1, }}
       slots={{ item: StyledTreeItem }}
       items={ITEMS}
     />

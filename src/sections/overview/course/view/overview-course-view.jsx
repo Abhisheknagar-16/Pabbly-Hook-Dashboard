@@ -18,7 +18,7 @@ export function OverviewCourseView() {
   const theme = useTheme();
 
   return (
-    <DashboardContent maxWidth="xl" sx={{ pb: { xs: 2, xl: 1 }, px: { xs: 0, sm: 0, xl: 0 } }}>
+    <DashboardContent maxWidth="xl" sx={{ pb: { xs: 2, xl: 1 }, px: { xs: 0, sm: 0, xl: 0 },mt:{xs:2,lg:0} }}>
       <Box
         sx={{
           display: 'flex',
@@ -65,7 +65,7 @@ export function OverviewCourseView() {
             sx={{
               gap: 3,
               display: 'grid',
-              gridTemplateColumns: { sm: 'repeat(2, 1fr)', xs: 'repeat(1, 1fr)', md: 'repeat(4, 1fr)' },
+              gridTemplateColumns: { sm: 'repeat(2, 1fr)', xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' },
             }}
           >
             <Tooltip title="Number of total connections." arrow placement='top'>
@@ -101,7 +101,7 @@ export function OverviewCourseView() {
               </div>
             </Tooltip>
 
-            <Tooltip title="Number of total free tasks." arrow placement='top'>
+            {/* <Tooltip title="Number of total free tasks." arrow placement='top'>
               <div>
                 <CourseWidgetSummary
                   title="Free Task consumed"
@@ -110,7 +110,7 @@ export function OverviewCourseView() {
                   icon={`${CONFIG.site.basePath}/assets/icons/courses/free.png`}
                 />
               </div>
-            </Tooltip>
+            </Tooltip> */}
           </Box>
 
         </Box>

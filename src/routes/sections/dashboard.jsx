@@ -11,6 +11,7 @@ import { AuthGuard } from 'src/auth/guard';
 // ----------------------------------------------------------------------
 
 const IndexPage = lazy(() => import('src/pages/dashboard/connections/connection'));
+const PageSix = lazy(() => import('src/pages/dashboard/connections2copy/connection'));
 const PageTwo = lazy(() => import('src/pages/dashboard/issues/issue'));
 const PageThree = lazy(() => import('src/pages/dashboard/transformations/transformation'));
 const PageFour = lazy(() => import('src/pages/dashboard/request/request'));
@@ -36,6 +37,7 @@ export const dashboardRoutes = [
       { path: 'three', element: <PageThree /> },
       { path: 'four', element: <PageFour /> },
       { path: 'five', element: <PageFive /> },
+      { path: 'six', element: <PageSix /> },
       // {
       //   path: 'group',
       //   children: [

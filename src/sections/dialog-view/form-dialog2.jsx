@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert, Tooltip} from '@mui/material';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -82,7 +82,7 @@ export function FormDialog() {
         <DialogTitle><Tooltip title="Create a Transformation." arrow placement="top">Create Transformation</Tooltip></DialogTitle>
 
         <DialogContent sx={{width:536}}>
-          <Typography sx={{ mb: 0 }}>Transformations Name</Typography>
+          {/* <Typography sx={{ mb: 0 }}>Transformations Name</Typography> */}
 
           <TextField
             autoFocus
@@ -90,7 +90,7 @@ export function FormDialog() {
             type="email"
             margin="dense"
             variant="outlined"
-            // label="Name of the Connection"
+            label="Transformation Name"
             placeholder='Name of the Transformation'
             helperText={
               <>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -33,12 +34,15 @@ const selectfolder = [
   },
 ];
 
-export function FormDialog() {
+export function FormDialog({height,width}) {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const navigate= useNavigate();
   const dialog = useBoolean();
   const handleOpenSnackbar = () => {
     setOpenSnackbar(true);
+    navigate('/dashboard/six')
   };
+  // console.log(paths.dashboard.six)
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
@@ -53,7 +57,7 @@ export function FormDialog() {
       >
         <div>
           <Button
-            sx={{ mt: -1 }}
+            sx={{ mt: -1}}
             size='large'
             variant="contained"
             color="primary"
@@ -72,6 +76,7 @@ export function FormDialog() {
                 />
               </svg>
             }
+            style={{ width, height }}
           >
             Create Connections
           </Button>
@@ -129,9 +134,13 @@ export function FormDialog() {
           <Button onClick={dialog.onFalse} variant="outlined" color="inherit">
             Cancel
           </Button>
+          
+          
           <Button onClick={handleOpenSnackbar} variant="contained">
             Create
           </Button>
+          
+         
           <Snackbar
 
             open={openSnackbar}
