@@ -334,7 +334,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           <Divider />
           <Grid container spacing={2} mt={2}>
             <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2">Status</Typography>
+              <Typography variant="body2" sx={{mt:1}}>Status</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <Button onClick={handleOpenSnackbar} variant="contained" color="success" size="small">
@@ -356,7 +356,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               </Snackbar>
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2">Source</Typography>
+              <Typography variant="body2" sx={{mt:1}}>Source</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField
@@ -368,7 +368,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2">Content lenght </Typography>
+              <Typography variant="body2" sx={{mt:1}}>Content lenght </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField
@@ -380,7 +380,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2">Content type</Typography>
+              <Typography variant="body2" sx={{mt:1}}>Content type</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField
@@ -392,13 +392,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               />
             </Grid>{' '}
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2">Method</Typography>
+              <Typography variant="body2" sx={{mt:1}}>Method</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField disabled value="Get" fullWidth variant="outlined" size="small" />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2">Body</Typography>
+              <Typography variant="body2" sx={{mt:1}}>Body</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
             <Box

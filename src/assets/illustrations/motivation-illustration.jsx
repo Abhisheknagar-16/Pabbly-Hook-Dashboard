@@ -32,7 +32,7 @@ function MotivationIllustration({ hideBackground, sx, ...other }) {
           alt="Background"
           height="180"
           width="740"
-          style={{ width: '100%', height: 'auto', border: '5px', borderRadius: '10px' }}
+          style={{ width: '100%', height: 'auto', borderRadius: '10px',border: 'solid 1px var(--palette-grey-300)'}}
         />
 
       </Button>

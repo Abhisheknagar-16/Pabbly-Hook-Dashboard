@@ -14,7 +14,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 // import { fDate, fTime } from 'src/utils/format-time';
 
-import { Tooltip, IconButton, Typography } from '@mui/material';
+import { Tooltip, Divider, IconButton, Typography } from '@mui/material';
 
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
@@ -104,16 +104,18 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         </Stack>
       </TableCell>
 
+      <TableCell/>
+
 
       <TableCell>
-        <Stack spacing={2} direction="row" alignItems="left" sx={{mr:0}}>
+        <Stack spacing={1} direction="row" alignItems="left" >
           <Stack
 
             sx={{
               typography: 'body2',
               flex: '1 1 auto',
               alignItems: 'flex-end',
-              mr:2.2
+              mr:4
             }}
           >
             <Box component="span">
@@ -147,7 +149,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           <Stack spacing={2} direction="row"  alignItems="right">
           <Stack>
             <IconButton
-              sx={{ mt: 0.5,mr:-1.2}}
+              sx={{ mt: 0.5,mr:-1}}
               color={popover.open ? 'inherit' : 'default'}
               onClick={popover.onOpen}
             >
@@ -227,6 +229,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             <Iconify icon="material-symbols:family-history" />
             Connection History
           </MenuItem>
+          <Divider sx={{ borderStyle: 'dashed'}} />
           <MenuItem
             onClick={() => {
               confirm.onTrue();

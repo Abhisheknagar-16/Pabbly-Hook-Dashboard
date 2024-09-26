@@ -43,7 +43,7 @@ export function EcommerceWelcome({
         color: 'common.white',
         textAlign: { xs: 'center', md: 'left' },
         flexDirection: { xs: 'column', md: 'row' },
-        border: `solid 1px ${theme.vars.palette.grey[300]}`,
+        // border: `solid 1px ${theme.vars.palette.grey[300]}`,
         ...sx,
       }}
       {...other}
