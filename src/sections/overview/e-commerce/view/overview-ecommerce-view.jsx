@@ -74,7 +74,7 @@ export function OverviewEcommerceView() {
                   arrow
                   placement="top"
                 >
-                  <div>Trash (count)</div>
+                  <div>Trash (0)</div>
                 </Tooltip>
                 <Tooltip title="Clear trash." arrow placement="top">
                   <IconButton edge="end" sx={{ mr: 0.8 }}>
