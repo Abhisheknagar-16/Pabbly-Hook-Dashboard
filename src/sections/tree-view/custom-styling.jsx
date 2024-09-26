@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { RichTreeView } from '@mui/x-tree-view/RichTreeView';
 import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
-import { Popover, Tooltip, MenuItem, IconButton, } from '@mui/material';
+import { Popover, Tooltip,Divider, MenuItem, IconButton } from '@mui/material';
 
 import { varAlpha, stylesMode } from 'src/theme/styles';
 
@@ -92,6 +92,7 @@ const StyledTreeItem = styled((props) => {
             <MenuItem sx={{ display: 'flex', alignItems: 'center' }} onClick={handlePopoverClose}>
               <Iconify sx={{ mr: 1 }} icon="solar:share-bold" /> Share
             </MenuItem>
+            <Divider sx={{ borderStyle: 'dashed'}} />
             <MenuItem
               sx={{ display: 'flex', alignItems: 'center', color: '#ff5630' }}
               onClick={handlePopoverClose}

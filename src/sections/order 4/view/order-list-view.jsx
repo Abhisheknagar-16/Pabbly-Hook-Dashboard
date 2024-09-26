@@ -132,10 +132,7 @@ export function OrderListView() {
 
   return (
     <>
-      <DashboardContent
-        maxWidth="xl"
-        sx={{ px: { xs: 3.2, sm: 3, lg: 8, xl: 15 } }}
-      >
+      <DashboardContent maxWidth="xl" sx={{ px: { xs: 0, sm: 0, lg: 5, xl: 0 } }}>
         <Card>
           <OrderTableToolbar
             filters={filters}

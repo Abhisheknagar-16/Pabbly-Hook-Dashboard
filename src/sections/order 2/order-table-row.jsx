@@ -282,7 +282,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           <Divider />
           <Grid container spacing={2} mt={2}>
             <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2">Name</Typography>
+              <Typography variant="body2" sx={{mt:1}}>Name</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField
@@ -294,7 +294,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2">Created At</Typography>
+              <Typography variant="body2" sx={{mt:1}}>Created At</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField
@@ -306,7 +306,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2">TRS ID</Typography>
+              <Typography variant="body2" sx={{mt:1}}>TRS ID</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField
@@ -318,7 +318,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2">Last Updated At</Typography>
+              <Typography variant="body2" sx={{mt:1}}>Last Updated At</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField
@@ -330,7 +330,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2">Transformation Code</Typography>
+              <Typography variant="body2" sx={{mt:1}}>Transformation Code</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <Box

@@ -282,9 +282,9 @@ export function OverviewEcommerceView() {
   };
 
   return (
-    <DashboardContent maxWidth="xl" sx={{ px: { xs: 3.2, sm: 3, lg: 8, xl: 15 } }}>
+    <DashboardContent maxWidth="xl" sx={{ px: { xs: 0, sm: 0, lg: 5, xl: 0 } }}>
       <Grid container spacing={3}>
-      {/* <Grid item xs={12} md={3} lg={3}>
+        {/* <Grid item xs={12} md={3} lg={3}>
           <Card sx={{ pl: 3, pr: 3, pt: 3, pb: 2 }}>
             <Typography sx={{ fontSize: '24px', fontWeight: '700'}}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -407,27 +407,52 @@ export function OverviewEcommerceView() {
           />
         </Grid> */}
 
-        <Grid item xs={12} md={3} lg={3}>
-          <Card sx={{ pl: 3, pr: 3, pt: 1, pb: 1 }}>
-            <Typography sx={{ fontSize: '18px', fontWeight: '600', mb: 1 }}>
+        <Grid item xs={12} md={3} lg={3} >
+          <Card sx={{ pl: 2.4, pr: 2, pt: 2, pb: 2 }}>
+            <Typography variant="h6" fontWeight={700}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Tooltip title="Manage folders" arrow placement='top'>
-                Folder
+                <Tooltip title="Manage folders" arrow placement='top'>
+                  Folder
                 </Tooltip>
-                <IconButton onClick={handledopen} edge="end">
+                {/* <Button size='large' variant='contained' onClick={handledopen} edge="end" sx={{mr:0.5}} >
+                  
+                </Button> */}
+                {/* <Tooltip title="Create a new folder." arrow placement='top'>
+                <Button
+                  onClick={handledopen}
+                  edge="end"
+                  variant="contained"
+                  sx={{ 
+                    height: '30px', 
+                    width: '30px', 
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    alignItems: 'center', 
+                    padding: 0,
+                    mr:0.9,
+                    minWidth: 0, // Ensures no default min-width is applied
+                    // borderRadius:'100%'
+                  }}
+                >
+                  <Iconify icon="mingcute:add-line" />
+                </Button>
+                </Tooltip> */}
+                <IconButton onClick={handledopen} edge="end" sx={{ mr: 0.6, mt: -0.8 }}>
                   <Tooltip title="Create a new folder." arrow placement='top'>
-                      <Iconify icon="icon-park-solid:add" style={{ color: 'black' }} width="12" />
+                    <Iconify icon="icon-park-solid:add" style={{ color: 'black' }} width="12" />
                   </Tooltip>
                 </IconButton>
-                <Dialog open={dopen} onClose={handledlose}>
-                  <DialogTitle sx={{fontSize:'24px', fontWeight:'700'}}>
-                  <Tooltip title="Create a connection with a name and folder location." arrow placement='top'>
-                   Create Folder
-                   </Tooltip>
-                   </DialogTitle>
 
-                  <DialogContent sx={{mt:-1}}>
-                   
+
+                <Dialog open={dopen} onClose={handledlose}>
+                  <DialogTitle >
+                    <Tooltip title="Create a connection with a name and folder location." arrow placement='top'>
+                      Create Folder
+                    </Tooltip>
+                  </DialogTitle>
+
+                  <DialogContent sx={{ mt: -1 }}>
+
                     <TextField
                       autoFocus
                       fullWidth
@@ -447,23 +472,23 @@ export function OverviewEcommerceView() {
                       }
                     />
 
-                    <Typography sx={{ mt:2}}>Select Folder</Typography>
+                    <Typography sx={{ mt: 2 }}>Select Folder</Typography>
 
                     <TextField
-                     id="outlined-select-currency"
-                     select
-                     fullWidth
-                    //  label="Select"
-                     margin="dense"
-                     defaultValue="USD"
-                     helperText={<> Select the folder or subfolder where you want to create the connection.{' '}
-                     <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}> Learn more </a> </>}
-                     >
-                    {selectfolder.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                    </MenuItem>
-                     ))}
+                      id="outlined-select-currency"
+                      select
+                      fullWidth
+                      //  label="Select"
+                      margin="dense"
+                      defaultValue="USD"
+                      helperText={<> Select the folder or subfolder where you want to create the connection.{' '}
+                        <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}> Learn more </a> </>}
+                    >
+                      {selectfolder.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
                     </TextField>
 
                   </DialogContent>
@@ -479,10 +504,10 @@ export function OverviewEcommerceView() {
                 </Dialog>
               </Box>
             </Typography>
-            <Divider sx={{ borderStyle: 'dashed', mb: 0.6 }} />
+            <Divider sx={{ borderStyle: 'dashed', mb: 0.6, mt: 1 }} />
             <CustomStyling />
-            <Divider sx={{ borderStyle: 'dashed', mt: 1 }} />
-            <Typography sx={{ fontSize: '14px', mb: 0, mt: 1, color: 'text.secondary' }}>
+            <Divider sx={{ borderStyle: 'dashed', mt: 0 }} />
+            <Typography sx={{ fontSize: '14px', mb: 0, mt: 1.5 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Tooltip
                   title={
@@ -493,12 +518,12 @@ export function OverviewEcommerceView() {
                   arrow
                   placement="top"
                 >
-                  <div>Trash(10)</div>
+                  <div>Trash (count)</div>
                 </Tooltip>
                 <Tooltip title="Clear trash." arrow placement='top'>
-                <IconButton edge="end">
-                  <Iconify icon="solar:trash-bin-trash-bold" />
-                </IconButton>
+                  <IconButton edge="end" sx={{ mr: 0.8 }} >
+                    <Iconify icon="solar:trash-bin-trash-bold" />
+                  </IconButton>
                 </Tooltip>
               </Box>
             </Typography>
@@ -507,16 +532,16 @@ export function OverviewEcommerceView() {
 
         <Grid xs={12} md={9}>
           <Card>
-            <CardHeader sx={{mt:-1}}
+            <CardHeader sx={{ mt: -1 }}
               title="Setup Connections"
               subheader={
-                <Typography variant="body2" sx={{ color: 'text.secondary',mt:1 }}>
-                 Define where your events come from, and Webhook will provide a corresponding
-                 endpoint URL when your connection is created. Sources can be reused across
-                 multiple connections.{' '}
-                 <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
-                   Learn more
-                 </a>
+                <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
+                  Define where your events come from, and Webhook will provide a corresponding
+                  endpoint URL when your connection is created. Sources can be reused across
+                  multiple connections.{' '}
+                  <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                    Learn more
+                  </a>
                 </Typography>
               }
             />
@@ -534,7 +559,7 @@ export function OverviewEcommerceView() {
                 placeholder='Name of the Connection'
                 label="Connection Name"
                 helperText="Enter the name of the connection."
-                sx={{mt:3}}
+                sx={{ mt: 3 }}
               />
             </DialogContent>
 
@@ -556,9 +581,9 @@ export function OverviewEcommerceView() {
                   endAdornment: (
                     <InputAdornment position="end">
                       <Tooltip title="Copy URL" arrow placement="bottom">
-                      <IconButton edge="end" onClick={handleCopy}>
-                        <Iconify width={18} icon="solar:copy-bold" />
-                      </IconButton></Tooltip>
+                        <IconButton edge="end" onClick={handleCopy}>
+                          <Iconify width={18} icon="solar:copy-bold" />
+                        </IconButton></Tooltip>
                     </InputAdornment>
                   ),
                 }}
@@ -604,11 +629,11 @@ export function OverviewEcommerceView() {
                 <Box sx={{ flexGrow: 1 }} /> {/* This will take up the available space */}
                 <Tooltip title="Activate request limit."
                   arrow
-                  placement="top"> 
-                <FormControlLabel
-                  justifyContent="end"
-                  control={<Switch onChange={handleRatelimitToggle} />}
-                />
+                  placement="top">
+                  <FormControlLabel
+                    justifyContent="end"
+                    control={<Switch onChange={handleRatelimitToggle} />}
+                  />
                 </Tooltip>
               </Box>
 
@@ -677,14 +702,14 @@ export function OverviewEcommerceView() {
             />
 
             <DialogContent>
-            <FormControlLabel control={
-                <Tooltip title="Enable retries on failure."arrow placement="top">
-                <Switch onChange={handleRetryToggle} />
+              <FormControlLabel control={
+                <Tooltip title="Enable retries on failure." arrow placement="top">
+                  <Switch onChange={handleRetryToggle} />
                 </Tooltip>
-                }
+              }
                 label="Retry"
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
-            />
+              />
               {showRetryField && (
                 <>
                   <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Strategy</Typography>
@@ -754,14 +779,14 @@ export function OverviewEcommerceView() {
             </DialogContent>
 
             <DialogContent>
-            <FormControlLabel control={
-                <Tooltip title="Activate retry delay."arrow placement="top">
-                <Switch onChange={handleDelayToggle} />
+              <FormControlLabel control={
+                <Tooltip title="Activate retry delay." arrow placement="top">
+                  <Switch onChange={handleDelayToggle} />
                 </Tooltip>
-                }
+              }
                 label="Delay"
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
-            />
+              />
               {showDelayField && (
                 <>
                   <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Backoff Interval</Typography>
@@ -802,14 +827,14 @@ export function OverviewEcommerceView() {
             </DialogContent>
 
             <DialogContent>
-            <FormControlLabel control={
-                <Tooltip title="Batch size to process."arrow placement="top">
-                <Switch onChange={handleBatchSizeToggle} />
+              <FormControlLabel control={
+                <Tooltip title="Batch size to process." arrow placement="top">
+                  <Switch onChange={handleBatchSizeToggle} />
                 </Tooltip>
-                }
+              }
                 label="BatchSize"
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
-            />
+              />
               {showBatchSizeField && (
                 <>
                   {/* <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Batch Size</Typography> */}
@@ -819,23 +844,23 @@ export function OverviewEcommerceView() {
                     placeholder='Enter any number'
                     variant="outlined"
                     helperText="Define a Batch Size for the event."
-                    sx={{ mb: 2,  mt:2}}
+                    sx={{ mb: 2, mt: 2 }}
                   />
                 </>
               )}
             </DialogContent>
 
             <DialogContent>
-       
-            <FormControlLabel control={
-                  <Tooltip title="Apply filter." arrow placement='top'>
+
+              <FormControlLabel control={
+                <Tooltip title="Apply filter." arrow placement='top'>
                   <Switch onChange={handleFilterToggle} />
-                  </Tooltip>
-                  }
-                  label="Filter"
-                  sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
-            />
-              
+                </Tooltip>
+              }
+                label="Filter"
+                sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
+              />
+
               {showFilterField && (
                 <Box sx={{ width: '100%' }}>
                   <Tabs value={selectedTab} onChange={handleTabChange} variant="fullWidth">
@@ -859,11 +884,11 @@ export function OverviewEcommerceView() {
                         InputProps={{
                           endAdornment: (
                             <InputAdornment sx={{ mt: -9.5 }}>
-                               <Tooltip title="Copy Text" arrow placement="bottom">
-                               <IconButton edge="end" onClick={handleCopy}>
-                               <Iconify width={18} icon="solar:copy-bold" />
-                               </IconButton>
-                               </Tooltip>
+                              <Tooltip title="Copy Text" arrow placement="bottom">
+                                <IconButton edge="end" onClick={handleCopy}>
+                                  <Iconify width={18} icon="solar:copy-bold" />
+                                </IconButton>
+                              </Tooltip>
                             </InputAdornment>
                           ),
                         }}
@@ -884,10 +909,10 @@ export function OverviewEcommerceView() {
                           endAdornment: (
                             <InputAdornment sx={{ mt: -9.5 }}>
                               <Tooltip title="Copy Text" arrow placement="bottom">
-                               <IconButton edge="end" onClick={handleCopy}>
-                               <Iconify width={18} icon="solar:copy-bold" />
-                               </IconButton>
-                               </Tooltip>
+                                <IconButton edge="end" onClick={handleCopy}>
+                                  <Iconify width={18} icon="solar:copy-bold" />
+                                </IconButton>
+                              </Tooltip>
                             </InputAdornment>
                           ),
                         }}
@@ -908,10 +933,10 @@ export function OverviewEcommerceView() {
                           endAdornment: (
                             <InputAdornment sx={{ mt: -9.5 }}>
                               <Tooltip title="Copy Text" arrow placement="bottom">
-                               <IconButton edge="end" onClick={handleCopy}>
-                               <Iconify width={18} icon="solar:copy-bold" />
-                               </IconButton>
-                               </Tooltip>
+                                <IconButton edge="end" onClick={handleCopy}>
+                                  <Iconify width={18} icon="solar:copy-bold" />
+                                </IconButton>
+                              </Tooltip>
                             </InputAdornment>
                           ),
                         }}
@@ -931,10 +956,10 @@ export function OverviewEcommerceView() {
                           endAdornment: (
                             <InputAdornment sx={{ mt: -9.5 }}>
                               <Tooltip title="Copy Text" arrow placement="bottom">
-                               <IconButton edge="end" onClick={handleCopy}>
-                               <Iconify width={18} icon="solar:copy-bold" />
-                               </IconButton>
-                               </Tooltip>
+                                <IconButton edge="end" onClick={handleCopy}>
+                                  <Iconify width={18} icon="solar:copy-bold" />
+                                </IconButton>
+                              </Tooltip>
                             </InputAdornment>
                           ),
                         }}
@@ -1011,7 +1036,7 @@ export function OverviewEcommerceView() {
             </DialogContent>
           </Card>
         </Grid>
-        
+
         <Grid xs={12} md={3}>
           {/* <Card sx={{ pl: 3, pr: 3, pt: 3, pb: 2 }}>
 

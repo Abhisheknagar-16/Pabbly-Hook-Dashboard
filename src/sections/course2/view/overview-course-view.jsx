@@ -16,7 +16,7 @@ export function OverviewCourseView() {
   const theme = useTheme();
 
   return (
-    <DashboardContent maxWidth="xl" sx={{ pb: { xs: 2, xl: 1 }, px: { xs: 0, sm: 0, xl: 0 },mt:{xs:2,lg:0} }}>
+    <DashboardContent maxWidth="xl" sx={{ pb: { xs: 2, xl: 1}, px: { xs: 0, sm: 0, xl: 0 } }}>
       <Box
         sx={{
           display: 'flex',
@@ -29,10 +29,11 @@ export function OverviewCourseView() {
             gap: 4,
             display: 'flex',
             minWidth: { lg: 0 },
-            py: { lg: 5, xl: 4 },
+            pt:3,
+            pb:1,
             flexDirection: 'column',
             flex: { lg: '1 1 auto' },
-            px: { xs: 3, sm: 3, xl: 15 },
+            // px: { xs: 3, sm: 3,  },
           }}
         >
           <Box>

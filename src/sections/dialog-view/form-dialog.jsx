@@ -34,7 +34,7 @@ const selectfolder = [
   },
 ];
 
-export function FormDialog({height,width}) {
+export function FormDialog({height,width,variant}) {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const navigate= useNavigate();
   const dialog = useBoolean();
@@ -76,7 +76,7 @@ export function FormDialog({height,width}) {
                 />
               </svg>
             }
-            style={{ width, height }}
+            style={{ width, height ,variant}}
           >
             Create Connections
           </Button>
