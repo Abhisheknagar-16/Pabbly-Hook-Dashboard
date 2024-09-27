@@ -23,6 +23,7 @@ import { MotivationIllustration } from 'src/assets/illustrations';
 import { Iconify } from 'src/components/iconify';
 
 import { OrderListView } from 'src/sections/order/view';
+import { OrderListViewtrash } from 'src/sections/ordertrash/view';
 import { FormDialog } from 'src/sections/dialog-view/form-dialog';
 import { CustomStyling } from 'src/sections/tree-view/custom-styling';
 
@@ -37,9 +38,18 @@ const selectfolder = [
 
 export function OverviewEcommerceView() {
   const [dopen, setdopen] = useState(false);
+  const [showTrash, setShowTrash] = useState(false);
 
   const handledopen = () => setdopen(true);
   const handledlose = () => setdopen(false);
+
+  const handleTrashClick = () => {
+    setShowTrash(true);
+  };
+
+  const handleHomeClick = () => {
+    setShowTrash(false);
+  };
 
   return (
     <DashboardContent maxWidth="xl" sx={{ px: { xs: 0, sm: 0, lg: 5, xl: 0 } }}>
@@ -61,28 +71,7 @@ export function OverviewEcommerceView() {
               </Box>
             </Typography>
             <Divider sx={{ borderStyle: 'dashed', mb: 0.6, mt: 1 }} />
-            <CustomStyling />
-            <Divider sx={{ borderStyle: 'dashed', mt: 0 }} />
-            <Typography sx={{ fontSize: '14px', mb: 0, mt: 1.5 }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Tooltip
-                  title={
-                    <Typography style={{ fontSize: '12px', textAlign: 'center' }}>
-                      Trash folder holds all connections that have been deleted.
-                    </Typography>
-                  }
-                  arrow
-                  placement="top"
-                >
-                  <div>Trash (0)</div>
-                </Tooltip>
-                <Tooltip title="Clear trash." arrow placement="top">
-                  <IconButton edge="end" sx={{ mr: 0.8 }}>
-                    <Iconify icon="solar:trash-bin-trash-bold" />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            </Typography>
+            <CustomStyling onTrashClick={handleTrashClick} />
           </Card>
         </Grid>
 
@@ -125,7 +114,11 @@ export function OverviewEcommerceView() {
             {/* Order List (Align right) */}
             <Box sx={{ width: '100%' }}>
               <Card>
-                <OrderListView />
+                {showTrash ? (
+                  <OrderListViewtrash />
+                ) : (
+                  <OrderListView />
+                )}
               </Card>
             </Box>
           </Box>
