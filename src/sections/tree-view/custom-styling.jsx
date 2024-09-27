@@ -12,7 +12,7 @@ import { Iconify } from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 const ITEMS = [
-  { id: '12', label: 'Home (0)' },
+  { id: '12', label: 'Home (0)' },  // Home item
   {
     id: '1',
     label: 'Main Folder (2)',
@@ -62,12 +62,18 @@ const StyledTreeItem = styled((props) => {
   };
 
   const handleItemClick = (event) => {
+    // Handle the "Trash" click
     if (props.label.includes('Trash')) {
       event.preventDefault();
       props.onTrashClick();
     }
-  };
 
+    // Handle the "Home" click
+    if (props.label.includes('Home')) {
+      event.preventDefault();
+      props.onHomeClick();  // Trigger Home click passed down from the parent
+    }
+  };
 
   return (
     <TreeItem
@@ -149,14 +155,14 @@ const StyledTreeItem = styled((props) => {
 
 // ----------------------------------------------------------------------
 
-export function CustomStyling({ onTrashClick }) {
+export function CustomStyling({ onTrashClick, onHomeClick }) {
   return (
     <>
       <RichTreeView
         aria-label="customized"
         defaultExpandedItems={['1']}
         sx={{ overflowX: 'hidden', minHeight: 200, width: 1 }}
-        slots={{ item: (props) => <StyledTreeItem {...props} onTrashClick={onTrashClick} /> }}
+        slots={{ item: (props) => <StyledTreeItem {...props} onTrashClick={onTrashClick} onHomeClick={onHomeClick} /> }}
         items={ITEMS}
       />
       <Divider sx={{ borderStyle: 'dashed', mb: 1, mt: 1 }} />
@@ -164,7 +170,7 @@ export function CustomStyling({ onTrashClick }) {
         aria-label="customized"
         defaultExpandedItems={['16']}
         sx={{ overflowX: 'hidden', minHeight: 2, width: 1 }}
-        slots={{ item: (props) => <StyledTreeItem {...props} onTrashClick={onTrashClick} /> }}
+        slots={{ item: (props) => <StyledTreeItem {...props} onTrashClick={onTrashClick} onHomeClick={onHomeClick} /> }}
         items={ITEMS1}
       />
     </>

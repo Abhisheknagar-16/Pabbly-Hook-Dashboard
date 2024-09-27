@@ -40,15 +40,17 @@ export function OverviewEcommerceView() {
   const [dopen, setdopen] = useState(false);
   const [showTrash, setShowTrash] = useState(false);
 
+  // Open and close dialog
   const handledopen = () => setdopen(true);
   const handledlose = () => setdopen(false);
 
+  // Toggle between showing trash and showing home content
   const handleTrashClick = () => {
-    setShowTrash(true);
+    setShowTrash(true);  // Switch to showing trash view
   };
 
   const handleHomeClick = () => {
-    setShowTrash(false);
+    setShowTrash(false);  // Switch back to home (main view)
   };
 
   return (
@@ -71,7 +73,8 @@ export function OverviewEcommerceView() {
               </Box>
             </Typography>
             <Divider sx={{ borderStyle: 'dashed', mb: 0.6, mt: 1 }} />
-            <CustomStyling onTrashClick={handleTrashClick} />
+            {/* Pass both onTrashClick and onHomeClick to CustomStyling */}
+            <CustomStyling onTrashClick={handleTrashClick} onHomeClick={handleHomeClick} />
           </Card>
         </Grid>
 
@@ -115,9 +118,9 @@ export function OverviewEcommerceView() {
             <Box sx={{ width: '100%' }}>
               <Card>
                 {showTrash ? (
-                  <OrderListViewtrash />
+                  <OrderListViewtrash />  // Show trash view if trash is selected
                 ) : (
-                  <OrderListView />
+                  <OrderListView />  // Show main content view (OrderListView) if Home is selected
                 )}
               </Card>
             </Box>
