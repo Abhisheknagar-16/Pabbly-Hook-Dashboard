@@ -90,7 +90,7 @@ const StyledTreeItem = styled((props) => {
             <span>{props.label}</span>
           </Tooltip>
           {props.label.includes('Trash') ? (
-            <IconButton color={popoverOpen ? 'inherit' : 'default'} onClick={handlePopoverOpen}>
+            <IconButton color={popoverOpen ? 'inherit' : 'default'}>
               <Iconify icon="solar:trash-bin-trash-bold" />
             </IconButton>
           ) : (

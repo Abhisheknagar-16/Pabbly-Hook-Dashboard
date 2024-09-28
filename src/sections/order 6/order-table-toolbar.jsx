@@ -103,28 +103,6 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
   </Typography>
 
   <Stack direction="row" alignItems="center" spacing={2}>
-    {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker
-        label="Start Date"
-        value={startDate}
-        minDate={dayjs('2017-01-01')}
-        onChange={(newValue) => setStartDate(newValue)}
-        slotProps={{ textField: { fullWidth: false } }}
-        sx={{ width: '191px' }}  // Custom width for Start Date
-      />
-    </LocalizationProvider>
-
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker
-        label="End Date"
-        value={endDate}
-        minDate={dayjs('2017-01-01')}
-        onChange={(newValue) => setEndDate(newValue)}
-        slotProps={{ textField: { fullWidth: false } }}
-        sx={{ width: '191px' }}  // Custom width for End Date
-      />
-    </LocalizationProvider> */}
-
     <Tooltip title="Click here to request by request name or ID's." arrow placement="top">
       <TextField
          sx={{
@@ -174,148 +152,123 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
             </Tooltip>
           </Stack>
   </Stack>
-
-  {/* Uncomment and use if you want to add the filter icon button */}
-  {/* <IconButton
-    onClick={popover.onOpen}
-    sx={{
-      '&:hover': {
-        backgroundColor: 'transparent',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 2,
-          left: 0,
-          width: '100%',
-          height: '80%',
-          backgroundColor: '#919eab14',
-          borderRadius: '5px',
-          zIndex: -1,
-        },
-      },
-    }}
-  >
-    <Iconify icon="solar:filter-bold" sx={{ color: 'black' }} />
-    <Typography sx={{ color: 'black', fontSize: '13px', ml: 1, fontWeight: '400' }}>
-      Filter
-    </Typography>
-  </IconButton> */}
 </Stack>
 
       </Stack>
 
       <CustomPopover
-        open={popover.open}
-        anchorEl={popover.anchorEl}
-        onClose={popover.onClose}
-        slotProps={{ arrow: { placement: 'bottom-top' } }}
-      >
-        {/* //////////////////////Custom filter popover////////////////////// */}
-        <MenuList sx={{ height: 'auto', width: 'auto' }}>
-          <Box sx={{ padding: 1 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sx={{mb:2}}>
-                <h3 style={{ padding: 5, margin: 0 }}>Filter Request</h3>
-              </Grid>
-
+          open={popover.open}
+          anchorEl={popover.anchorEl}
+          onClose={popover.onClose}
+          slotProps={{ arrow: { placement: 'bottom-top' } }}
+        >
+          {/* //////////////////////Custom filter popover////////////////////// */}
+          <MenuList sx={{ height: 'auto', width: 'auto' }}>
+            <Box sx={{ padding: 1 }}>
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={3}>
-                  <FormControl fullWidth>
-                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 1 }}>Request Name</FormLabel>
-                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 3 }}>Request ID</FormLabel>
-                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 2.5 }}>Request Folder</FormLabel>
-                    {/* <FormLabel sx={{ ml: 3, fontSize: 16, mt: 3 }}>Status</FormLabel> */}
-                  </FormControl>
+                <Grid item xs={12} sx={{mb:2}}>
+                  <h3 style={{ padding: 5, margin: 0 }}>Filter Request</h3>
                 </Grid>
 
-                <Grid item xs={12} sm={3}>
-                  <Grid container spacing={1} direction="column">
-                    {['Equal to', 'Equal to', 'In'].map((label, index) => (
-                      <Grid item xs={12} key={index} ml={2}>
-                        <FormControl fullWidth>
-                          <Button
-                            variant="outlined"
-                            style={{ fontSize: '12.5px', padding: '8px 40px' }}
-                          >
-                            {label}
-                          </Button>
-                        </FormControl>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={3}>
+                    <FormControl fullWidth>
+                      <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 1 }}>Request Name</FormLabel>
+                      <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 3 }}>Request ID</FormLabel>
+                      <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 2.5 }}>Request Folder</FormLabel>
+                      {/* <FormLabel sx={{ ml: 3, fontSize: 16, mt: 3 }}>Status</FormLabel> */}
+                    </FormControl>
+                  </Grid>
+
+                  <Grid item xs={12} sm={3}>
+                    <Grid container spacing={1} direction="column">
+                      {['Equal to', 'Equal to', 'In'].map((label, index) => (
+                        <Grid item xs={12} key={index} ml={2}>
+                          <FormControl fullWidth>
+                            <Button
+                              variant="outlined"
+                              style={{ fontSize: '12.5px', padding: '8px 40px' }}
+                            >
+                              {label}
+                            </Button>
+                          </FormControl>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </Grid>
+
+
+                  <Grid item xs={12} sm={6}>
+                    <Grid container spacing={1} direction="column">
+                      <Grid item xs={12}>
+                        {/* <Stack direction="column" spacing={1} flexGrow={1} sx={{ width: '100%' }}>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                              label=""
+                              value={startDate}
+                              minDate={dayjs('2017-01-01')}
+                              onChange={(newValue) => setStartDate(newValue)}
+                              slotProps={{ textField: { fullWidth: true } }}
+                            />
+                          </LocalizationProvider>
+                        </Stack> */}
                       </Grid>
-                    ))}
-                  </Grid>
-                </Grid>
 
+                      <Grid item xs={12} sm={6} sx={{mt:-1,ml:2}}>
+                      <TextField
+                      id="outlined-select-numbers"
+                      size='small'
+                      select
+                      fullWidth
+                      defaultValue="USD"
+                      >
+                      {Strategy.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                      </Grid>
 
-                <Grid item xs={12} sm={6}>
-                  <Grid container spacing={1} direction="column">
-                    <Grid item xs={12}>
-                      {/* <Stack direction="column" spacing={1} flexGrow={1} sx={{ width: '100%' }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DatePicker
-                            label=""
-                            value={startDate}
-                            minDate={dayjs('2017-01-01')}
-                            onChange={(newValue) => setStartDate(newValue)}
-                            slotProps={{ textField: { fullWidth: true } }}
-                          />
-                        </LocalizationProvider>
-                      </Stack> */}
-                    </Grid>
+                      <Grid item xs={12} ml={2}>
+                      <TextField
+                      size='small'
+                      id="outlined-select-numbers"
+                      select
+                      fullWidth
+                      defaultValue="USD"
+                      >
+                      {Selectstatus.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                      </Grid>
 
-                    <Grid item xs={8} sx={{mt:-1,ml:2}}>
-                    <TextField
-                    id="outlined-select-numbers"
-                    size='small'
-                    select
-                    fullWidth
-                    defaultValue="USD"
-                    >
-                    {Strategy.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                   </TextField>
-                    </Grid>
-
-                    <Grid item xs={12} ml={2}>
-                    <TextField
-                    size='small'
-                    id="outlined-select-numbers"
-                    select
-                    fullWidth
-                    defaultValue="USD"
-                    >
-                    {Selectstatus.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                   </TextField>
-                    </Grid>
-
-                    <Grid item xs={12} ml={2}>
-                    <TextField
-                    size='small'
-                    autoFocus
-                    fullWidth
-                    variant="outlined"
-                    placeholder='Home'
-                   // label="Connection Name"
-                   />
+                      <Grid item xs={12} ml={2}>
+                      <TextField
+                      size='small'
+                      autoFocus
+                      fullWidth
+                      variant="outlined"
+                      placeholder='Home'
+                    // label="Connection Name"
+                    />
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
+                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end',mb:1,mt:1 }}>
+                  <Button variant="contained" onClick={handleSubmit} size="small">
+                    Apply Filter
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end',mb:1,mt:1 }}>
-                <Button variant="contained" onClick={handleSubmit} size="small">
-                  Apply Filter
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
-        </MenuList>
-      </CustomPopover>
+            </Box>
+          </MenuList>
+        </CustomPopover>
+
     </>
   );
 }
