@@ -251,7 +251,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               flex: 1,
               ml: 2,
               color: 'primary',
-              fontSize: '28px',
+              fontSize: '24px',
               fontWeight: 700,
             }}
           >
