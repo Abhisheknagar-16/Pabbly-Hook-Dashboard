@@ -59,21 +59,12 @@ export function FormDialog({height,width,variant}) {
           <Button
             sx={{ mt: -1}}
             size='large'
-            variant="contained"
+            variant={variant || "contained"}  // Apply the variant passed as a prop
             color="primary"
             onClick={dialog.onTrue}
             startIcon={
-              <svg
-                width="19"
-                height="15"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9 0C4.02823 0 0 4.02823 0 9C0 13.9718 4.02823 18 9 18C13.9718 18 18 13.9718 18 9C18 4.02823 13.9718 0 9 0ZM14.2258 10.0161C14.2258 10.2556 14.0298 10.4516 13.7903 10.4516H10.4516V13.7903C10.4516 14.0298 10.2556 14.2258 10.0161 14.2258H7.98387C7.74435 14.2258 7.54839 14.0298 7.54839 13.7903V10.4516H4.20968C3.97016 10.4516 3.77419 10.2556 3.77419 10.0161V7.98387C3.77419 7.74435 3.97016 7.54839 4.20968 7.54839H7.54839V4.20968C7.54839 3.97016 7.74435 3.77419 7.98387 3.77419H10.0161C10.2556 3.77419 10.4516 3.97016 10.4516 4.20968V7.54839H13.7903C14.0298 7.54839 14.2258 7.74435 14.2258 7.98387V10.0161Z"
-                  fill="white"
-                />
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z"/>
               </svg>
             }
             style={{ width, height ,variant}}
