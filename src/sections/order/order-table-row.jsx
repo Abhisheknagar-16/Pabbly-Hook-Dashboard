@@ -115,7 +115,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               typography: 'body2',
               flex: '1 1 auto',
               alignItems: 'flex-end',
-              mr: 2
+              mr: 4
             }}
           >
             <Box component="span" >
