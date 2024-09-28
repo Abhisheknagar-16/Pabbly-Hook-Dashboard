@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 // import { RouterLink } from 'src/routes/components';
 
 import { CONFIG } from 'src/config-global';
-import { varAlpha, bgGradient } from 'src/theme/styles';
+// import { varAlpha, bgGradient } from 'src/theme/styles';
 
 // ----------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ export function Section({
   layoutQuery,
   methods,
   title = 'No Restrictions  on Features',
-  imgUrl = `${CONFIG.site.basePath}/assets/illustrations/pabbly.gif`,
+  imgUrl = `${CONFIG.site.basePath}/assets/illustrations/Pabblyhookgif2.gif`,
   subtitle = 'More effectively with optimized workflows.',
   ...other
 }) {
@@ -25,31 +25,30 @@ export function Section({
 
   return (
     <Box
-      sx={{
-        ...bgGradient({
-          color: `0deg, ${varAlpha(
-            theme.vars.palette.background.defaultChannel,
-            0.92
-          )}, ${varAlpha(theme.vars.palette.background.defaultChannel, 0.92)}`,
-          imgUrl: `${CONFIG.site.basePath}/assets/background/background-3-blur.webp`,
-        }),
-        backgroundColor: '#ECFFF7', // Added background color
-        px: 3,
-        pb: 1,
-        width: 1,
-        maxWidth: 480,
-        display: 'none',
-        position: 'relative',
-        pt: 'var(--layout-header-desktop-height)',
-        [theme.breakpoints.up(layoutQuery)]: {
-          gap: 1,
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-          justifyContent: 'center',
-        },
-        ...sx,
-      }}
+    sx={{
+      background: `linear-gradient(180deg, 
+        rgba(236, 255, 247, 0.5) 0%,   /* #ECFFF7 with 50% opacity at the top */
+        rgba(163, 228, 201, 0.65) 100% /* #A3E4C9 with 65% opacity at the bottom */
+      ), 
+      url(${CONFIG.site.basePath}/assets/background)`,
+      backgroundSize: 'cover', // Ensure the image covers the whole container
+      px: 3,
+      pb: 1,
+      width: '100%',
+      maxWidth: 480,
+      display: 'none',
+      position: 'relative',
+      pt: 'var(--layout-header-desktop-height)',
+      [theme.breakpoints.up(layoutQuery)]: {
+        gap: 1,
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      },
+      ...sx,
+    }}
+    
       {...other}
     >
       <div>
