@@ -108,28 +108,28 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
   return (
     <>
 
-<Stack
+      <Stack
         spacing={2}
         alignItems={{ xs: 'flex-end', md: 'center' }}
         direction={{ xs: 'column', md: 'row' }}
         sx={{ p: 2.5, pr: { xs: 2.5, md: 1 } }}
       >
 
-<Stack
-  direction="row"
-  justifyContent="space-between"
-  alignItems="center"
-  spacing={2}  // Adjust spacing between elements
-  sx={{ width: '100%' }}  // Ensures the stack takes full width
->
-  <Typography variant="h6" fontWeight={700} lineHeight={2} >
-  <Tooltip  title="List of all events ID's and there status." arrow placement="top">
-    Event
-    </Tooltip>
-  </Typography>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          spacing={2}  // Adjust spacing between elements
+          sx={{ width: '100%' }}  // Ensures the stack takes full width
+        >
+          <Typography variant="h6" fontWeight={700} lineHeight={2} >
+            <Tooltip title="List of all events ID's and there status." arrow placement="top">
+              Event
+            </Tooltip>
+          </Typography>
 
-  <Stack direction="row" alignItems="center" spacing={2}>
-    {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
         label="Start Date"
         value={startDate}
@@ -151,82 +151,56 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
       />
     </LocalizationProvider> */}
 
-    <Tooltip title="Click here to event by request name or ID's." arrow placement="top">
-      <TextField
-         sx={{
-          width: { xs: '100%', sm: '300px', md: '394px' },  // Responsive width for TextField
-        }}
-        value={filters.state.name}
-        onChange={handleFilterName}
-        placeholder="Search your event name or ID's"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
-            </InputAdornment>
-          ),
-        }}
-      />
-    </Tooltip>
-
-    <Stack>
-            <Tooltip placement="top" arrow title="Filter event by status or name.">
-              <IconButton
-                onClick={popover.onOpen}
+            <Tooltip title="Click here to event by request name or ID's." arrow placement="top">
+              <TextField
                 sx={{
-                  mt: 0.9,
-                  position: 'relative',
-                  '&:hover': {
-                    backgroundColor: 'transparent', // Ensures there's no background ellipse
-                    '&::before': {
-                      content: '""',
-                      position: 'absolute',
-                      top: 2,
-                      left: 0,
-                      width: '100%',
-                      height: '80%',
-                      backgroundColor: '#919eab14', // Square background on hover
-                      borderRadius: '5px', // Ensures the shape is square, not rounded
-                      zIndex: -1, // Places the background behind the content
-                    },
-                  },
+                  width: { xs: '100%', sm: '300px', md: '394px' },  // Responsive width for TextField
                 }}
-              >
-                <Iconify icon="solar:filter-bold" sx={{ mt: -0.4, color: 'black' }} />
-                <Typography sx={{ color: 'black', fontWeight: '700', ml: 1, mt: -0.4 }}>
-                  Filter
-                </Typography>
-              </IconButton>
+                value={filters.state.name}
+                onChange={handleFilterName}
+                placeholder="Search your event name or ID's"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
+                    </InputAdornment>
+                  ),
+                }}
+              />
             </Tooltip>
-          </Stack>
-  </Stack>
 
-  {/* Uncomment and use if you want to add the filter icon button */}
-  {/* <IconButton
-    onClick={popover.onOpen}
-    sx={{
-      '&:hover': {
-        backgroundColor: 'transparent',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 2,
-          left: 0,
-          width: '100%',
-          height: '80%',
-          backgroundColor: '#919eab14',
-          borderRadius: '5px',
-          zIndex: -1,
-        },
-      },
-    }}
-  >
-    <Iconify icon="solar:filter-bold" sx={{ color: 'black' }} />
-    <Typography sx={{ color: 'black', fontSize: '13px', ml: 1, fontWeight: '400' }}>
-      Filter
-    </Typography>
-  </IconButton> */}
-</Stack>
+            <Stack>
+              <Tooltip placement="top" arrow title="Filter event by status or name.">
+                <IconButton
+                  onClick={popover.onOpen}
+                  sx={{
+                    mt: 0.9,
+                    position: 'relative',
+                    '&:hover': {
+                      backgroundColor: 'transparent', // Ensures there's no background ellipse
+                      '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 2,
+                        left: 0,
+                        width: '100%',
+                        height: '80%',
+                        backgroundColor: '#919eab14', // Square background on hover
+                        borderRadius: '5px', // Ensures the shape is square, not rounded
+                        zIndex: -1, // Places the background behind the content
+                      },
+                    },
+                  }}
+                >
+                  <Iconify icon="solar:filter-bold" sx={{ mt: -0.4, color: 'black' }} />
+                  <Typography sx={{ color: 'black', fontWeight: '700', ml: 1, mt: -0.4 }}>
+                    Filter
+                  </Typography>
+                </IconButton>
+              </Tooltip>
+            </Stack>
+          </Stack>
+        </Stack>
 
       </Stack>
 
@@ -261,7 +235,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
                         <FormControl fullWidth>
                           <Button
                             variant="outlined"
-                            style={{ fontSize: '14px', padding: '8px 40px' }}
+                            style={{ fontSize: '14px', padding: '7.4px 40px' }}
                           >
                             {label}
                           </Button>
@@ -282,7 +256,20 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
                             value={startDate}
                             minDate={dayjs('2017-01-01')}
                             onChange={(newValue) => setStartDate(newValue)}
-                            slotProps={{ textField: { fullWidth: true } }}
+                            slotProps={{
+                              textField: {
+                                fullWidth: true,
+                                sx: {
+                                  height: '44px',  // Adjust the height as desired
+                                  '& .MuiInputBase-root': {
+                                    height: '100%',  // Ensures the inner input adjusts with the outer height
+                                  },
+                                  '& .MuiInputBase-input': {
+                                    padding: '12px 14px',  // Adjust padding to fit the new height
+                                  },
+                                },
+                              },
+                            }}
                           />
                         </LocalizationProvider>
                       </Stack>
