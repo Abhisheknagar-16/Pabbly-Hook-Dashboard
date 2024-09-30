@@ -2,11 +2,11 @@ import { Helmet } from 'react-helmet-async';
 
 import { CONFIG } from 'src/config-global';
 
-import { JwtSignInView } from 'src/sections/auth/jwt';
+import { JwtForgotpassword } from 'src/sections/auth/jwt/jwt-forgot-password';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Sign in | Jwt - ${CONFIG.site.name}` };
+const metadata = { title: `Forgot password | Jwt - ${CONFIG.site.name}` };
 
 export default function Page() {
   return (
@@ -16,8 +16,8 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <JwtSignInView />
-      </>
+     <JwtForgotpassword/>
+     </>
   //  </div>
   );
 }
