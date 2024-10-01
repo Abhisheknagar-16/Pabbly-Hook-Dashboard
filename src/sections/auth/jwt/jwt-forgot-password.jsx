@@ -84,7 +84,7 @@ export function JwtForgotpassword() {
         </Typography>
 
         <Link component={RouterLink} href={paths.auth.jwt.signUp} variant="subtitle2">
-          Login here
+          Sign In 
         </Link> 
       </Stack>
     </Stack>

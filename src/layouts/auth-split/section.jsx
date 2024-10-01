@@ -182,6 +182,23 @@ export function Section({
       }}
       {...other}
     >
+       <Box
+        alignItems="left"
+        justifyContent="left"
+        position="fixed" // Set the position to relative for the box
+      />
+      <img
+        src="\public\logo\pabbly-logo1.svg" // Path 
+        alt="Logo "
+        style={{
+          position: 'absolute', // Make the image position absolute within the Box
+          top: '16px', // Adjust the Y-axis (vertical) position
+          left: '24px', // Adjust the X-axis (horizontal) position
+          width: '150px', // Set your desired width
+          height: '42.65px', // Auto height to maintain aspect ratio
+        }}
+      />
+
       <div>
         <Typography variant="h3" sx={{ textAlign: 'center' }}>
           {title}
@@ -199,15 +216,15 @@ export function Section({
         {services.map((service, index) => (
           <ListItem key={index}>
             <ListItemIcon>
-            <Iconify icon="mdi:tick-circle-outline"  style={{color: '#078dee'}} />
+            <Iconify icon="mdi:tick-circle-outline"  style={{color: '#0351ab'}} />
             </ListItemIcon>
             <ListItemText
-              primary={
-                <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                  {service.title}
-                </Typography>
-              }
-              secondary={<Typography variant="body2">{service.description}</Typography>}
+              // primary={
+              //   <Typography variant="h6" style={{ fontWeight: 'bold' }}>
+              //     {service.title}
+              //   </Typography>
+              // }
+              secondary={<Typography variant="body1">{service.description}</Typography>}
             />
           </ListItem>
         ))}

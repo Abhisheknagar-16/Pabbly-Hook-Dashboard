@@ -1,10 +1,12 @@
 import { z as zod } from 'zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import ReCAPTCHA from "react-google-recaptcha";
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
+import { Divider } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -46,7 +48,8 @@ export function JwtSignUpView() {
   const router = useRouter();
 
   const password = useBoolean();
-
+  const confirmpassword = useBoolean();
+  const [captchaValue, setCaptchaValue] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
 
   const defaultValues = {
@@ -67,6 +70,11 @@ export function JwtSignUpView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+    if (!captchaValue) {
+      setErrorMsg("Please complete the CAPTCHA");
+      return;
+    }
+
     try {
       await signUp({
         email: data.email,
@@ -83,19 +91,35 @@ export function JwtSignUpView() {
     }
   });
 
-  const renderHead = (
-    <Stack spacing={1.5} sx={{ mb: 5 }}>
-      <Typography variant="h5">Get started absolutely free</Typography>
+  const onCaptchaChange = (value) => {
+    setCaptchaValue(value);
+  };
 
+  const renderHead = (
+    <Stack spacing={1.5} sx={{ mb: 2 }}>
+      <Typography variant="h5">Sign Up to your account</Typography>
       <Stack direction="row" spacing={0.5}>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           Already have an account?
         </Typography>
 
         <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="subtitle2">
-          Sign in
+          Sign In
         </Link>
       </Stack>
+      <Stack direction="row" spacing={0.5}>
+        <LoadingButton
+          fullWidth
+          color="inherit"
+          size="large"
+          type="submit"
+          variant="outlined"
+          startIcon={<Iconify icon="devicon:google" />}
+        >
+          Sign Up with Google
+        </LoadingButton>
+      </Stack>
+      <Divider>or</Divider>
     </Stack>
   );
 
@@ -125,6 +149,27 @@ export function JwtSignUpView() {
         }}
       />
 
+      <Field.Text
+        name="confirmPassword"
+        label="Confirm Password"
+        placeholder="Confirm Password"
+        type={confirmpassword.value ? 'text' : 'password'}
+        helperText="Use 8 or more characters for password."
+        InputLabelProps={{ shrink: true }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={confirmpassword.onToggle} edge="end">
+                <Iconify icon={confirmpassword.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
+
+      {/* reCAPTCHA */}
+      <ReCAPTCHA sitekey="I'm not a robot" onChange={onCaptchaChange} />
+
       <LoadingButton
         fullWidth
         color="inherit"
@@ -134,7 +179,7 @@ export function JwtSignUpView() {
         loading={isSubmitting}
         loadingIndicator="Create account..."
       >
-        Create account
+        Sign Up
       </LoadingButton>
     </Stack>
   );
