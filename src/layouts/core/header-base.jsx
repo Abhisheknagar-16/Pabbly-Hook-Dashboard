@@ -6,10 +6,10 @@ import { styled, useTheme } from '@mui/material/styles';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
-import { Logo } from 'src/components/logo';
+// import { Logo } from 'src/components/logo';
 
 import { HeaderSection } from './header-section';
-// import { Searchbar } from '../components/searchbar';
+import { Searchbar } from '../components/searchbar';
 import { MenuButton } from '../components/menu-button';
 import { SignInButton } from '../components/sign-in-button';
 import { AccountDrawer } from '../components/account-drawer';
@@ -17,7 +17,7 @@ import { SettingsButton } from '../components/settings-button';
 // import { LanguagePopover } from '../components/language-popover';
 import { ContactsPopover } from '../components/contacts-popover';
 import { WorkspacesPopover } from '../components/workspaces-popover';
-// import { NotificationsDrawer } from '../components/notifications-drawer';
+import { NotificationsDrawer } from '../components/notifications-drawer';
 
 // ----------------------------------------------------------------------
 
@@ -57,17 +57,17 @@ export function HeaderBase({
   layoutQuery,
 
   slotsDisplay: {
-    signIn = true,
+    signIn = false,
     account = true,
-    helpLink = true,
+    helpLink = false,
     settings = true,
     purchase = true,
     contacts = true,
-    searchbar = true,
+    searchbar = false,
     workspaces = true,
     menuButton = true,
     localization = true,
-    notifications = true,
+    notifications = false,
   } = {},
 
   ...other
@@ -99,7 +99,7 @@ export function HeaderBase({
             )}
 
             {/* -- Logo -- */}
-            <Logo data-slot="logo" />
+            {/* <Logo data-slot="logo" /> */}
 
             {/* -- Divider -- */}
             <StyledDivider data-slot="divider" />
@@ -136,15 +136,15 @@ export function HeaderBase({
               )}
 
               {/* -- Searchbar -- */}
-              {/* {searchbar && <Searchbar data-slot="searchbar" data={data?.nav} />} */}
+              {searchbar && <Searchbar data-slot="searchbar" data={data?.nav} />}
 
               {/* -- Language popover -- */}
               {/* {localization && <LanguagePopover data-slot="localization" data={data?.langs} />} */}
 
               {/* -- Notifications popover -- */}
-              {/* {notifications && (
+              {notifications && (
                 <NotificationsDrawer data-slot="notifications" data={data?.notifications} />
-              )} */}
+              )}
 
               {/* -- Contacts popover -- */}
               {contacts && <ContactsPopover data-slot="contacts" data={data?.contacts} />}

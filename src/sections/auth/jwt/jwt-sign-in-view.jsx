@@ -77,7 +77,7 @@ export function JwtSignInView() {
 
   const renderHead = (
     <Stack spacing={1.5} sx={{ mb: 2}}>
-      <Typography variant="h5">Sign in to your account</Typography>
+      <Typography variant="h5">Sign In to your account</Typography>
 
       <Stack direction="row" spacing={0.5}>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -85,7 +85,7 @@ export function JwtSignInView() {
         </Typography>
 
         <Link component={RouterLink} href={paths.auth.jwt.signUp} variant="subtitle2">
-          Get started
+          Sign Up
         </Link> 
       </Stack>
       <Stack direction='row' spacing={0.5}>
@@ -101,7 +101,7 @@ export function JwtSignInView() {
         // loading={isSubmitting}
         // loadingIndicator="Sign in..."
       >
-        Login with Google
+        Sign In with Google
       </LoadingButton>
       </Stack>
       <Divider>or</Divider>
@@ -151,7 +151,7 @@ export function JwtSignInView() {
         loading={isSubmitting}
         loadingIndicator="Sign in..."
       >
-        Sign in
+        Sign In
       </LoadingButton>
     </Stack>
   );
