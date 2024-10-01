@@ -160,11 +160,11 @@ export function JwtSignInView() {
     <>
       {renderHead}
 
-      <Alert severity="info" sx={{ mb: 3 }}>
+      {/* <Alert severity="info" sx={{ mb: 3 }}>
         Use <strong>demo@pabbly.com</strong>
         {' with password '}
         <strong>{defaultValues.password}</strong>
-      </Alert>
+      </Alert> */}
 
       {!!errorMsg && (
         <Alert severity="error" sx={{ mb: 3 }}>
