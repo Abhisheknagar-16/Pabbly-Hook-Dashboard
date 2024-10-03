@@ -16,6 +16,7 @@ const Jwt = {
   SignInPage: lazy(() => import('src/pages/auth/jwt/sign-in')),
   SignUpPage: lazy(() => import('src/pages/auth/jwt/sign-up')),
   ForgotpasswordPage: lazy(() => import('src/pages/auth/jwt/forgot-password')),
+  ConfirmPage: lazy(() => import('src/pages/auth/jwt/confirm')),
 };
 
 const authJwt = {
@@ -47,6 +48,16 @@ const authJwt = {
         <GuestGuard>
           <AuthSplitLayout section={{ title: 'No Restrictions on Features !' }}>
             <Jwt.ForgotpasswordPage/>
+          </AuthSplitLayout>
+        </GuestGuard>
+      ),
+    },
+    {
+      path: 'confirm',
+      element: (
+        <GuestGuard>
+           <AuthSplitLayout section={{ title: 'No Restrictions on Features !' }} contentWidth="650px">
+            <Jwt.ConfirmPage/>
           </AuthSplitLayout>
         </GuestGuard>
       ),

@@ -13,26 +13,26 @@ const metadata = { title: `Sign up | Jwt - ${CONFIG.site.name}` };
 export default function Page() {
   return (
     <>
-    <Box
+      <Box
         sx={{
-          position: 'absolute',
-          top: { xs: 8, md: 16 },
-          right: { xs: 8, md: 16 },
+          position: { xs: 'relative', md: 'absolute' }, // Relative for mobile/tablet, absolute for laptop
+          top: { xs: 'auto', md: 16 }, // Top positioning only for laptop
+          right: { xs: 'auto', md: 16 }, // Right positioning only for laptop
           display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' }, // Stack items on smaller screens, row for desktop
-          alignItems: 'center', // Align items vertically
-          justifyContent: { xs: 'center', md: 'flex-start' }, // Center items on mobile, left-align on desktop
-          padding: { xs: 2, md: 0 }, // Add padding on mobile
-          gap: { xs: 1, md: 0 }, // Add gap between items on mobile, no gap on desktop
-          width: { xs: '100%', md: 'auto' }, // Full width on mobile, auto on desktop
+          flexDirection: { xs: 'column', md: 'row' }, // Column on mobile/tablet, row on laptop
+          alignItems: 'center',
+          justifyContent: { xs: 'center', md: 'flex-start' }, // Center for mobile/tablet, left-align for laptop
+          padding: { xs: 2, md: 0 }, // Padding for mobile/tablet
+          gap: { xs: 2, md: 0 }, // Gap for mobile/tablet
+          width: { xs: '100%', md: 'auto' }, // Full width on mobile/tablet
         }}
       >
         <Typography
           variant="body2"
           color="text.secondary"
           sx={{
-            marginRight: { xs: 0, md: 1 }, // Remove margin on mobile
-            textAlign: { xs: 'center', md: 'left' } // Center text on mobile, left-align on desktop
+            marginRight: { xs: 0, md: 1 }, // Remove margin on mobile/tablet, maintain on laptop
+            textAlign: { xs: 'center', md: 'left' }, // Center text for mobile/tablet, left-align for laptop
           }}
         >
           Already a user?
@@ -41,14 +41,15 @@ export default function Page() {
           variant="contained"
           color="success"
           sx={{
-            width: { xs: 'auto', md: 'auto' } // Full width on mobile, auto on desktop
+            // width: { xs: '100%', md: 'auto' }, // Full button width on mobile/tablet, auto on laptop
+            maxWidth: { xs: 'auto', md: '100px' }, // Optional max width for laptop view
           }}
         >
           Sign In
         </Button>
       </Box>
       <Helmet>
-        <title> {metadata.title}</title>
+        <title>{metadata.title}</title>
       </Helmet>
 
       <JwtSignUpView />
