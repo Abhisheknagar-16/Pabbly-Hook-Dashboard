@@ -215,11 +215,11 @@ export function JwtSignUpView() {
       }}
     >
       {'By signing up, I agree to '}
-      <Link underline="always" color="text.primary">
+      <Link  color="text.primary">
         Pabbly terms of service
       </Link>
       {' and '}
-      <Link underline="always" color="text.primary">
+      <Link  color="text.primary">
         privacy policy
       </Link>
       .
