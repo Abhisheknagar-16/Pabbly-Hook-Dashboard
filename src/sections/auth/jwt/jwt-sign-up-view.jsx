@@ -106,7 +106,7 @@ export function JwtSignUpView() {
 
   const renderHead = (
     <Stack spacing={1.5} sx={{ mb: 2 }}>
-      <Typography variant="h5">Sign Up to Pabbly account</Typography>
+      <Typography variant="h5">Sign Up for Pabbly account</Typography>
       <Stack direction="row" spacing={0.5}>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           Already have an account?
@@ -131,7 +131,7 @@ export function JwtSignUpView() {
             },
           }}
         >
-          Sign Up with Google
+          Sign up with Google
         </Button>
       </Stack>
       <Divider>or</Divider>
@@ -220,7 +220,7 @@ export function JwtSignUpView() {
       </Link>
       {' and '}
       <Link underline="always" color="text.primary">
-        Privacy policy
+        privacy policy
       </Link>
       .
     </Typography>

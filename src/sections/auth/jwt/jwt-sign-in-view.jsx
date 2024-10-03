@@ -113,7 +113,7 @@ export function JwtSignInView() {
             },
           }}
         >
-          Sign In with Google
+          Sign in with Google
         </Button>
       </Stack>
       <Divider>or</Divider>
