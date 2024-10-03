@@ -52,16 +52,15 @@ export function JwtConfirm() {
           <Divider sx={{ mt: 2 }} />
 
           <Typography sx={{ mt: 2 }}>
-            We have sent a verification email to{' '}
-            <Link href="mailto:ankitmandli2001@gmail.com" sx={{ fontWeight: 'bold', color: '#078dee' }}>
-              ankitmandli2001@gmail.com
+           We have sent a verification email to {' '}
+            <Link href="numeral-whale-32@inboxkitten.com." sx={{ fontWeight: 'bold', color: '#078dee' }}>
+            numeral-whale-32@inboxkitten.com
             </Link>
-            . Kindly check your inbox and verify.
+            . Please check your inbox and verify your email address.
           </Typography>
 
           <Typography sx={{ mt: 2 }}>
-            If you don&apos;t see the verification email in your inbox within 15 minutes, look for it in your junk mail folder.
-            If you find it there, please mark the email as &quot;Not Junk&quot;.
+           If you don&apos;t receive the email within 15 minutes, kindly check your spam or junk mail folder. If the email is there, please mark it as &ldquo;Not Junk&ldquo; to ensure future messages are delivered to your inbox.
           </Typography>
 
           <Button
