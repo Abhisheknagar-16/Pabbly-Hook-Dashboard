@@ -180,7 +180,7 @@ export function Section({
         position="fixed" // Set the position to relative for the box
       />
       <img
-        src="\public\logo\pabbly-logo1.svg" // Path 
+        src="\public\logo\pabbly-logo1.webp" // Path 
         alt="Logo "
         xmlns="http://www.w3.org/2000/svg"
         style={{
