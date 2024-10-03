@@ -112,7 +112,7 @@ export function Section({
     },
     {
       title: "Pabbly Hook",
-      description: "Effortless Event Handling for Scalable Applications.",
+      description: "Webhook event handling for scalable applications.",
       icon: (
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#clip0_2300_7124)">
@@ -131,7 +131,7 @@ export function Section({
     },
     {
       title: "Pabbly ChatFlow",
-      description: "Automate WhatsApp Conversations Effortlessly.",
+      description: "Automate WhatsApp conversation effortlessly.",
       icon: (
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#clip0_2300_7127)">
@@ -182,6 +182,7 @@ export function Section({
       <img
         src="\public\logo\pabbly-logo1.svg" // Path 
         alt="Logo "
+        xmlns="http://www.w3.org/2000/svg"
         style={{
           position: 'absolute', // Make the image position absolute within the Box
           top: '16px', // Adjust the Y-axis (vertical) position

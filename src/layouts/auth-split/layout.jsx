@@ -13,7 +13,7 @@ import { LayoutSection } from '../core/layout-section';
 
 // ----------------------------------------------------------------------
 
-export function AuthSplitLayout({ sx, section, children }) {
+export function AuthSplitLayout({ sx, section, children,contentWidth = '420px' }) {
   const mobileNavOpen = useBoolean();
 
   const layoutQuery = 'md';
@@ -59,7 +59,7 @@ export function AuthSplitLayout({ sx, section, children }) {
        *************************************** */
       sx={sx}
       cssVars={{
-        '--layout-auth-content-width': '420px',
+        '--layout-auth-content-width': contentWidth, // Use a prop to control this width
       }}
     >
       <Main layoutQuery={layoutQuery}>

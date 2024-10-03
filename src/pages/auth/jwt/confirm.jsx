@@ -1,23 +1,22 @@
 import { Helmet } from 'react-helmet-async';
 
-import { Box, Button, Typography } from '@mui/material';
-
-import { paths } from 'src/routes/paths';
-import { RouterLink } from 'src/routes/components';
+// import { Box, Button, Typography } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 
-import { JwtSignInView } from 'src/sections/auth/jwt';
+import { JwtConfirm } from 'src/sections/auth/jwt/jwt-confirm';
+
+// import { JwtForgotpassword } from 'src/sections/auth/jwt/jwt-forgot-password';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Sign in | Jwt - ${CONFIG.site.name}` };
+const metadata = { title: `Confirm Email | Jwt - ${CONFIG.site.name}` };
 
 export default function Page() {
   return (
     // <div style={{ backgroundColor: '#F5fffa', width: '100%', height: 'auto' }}>
     <>
-      <Box
+    {/* <Box
         sx={{
           position: 'absolute',
           top: { xs: 8, md: 16 },
@@ -41,10 +40,7 @@ export default function Page() {
         >
           Don&apos;t have a Pabbly Account yet?
         </Typography>
-
         <Button
-        component={RouterLink}
-        href={paths.auth.jwt.confirm}
           variant="contained"
           color="success"
           sx={{
@@ -53,14 +49,13 @@ export default function Page() {
         >
           Sign Up
         </Button>
-      </Box>
-
+      </Box> */}
       <Helmet>
         <title> {metadata.title}</title>
       </Helmet>
 
-      <JwtSignInView />
-    </>
-    //  </div>
+     <JwtConfirm/>
+     </>
+  //  </div>
   );
 }
