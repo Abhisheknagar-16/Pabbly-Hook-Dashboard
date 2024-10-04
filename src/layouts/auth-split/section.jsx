@@ -17,7 +17,7 @@ export function Section({
   method,
   layoutQuery,
   methods,
-  title = 'No Restrictions on Features !',
+  title = 'No Restrictions on Features!',
   subtitle = 'Scale & Grow Your Business with Pabbly.',
   ...other
 }) {

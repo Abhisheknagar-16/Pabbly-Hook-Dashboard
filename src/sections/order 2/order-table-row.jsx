@@ -1,18 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import MenuList from '@mui/material/MenuList';
-import Collapse from '@mui/material/Collapse';
 import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
-import ListItemText from '@mui/material/ListItemText';
 import {
   Grid,
   AppBar,
@@ -30,10 +27,53 @@ import { Iconify } from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
+// Random data generator
+const generateRandomData = () => {
+  const names = ['Rajpal Singh Tomar', 'Abhishek Nagar', 'Ankit Mandli', 'Ayush Bisen', 'Nikhil Patel'];
+  
+  const randomName = names[Math.floor(Math.random() * names.length)];
+  
+  // Generate a random date
+  const randomDate = new Date(Date.now() - Math.random() * 10000000000).toISOString();
+  
+  // Generate a random Transformation ID
+  const randomTransformationID = `trs_66fe${Math.random().toString(36).substring(2, 36)}`;
+  
+  return {
+    TransformationName: randomName,
+    TransformationCreated: randomDate,
+    TransformationID: randomTransformationID, // Add the random ID to the returned object
+  };
+};
+
+// Date formatting function
+const formatDate = (dateString) => {
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    fractionalSecondDigits: 3,
+  };
+  const date = new Date(dateString);
+  return date.toLocaleString('en-US', options).replace(',', '');
+};
+
 export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
   const confirm = useBoolean();
-  const collapse = useBoolean();
   const popover = usePopover();
+
+  // State to hold random data
+  const [randomData, setRandomData] = useState({});
+
+  // Generate random data on component mount
+  useEffect(() => {
+    setRandomData(generateRandomData());
+  }, []); // Empty dependency array ensures it runs once on mount
+  
+  const { TransformationName, TransformationCreated, TransformationID } = randomData; // Destructure the new ID
 
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -66,12 +106,16 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-start',
             }}
           >
-            <Box component="span"><Tooltip title="Transformation Name" arrow placement="top">Rajpal Singh Tomar</Tooltip></Box>
+            <Box component="span"><Tooltip title={`Transformation Name: ${TransformationName}`} arrow placement='top'>
+                  {TransformationName}
+              </Tooltip></Box>
             <Box
               component="span"
               sx={{ color: 'text.disabled', fontSize: '12px', fontWeight: 400 }}
             >
-              <Tooltip title="Transformation Created: Aug 23, 2024 17:36:44.929" arrow placement="top">Aug 23, 2024 17:36:44.929</Tooltip>
+             <Tooltip title={`Transformation Created: ${formatDate(TransformationCreated)}`} arrow placement='top'>
+                {formatDate(TransformationCreated)}
+              </Tooltip>
             </Box>
           </Stack>
         </Stack>
@@ -87,12 +131,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             }}
           >
             <Box component="span">
-              <Tooltip title="Transformation ID " arrow placement="top">trs_66c87b54a2b7dc2c1740d639</Tooltip>
-              <Tooltip title="Copy transformation_id " arrow placement="bottom">
+              <Tooltip title={`Transformation ID: ${TransformationID}`} arrow placement="top">{TransformationID}</Tooltip>
+              <Tooltip title="Copy transformation_id" arrow placement="bottom">
                 <IconButton
                   edge="end"
                   sx={{ color: 'text.disabled' }}
-                  onClick={() => navigator.clipboard.writeText('trs_66c87b54a2b7dc2c1740d639')}
+                  onClick={() => navigator.clipboard.writeText(TransformationID)} // Use the random ID
                 >
                   <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
                 </IconButton>
@@ -113,60 +157,17 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             sx={{ color: 'primary.main', cursor: 'pointer' }}
             onClick={handleOpenDrawer}
           >
-            {'(transformation, context) =>'}
-          </Box></Tooltip>
+            {'(transformation, context) =>' }
+          </Box>
+        </Tooltip>
       </TableCell>
     </TableRow>
   );
 
-  const renderSecondary = (
-    <TableRow>
-      <TableCell sx={{ p: 0, border: 'none' }} colSpan={8}>
-        {' '}
-        {/* Adjust colSpan according to the number of columns in your table */}
-        <Collapse
-          in={collapse.value}
-          timeout="auto"
-          unmountOnExit
-          sx={{ bgcolor: 'background.neutral', width: '100%' }}
-        >
-          <Paper sx={{ m: 1.5 }}>
-            {row.items.map((item) => (
-              <Stack
-                key={item.id}
-                direction="row"
-                alignItems="center"
-                sx={{
-                  p: (theme) => theme.spacing(1.5, 2, 1.5, 1.5),
-                  '&:not(:last-of-type)': {
-                    borderBottom: (theme) => `solid 2px ${theme.vars.palette.background.neutral}`,
-                  },
-                }}
-              >
-                <ListItemText
-                  primary="Verification Token:************"
-                  secondary={item.sku}
-                  primaryTypographyProps={{ typography: 'body2' }}
-                  secondaryTypographyProps={{
-                    component: 'span',
-                    color: 'text.disabled',
-                    mt: 0.5,
-                  }}
-                />
-                {/* <div>x{item.quantity} </div> */}
-                {/* <Box sx={{ width: 110, textAlign: 'right' }}>{fCurrency(item.price)}</Box> */}
-              </Stack>
-            ))}
-          </Paper>
-        </Collapse>
-      </TableCell>
-    </TableRow>
-  );
 
   return (
     <>
       {renderPrimary}
-      {renderSecondary}
       <CustomPopover
         open={popover.open}
         anchorEl={popover.anchorEl}
@@ -220,7 +221,6 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           },
         }}
       >
-        {/* <Card component="ul" position="relative" float="left"> */}
         <AppBar
           sx={{ bgcolor: '#fff', padding: 2 }}
           position="relative"
@@ -240,10 +240,6 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             >
               <Iconify icon="mingcute:close-line" />
             </IconButton>
-            {/* You can uncomment this Button if you need a Save button */}
-            {/* <Button autoFocus color="inherit" variant="contained" onClick={dialog.onFalse}>
-            Save
-          </Button> */}
           </Toolbar>
           <Typography
             sx={{
@@ -255,17 +251,17 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               fontWeight: 700,
             }}
           >
-            Rajpal Singh Tomar
+            {TransformationName} {/* Display the random name */}
           </Typography>
           <Typography
             sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}
           >
-            trs_66c87b54a2b7dc2c1740d639
-            <Tooltip title="Copy transformation_id " arrow placement="bottom">
+            {TransformationID} {/* Display the random ID */}
+            <Tooltip title="Copy transformation_id" arrow placement="bottom">
               <IconButton
                 edge="end"
                 sx={{ color: 'text.disabled' }}
-                onClick={() => navigator.clipboard.writeText('trs_66c87b54a2b7dc2c1740d639')}
+                onClick={() => navigator.clipboard.writeText(TransformationID)} // Use the random ID
               >
                 <Iconify sx={{ mt: -0.2 }} width={15} icon="solar:copy-bold" />
               </IconButton>
@@ -285,52 +281,23 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               <Typography variant="body2" sx={{mt:1}}>Name</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField
-                disabled
-                value="Rajpal Singh Tomar"
-                fullWidth
-                variant="outlined"
-                size="small"
-              />
+              <TextField 
+               disabled size="small" fullWidth value={TransformationName} />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{mt:1}}>Created At</Typography>
+              <Typography variant="body2" sx={{mt:1}}>Created</Typography>
             </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField
-                disabled
-                value="2024-08-23T12:06:44.929Z"
-                fullWidth
-                variant="outlined"
-                size="small"
-              />
+            <Grid item xs={100} sm={8} md={9} lg={10} xl={10}>
+              <TextField disabled size="small" fullWidth value={formatDate(TransformationCreated)} />
             </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{mt:1}}>TRS ID</Typography>
+            <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
+              <Typography variant="body2" sx={{mt:1}}>ID</Typography>
             </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField
-                disabled
-                value="trs_66c87b54a2b7dc2c1740d639"
-                fullWidth
-                variant="outlined"
-                size="small"
-              />
+            <Grid item xs={100} sm={8} md={9} lg={10} xl={10}>
+              <TextField disabled size="small" fullWidth value={TransformationID} />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{mt:1}}>Last Updated At</Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField
-                disabled
-                value="2024-08-23T12:06:44.930Z"
-                fullWidth
-                variant="outlined"
-                size="small"
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{mt:1}}>Transformation Code</Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>Transformation Code</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <Box
@@ -367,12 +334,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                   }}
                   wrapLongLines  // Ensure code lines don't overflow horizontally
                 >
-                  {`(transformation, context) => {
+                  {`(Transformation, context) => {
     // Initialize a counter
     let itemCounter = 0;
     // Process a list of items
-    transformation.payload.items = transformation.payload.items || [];
-    transformation.payload.items.forEach(item => {
+    Transformation.payload.items = Transformation.payload.items || [];
+    Transformation.payload.items.forEach(item => {
       if (item.status === 'active') {
         itemCounter++;
         item.updated_at = new Date().toISOString();
@@ -382,23 +349,23 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     });
 
     // Add a summary field
-    transformation.payload.summary = {
+    Transformation.payload.summary = {
       activeItemCount: itemCounter,
-      totalItems: transformation.payload.items.length
+      totalItems: Transformation.payload.items.length
     };
 
     // Add a new header
-    transformation.headers['X-Item-Count'] = itemCounter.toString();
+    Transformation.headers['X-Item-Count'] = itemCounter.toString();
 
     // Process query parameters
-    transformation.queryParams.processedAt = new Date().toISOString();
+    Transformation.queryParams.processedAt = new Date().toISOString();
 
     // Error handling for missing fields
-    if (!transformation.payload.items.length) {
+    if (!request.payload.items.length) {
       throw new Error('No items to process');
     }
 
-    return transformation;
+    return Transformation;
   }`}
                 </SyntaxHighlighter>
 
@@ -412,12 +379,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                     color: 'text.disabled',
                   }}
                   onClick={() =>
-                    navigator.clipboard.writeText((transformation, context) => {
+                    navigator.clipboard.writeText((Transformation, context) => {
                       // Initialize a counter
                       let itemCounter = 0;
                       // Process a list of items
-                      transformation.payload.items = transformation.payload.items || [];
-                      transformation.payload.items.forEach((item) => {
+                      Transformation.payload.items = Transformation.payload.items || [];
+                      Transformation.payload.items.forEach((item) => {
                         if (item.status === 'active') {
                           itemCounter += 1; // Avoiding ++ operator
                           item.updated_at = new Date().toISOString();
@@ -427,36 +394,34 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                       });
 
                       // Add a summary field
-                      transformation.payload.summary = {
+                      Transformation.payload.summary = {
                         activeItemCount: itemCounter,
-                        totalItems: transformation.payload.items.length,
+                        totalItems: Transformation.payload.items.length,
                       };
 
                       // Add a new header
-                      transformation.headers['X-Item-Count'] = itemCounter.toString();
+                      Transformation.headers['X-Item-Count'] = itemCounter.toString();
 
                       // Process query parameters
-                      transformation.queryParams.processedAt = new Date().toISOString();
+                      Transformation.queryParams.processedAt = new Date().toISOString();
 
                       // Error handling for missing fields
-                      if (!transformation.payload.items.length) {
+                      if (!Transformation.payload.items.length) {
                         throw new Error('No items to process');
                       }
 
-                      return transformation;
+                      return Transformation;
                     })
                   }
                 >
-                  <Tooltip title="Copy transformation_code" arrow placement="bottom">
+                  <Tooltip title="Copy Transformation_code" arrow placement="bottom">
                     <Iconify width={16} icon="solar:copy-bold" />
                   </Tooltip>
                 </IconButton>
               </Box>
             </Grid>
-
           </Grid>
         </Box>
-        {/* </Card> */}
       </Drawer>
     </>
   );
