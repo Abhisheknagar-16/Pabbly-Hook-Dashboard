@@ -1,14 +1,13 @@
+import React, { useState,useEffect } from 'react';
+
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import MenuList from '@mui/material/MenuList';
-import Collapse from '@mui/material/Collapse';
 import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
-import ListItemText from '@mui/material/ListItemText';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -21,10 +20,54 @@ import { Iconify } from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
+// Random data generator
+const generateRandomData = () => {
+  const names = ['Rajpal Singh Tomar', 'Ankit Kumar', 'Priya Sharma', 'Amit Verma', 'Sneha Gupta'];
+  const statuses = ['Inactive'];
+  
+  const randomName = names[Math.floor(Math.random() * names.length)];
+  const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+  
+  // Generate a random date
+  const randomDate = new Date(Date.now() - Math.random() * 10000000000).toISOString();
+  
+  return {
+    connectionName: randomName,
+    status: randomStatus,
+    connectionDate: randomDate,
+    requests: Math.floor(Math.random() * 10),
+    events: Math.floor(Math.random() * 10),
+  };
+};
+
+// Date formatting function
+const formatDate = (dateString) => {
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    fractionalSecondDigits: 3,
+  };
+  const date = new Date(dateString);
+  return date.toLocaleString('en-US', options).replace(',', '');
+};
+
 export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
   const confirm = useBoolean();
-  const collapse = useBoolean();
   const popover = usePopover();
+
+  // State to hold random data
+  const [randomData, setRandomData] = useState({});
+
+  // Generate random data on component mount
+  useEffect(() => {
+    setRandomData(generateRandomData());
+  }, []); // Empty dependency array ensures it runs once on mount
+  
+  const { connectionName, status, connectionDate, requests, events } = randomData;
 
   const renderPrimary = (
     <TableRow hover selected={selected}>
@@ -63,9 +106,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         component="span"
         sx={{ color: 'text.disabled', fontSize: '12px', fontWeight: 400 }}
       >
-      <Tooltip title="Connection Date: Aug 8, 2024 15:25:33.366" arrow placement='top'>
-        Aug 8, 2024 15:25:33.366
-        </Tooltip>
+      <Tooltip title={`Connection Date: ${formatDate(connectionDate)}`} arrow placement='top'>
+         {formatDate(connectionDate)}
+      </Tooltip>
       </Box>
     </Stack>
   </Stack>
@@ -85,14 +128,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 style={{ textDecoration: 'none', color: '#078dee' }}
                 href="http://localhost:3030/dashboard/"
               >
-              <Tooltip title="Connection Name: Rajpal Singh Tomar" arrow placement='top'>
-                Rajpal Singh Tomar
-                </Tooltip>
+              <Tooltip title={`Connection Name: ${connectionName}`} arrow placement='top'>
+                  {connectionName}
+              </Tooltip>
               </a>
             </Box>
             <Typography sx={{ color: ' #919eab ', fontSize: '14px' }}>
-            <Tooltip title="Folder Name: Ankit" arrow placement='top'>
-            Ankit
+            <Tooltip title="Folder Name: Trash" arrow placement='top'>
+            Trash
             </Tooltip>
             </Typography>
             <Box
@@ -124,7 +167,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 href=" dashboard/four"
               >
               <Tooltip title="Status of the requests" arrow placement='top'>
-                0 Requests
+                  {requests} Requests
                 </Tooltip>
               </a>
             </Box>
@@ -138,7 +181,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 href="http://localhost:3030/dashboard/five"
               >
               <Tooltip title="Status of the events" arrow placement='top'>
-                0 events
+                  {events} events
                 </Tooltip>
               </a>
             </Box>
@@ -162,50 +205,10 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     </TableRow>
   );
 
-  const renderSecondary = (
-    <TableRow>
-     <TableCell sx={{ p: 0, border: 'none' }} colSpan={8}>
-        <Collapse
-          in={collapse.value}
-          timeout="auto"
-          unmountOnExit
-          sx={{ bgcolor: 'background.neutral', width: '100%' }}
-        >
-          <Paper sx={{ m: 1.5 }}>
-            {row.items.map((item) => (
-              <Stack
-                key={item.id}
-                direction="row"
-                alignItems="center"
-                sx={{
-                  p: (theme) => theme.spacing(1.5, 2, 1.5, 1.5),
-                  '&:not(:last-of-type)': {
-                    borderBottom: (theme) => `solid 2px ${theme.vars.palette.background.neutral}`,
-                  },
-                }}
-              >
-                <ListItemText
-                  primary="Verification Token:************"
-                  secondary={item.sku}
-                  primaryTypographyProps={{ typography: 'body2' }}
-                  secondaryTypographyProps={{
-                    component: 'span',
-                    color: 'text.disabled',
-                    mt: 0.5,
-                  }}
-                />
-              </Stack>
-            ))}
-          </Paper>
-        </Collapse>
-      </TableCell>
-    </TableRow>
-  );
 
   return (
     <>
       {renderPrimary}
-      {renderSecondary}
       <CustomPopover
         open={popover.open}
         anchorEl={popover.anchorEl}

@@ -26,7 +26,7 @@ const authJwt = {
       path: 'sign-in',
       element: (
         <GuestGuard>
-          <AuthSplitLayout section={{ title: 'No Restrictions on Features !' }}>
+          <AuthSplitLayout section={{ title: 'No Restrictions on Features!' }}>
             <Jwt.SignInPage />
           </AuthSplitLayout>
         </GuestGuard>
@@ -46,7 +46,7 @@ const authJwt = {
       path: 'forgot-password',
       element: (
         <GuestGuard>
-          <AuthSplitLayout section={{ title: 'No Restrictions on Features !' }}>
+          <AuthSplitLayout section={{ title: 'No Restrictions on Features!' }}>
             <Jwt.ForgotpasswordPage/>
           </AuthSplitLayout>
         </GuestGuard>
@@ -56,9 +56,9 @@ const authJwt = {
       path: 'confirm',
       element: (
         <GuestGuard>
-           <AuthSplitLayout section={{ title: 'No Restrictions on Features !' }} contentWidth="650px">
+           {/* <AuthSplitLayout section={{ title: 'No Restrictions on Features!' }} contentWidth="650px"> */}
             <Jwt.ConfirmPage/>
-          </AuthSplitLayout>
+          {/* </AuthSplitLayout> */}
         </GuestGuard>
       ),
     },

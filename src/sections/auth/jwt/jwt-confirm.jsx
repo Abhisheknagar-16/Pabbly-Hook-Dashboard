@@ -1,7 +1,7 @@
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { Box, Paper, Button, Divider } from '@mui/material';
+import { Box, Card, Button, Divider, } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
@@ -11,7 +11,7 @@ import { RouterLink } from 'src/routes/components';
 export function JwtConfirm() {
 
   const renderHead = (
-    <Stack spacing={1.5} sx={{ mb: 5 }}>
+    <Stack spacing={1.5} sx={{ mb: 0,mt:26}}>
       <Box
         sx={{
           display: 'flex',
@@ -20,14 +20,13 @@ export function JwtConfirm() {
         }}
       >
         {/* Confirm Email Box */}
-        <Paper
-          elevation={3}
+        <Card
           sx={{
             padding: '2rem',
             textAlign: 'center',
             maxWidth: '650px',
             backgroundColor: '#fff',
-            borderRadius: '8px',
+            borderRadius: '16px',
             width: '100%',
             '@media (max-width: 1024px)': {
               maxWidth: '90%', // Responsive width for laptops with 1024px screen
@@ -75,7 +74,8 @@ export function JwtConfirm() {
           <Link href="#" sx={{ display: 'block', mt: 2, color: '#078dee', cursor: 'pointer' }}>
             Resend Verification Email
           </Link>
-        </Paper>
+        </Card>
+
       </Box>
     </Stack>
   );

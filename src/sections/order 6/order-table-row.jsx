@@ -1,19 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import MenuList from '@mui/material/MenuList';
-import Collapse from '@mui/material/Collapse';
 import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
-// import IconButton from '@mui/material/IconButton';
-import ListItemText from '@mui/material/ListItemText';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -41,8 +37,53 @@ import { usePopover, CustomPopover } from 'src/components/custom-popover';
 // import { Typography } from 'src/theme/core';
 
 // import { FullScreenDialog } from '../dialog-view/full-screen-dialog';
+const generateRandomData = () => {
+  const names = ['Rajpal Singh Tomar', 'Abhishek Nagar', 'Ankit Mandli', 'Ayush Bisen', 'Nikhil Patel'];
+  
+  const randomName = names[Math.floor(Math.random() * names.length)];
+  
+  // Generate a random date
+  const randomDate = new Date(Date.now() - Math.random() * 10000000000).toISOString();
+  
+  // Generate a random Transformation ID
+  const randomRequestId = `req_66fe${Math.random().toString(36).substring(2, 36)}`;
+  
+  return {
+    RequestName: randomName,
+    Requestdate: randomDate,
+    RequestId: randomRequestId, // Add the random ID to the returned object
+  };
+};
+
+// Date formatting function
+const formatDate = (dateString) => {
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    fractionalSecondDigits: 3,
+  };
+  const date = new Date(dateString);
+  return date.toLocaleString('en-US', options).replace(',', '');
+};
+
 export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
+
+  // State to hold random data
+  const [randomData, setRandomData] = useState({});
+
+  // Generate random data on component mount
+  useEffect(() => {
+    setRandomData(generateRandomData());
+  }, []); // Empty dependency array ensures it runs once on mount
+  
+  const { RequestName, Requestdate, RequestId } = randomData; // Destructure the new ID
+
+
   const handleOpenSnackbar = () => {
     setOpenSnackbar(true);
   };
@@ -58,7 +99,6 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   // Function to copy text to clipboard
   const handleCopy = (text) => { };
   const confirm = useBoolean();
-  const collapse = useBoolean();
   const popover = usePopover();
 
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -114,12 +154,16 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 {row.status}
               </Label>
             </Tooltip>
-           <Box sx={{ mt: 0}} fontSize={14}>Ankit Singh Parmar</Box>  
-            <Box
+           <Box component="span"><Tooltip title={`Request Name: ${RequestName}`} arrow placement='top'>
+                  {RequestName}
+              </Tooltip></Box> 
+              <Box
               component="span"
-              sx={{ color: 'text.disabled', mt: 0, fontSize: '12px', fontWeight: 400 }}
+              sx={{ color: 'text.disabled', fontSize: '12px', fontWeight: 400 }}
             >
-              Aug 23, 2024 17:36:44.929
+             <Tooltip title={`Request date: ${formatDate(Requestdate)}`} arrow placement='top'>
+                {formatDate(Requestdate)}
+              </Tooltip>
             </Box>
           </Stack>
         </Stack>
@@ -135,12 +179,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             }}
           >
             <Box component="span">
-            <Tooltip title="Request ID " arrow placement="top">req_66c87b54a2b7dc2c1740d639</Tooltip>
-              <Tooltip title="Copy request_id " arrow placement="bottom">
+              <Tooltip title={`Request ID: ${RequestId}`} arrow placement="top">{RequestId}</Tooltip>
+              <Tooltip title="Copy request_id" arrow placement="bottom">
                 <IconButton
                   edge="end"
                   sx={{ color: 'text.disabled' }}
-                  onClick={() => navigator.clipboard.writeText('req_66c87b54a2b7dc2c1740d639')}
+                  onClick={() => navigator.clipboard.writeText(RequestId)} // Use the random ID
                 >
                   <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
                 </IconButton>
@@ -182,49 +226,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     </TableRow>
   );
 
-  const renderSecondary = (
-    <TableRow>
-      <TableCell sx={{ p: 0, border: 'none' }} colSpan={8}>
-        <Collapse
-          in={collapse.value}
-          timeout="auto"
-          unmountOnExit
-          sx={{ bgcolor: 'background.neutral', width: '100%' }}
-        >
-          <Paper sx={{ m: 1.5 }}>
-            {row.items.map((item) => (
-              <Stack
-                key={item.id}
-                direction="row"
-                alignItems="center"
-                sx={{
-                  p: (theme) => theme.spacing(1.5, 2, 1.5, 1.5),
-                  '&:not(:last-of-type)': {
-                    borderBottom: (theme) => `solid 2px ${theme.vars.palette.background.neutral}`,
-                  },
-                }}
-              >
-                <ListItemText
-                  primary="Verification Token:************"
-                  secondary={item.sku}
-                  primaryTypographyProps={{ typography: 'body2' }}
-                  secondaryTypographyProps={{
-                    component: 'span',
-                    color: 'text.disabled',
-                    mt: 0.5,
-                  }}
-                />
-              </Stack>
-            ))}
-          </Paper>
-        </Collapse>
-      </TableCell>
-    </TableRow >
-  );
   return (
     <>
       {renderPrimary}
-      {renderSecondary}
       <CustomPopover
         open={popover.open}
         anchorEl={popover.anchorEl}
@@ -309,12 +313,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               fontWeight: 700,
             }}
           >
-            Rajpal Singh Tomar
+             {RequestName} {/* Display the random name */}
           </Typography>
           <Typography
             sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}
           >
-            req_66c87b54a2b7dcc1740d639
+            {RequestId} {/* Display the random ID */}
             <Tooltip title="Copy request_id " arrow placement="bottom">
                   <IconButton
                     edge="end"
@@ -371,13 +375,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               <Typography variant="body2" sx={{mt:1}}>Content lenght </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField
-                disabled
-                value="req_66c87b54a2b7dc2c1740d639"
-                fullWidth
-                variant="outlined"
-                size="small"
-              />
+            <TextField disabled size="small" fullWidth value={RequestId} />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{mt:1}}>Content type</Typography>
