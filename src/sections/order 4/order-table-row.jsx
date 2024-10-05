@@ -29,16 +29,20 @@ import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 // Random data generator
 const generateRandomData = () => {
-  const names = ['Rajpal Singh Tomar', 'Ankit Kumar', 'Priya Sharma', 'Amit Verma', 'Sneha Gupta'];
+  const names = ['Rajpal Singh Tomar', 'Abhishek Nagar', 'Ankit Mandli', 'Ayush Bisen', 'Nikhil Patel'];
 
   const randomName = names[Math.floor(Math.random() * names.length)];
 
   // Generate a random date
   const randomDate = new Date(Date.now() - Math.random() * 10000000000).toISOString();
 
+    // Generate a random Issue ID
+    const randomIssueID = `isu_66fe${Math.random().toString(36).substring(2, 36)}`;
+
   return {
     IssueName: randomName,
     IssueApplied: randomDate,
+    IssueID: randomIssueID, // Add the random ID to the returned object
   };
 };
 
@@ -70,7 +74,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     setRandomData(generateRandomData());
   }, []); // Empty dependency array ensures it runs once on mount
 
-  const { IssueName, IssueApplied } = randomData;
+  const { IssueName, IssueApplied, IssueID} = randomData;
 
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -128,7 +132,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             }}
           >
             <Box component="span">
-              <Tooltip title="Issue ID " arrow placement="top">isu_66c87b54a2b7dc2c1740d639</Tooltip>
+            <Tooltip title={`Issue ID: ${IssueID}`} arrow placement="top">{IssueID}</Tooltip>
               <Tooltip title="Copy issue_id " arrow placement="bottom">
                 <IconButton
                   edge="end"
@@ -251,12 +255,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               fontWeight: 700,
             }}
           >
-            Rajpal Singh Tomar
+           {IssueName}
           </Typography>
           <Typography
             sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}
           >
-            isu_66c87b54a2b7dc2c1740d639
+            {IssueID}
             <Tooltip title="Copy issue_id " arrow placement="bottom">
               <IconButton
                 edge="end"
@@ -279,37 +283,21 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               <Typography variant="body2" sx={{ mt: 1 }}>Name</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField
-                disabled
-                value="Rajpal Singh Tomar"
-                fullWidth
-                variant="outlined"
-                size="small"
-              />
+            <TextField 
+               disabled size="small" fullWidth value={IssueName} />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>Applied At</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField
-                disabled
-                value="2024-08-23T12:06:44.929Z"
-                fullWidth
-                variant="outlined"
-                size="small"
-              />
+            <TextField disabled size="small" fullWidth value={formatDate(IssueApplied)} />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>ISU ID</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField
-                disabled
-                value="isu_66c87b54a2b7dc2c1740d639"
-                fullWidth
-                variant="outlined"
-                size="small"
-              />
+            <TextField 
+               disabled size="small" fullWidth value={IssueID} />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>Last Updated At</Typography>

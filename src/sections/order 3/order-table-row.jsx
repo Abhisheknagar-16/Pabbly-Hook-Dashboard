@@ -1,16 +1,15 @@
+import React, { useState, useEffect } from 'react';
+
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import MenuList from '@mui/material/MenuList';
-import Collapse from '@mui/material/Collapse';
 import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import { Tooltip, Typography } from '@mui/material';
-import ListItemText from '@mui/material/ListItemText';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -23,6 +22,43 @@ import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 import { FullScreenDialog } from '../dialog-view/full-screen-dialog';
 
+const generateRandomData = () => {
+  const names = ['Rajpal Singh Tomar', 'Abhishek Nagar', 'Ankit Mandli', 'Ayush Bisen', 'Nikhil Patel'];
+
+  const statuses = ['Accepted', 'Blocked'];
+
+  const randomName = names[Math.floor(Math.random() * names.length)];
+  const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+
+  // Generate a random date
+  const randomDate = new Date(Date.now() - Math.random() * 10000000000).toISOString();
+
+  // Generate a random Transformation ID
+  const randomRequestId = `req_66fe${Math.random().toString(36).substring(2, 36)}`;
+
+  return {
+    EventName: randomName,
+    Eventdate: randomDate,
+    status: randomStatus,
+    EventId: randomRequestId, // Add the random ID to the returned object
+  };
+};
+
+// Date formatting function
+const formatDate = (dateString) => {
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    fractionalSecondDigits: 3,
+  };
+  const date = new Date(dateString);
+  return date.toLocaleString('en-US', options).replace(',', '');
+};
+
 export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
   // List of items to copy
   const copyItems = [
@@ -34,8 +70,17 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   ];
   const handleCopy = (text) => { };
 
+    // State to hold random data
+    const [randomData, setRandomData] = useState({});
+
+    // Generate random data on component mount
+    useEffect(() => {
+      setRandomData(generateRandomData());
+    }, []); // Empty dependency array ensures it runs once on mount
+  
+    const { EventName, Eventdate, EventId } = randomData; // Destructure the new ID
+
   const confirm = useBoolean();
-  const collapse = useBoolean();
   const popover = usePopover();
 
   const renderPrimary = (
@@ -70,6 +115,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               }
               arrow
               placement='top'
+              disableHoverListener={row.status !== 'success' && row.status !== 'rejected'}
             >
               <Label
                 variant="soft"
@@ -84,8 +130,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               </Label>
 
             </Tooltip>
-            <Box sx={{ mt: 0.5, }} fontSize={14} component="span">
-              <Tooltip title="Connection Name: Rajpal singh Tomar" arrow placement='top'>Rajpal singh Tomar</Tooltip></Box>
+            <Box component="span"><Tooltip title={`Event Name: ${EventName}`} arrow placement='top'>
+              {EventName}
+            </Tooltip></Box>
             <Box
               component="span"
               sx={{ color: 'text.disabled', fontSize: '12px', fontWeight: 400 }}
@@ -94,8 +141,8 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               component="span"
               sx={{ color: 'text.disabled', fontSize: '12px', fontWeight: 400 }}
             >
-              <Tooltip title="Events Date: Aug 8, 2024 15:25:33.366" arrow placement='top'>
-                Aug 8, 2024 15:25:33.366
+              <Tooltip title={`Event date: ${formatDate(Eventdate)}`} arrow placement='top'>
+                {formatDate(Eventdate)}
               </Tooltip>
             </Box>
           </Stack>
@@ -165,50 +212,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     </TableRow>
   );
 
-  const renderSecondary = (
-    <TableRow>
-      <TableCell sx={{ p: 0, border: 'none' }} colSpan={8}>
-        <Collapse
-          in={collapse.value}
-          timeout="auto"
-          unmountOnExit
-          sx={{ bgcolor: 'background.neutral', width: '100%' }}
-        >
-          <Paper sx={{ m: 1.5 }}>
-            {row.items.map((item) => (
-              <Stack
-                key={item.id}
-                direction="row"
-                alignItems="center"
-                sx={{
-                  p: (theme) => theme.spacing(1.5, 2, 1.5, 1.5),
-                  '&:not(:last-of-type)': {
-                    borderBottom: (theme) => `solid 2px ${theme.vars.palette.background.neutral}`,
-                  },
-                }}
-              >
-                <ListItemText
-                  primary="Verification Token:************"
-                  secondary={item.sku}
-                  primaryTypographyProps={{ typography: 'body2' }}
-                  secondaryTypographyProps={{
-                    component: 'span',
-                    color: 'text.disabled',
-                    mt: 0.5,
-                  }}
-                />
-              </Stack>
-            ))}
-          </Paper>
-        </Collapse>
-      </TableCell>
-    </TableRow>
-  );
-
   return (
     <>
       {renderPrimary}
-      {renderSecondary}
       <CustomPopover
         open={popover.open}
         anchorEl={popover.anchorEl}

@@ -87,16 +87,16 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-start',
             }}
           >
-            <Tooltip placement='top' arrow title={status === 'Active' ? 'Connection is Active' : 'Connection is Inactive'}>
+            <Tooltip placement='top' arrow title={row.status === 'Active' ? 'Connection is Active' : 'Connection is Inactive'}>
               <Label
                 variant="soft"
                 color={
-                  (status === 'Active' && 'success') ||
-                  (status === 'Inactive' && 'error') ||
+                  (row.status === 'Active' && 'success') ||
+                  (row.status === 'Inactive' && 'error') ||
                   'default'
                 }
               >
-                {status}
+                {row.status}
               </Label>
             </Tooltip>
             <Box

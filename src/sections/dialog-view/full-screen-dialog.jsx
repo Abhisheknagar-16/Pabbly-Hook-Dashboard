@@ -1,18 +1,12 @@
 import React, { forwardRef } from 'react';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
-// import Box from '@mui/material/Box';
 import Slide from '@mui/material/Slide';
 import Button from '@mui/material/Button';
 import AppBar from '@mui/material/AppBar';
-// import Dialog from '@mui/material/Dialog';
-// import Divider from '@mui/material/Divider';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-// import ListItemText from '@mui/material/ListItemText';
-// import ListItemButton from '@mui/material/ListItemButton';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-
 import { Box, Grid, Alert, Drawer, Tooltip, Divider, TextField } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
