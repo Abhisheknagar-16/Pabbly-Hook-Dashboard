@@ -48,9 +48,9 @@ export function JwtConfirm() {
             Confirm Your Email Address!
           </Typography>
 
-          <Divider sx={{ mt: 2 }} />
+          <Divider sx={{ mt:2 }} />
 
-          <Typography sx={{ mt: 2 }}>
+          <Typography sx={{ mt:2 }}>
            We have sent a verification email to {' '}
             <Link href="numeral-whale-32@inboxkitten.com." sx={{ fontWeight: 'bold', color: '#078dee' }}>
             numeral-whale-32@inboxkitten.com
@@ -58,8 +58,12 @@ export function JwtConfirm() {
             . Please check your inbox and verify your email address.
           </Typography>
 
-          <Typography sx={{ mt: 2 }}>
+          <Typography sx={{ mt:2 }}>
            If you don&apos;t receive the email within 15 minutes, kindly check your spam or junk mail folder. If the email is there, please mark it as &ldquo;Not Junk&ldquo; to ensure future messages are delivered to your inbox.
+          </Typography>
+
+          <Typography sx={{ mt:2 }}>
+          If you any questions, or need help with anything, please contact us at support@pabbly.com.
           </Typography>
 
           <Button

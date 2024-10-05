@@ -10,11 +10,6 @@ import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
-
-import { useBoolean } from 'src/hooks/use-boolean';
-
-// import { fDate, fTime } from 'src/utils/format-time';
-
 import {
   Grid,
   Alert,
@@ -28,29 +23,31 @@ import {
   IconButton,
 } from '@mui/material';
 
+import { useBoolean } from 'src/hooks/use-boolean';
+
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
-// import { AppBar } from 'src/theme/core/components/appbar';
-// import { Typography } from 'src/theme/core';
-
-// import { FullScreenDialog } from '../dialog-view/full-screen-dialog';
 const generateRandomData = () => {
   const names = ['Rajpal Singh Tomar', 'Abhishek Nagar', 'Ankit Mandli', 'Ayush Bisen', 'Nikhil Patel'];
-  
+
+  const statuses = ['Accepted', 'Blocked'];
+
   const randomName = names[Math.floor(Math.random() * names.length)];
-  
+  const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+
   // Generate a random date
   const randomDate = new Date(Date.now() - Math.random() * 10000000000).toISOString();
-  
+
   // Generate a random Transformation ID
   const randomRequestId = `req_66fe${Math.random().toString(36).substring(2, 36)}`;
-  
+
   return {
     RequestName: randomName,
     Requestdate: randomDate,
+    status: randomStatus,
     RequestId: randomRequestId, // Add the random ID to the returned object
   };
 };
@@ -80,7 +77,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   useEffect(() => {
     setRandomData(generateRandomData());
   }, []); // Empty dependency array ensures it runs once on mount
-  
+
   const { RequestName, Requestdate, RequestId } = randomData; // Destructure the new ID
 
 
@@ -153,15 +150,16 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               >
                 {row.status}
               </Label>
+
             </Tooltip>
-           <Box component="span"><Tooltip title={`Request Name: ${RequestName}`} arrow placement='top'>
-                  {RequestName}
-              </Tooltip></Box> 
-              <Box
+            <Box component="span"><Tooltip title={`Request Name: ${RequestName}`} arrow placement='top'>
+              {RequestName}
+            </Tooltip></Box>
+            <Box
               component="span"
               sx={{ color: 'text.disabled', fontSize: '12px', fontWeight: 400 }}
             >
-             <Tooltip title={`Request date: ${formatDate(Requestdate)}`} arrow placement='top'>
+              <Tooltip title={`Request date: ${formatDate(Requestdate)}`} arrow placement='top'>
                 {formatDate(Requestdate)}
               </Tooltip>
             </Box>
@@ -197,7 +195,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           </Stack>
         </Stack>
       </TableCell>
-     
+
       <TableCell>
         <Stack spacing={2} direction="row" alignItems="center">
           <Stack
@@ -210,9 +208,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             {evtItems.map((item) => (
               <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Tooltip title="Tap to view full request details " arrow placement="top">
-                <Typography onClick={handleOpenDrawer} fontSize={14} color="primary.main">
-                  {item.label}
-                </Typography>
+                  <Typography onClick={handleOpenDrawer} fontSize={14} color="primary.main">
+                    {item.label}
+                  </Typography>
                 </Tooltip>
               </Box>
             ))}
@@ -313,21 +311,21 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               fontWeight: 700,
             }}
           >
-             {RequestName} {/* Display the random name */}
+            {RequestName} {/* Display the random name */}
           </Typography>
           <Typography
             sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}
           >
             {RequestId} {/* Display the random ID */}
             <Tooltip title="Copy request_id " arrow placement="bottom">
-                  <IconButton
-                    edge="end"
-                    sx={{ color: 'text.disabled' }}
-                    onClick={() => navigator.clipboard.writeText('req_66c87b54a2b7dc2c1740d639')}
-                  >
-                    <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
-                  </IconButton>
-                </Tooltip>
+              <IconButton
+                edge="end"
+                sx={{ color: 'text.disabled' }}
+                onClick={() => navigator.clipboard.writeText('req_66c87b54a2b7dc2c1740d639')}
+              >
+                <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
+              </IconButton>
+            </Tooltip>
           </Typography>
         </AppBar>
         <Divider />
@@ -338,47 +336,55 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           <Divider />
           <Grid container spacing={2} mt={2}>
             <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{mt:1}}>Status</Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>Status</Typography>
             </Grid>
+
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <Button onClick={handleOpenSnackbar} variant="contained" color="success" size="small">
-                Accepted
+              <Button
+                onClick={handleOpenSnackbar}
+                variant="contained"
+                size="small"
+                color={
+                  row.status === 'Accepted' ? 'success' :
+                    row.status === 'Blocked' ? 'error' :
+                      'default'
+                } // Conditionally set the button color
+              >
+                {row.status}
               </Button>
+
               <Snackbar
                 open={openSnackbar}
                 autoHideDuration={4000}
                 onClose={handleCloseSnackbar}
-                message="This is an successfully setup."
                 anchorOrigin={{
                   vertical: 'top',
-                  horizontal: 'center',  // Changed to 'center' from 'mid 10%' to use a valid Material-UI position
+                  horizontal: 'center',
                 }}
               >
-                <Alert onClose={handleCloseSnackbar} severity="success">
-                  Request successfully setup.
+                <Alert
+                  onClose={handleCloseSnackbar}
+                  severity={row.status === 'Accepted' ? 'success' : row.status === 'Blocked' ? 'error' : 'info'}
+                >
+                  {row.status === 'Accepted' ? 'Request successfully setup.' : row.status === 'Blocked' ? 'Request is blocked.' : 'Unknown status.'}
                 </Alert>
               </Snackbar>
             </Grid>
+
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{mt:1}}>Source</Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>Source</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField
-                disabled
-                value="2024-08-23T12:06:44.929Z"
-                fullWidth
-                variant="outlined"
-                size="small"
-              />
+             <TextField disabled size="small" fullWidth value={formatDate(Requestdate)} />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{mt:1}}>Content lenght </Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>Content lenght </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-            <TextField disabled size="small" fullWidth value={RequestId} />
+              <TextField disabled size="small" fullWidth value={RequestId} />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{mt:1}}>Content type</Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>Content type</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField
@@ -390,16 +396,16 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               />
             </Grid>{' '}
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{mt:1}}>Method</Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>Method</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField disabled value="Get" fullWidth variant="outlined" size="small" />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{mt:1}}>Body</Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>Body</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-            <Box
+              <Box
                 sx={{
                   position: 'relative',
                   maxHeight: 400,
