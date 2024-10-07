@@ -4,11 +4,8 @@ import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import { OrderListView } from 'src/sections/order 3/view';
-// import { ProductListView } from 'src/sections/product/view';
 import { OverviewCourseView } from 'src/sections/course2/view';
 
-
-// import { OrderListView } from 'src/sections/order 2/view';
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page five | Dashboard - ${CONFIG.site.name}` };
@@ -23,7 +20,6 @@ export default function Page() {
       <OverviewCourseView />
       <OrderListView />
       </DashboardContent>
-      {/* <ProductListView /> */}
     </div>
   );
 }
