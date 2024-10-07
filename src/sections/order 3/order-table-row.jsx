@@ -136,7 +136,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               }
               arrow
               placement='top'
-              disableHoverListener={row.status !== 'success' && row.status !== 'rejected'}
+              disableHoverListener={row.status !== 'success' && row.status !== 'rejected' && row.status !== 'scheduled'}
             >
               <Label
                 variant="soft"
