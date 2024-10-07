@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -10,6 +10,8 @@ import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import { Tooltip, Divider, IconButton, Typography } from '@mui/material';
 
+import { paths } from 'src/routes/paths';
+
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Label } from 'src/components/label';
@@ -19,15 +21,15 @@ import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 // Random data generator
 const generateRandomData = () => {
-  const names = ['Rajpal Singh Tomar', 'Ankit Kumar', 'Priya Sharma', 'Amit Verma', 'Sneha Gupta'];
+  const names = ['Rajpal Singh Tomar', 'Ankit Kumar', 'Priya Sharma', 'Ankit Mandli', 'Ayush Bisen'];
   const statuses = ['Active', 'Inactive'];
-  
+
   const randomName = names[Math.floor(Math.random() * names.length)];
   const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-  
+
   // Generate a random date
   const randomDate = new Date(Date.now() - Math.random() * 10000000000).toISOString();
-  
+
   return {
     connectionName: randomName,
     status: randomStatus,
@@ -55,7 +57,7 @@ const formatDate = (dateString) => {
 export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
   const confirm = useBoolean();
   const popover = usePopover();
-  
+
   // State to hold random data
   const [randomData, setRandomData] = useState({});
 
@@ -63,7 +65,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   useEffect(() => {
     setRandomData(generateRandomData());
   }, []); // Empty dependency array ensures it runs once on mount
-  
+
   const { connectionName, status, connectionDate, requests, events } = randomData;
 
   const renderPrimary = (
@@ -132,7 +134,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Box>
             <Typography sx={{ color: ' #919eab ', fontSize: '14px' }}>
               <Tooltip title="Folder Name: Home" arrow placement='top'>
-               Home
+                Home
               </Tooltip>
             </Typography>
             <Box
@@ -158,7 +160,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             <Box component="span" >
               <a
                 style={{ textDecoration: 'none', color: '#078dee' }}
-                href="http://localhost:3030/dashboard/four"
+                href={paths.dashboard.four}
               >
                 <Tooltip title="Status of the requests" arrow placement='top'>
                   {requests} Requests
@@ -172,7 +174,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             >
               <a
                 style={{ textDecoration: 'none', color: '#919eab' }}
-                href="http://localhost:3030/dashboard/five"
+                href={paths.dashboard.five}
               >
                 <Tooltip title="Status of the events" arrow placement='top'>
                   {events} events
@@ -181,10 +183,10 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Box>
           </Stack>
 
-          <Stack spacing={2} direction="row" alignItems="right">
+          <Stack align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
             <Stack>
               <IconButton
-                sx={{ mt: 0.5, mr: -1 }}
+                sx={{ mt: 0.5, mr: -2 }}
                 color={popover.open ? 'inherit' : 'default'}
                 onClick={popover.onOpen}
               >
@@ -219,7 +221,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           </MenuItem>
           <MenuItem>
             <Iconify icon="solar:move-to-folder-bold" />
-            Move To Folder
+            Move to folder
           </MenuItem>
           <MenuItem>
             <Iconify icon="material-symbols:family-history" />
@@ -234,7 +236,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             sx={{ color: 'error.main' }}
           >
             <Iconify icon="solar:trash-bin-trash-bold" />
-            Delete Connection
+            Delete
           </MenuItem>
         </MenuList>
       </CustomPopover>

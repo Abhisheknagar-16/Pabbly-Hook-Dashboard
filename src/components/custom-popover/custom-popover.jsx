@@ -30,7 +30,7 @@ export function CustomPopover({ open, onClose, children, anchorEl, slotProps, ..
           sx: {
             ...paperStyles,
             overflow: 'inherit',
-            [`& .${listClasses.root}`]: { minWidth: 140 },
+            [`& .${listClasses.root}`]: { minWidth: 180 },
             [`& .${menuItemClasses.root}`]: { gap: 2 },
             ...slotProps?.paper?.sx,
           },

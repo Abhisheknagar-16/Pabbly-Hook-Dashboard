@@ -78,8 +78,8 @@ export const _orders = [...Array(20)].map((_, index) => {
     payment: { cardType: 'mastercard', cardNumber: '**** **** **** 5678' },
     status:
       (index % 2 && 'success') ||
-      (index % 4 && 'scheduled') ||
-      (index % 5 && 'Rejected') ||
+      (index % 3 && 'scheduled') ||
+      (index % 4 && 'Rejected') ||
       'rejected',
   };
 });

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
+import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 import {
@@ -27,24 +29,15 @@ import {
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { OrderListView } from 'src/sections/order/view';
-
-import { useMockedUser } from 'src/auth/hooks';
-// import { EcommerceNewProducts } from '../ecommerce-new-products';
-
-import Alert from '@mui/material/Alert';
-import Snackbar from '@mui/material/Snackbar';
-
-// import { MotivationIllustration } from 'src/assets/illustrations';
-
 import { Iconify } from 'src/components/iconify';
 
-// import { FormDialog } from 'src/sections/dialog-view/form-dialog';
+import { OrderListView } from 'src/sections/order/view';
 import { CustomStyling } from 'src/sections/tree-view/custom-styling';
 
-// import { EcommerceWelcome } from '../ecommerce-welcome';
+import { useMockedUser } from 'src/auth/hooks';
 
 
+// the selected row field 
 const selectfolder = [
   {
     value: 'USD',
@@ -63,7 +56,6 @@ const selectfolder = [
     label: 'world',
   },
 ];
-
 const currencies = [
   {
     value: 'USD',
@@ -219,15 +211,6 @@ export function OverviewEcommerceView() {
     setOpenSnackbar(false);
   };
 
-  // Function to handle dialog open
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handle = () => {
-    setdopen(true);
-  };
-
   const handledopen = () => {
     setdopen(true);
   };
@@ -284,129 +267,8 @@ export function OverviewEcommerceView() {
   return (
     <DashboardContent maxWidth="xl" sx={{ px: { xs: 0, sm: 0, lg: 5, xl: 0 } }}>
       <Grid container spacing={3}>
-        {/* <Grid item xs={12} md={3} lg={3}>
-          <Card sx={{ pl: 3, pr: 3, pt: 3, pb: 2 }}>
-            <Typography sx={{ fontSize: '24px', fontWeight: '700'}}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Tooltip title="Manage folders" arrow placement='top'>
-                Folder
-                </Tooltip>
-                <IconButton onClick={handledopen} edge="end">
-                  <Tooltip title="Create a new folder." arrow placement='top'>
-                      <Iconify icon="icon-park-solid:add" style={{ color: 'black' }} width="12" />
-                  </Tooltip>
-                </IconButton>
-                <Dialog open={dopen} onClose={handledlose}>
-                  <DialogTitle sx={{fontSize:'24px', fontWeight:'700'}}>
-                  <Tooltip title="Create a connection with a name and folder location." arrow placement='top'>
-                   Create Folder
-                   </Tooltip>
-                   </DialogTitle>
 
-                  <DialogContent sx={{mt:-1}}>
-                   
-                    <TextField
-                      autoFocus
-                      fullWidth
-                      type="text"
-                      margin="dense"
-                      variant="outlined"
-                      placeholder='Name of the Connection'
-                      label="Folder Name"
-                      // defaultValue="Name of the Connection"
-                      helperText={
-                        <>
-                          Enter the name of the connection.{' '}
-                          <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
-                            Learn more
-                          </a>
-                        </>
-                      }
-                    />
-
-                    <Typography sx={{ mt:2}}>Select Folder</Typography>
-
-                    <TextField
-                     id="outlined-select-currency"
-                     select
-                     fullWidth
-                    //  label="Select"
-                     margin="dense"
-                     defaultValue="USD"
-                     helperText={<> Select the folder or subfolder where you want to create the connection.{' '}
-                     <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}> Learn more </a> </>}
-                     >
-                    {selectfolder.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                    </MenuItem>
-                     ))}
-                    </TextField>
-
-                  </DialogContent>
-
-                  <DialogActions>
-                    <Button onClick={handledlose} variant="outlined" color="inherit">
-                      Cancel
-                    </Button>
-                    <Button onClick={handledlose} variant="contained">
-                      Create
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-              </Box>
-            </Typography>
-            <Divider sx={{ borderStyle: 'dashed', mb: 0.6 }} />
-            <CustomStyling />
-            <Divider sx={{ borderStyle: 'dashed', mt: 1 }} />
-            <Typography sx={{ fontSize: '14px', mb: 0, mt: 1, color: 'text.secondary' }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Tooltip
-                  title={
-                    <Typography style={{ fontSize: '12px', textAlign: 'center' }}>
-                      Trash folder holds all connections that have been deleted.
-                    </Typography>
-                  }
-                  arrow
-                  placement="top"
-                >
-                  <div>Trash(10)</div>
-                </Tooltip>
-                <Tooltip title="Clear trash." arrow placement='top'>
-                <IconButton edge="end">
-                  <Iconify icon="solar:trash-bin-trash-bold" />
-                </IconButton>
-                </Tooltip>
-              </Box>
-            </Typography>
-          </Card>
-        </Grid> */}
-
-        {/* <Grid item xs={12} md={9} lg={9} sx={{ height: '100%' }}>
-          <EcommerceWelcome
-            title={<Tooltip  title={
-                    <Typography style={{ fontSize: '12px', textAlign: 'center' }}>
-                      No existing connections. Create a new one using the steps below.
-                    </Typography>
-                  } arrow placement='top'>No Connections found!
-                   </Tooltip>}
-            description="There may be no Connections in the folder or for the applied filter conditions. You can create a Connection by following the steps below-."
-            step1=" Click on the 'Create Connection' button available in the top right section."
-            step2=" Now select apps you want to integrate into the trigger and action step."
-            step3=" Once the Connection is completed, save and enable it."
-            img={<Tooltip title="Click to watch tutorial." arrow placement='top'>
-              <div>
-                <MotivationIllustration hideBackground />
-              </div>
-            </Tooltip>}
-            action={<FormDialog
-            width='200px'
-            height='43px'
-            />}
-            
-          />
-        </Grid> */}
-
+         {/* folder section */}
         <Grid item xs={12} md={3} lg={3} >
           <Card sx={{ pl: 2.4, pr: 2, pt: 2, pb: 2 }}>
             <Typography variant="h6" fontWeight={700}>
@@ -414,29 +276,6 @@ export function OverviewEcommerceView() {
                 <Tooltip title="Manage folders" arrow placement='top'>
                   Folder
                 </Tooltip>
-                {/* <Button size='large' variant='contained' onClick={handledopen} edge="end" sx={{mr:0.5}} >
-                  
-                </Button> */}
-                {/* <Tooltip title="Create a new folder." arrow placement='top'>
-                <Button
-                  onClick={handledopen}
-                  edge="end"
-                  variant="contained"
-                  sx={{ 
-                    height: '30px', 
-                    width: '30px', 
-                    display: 'flex', 
-                    justifyContent: 'center', 
-                    alignItems: 'center', 
-                    padding: 0,
-                    mr:0.9,
-                    minWidth: 0, // Ensures no default min-width is applied
-                    // borderRadius:'100%'
-                  }}
-                >
-                  <Iconify icon="mingcute:add-line" />
-                </Button>
-                </Tooltip> */}
                 <IconButton onClick={handledopen} edge="end" sx={{ mr: 0.6, mt: -0.8 }}>
                   <Tooltip title="Create a new folder." arrow placement='top'>
                     <Iconify icon="icon-park-solid:add" style={{ color: 'black' }} width="12" />
@@ -506,30 +345,10 @@ export function OverviewEcommerceView() {
             </Typography>
             <Divider sx={{ borderStyle: 'dashed', mb: 0.6, mt: 1 }} />
             <CustomStyling />
-            <Divider sx={{ borderStyle: 'dashed', mt: 0 }} />
-            <Typography sx={{ fontSize: '14px', mb: 0, mt: 1.5 }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Tooltip
-                  title={
-                    <Typography style={{ fontSize: '12px', textAlign: 'center' }}>
-                      Trash folder holds all connections that have been deleted.
-                    </Typography>
-                  }
-                  arrow
-                  placement="top"
-                >
-                  <div>Trash (count)</div>
-                </Tooltip>
-                <Tooltip title="Clear trash." arrow placement='top'>
-                  <IconButton edge="end" sx={{ mr: 0.8 }} >
-                    <Iconify icon="solar:trash-bin-trash-bold" />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            </Typography>
           </Card>
         </Grid>
 
+        {/* setup connection form */}
         <Grid xs={12} md={9}>
           <Card>
             <CardHeader sx={{ mt: -1 }}
@@ -548,8 +367,6 @@ export function OverviewEcommerceView() {
 
             <Divider sx={{ borderStyle: 'dashed', mt: 2 }} />
             <DialogContent sx={{ mb: 1 }}>
-              {/* <Typography sx={{ mt: 2 }}>Connection Name</Typography> */}
-
               <TextField
                 autoFocus
                 fullWidth
@@ -564,8 +381,6 @@ export function OverviewEcommerceView() {
             </DialogContent>
 
             <DialogContent sx={{ mb: 3 }}>
-              {/* <Typography sx={{ mb: 0 }}>Webhook URL</Typography> */}
-
               <TextField
                 autoFocus
                 fullWidth
@@ -609,8 +424,6 @@ export function OverviewEcommerceView() {
             </DialogContent>
 
             <DialogContent sx={{ mb: 2 }}>
-              {/* <Typography sx={{ mb: 0 }}>Destination URL</Typography> */}
-
               <TextField
                 autoFocus
                 fullWidth
@@ -836,17 +649,14 @@ export function OverviewEcommerceView() {
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
               {showBatchSizeField && (
-                <>
-                  {/* <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Batch Size</Typography> */}
-                  <TextField
-                    fullWidth
-                    label="Batch Size"
-                    placeholder='Enter any number'
-                    variant="outlined"
-                    helperText="Define a Batch Size for the event."
-                    sx={{ mb: 2, mt: 2 }}
-                  />
-                </>
+                <TextField
+                  fullWidth
+                  label="Batch Size"
+                  placeholder='Enter any number'
+                  variant="outlined"
+                  helperText="Define a Batch Size for the event."
+                  sx={{ mb: 2, mt: 2 }}
+                />
               )}
             </DialogContent>
 
@@ -997,13 +807,6 @@ export function OverviewEcommerceView() {
                         ),
                       }}
                     />
-                    {/* <TextField
-                margin="dense"
-                label="Description"
-               fullWidth
-               variant="outlined"
-               helperText='Select the folder or subfolder where you want to create the connection.'
-          /> */}
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={handleClose} variant="outlined" color="inherit">
@@ -1035,84 +838,10 @@ export function OverviewEcommerceView() {
               </Button>
             </DialogContent>
           </Card>
-        </Grid>
 
-        <Grid xs={12} md={3}>
-          {/* <Card sx={{ pl: 3, pr: 3, pt: 3, pb: 2 }}>
-
-            <Typography sx={{ fontSize: '18px', fontWeight: '600', mb: 2 }}>
-
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                Folder
-                <IconButton onClick={handleOpen} edge="end">
-                  <Iconify icon="icon-park-solid:add" style={{ color: 'black' }} width="12" />
-                </IconButton>
-                <Dialog open={open} onClose={handleClose}>
-                  <DialogTitle>Create Connection</DialogTitle>
-
-                  <DialogContent>
-                    <Typography sx={{ mb: 0 }}>
-                      Folder Name
-                    </Typography>
-
-                    <TextField
-                      autoFocus
-                      fullWidth
-                      type="text"
-                      margin="dense"
-                      variant="outlined"
-                      label="Name of the Connection"
-                    />
-
-                    <Typography sx={{ mb: 3, color: 'text.secondary', fontSize: '13px' }}>
-                      Enter the name of the connection.
-                    </Typography>
-
-                    <Typography sx={{ mb: 0 }}>
-                      Select Folder
-                    </Typography>
-
-                    <TextField
-                      fullWidth
-                      type="text"
-                      margin="dense"
-                      variant="outlined"
-                      label="Home"
-                    />
-
-                    <Typography sx={{ mb: 3, color: 'text.secondary', fontSize: '13px' }}>
-                      Select the folder or subfolder where you want to create the connection.
-                    </Typography>
-                  </DialogContent>
-
-                  <DialogActions>
-                    <Button onClick={handleClose} variant="outlined" color="inherit">
-                      Cancel
-                    </Button>
-                    <Button onClick={handleClose} variant="contained">
-                      Create
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-
-              </Box>
-
-            </Typography>
-            <Divider sx={{ borderStyle: 'dashed', mb: 2 }} />
-            <CustomStyling />
-            <Divider sx={{ borderStyle: 'dashed', mt: 2 }} />
-            <Typography sx={{ fontSize: '14px', mb: 0, mt: 2, color: 'text.secondary' }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                Trash(10)
-                <IconButton edge="end">
-                  <Iconify icon="solar:trash-bin-trash-bold" />
-                </IconButton>
-              </Box>
-            </Typography>
-          </Card> */}
-        </Grid>
-        <Grid xs={12} md={9}>
-          <OrderListView />
+          <Box mt={3}>
+            <OrderListView />
+          </Box>
         </Grid>
 
       </Grid>

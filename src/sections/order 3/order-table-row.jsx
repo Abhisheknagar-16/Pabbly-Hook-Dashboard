@@ -284,6 +284,8 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           </Button>
         }
       />
+
+      {/* Event Drawer */}
       <Drawer
         open={drawerOpen}
         onClose={handleCloseDrawer}
@@ -369,7 +371,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                   'default'
                 }
               >
-                {row.status}
+                {row.status.charAt(0).toUpperCase() + row.status.slice(1)}
               </Button>
 
               <Snackbar

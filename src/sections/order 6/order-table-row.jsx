@@ -41,14 +41,14 @@ const generateRandomData = () => {
   // Generate a random date
   const randomDate = new Date(Date.now() - Math.random() * 10000000000).toISOString();
 
-  // Generate a random Transformation ID
+  // Generate a random Request ID
   const randomRequestId = `req_66fe${Math.random().toString(36).substring(2, 36)}`;
 
   return {
     RequestName: randomName,
     Requestdate: randomDate,
     status: randomStatus,
-    RequestId: randomRequestId, // Add the random ID to the returned object
+    RequestId: randomRequestId,
   };
 };
 
@@ -89,7 +89,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     setOpenSnackbar(false);
   };
   const evtItems = [
-    { id: 1, text: 'req_66c87b54a2b7dc2c1740d639', label: '(request,context) =>' },
+    { id: 1, label: '(request,context) =>' },
 
     // Add more items as needed
   ];
@@ -266,6 +266,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           </Button>
         }
       />
+      {/* request drawer which is on click to open the drawer */}
       <Drawer
         open={drawerOpen}
         onClose={handleCloseDrawer}
@@ -321,7 +322,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               <IconButton
                 edge="end"
                 sx={{ color: 'text.disabled' }}
-                onClick={() => navigator.clipboard.writeText('req_66c87b54a2b7dc2c1740d639')}
+                onClick={() => navigator.clipboard.writeText(RequestId)}
               >
                 <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
               </IconButton>
