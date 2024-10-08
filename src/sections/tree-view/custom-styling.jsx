@@ -3,11 +3,15 @@ import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { RichTreeView } from '@mui/x-tree-view/RichTreeView';
 import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
-import { Popover, Tooltip, Divider, MenuItem, IconButton } from '@mui/material';
+import { Button, Tooltip, Divider, MenuList, MenuItem, IconButton } from '@mui/material';
+
+import { useBoolean } from 'src/hooks/use-boolean';
 
 import { varAlpha, stylesMode } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/iconify';
+import { ConfirmDialog } from 'src/components/custom-dialog';
+import { usePopover,CustomPopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
@@ -52,14 +56,9 @@ const StyledTreeItem = styled((props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const popoverOpen = Boolean(anchorEl);
 
-  const handlePopoverOpen = (event) => {
-    event.stopPropagation();
-    setAnchorEl(event.currentTarget);
-  };
+  const confirm = useBoolean();
+  const popover = usePopover();
 
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
 
   const handleItemClick = (event) => {
     // Handle the "Trash" click
@@ -94,37 +93,53 @@ const StyledTreeItem = styled((props) => {
               <Iconify icon="solar:trash-bin-trash-bold" />
             </IconButton>
           ) : (
-            <IconButton color={popoverOpen ? 'inherit' : 'default'} onClick={handlePopoverOpen}>
+            <IconButton color={popoverOpen ? 'inherit' : 'default'} onClick={popover.onOpen}>
               <Iconify icon="eva:more-vertical-fill" />
             </IconButton>
           )}
-         <Popover
-            open={popoverOpen}
-            anchorEl={anchorEl}
-            onClose={handlePopoverClose}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+         <CustomPopover
+        open={popover.open}
+        anchorEl={popover.anchorEl}
+        onClose={popover.onClose}
+        slotProps={{ arrow: { placement: 'right-top' } }}
+      >
+        <MenuList >
+          <MenuItem>
+            <Iconify icon="mingcute:add-fill" />
+            Create Folder
+          </MenuItem>
+          <MenuItem>
+            <Iconify icon="fluent:edit-20-filled" />
+            Rename
+          </MenuItem>
+          <MenuItem>
+            <Iconify icon="solar:share-bold" />
+            Share
+          </MenuItem>
+          <Divider sx={{ borderStyle: 'dashed' }} />
+          <MenuItem
+            onClick={() => {
+              confirm.onTrue();
+              popover.onClose();
+            }}
+            sx={{ color: 'error.main' }}
           >
-            <MenuItem sx={{ display: 'flex', alignItems: 'center' }} onClick={handlePopoverClose}>
-              <Iconify sx={{ mr: 1 }} icon="mingcute:add-fill" />
-              Create Folder
-            </MenuItem>
-            <MenuItem sx={{ display: 'flex', alignItems: 'center' }} onClick={handlePopoverClose}>
-              <Iconify sx={{ mr: 1 }} icon="fluent:edit-20-filled" />
-              Rename
-            </MenuItem>
-            <MenuItem sx={{ display: 'flex', alignItems: 'center' }} onClick={handlePopoverClose}>
-              <Iconify sx={{ mr: 1 }} icon="solar:share-bold" /> Share
-            </MenuItem>
-            <Divider sx={{ borderStyle: 'dashed' }} />
-            <MenuItem
-              sx={{ display: 'flex', alignItems: 'center', color: '#ff5630' }}
-              onClick={handlePopoverClose}
-            >
-              <Iconify sx={{ mr: 1 }} color="#ff5630" icon="solar:trash-bin-trash-bold" />
-              Delete
-            </MenuItem>
-          </Popover>
+            <Iconify icon="solar:trash-bin-trash-bold" />
+            Delete
+          </MenuItem>
+        </MenuList>
+      </CustomPopover>
+      <ConfirmDialog
+        open={confirm.value}
+        onClose={confirm.onFalse}
+        title="Delete"
+        content="Are you sure want to delete?"
+        action={
+          <Button variant="contained" color="error" >
+            Delete
+          </Button>
+        }
+      />
         </div>
       }
     />
