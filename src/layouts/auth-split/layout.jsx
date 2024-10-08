@@ -69,13 +69,14 @@ export function AuthSplitLayout({ sx, section, children,contentWidth = '420px' }
           imgUrl={section?.imgUrl}
           method={CONFIG.auth.method}
           subtitle={section?.subtitle}
-          methods={[
+          method1={[
             {
               label: 'Jwt',
               // path: paths.auth.jwt.signIn,
               icon: `${CONFIG.site.basePath}/assets/icons/platforms/image 11.svg`,
             },
-
+          ]}
+          method2={[
             {
               label: 'Jwt',
               // path: paths.auth.jwt.signUp,
