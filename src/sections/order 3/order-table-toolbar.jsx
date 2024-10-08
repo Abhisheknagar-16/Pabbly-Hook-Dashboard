@@ -5,13 +5,11 @@ import { useState, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-// import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers';
-import IconButton from '@mui/material/IconButton';
 import FormControl from '@mui/material/FormControl';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Tooltip, FormLabel, Typography, InputAdornment } from '@mui/material';
@@ -20,11 +18,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Iconify } from 'src/components/iconify';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 // ----------------------------------------------------------------------
-const filterStatusOptions = [
-  { value: 'success', label: 'Success' },
-  { value: 'Rejected', label: 'Rejected' },
-  { value: 'Scheduled', label: 'Scheduled' },
-];
+
 const Strategy = [
   {
     value: 'USD',
@@ -64,28 +58,8 @@ const Selectstatus = [
 
 export function OrderTableToolbar({ filters, onResetPage, dateError }) {
   const [startDate, setStartDate] = useState(dayjs(new Date()));
-  const [endDate, setEndDate] = useState(dayjs(new Date()));
-  const [selectedFilter, setSelectedFilter] = React.useState('equals_to');
-  const [selectedStatusFilter, setSelectedStatusFilter] = React.useState('all');
-  const [connectionValue, setConnectionValue] = React.useState('');
-  const [requestIdValue, setRequestIdValue] = React.useState('');
   const [EventIdValue, setEventIdValue] = React.useState('');
 
-  const handleChange = (event) => {
-    setSelectedFilter(event.target.value);
-  };
-
-  const handleStatusChange = (event) => {
-    setSelectedStatusFilter(event.target.value);
-  };
-
-  const handleConnectionChange = (event) => {
-    setConnectionValue(event.target.value);
-  };
-
-  const handleRequestIdChange = (event) => {
-    setRequestIdValue(event.target.value);
-  };
 
   const handleEventIdChange = (event) => {
     setEventIdValue(event.target.value);
@@ -129,28 +103,6 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           </Typography>
 
           <Stack direction="row" alignItems="center" spacing={2}>
-            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker
-        label="Start Date"
-        value={startDate}
-        minDate={dayjs('2017-01-01')}
-        onChange={(newValue) => setStartDate(newValue)}
-        slotProps={{ textField: { fullWidth: false } }}
-        sx={{ width: '191px' }}  // Custom width for Start Date
-      />
-    </LocalizationProvider>
-
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker
-        label="End Date"
-        value={endDate}
-        minDate={dayjs('2017-01-01')}
-        onChange={(newValue) => setEndDate(newValue)}
-        slotProps={{ textField: { fullWidth: false } }}
-        sx={{ width: '191px' }}  // Custom width for End Date
-      />
-    </LocalizationProvider> */}
-
             <Tooltip title="Click here to event by request name or ID's." arrow placement="top">
               <TextField
                 sx={{
@@ -171,32 +123,16 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
 
             <Stack>
               <Tooltip placement="top" arrow title="Filter event by status or name.">
-                <IconButton
+                <Button
+                  size='small'
                   onClick={popover.onOpen}
-                  sx={{
-                    mt: 0.9,
-                    position: 'relative',
-                    '&:hover': {
-                      backgroundColor: 'transparent', // Ensures there's no background ellipse
-                      '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 2,
-                        left: 0,
-                        width: '100%',
-                        height: '80%',
-                        backgroundColor: '#919eab14', // Square background on hover
-                        borderRadius: '5px', // Ensures the shape is square, not rounded
-                        zIndex: -1, // Places the background behind the content
-                      },
-                    },
-                  }}
+                  sx={{ mr: 1.2 }}
                 >
-                  <Iconify icon="solar:filter-bold" sx={{ mt: -0.4, color: 'black' }} />
-                  <Typography sx={{ color: 'black', fontWeight: '700', ml: 1, mt: -0.4 }}>
+                  <Iconify icon="solar:filter-bold" sx={{ color: 'black' }} />
+                  <Typography sx={{ variant: "h6", fontWeight: '700', ml: 1, mr: 0.2 }}>
                     Filter
                   </Typography>
-                </IconButton>
+                </Button>
               </Tooltip>
             </Stack>
           </Stack>
@@ -215,7 +151,9 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           <Box sx={{ padding: 1 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sx={{ mb: 2 }}>
-                <h3 style={{ padding: 5, margin: 0 }}>Filter Events</h3>
+                <Typography variant="h6" fontWeight={700} ml={0.5} >
+                  Filter Events
+                </Typography>
               </Grid>
 
               <Grid container spacing={2}>
