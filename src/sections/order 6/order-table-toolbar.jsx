@@ -1,4 +1,3 @@
-// import dayjs from 'dayjs';
 import * as React from 'react';
 import { useCallback } from 'react';
 
@@ -6,13 +5,8 @@ import Stack from '@mui/material/Stack';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-// import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Box, Grid, Button, Tooltip, FormLabel, IconButton, Typography, FormControl, } from '@mui/material';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { formHelperTextClasses } from '@mui/material/FormHelperText';
+import { Box, Grid, Button, Tooltip, FormLabel, Typography, FormControl, } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
@@ -123,32 +117,16 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
 
             <Stack>
               <Tooltip placement="top" arrow title="Filter request by status or name.">
-                <IconButton
+              <Button
+                  size='small'
                   onClick={popover.onOpen}
-                  sx={{
-                    mt: 0.9,
-                    position: 'relative',
-                    '&:hover': {
-                      backgroundColor: 'transparent', // Ensures there's no background ellipse
-                      '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 2,
-                        left: 0,
-                        width: '100%',
-                        height: '80%',
-                        backgroundColor: '#919eab14', // Square background on hover
-                        borderRadius: '5px', // Ensures the shape is square, not rounded
-                        zIndex: -1, // Places the background behind the content
-                      },
-                    },
-                  }}
+                  sx={{ mr: 1.2 }}
                 >
-                  <Iconify icon="solar:filter-bold" sx={{ mt: -0.4, color: 'black' }} />
-                  <Typography sx={{ color: 'black', fontWeight: '700', ml: 1, mt: -0.4 }}>
+                  <Iconify icon="solar:filter-bold" sx={{ color: 'black' }} />
+                  <Typography sx={{ variant: "h6", fontWeight: '700', ml: 1, mr: 0.2 }}>
                     Filter
                   </Typography>
-                </IconButton>
+                </Button>
               </Tooltip>
             </Stack>
           </Stack>
@@ -166,7 +144,9 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           <Box sx={{ padding: 1 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sx={{ mb: 2 }}>
-                <h3 style={{ padding: 5, margin: 0 }}>Filter Request</h3>
+              <Typography variant="h6" fontWeight={700} ml={0.5} >
+                  Filter Request
+                </Typography>
               </Grid>
 
               <Grid container spacing={2}>
