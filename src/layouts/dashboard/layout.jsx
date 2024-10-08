@@ -19,7 +19,8 @@ import { NavVertical } from './nav-vertical';
 import { NavHorizontal } from './nav-horizontal';
 import { _account } from '../config-nav-account';
 import { HeaderBase } from '../core/header-base';
-import { _workspaces } from '../config-nav-workspace';  
+import { FooterBase } from '../core/footer-base';
+import { _workspaces } from '../config-nav-workspace';
 import { LayoutSection } from '../core/layout-section';
 import { navData as dashboardNavData } from '../config-nav-dashboard';
 
@@ -160,7 +161,87 @@ export function DashboardLayout({ sx, children, data }) {
         /** **************************************
          * Footer
          *************************************** */
-        footerSection={null}
+        footerSection={
+          <FooterBase
+            layoutQuery={layoutQuery}
+            disableElevation={isNavVertical}
+            onOpenNav={mobileNavOpen.onTrue}
+            data={{
+              nav: navData,
+              langs: [
+                { value: 'en', label: 'English', countryCode: 'GB' },
+                { value: 'fr', label: 'French', countryCode: 'FR' },
+                { value: 'vi', label: 'Vietnamese', countryCode: 'VN' },
+                { value: 'cn', label: 'Chinese', countryCode: 'CN' },
+                { value: 'ar', label: 'Arabic', countryCode: 'SA' },
+              ],
+              account: _account,
+              contacts: _contacts,
+              workspaces: _workspaces,
+              notifications: _notifications,
+            }}
+            slotsDisplay={{
+              signIn: false,
+              purchase: false,
+              helpLink: false,
+            }}
+            slots={{
+              topArea: (
+                <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
+                  This is an info Alert.
+                </Alert>
+              ),
+              bottomArea: isNavHorizontal ? (
+                <NavHorizontal
+                  data={navData}
+                  layoutQuery={layoutQuery}
+                  cssVars={navColorVars.section}
+                />
+              ) : null,
+            }}
+            slotProps={{
+              toolbar: {
+                sx: {
+                  [`& [data-slot="logo"]`]: {
+                    display: 'none',
+                  },
+                  [`& [data-area="right"]`]: {
+                    gap: { xs: 0, sm: 0.75 },
+                  },
+                  ...(isNavHorizontal && {
+                    bgcolor: 'var(--layout-nav-bg)',
+                    [`& .${iconButtonClasses.root}`]: {
+                      color: 'var(--layout-nav-text-secondary-color)',
+                    },
+                    [theme.breakpoints.up(layoutQuery)]: {
+                      height: 'var(--layout-nav-horizontal-height)',
+                    },
+                    [`& [data-slot="workspaces"]`]: {
+                      color: 'var(--layout-nav-text-primary-color)',
+                    },
+                    [`& [data-slot="logo"]`]: {
+                      display: 'none',
+                      [theme.breakpoints.up(layoutQuery)]: {
+                        display: 'inline-flex',
+                      },
+                    },
+                    [`& [data-slot="divider"]`]: {
+                      [theme.breakpoints.up(layoutQuery)]: {
+                        display: 'flex',
+                      },
+                    },
+                  }),
+                },
+              },
+              container: {
+                maxWidth: false,
+                sx: {
+                  ...(isNavVertical && { px: { [layoutQuery]: 5 } }),
+                },
+              },
+            }}
+          />
+        }
         /** **************************************
          * Style
          *************************************** */
@@ -174,7 +255,6 @@ export function DashboardLayout({ sx, children, data }) {
           '--layout-dashboard-content-pt': theme.spacing(1),
           '--layout-dashboard-content-pb': theme.spacing(8),
           '--layout-dashboard-content-px': theme.spacing(5),
-          '--layout-nav-bg': theme.palette.grey[900], // Dark background color
         }}
         sx={{
           [`& .${layoutClasses.hasSidebar}`]: {
@@ -207,7 +287,7 @@ function useNavColorVars(theme, settings) {
       case 'integrate':
         return {
           layout: {
-            '--layout-nav-bg': palette.background.default,
+            '--layout-nav-bg': palette.grey[900],
             '--layout-nav-horizontal-bg': varAlpha(palette.background.defaultChannel, 0.8),
             '--layout-nav-border-color': varAlpha(palette.grey['500Channel'], 0.12),
             '--layout-nav-text-primary-color': palette.text.primary,
@@ -229,7 +309,6 @@ function useNavColorVars(theme, settings) {
             '--layout-nav-text-primary-color': palette.common.white,
             '--layout-nav-text-secondary-color': palette.grey[500],
             '--layout-nav-text-disabled-color': palette.grey[600],
-            
             [stylesMode.dark]: {
               '--layout-nav-bg': palette.grey[800],
               '--layout-nav-horizontal-bg': varAlpha(palette.grey['800Channel'], 0.8),
@@ -252,14 +331,13 @@ function useNavColorVars(theme, settings) {
               '--nav-item-sub-active-color': palette.common.white,
               '--nav-item-sub-open-color': palette.common.white,
             }),
-            '--nav-icon-color': palette.common.white, // Ensure this line is present
           },
         };
       default:
         throw new Error(`Invalid color: ${settings.navColor}`);
     }
   }, [
-    palette.background.default,
+    // palette.background.default,
     palette.background.defaultChannel,
     palette.common.white,
     palette.grey,
