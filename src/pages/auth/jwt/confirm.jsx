@@ -2,13 +2,10 @@ import { Helmet } from 'react-helmet-async';
 
 import { Box } from '@mui/material';
 
-// import { Box, Button, Typography } from '@mui/material';
-
 import { CONFIG } from 'src/config-global';
 
 import { JwtConfirm } from 'src/sections/auth/jwt/jwt-confirm';
 
-// import { JwtForgotpassword } from 'src/sections/auth/jwt/jwt-forgot-password';
 
 // ----------------------------------------------------------------------
 
@@ -16,7 +13,6 @@ const metadata = { title: `Confirm Email | Jwt - ${CONFIG.site.name}` };
 
 export default function Page() {
   return (
-    // <div style={{ backgroundColor: '#F5fffa', width: '100%', height: 'auto' }}>
     <>
      <Box
         alignItems="left"
@@ -52,6 +48,5 @@ export default function Page() {
 
      <JwtConfirm/>
      </>
-  //  </div>
   );
 }
