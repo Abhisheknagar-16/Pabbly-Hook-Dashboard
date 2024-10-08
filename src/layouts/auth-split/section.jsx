@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import Link from '@mui/material/Link';
 import Tooltip from '@mui/material/Tooltip';
 import ListItem from '@mui/material/ListItem';
 import { useTheme } from '@mui/material/styles';
@@ -16,7 +15,8 @@ export function Section({
   sx,
   method,
   layoutQuery,
-  methods,
+  method1,
+  method2,
   title = 'No Restrictions on Features!',
   subtitle = 'Scale & Grow Your Business with Pabbly.',
   ...other
@@ -234,9 +234,43 @@ export function Section({
         ))}
       </List>
 
-      {!!methods?.length && method && (
+      {!!method?.length && method && (
         <Box component="ul" gap={5} display="flex">
-          {methods.map((option) => {
+          {method1.map((option) => {
+            const selected = method === option.label.toLowerCase();
+
+            return (
+              <Box
+                key={option.label}
+                component="li"
+                sx={{
+                  ...(!selected && {
+                    cursor: 'not-allowed',
+                    filter: 'grayscale(1)',
+                  }),
+                }}
+              >
+                <Tooltip
+                  title={
+                    <Box sx={{ textAlign: 'center' }}>
+                      Pabbl&apos;y services are audited and certified for high standards of security, availability, and VD and ISO confidentiality, affirming our ecur commitment to safeguard your data with integrity.
+                    </Box>
+                  }
+                  placement="top"
+                  arrow
+                >
+                  <Box
+                    component="img"
+                    alt={option.label}
+                    src={option.icon}
+                    sx={{ width: 80, height: 80 }}
+                  />
+                </Tooltip>
+
+              </Box>
+            );
+          })}
+          {method2.map((option) => {
             const selected = method === option.label.toLowerCase();
 
             return (
@@ -259,19 +293,14 @@ export function Section({
                   placement="top"
                   arrow
                 >
-                  <Link
-                    sx={{
-                      ...(!selected && { pointerEvents: 'none' }),
-                    }}
-                  >
-                    <Box
-                      component="img"
-                      alt={option.label}
-                      src={option.icon}
-                      sx={{ width: 80, height: 80 }}
-                    />
-                  </Link>
+                  <Box
+                    component="img"
+                    alt={option.label}
+                    src={option.icon}
+                    sx={{ width: 80, height: 80 }}
+                  />
                 </Tooltip>
+
               </Box>
             );
           })}
