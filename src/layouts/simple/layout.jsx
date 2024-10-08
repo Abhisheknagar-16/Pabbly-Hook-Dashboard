@@ -4,6 +4,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Main, CompactContent } from './main';
 import { HeaderBase } from '../core/header-base';
+import { FooterBase } from '../core/footer-base';
 import { LayoutSection } from '../core/layout-section';
 
 // ----------------------------------------------------------------------
@@ -46,7 +47,31 @@ export function SimpleLayout({ sx, children, content }) {
       /** **************************************
        * Footer
        *************************************** */
-      footerSection={null}
+      footerSection={
+        <FooterBase
+          layoutQuery={layoutQuery}
+          onOpenNav={mobileNavOpen.onTrue}
+          slotsDisplay={{
+            signIn: false,
+            account: false,
+            purchase: false,
+            contacts: false,
+            searchbar: false,
+            workspaces: false,
+            menuButton: false,
+            localization: false,
+            notifications: false,
+          }}
+          slots={{
+            topArea: (
+              <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
+                This is an info Alert.
+              </Alert>
+            ),
+          }}
+          slotProps={{ container: { maxWidth: false } }}
+        />
+      }
       /** **************************************
        * Style
        *************************************** */

@@ -6,6 +6,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
+import { varAlpha } from 'src/theme/styles';
 // import { Logo } from 'src/components/logo';
 
 import { HeaderSection } from './header-section';
@@ -60,7 +61,7 @@ export function HeaderBase({
     signIn = false,
     account = true,
     helpLink = false,
-    settings = true,
+    settings = false,
     purchase = true,
     contacts = true,
     searchbar = false,
@@ -76,7 +77,12 @@ export function HeaderBase({
 
   return (
     <HeaderSection
-      sx={sx}
+      sx={{
+        borderBottom: '1px dashed',
+        borderColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.3),
+        ...sx,
+      }
+      }
       layoutQuery={layoutQuery}
       slots={{
         ...slots,
