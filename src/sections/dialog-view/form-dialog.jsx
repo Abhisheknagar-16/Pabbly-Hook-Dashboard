@@ -34,9 +34,9 @@ const selectfolder = [
   },
 ];
 
-export function FormDialog({height,width,variant}) {
+export function FormDialog({ height, width, variant }) {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const dialog = useBoolean();
   const handleOpenSnackbar = () => {
     setOpenSnackbar(true);
@@ -51,23 +51,24 @@ export function FormDialog({height,width,variant}) {
   return (
     <div>
       <Tooltip
-        title="Start building a new connections "
+        disableInteractive
+        title="Create your connection and its resources"
         arrow
         placement="top"
       >
         <div>
           <Button
-            sx={{ mt: -1}}
+            sx={{ mt: -1 }}
             size='large'
             variant={variant || "contained"}  // Apply the variant passed as a prop
             color="primary"
             onClick={dialog.onTrue}
             startIcon={
               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-              <path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z"/>
+                <path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z" />
               </svg>
             }
-            style={{ width, height ,variant}}
+            style={{ width, height, variant }}
           >
             Create Connections
           </Button>
@@ -77,7 +78,7 @@ export function FormDialog({height,width,variant}) {
       <Dialog open={dialog.value} onClose={dialog.onFalse}>
         <DialogTitle><Tooltip title="Create a connection with a name and folder location." arrow placement="top">Create Connection</Tooltip></DialogTitle>
 
-        <DialogContent sx={{mt:-1}}>
+        <DialogContent sx={{ mt: -1 }}>
           {/* <Typography sx={{ mb: 0 }}>Connection Name</Typography> */}
 
           <TextField
@@ -97,7 +98,7 @@ export function FormDialog({height,width,variant}) {
               </>
             }
           />
-          <Typography sx={{ mt: 2}}>Select Folder</Typography>
+          <Typography sx={{ mt: 2 }}>Select Folder</Typography>
 
           <TextField
             id="outlined-select-currency"
@@ -125,13 +126,13 @@ export function FormDialog({height,width,variant}) {
           <Button onClick={dialog.onFalse} variant="outlined" color="inherit">
             Cancel
           </Button>
-          
-          
+
+
           <Button onClick={handleOpenSnackbar} variant="contained">
             Create
           </Button>
-          
-         
+
+
           <Snackbar
 
             open={openSnackbar}

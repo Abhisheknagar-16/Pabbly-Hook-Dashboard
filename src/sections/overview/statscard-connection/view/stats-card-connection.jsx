@@ -18,7 +18,7 @@ export function StatsCard() {
   const theme = useTheme();
 
   return (
-    <DashboardContent maxWidth="xl" sx={{ pb: { xs: 2, xl: 1}, px: { xs: 0, sm: 0, xl: 0 } }}>
+    <DashboardContent maxWidth="xl" sx={{ pb: { xs: 2, xl: 1 }, px: { xs: 0, sm: 0, xl: 0 } }}>
       <Box
         sx={{
           display: 'flex',
@@ -31,8 +31,8 @@ export function StatsCard() {
             gap: 4,
             display: 'flex',
             minWidth: { lg: 0 },
-            pt:3,
-            pb:1,
+            pt: 3,
+            pb: 1,
             flexDirection: 'column',
             flex: { lg: '1 1 auto' },
             // px: { xs: 3, sm: 3,  },
@@ -48,18 +48,23 @@ export function StatsCard() {
               }}
             >
               <div>
-                <Typography sx={{mt:-0.2,mb:0.2}} variant="h4">Connections</Typography>
+                <Typography sx={{ mt: -0.2, mb: 0.2 }} variant="h4">Connections</Typography>
                 {/* <Tooltip title="Create a connection to experience the full benefits of Pabbly Hook." arrow placement='top'> */}
                 <Typography sx={{ color: 'text.secondary' }}>
                   The screen shows all your Connections. &nbsp;
-                  <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                  <a
+                    href="https://www.youtube.com/playlist?list=PLgffPJ6GjbaIZTlTtPyVtCLJ43RyaLS-U"
+                    style={{ color: '#078DEE', textDecoration: 'underline' }}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Learn more
                   </a>
                 </Typography>
                 {/* </Tooltip> */}
               </div>
               <Box sx={{ mt: { xs: 2, sm: 1.8 } }}>
-               <FormDialog />
+                <FormDialog />
               </Box>
             </Box>
           </Box>
@@ -71,7 +76,16 @@ export function StatsCard() {
               gridTemplateColumns: { sm: 'repeat(2, 1fr)', xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' },
             }}
           >
-            <Tooltip title="Number of total connections." arrow placement='top'>
+            <Tooltip
+              disableInteractive
+              title={
+                <div style={{ textAlign: 'center' }}>
+                  Total number of connections currently set up in your account.
+                </div>
+              }
+              arrow
+              placement='top'
+            >
               <div>
                 <CourseWidgetSummary
                   title="Total Connections"
@@ -82,7 +96,7 @@ export function StatsCard() {
             </Tooltip>
 
 
-            <Tooltip title="Number of total requests. " arrow placement='top'>
+            <Tooltip disableInteractive title="Total number of requests processed in your account." arrow placement='top'>
               <div>
                 <CourseWidgetSummary
                   title="Total Request"
@@ -93,7 +107,7 @@ export function StatsCard() {
               </div>
             </Tooltip>
 
-            <Tooltip title="Number of total events." arrow placement='top'>
+            <Tooltip disableInteractive title="Total number of events triggered in your account." arrow placement='top'>
               <div>
                 <CourseWidgetSummary
                   title="Total Events"

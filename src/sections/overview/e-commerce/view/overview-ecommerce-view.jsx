@@ -61,12 +61,16 @@ export function OverviewEcommerceView() {
           <Card sx={{ pl: 2.4, pr: 2, pt: 2, pb: 2 }}>
             <Typography variant="h6" fontWeight={700}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Tooltip title="Manage folders" arrow placement="top">
+                <Tooltip disableInteractive title={
+                  <div style={{ textAlign: 'center' }}>
+                    You can create folders and manage connections inside them.
+                  </div>
+                } arrow placement="top">
                   <span>Folder</span>
                 </Tooltip>
 
                 <IconButton onClick={handledopen} edge="end" sx={{ mr: 0.6, mt: -0.8 }}>
-                  <Tooltip title="Create a new folder." arrow placement="top">
+                  <Tooltip disableInteractive title="Create a new folder." arrow placement="top">
                     <Iconify icon="icon-park-solid:add" style={{ color: 'black' }} width="12" />
                   </Tooltip>
                 </IconButton>
@@ -86,10 +90,11 @@ export function OverviewEcommerceView() {
               <EcommerceWelcome
                 title={
                   <Tooltip
+                    disableInteractive
                     title={
-                      <Typography style={{ fontSize: '12px', textAlign: 'center' }}>
+                      <div style={{ textAlign: 'center' }}>
                         No existing connections. Create a new one using the steps below.
-                      </Typography>
+                      </div>
                     }
                     arrow
                     placement="top"
@@ -104,7 +109,7 @@ export function OverviewEcommerceView() {
                 step2="Now select apps you want to integrate into the trigger and action step."
                 step3="Once the Connection is completed, save and enable it."
                 img={
-                  <Tooltip title="Click to watch tutorial." arrow placement="top">
+                  <Tooltip disableInteractive title="Click to watch tutorial." arrow placement="top">
                     <div>
                       <MotivationIllustration hideBackground />
                     </div>
@@ -120,7 +125,7 @@ export function OverviewEcommerceView() {
                 {showTrash ? (
                   <OrderListViewtrash />  // Show trash view if trash is selected
                 ) : (
-                  <OrderListViewHome/> // Show main content view (OrderListView) if Home is selected
+                  <OrderListViewHome /> // Show main content view (OrderListView) if Home is selected
                 )}
               </Card>
             </Box>

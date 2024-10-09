@@ -26,7 +26,7 @@ export function TablePaginationCustom({
         <FormControlLabel
         label={<span>Dense</span>}
         control={
-          <Tooltip title="Compact table" arrow placement='top'>
+          <Tooltip disableInteractive title="Compact table" arrow placement='top'>
             <Switch name="dense" checked={dense} onChange={onChangeDense} />
           </Tooltip>
         }
