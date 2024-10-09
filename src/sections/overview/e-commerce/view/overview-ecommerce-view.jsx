@@ -22,7 +22,7 @@ import { MotivationIllustration } from 'src/assets/illustrations';
 
 import { Iconify } from 'src/components/iconify';
 
-import { OrderListView } from 'src/sections/order/view';
+import { OrderListViewHome } from 'src/sections/orderhome/view';
 import { OrderListViewtrash } from 'src/sections/ordertrash/view';
 import { FormDialog } from 'src/sections/dialog-view/form-dialog';
 import { CustomStyling } from 'src/sections/tree-view/custom-styling';
@@ -120,7 +120,7 @@ export function OverviewEcommerceView() {
                 {showTrash ? (
                   <OrderListViewtrash />  // Show trash view if trash is selected
                 ) : (
-                  <OrderListView />  // Show main content view (OrderListView) if Home is selected
+                  <OrderListViewHome/> // Show main content view (OrderListView) if Home is selected
                 )}
               </Card>
             </Box>
