@@ -2,7 +2,9 @@ import { Helmet } from 'react-helmet-async';
 
 import { CONFIG } from 'src/config-global';
 
-import { OverviewCourseView } from 'src/sections/overview/course/view';
+import { StatsCard } from 'src/sections/overview/statscard-connection/view';
+
+
 
 // ----------------------------------------------------------------------
 
@@ -15,7 +17,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <OverviewCourseView />
+      <StatsCard />
     </>
   );
 }

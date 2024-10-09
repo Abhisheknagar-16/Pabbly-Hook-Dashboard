@@ -31,7 +31,7 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/iconify';
 
-import { OrderListView } from 'src/sections/order/view';
+import { OrderListViewHome } from 'src/sections/orderhome/view';
 import { CustomStyling } from 'src/sections/tree-view/custom-styling';
 
 import { useMockedUser } from 'src/auth/hooks';
@@ -840,7 +840,7 @@ export function OverviewEcommerceView() {
           </Card>
 
           <Box mt={3}>
-            <OrderListView />
+            <OrderListViewHome/>
           </Box>
         </Grid>
 

@@ -4,8 +4,8 @@ import { Helmet } from 'react-helmet-async';
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { OrderListView } from 'src/sections/order 2/view';
-import { OverviewCourseView } from 'src/sections/course1/view';
+import { OrderListViewTransformation } from 'src/sections/ordertransformation/view';
+import { StatsCardTransformation } from 'src/sections/statscard-transformation/view';
 
 
 
@@ -21,8 +21,8 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <OverviewCourseView />
-      <OrderListView />
+      <StatsCardTransformation/>
+      <OrderListViewTransformation/>
       </DashboardContent>
 
     </div>
