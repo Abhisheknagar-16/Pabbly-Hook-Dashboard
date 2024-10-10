@@ -39,7 +39,8 @@ const ICONS = {
   issues:icon('ic-issues'),
   transformations:icon('ic-transformations'),
   requests:icon('ic-requests'),
-  events:icon('ic-events')
+  events:icon('ic-events'),
+  timezone:icon('ic-time-zone')
 
   
 };
@@ -58,6 +59,7 @@ export const navData = [
       { title: 'Transformations', path: paths.dashboard.three, icon: ICONS.transformations},
       { title: 'Requests', path: paths.dashboard.four, icon: ICONS.requests},
       { title: 'Events', path: paths.dashboard.five, icon: ICONS.events},
+      { title: 'Time-Zone', path: paths.dashboard.Seven, icon: ICONS.timezone},
     ],
   },
   /**

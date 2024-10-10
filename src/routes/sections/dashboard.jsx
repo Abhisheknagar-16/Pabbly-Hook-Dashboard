@@ -16,6 +16,7 @@ const PageTwo = lazy(() => import('src/pages/dashboard/issues/issue'));
 const PageThree = lazy(() => import('src/pages/dashboard/transformations/transformation'));
 const PageFour = lazy(() => import('src/pages/dashboard/request/request'));
 const PageFive = lazy(() => import('src/pages/dashboard/events/events'));
+const PageSeven = lazy(() => import('src/pages/dashboard/timezone/time-zone'));
 
 // ----------------------------------------------------------------------
 
@@ -38,6 +39,7 @@ export const dashboardRoutes = [
       { path: 'four', element: <PageFour /> },
       { path: 'five', element: <PageFive /> },
       { path: 'six', element: <PageSix /> },
+      { path: 'seven', element: <PageSeven /> },
       // {
       //   path: 'group',
       //   children: [

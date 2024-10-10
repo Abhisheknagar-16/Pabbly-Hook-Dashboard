@@ -48,10 +48,10 @@ import { OrderTableFiltersResult } from '../order-table-filters-result';
 const STATUS_CONNECTION = [{ value: 'all', label: 'All' }, ...ORDER_STATUS_CONNECTION];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: (<Tooltip title="View connections status and date of creation." arrow placement='top'>STATUS/DATE</Tooltip>) },
-  { id: 'name', label: (<Tooltip title="Name of connection and folder where it is located." arrow placement='top'>CONNECTION NAME</Tooltip>) },
+  { id: 'orderNumber', label: (<Tooltip disableInteractive title="View connections status and date of creation." arrow placement='top'>STATUS/DATE</Tooltip>) },
+  { id: 'name', label: (<Tooltip disableInteractive title="Name of connection and folder where it is located." arrow placement='top'>CONNECTION NAME</Tooltip>) },
   { id: '', label: '' },
-  { id: 'createdAt', label: (<Tooltip title="Status of the requests and events." arrow placement='top'>REQUEST/EVENTS</Tooltip>), align: 'center'},
+  { id: 'createdAt', label: (<Tooltip disableInteractive title="Status of the requests and events." arrow placement='top'>REQUEST/EVENTS</Tooltip>), align: 'center'},
 
 ];
 
@@ -152,7 +152,7 @@ export function OrderListViewHome() {
                 value={tab.value}
                 label={
                   ['Active', 'Inactive'].includes(tab.value) ? (
-                    <Tooltip placement='top' arrow title={`This is ${tab.value} tab`}>
+                    <Tooltip disableInteractive placement='top' arrow title={`This is ${tab.value} tab`}>
                       <span>{tab.label}</span>
                     </Tooltip>
                   ) : (
@@ -207,7 +207,7 @@ export function OrderListViewHome() {
                 )
               }
               action={
-                <Tooltip title="Delete">
+                <Tooltip disableInteractive title="Delete" arrow>
                   <IconButton color="primary" onClick={confirm.onTrue}>
                     <Iconify icon="solar:trash-bin-trash-bold" />
                   </IconButton>

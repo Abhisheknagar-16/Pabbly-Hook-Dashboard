@@ -89,9 +89,11 @@ const StyledTreeItem = styled((props) => {
             <span>{props.label}</span>
           </Tooltip>
           {props.label.includes('Trash') ? (
+            <Tooltip title="All deleted connections will be moved to trash." disableInteractive placement="top" arrow>
             <IconButton color={popoverOpen ? 'inherit' : 'default'}>
               <Iconify icon="solar:trash-bin-trash-bold" />
             </IconButton>
+          </Tooltip>
           ) : (
             <IconButton color={popoverOpen ? 'inherit' : 'default'} onClick={popover.onOpen}>
               <Iconify icon="eva:more-vertical-fill" />
