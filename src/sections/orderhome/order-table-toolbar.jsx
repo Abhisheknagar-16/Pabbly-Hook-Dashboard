@@ -91,14 +91,14 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           sx={{ width: '100%' }}  // Ensures the stack takes full width
         >
           <Typography variant="h6" fontWeight={700} lineHeight={2} >
-            <Tooltip title="Folder Name:Home." arrow placement="top">
+            <Tooltip disableInteractive title="Folder Name:Home." arrow placement="top">
               Home
             </Tooltip>
           </Typography>
 
           <Stack direction="row" alignItems="center" spacing={2}>
 
-            <Tooltip title="Click here to search by connection name or ID's." arrow placement="top">
+            <Tooltip disableInteractive title="Click here to search by connection name or ID's." arrow placement="top">
               <TextField
                 sx={{
                   width: { xs: '100%', sm: '300px', md: '394px' },  // Responsive width for TextField
@@ -116,7 +116,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               />
             </Tooltip>
             <Stack>
-              <Tooltip placement="top" arrow title="Filter connection by status or name.">
+              <Tooltip placement="top" arrow title="Filter connection by status or name." disableInteractive >
                 <Button
                   size='small'
                   onClick={popover.onOpen}

@@ -17,6 +17,7 @@ import {
   Divider,
   Tooltip,
   Toolbar,
+  useTheme,
   Snackbar,
   TextField,
   Typography,
@@ -68,6 +69,7 @@ const formatDate = (dateString) => {
 };
 
 export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
+  const theme = useTheme();
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
   // State to hold random data
@@ -356,16 +358,24 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
 
               <Snackbar
                 open={openSnackbar}
-                autoHideDuration={4000}
+                autoHideDuration={1000}
                 onClose={handleCloseSnackbar}
                 anchorOrigin={{
                   vertical: 'top',
-                  horizontal: 'center',
+                  horizontal: 'right',
                 }}
               >
                 <Alert
                   onClose={handleCloseSnackbar}
                   severity={row.status === 'Accepted' ? 'success' : row.status === 'Blocked' ? 'error' : 'info'}
+                  sx={{
+                    width: '100%',
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    backgroundColor: theme.palette.background.paper,
+                    color: theme.palette.text.primary,
+                    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+                  }} 
                 >
                   {row.status === 'Accepted' ? 'Request successfully setup.' : row.status === 'Blocked' ? 'Request is blocked.' : 'Unknown status.'}
                 </Alert>

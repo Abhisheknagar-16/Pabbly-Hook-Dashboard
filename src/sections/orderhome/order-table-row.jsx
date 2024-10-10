@@ -71,7 +71,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   const renderPrimary = (
     <TableRow hover selected={selected}>
       <TableCell padding="checkbox">
-        <Tooltip title="Select" arrow placement='top'>
+        <Tooltip disableInteractive title="Select" arrow placement='top'>
           <Checkbox
             checked={selected}
             onClick={onSelectRow}
@@ -89,7 +89,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-start',
             }}
           >
-            <Tooltip placement='top' arrow title={row.status === 'Active' ? 'Connection is Active' : 'Connection is Inactive'}>
+            <Tooltip placement='top' disableInteractive arrow title={row.status === 'Active' ? 'Connection is Active' : 'Connection is Inactive'}>
               <Label
                 variant="soft"
                 color={
@@ -105,7 +105,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               component="span"
               sx={{ color: 'text.disabled', fontSize: '12px', fontWeight: 400 }}
             >
-              <Tooltip title={`Connection Date: ${formatDate(connectionDate)}`} arrow placement='top'>
+              <Tooltip disableInteractive title={`Connection Date: ${formatDate(connectionDate)}`} arrow placement='top'>
                 {formatDate(connectionDate)}
               </Tooltip>
             </Box>
@@ -127,13 +127,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 style={{ textDecoration: 'none', color: '#078dee' }}
                 href="http://localhost:3030/dashboard/"
               >
-                <Tooltip title={`Connection Name: ${connectionName}`} arrow placement='top'>
+                <Tooltip disableInteractive title={`Connection Name: ${connectionName}`} arrow placement='top'>
                   {connectionName}
                 </Tooltip>
               </a>
             </Box>
             <Typography sx={{ color: ' #919eab ', fontSize: '14px' }}>
-              <Tooltip title="Folder Name: Home" arrow placement='top'>
+              <Tooltip disableInteractive title="Folder Name: Home" arrow placement='top'>
                 Home
               </Tooltip>
             </Typography>
@@ -162,7 +162,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 style={{ textDecoration: 'none', color: '#078dee' }}
                 href={paths.dashboard.four}
               >
-                <Tooltip title="Status of the requests" arrow placement='top'>
+                <Tooltip disableInteractive title="Status of the requests" arrow placement='top'>
                   {requests} Requests
                 </Tooltip>
               </a>
@@ -176,7 +176,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 style={{ textDecoration: 'none', color: '#919eab' }}
                 href={paths.dashboard.five}
               >
-                <Tooltip title="Status of the events" arrow placement='top'>
+                <Tooltip disableInteractive title="Status of the events" arrow placement='top'>
                   {events} events
                 </Tooltip>
               </a>

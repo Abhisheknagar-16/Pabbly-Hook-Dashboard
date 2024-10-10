@@ -268,7 +268,7 @@ export function OverviewEcommerceView() {
     <DashboardContent maxWidth="xl" sx={{ px: { xs: 0, sm: 0, lg: 5, xl: 0 } }}>
       <Grid container spacing={3}>
 
-         {/* folder section */}
+        {/* folder section */}
         <Grid item xs={12} md={3} lg={3} >
           <Card sx={{ pl: 2.4, pr: 2, pt: 2, pb: 2 }}>
             <Typography variant="h6" fontWeight={700}>
@@ -818,15 +818,23 @@ export function OverviewEcommerceView() {
                     <Snackbar
 
                       open={openSnackbar}
-                      autoHideDuration={4000}
+                      autoHideDuration={1000}
                       onClose={handleCloseSnackbar}
                       message="This is an error Alert."
-                      anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',  // Changed to 'center' from 'mid 10%' to use a valid Material-UI position
+                      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                      sx={{
+                        boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
                       }}
                     >
-                      <Alert onClose={handleCloseSnackbar} severity="success">
+                      <Alert onClose={handleCloseSnackbar}
+                        severity="success"
+                        sx={{
+                          width: '100%',
+                          fontSize: '14px',
+                          fontWeight: 'bold',
+                          backgroundColor: theme.palette.background.paper,
+                          color: theme.palette.text.primary,
+                        }}>
                         Connection successfully setup.
                       </Alert>
                     </Snackbar>
@@ -840,7 +848,7 @@ export function OverviewEcommerceView() {
           </Card>
 
           <Box mt={3}>
-            <OrderListViewHome/>
+            <OrderListViewHome />
           </Box>
         </Grid>
 

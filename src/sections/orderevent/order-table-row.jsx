@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
-import { Grid, Alert, Drawer, AppBar, Divider,Toolbar,Tooltip, Snackbar, TextField, Typography } from '@mui/material';
+import { Grid, Alert, Drawer, AppBar, Divider,Toolbar,Tooltip, useTheme ,Snackbar, TextField, Typography} from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -61,7 +61,7 @@ const formatDate = (dateString) => {
 };
 
 export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
-
+  const theme = useTheme();
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
     // State to hold random data
@@ -376,16 +376,24 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
 
               <Snackbar
                 open={openSnackbar}
-                autoHideDuration={4000}
+                autoHideDuration={1000}
                 onClose={handleCloseSnackbar}
                 anchorOrigin={{
                   vertical: 'top',
-                  horizontal: 'center',
+                  horizontal: 'right',
                 }}
               >
                 <Alert
                   onClose={handleCloseSnackbar}
                   severity={row.status === 'success' ? 'success' : row.status === 'rejected' ? 'error' : 'info'}
+                  sx={{
+                    width: '100%',
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    backgroundColor: theme.palette.background.paper,
+                    color: theme.palette.text.primary,
+                    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+                  }} 
                 >
                   {row.status === 'success' ? 'Event successfully setup.' : row.status === 'rejected' ? 'Event is rejected.' : 'Unknown status.'}
                 </Alert>

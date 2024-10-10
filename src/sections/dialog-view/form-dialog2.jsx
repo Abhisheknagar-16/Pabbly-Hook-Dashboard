@@ -3,37 +3,38 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import Snackbar from '@mui/material/Snackbar';
-import { Alert, Tooltip } from '@mui/material';
 import TextField from '@mui/material/TextField';
 // import Typography from '@mui/material/Typography';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import { Alert, Tooltip, useTheme } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 // ----------------------------------------------------------------------
 
-const selectfolder = [
-  {
-    value: 'USD',
-    label: 'Main',
-  },
-  {
-    value: 'EUR',
-    label: 'Hello',
-  },
-  {
-    value: 'BTC',
-    label: 'Subtree with children',
-  },
-  {
-    value: 'JPY',
-    label: 'world',
-  },
-];
+// const selectfolder = [
+//   {
+//     value: 'USD',
+//     label: 'Main',
+//   },
+//   {
+//     value: 'EUR',
+//     label: 'Hello',
+//   },
+//   {
+//     value: 'BTC',
+//     label: 'Subtree with children',
+//   },
+//   {
+//     value: 'JPY',
+//     label: 'world',
+//   },
+// ];
 
 export function FormDialog() {
+  const theme = useTheme();
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const dialog = useBoolean();
   const handleOpenSnackbar = () => {
@@ -111,15 +112,22 @@ export function FormDialog() {
           </Button>
           <Snackbar
             open={openSnackbar}
-            autoHideDuration={4000}
+            autoHideDuration={1000}
             onClose={handleCloseSnackbar}
             message="This is an error Alert."
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                      sx={{
+                        boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+                      }}
           >
-            <Alert onClose={handleCloseSnackbar} severity="success">
+            <Alert onClose={handleCloseSnackbar} severity="success"
+                        sx={{
+                          width: '100%',
+                          fontSize: '14px',
+                          fontWeight: 'bold',
+                          backgroundColor: theme.palette.background.paper,
+                          color: theme.palette.text.primary,
+                        }} >
               Transformation successfully setup.
             </Alert>
           </Snackbar>
