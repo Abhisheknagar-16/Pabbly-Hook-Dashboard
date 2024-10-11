@@ -107,7 +107,7 @@ export function JwtSignUpView() {
   const renderHead = (
     <Stack spacing={1.5} sx={{ mb: 2 }}>
       <Typography variant="h5">Sign Up for Pabbly account</Typography>
-      <Stack direction="row" spacing={0.5}>
+      <Stack direction="row" spacing={0.5} sx={{mb:1}}>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           Already have an account?
         </Typography>
