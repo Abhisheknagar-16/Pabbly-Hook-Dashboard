@@ -49,7 +49,8 @@ export function StatsCardRequest() {
                 <Typography sx={{mt:-0.2,mb:0.2}} variant="h4">Requests</Typography>
                 <Typography sx={{ color: 'text.secondary' }}>
                   The screen shows all your Requests. &nbsp;
-                  <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                  <a href="https://www.youtube.com/playlist?list=PLgffPJ6GjbaIZTlTtPyVtCLJ43RyaLS-U" target="_blank"
+                    rel="noopener noreferrer" style={{ color: '#078DEE', textDecoration: 'underline' }}>
                     Learn more
                   </a>
                 </Typography>
@@ -67,35 +68,34 @@ export function StatsCardRequest() {
               gridTemplateColumns: { sm: 'repeat(2, 1fr)', xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' },
             }}
           >
-            <Tooltip title="Number of total connections." arrow placement='top'>
-              <div>
-                <CourseWidgetSummary
-                  title="Total Connections"
-                  total={232}
-                  icon={`${CONFIG.site.basePath}/assets/icons/courses/connections.png`}
-                />
-              </div>
-            </Tooltip>
-
-
-            <Tooltip title="Number of total request." arrow placement='top'>
-              <div>
-                <CourseWidgetSummary
-                  title="Total Request"
-                  total={986470}
-                  color="secondary"
-                  icon={`${CONFIG.site.basePath}/assets/icons/courses/total-events.png`}
-                />
-              </div>
-            </Tooltip>
-
-            <Tooltip title="Number of total events." arrow placement='top'>
+            <Tooltip disableInteractive title="Number of total event." arrow placement='top'>
               <div>
                 <CourseWidgetSummary
                   title="Total Events"
                   total={986414}
                   color="success"
-                  icon={`${CONFIG.site.basePath}/assets/icons/courses/request.png`}
+                  icon={`${CONFIG.site.basePath}/assets/icons/courses/eventicon.png`}
+                />
+              </div>
+            </Tooltip>
+
+            <Tooltip disableInteractive title="Number of total request." arrow placement='top'>
+              <div>
+                <CourseWidgetSummary
+                  title="Total Request"
+                  total={986470}
+                  color="secondary"
+                  icon={`${CONFIG.site.basePath}/assets/icons/courses/requesticon.png`}
+                />
+              </div>
+            </Tooltip>
+
+            <Tooltip title="Number of total connections." arrow placement='top'>
+              <div>
+                <CourseWidgetSummary
+                  title="Total Connections"
+                  total={232}
+                  icon={`${CONFIG.site.basePath}/assets/icons/courses/connectionicon.png`}
                 />
               </div>
             </Tooltip>

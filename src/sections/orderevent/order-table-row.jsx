@@ -222,17 +222,20 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
       </TableCell>
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
       <Tooltip title={attemptTooltip} arrow placement='top'>
-          <Button
-            variant='outlined'
+          <Label
+            // variant="soft"
             color={buttonColor}
-            size='small'
+            // size='medium'
             onClick={handleOpenDrawer}
+            sx={{ mr: 1 }} // Add margin-right to the button
           >
             Attempt {attemptCount}
-          </Button>
+          </Label>
         </Tooltip>
-        <IconButton
-          sx={{ mt: -0.2 }}
+      </TableCell>
+      <TableCell align='right' padding='checkbox'>
+      <IconButton
+          sx={{ mr:1 }}
           color={popover.open ? 'inherit' : 'default'}
           onClick={popover.onOpen}
         >
@@ -361,9 +364,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <Button
                 onClick={handleOpenSnackbar}
-                variant="contained"
+                // variant="contained"
                 size="small"
-                // variant="soft"
+                variant="soft"
                 color={
                   (row.status === 'success' && 'success') ||
                   (row.status === 'rejected' && 'error') ||

@@ -81,7 +81,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
       </TableCell>
 
       <TableCell>
-        <Stack spacing={2} direction="row" alignItems="center">
+        <Stack spacing={1} direction="row" alignItems="center">
           <Stack
             sx={{
               typography: 'body2',
@@ -114,7 +114,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
       </TableCell>
 
       <TableCell>
-        <Stack spacing={3} direction="row" alignItems="center">
+        <Stack spacing={1} direction="row" alignItems="center">
           <Stack
             sx={{
               typography: 'body2',
@@ -145,8 +145,6 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         </Stack>
       </TableCell>
 
-      <TableCell />
-
       <TableCell>
         <Stack spacing={1} direction="row" alignItems="right" >
           <Stack
@@ -154,7 +152,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               typography: 'body2',
               flex: '1 1 auto',
               alignItems: 'flex-end',
-              mr: 4
+              // mr: 4
             }}
           >
             <Box component="span" >
@@ -182,19 +180,17 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               </a>
             </Box>
           </Stack>
-
-          <Stack align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
-            <Stack>
-              <IconButton
-                sx={{ mt: 0.5, mr: -2 }}
-                color={popover.open ? 'inherit' : 'default'}
-                onClick={popover.onOpen}
-              >
-                <Iconify icon="eva:more-vertical-fill" />
-              </IconButton>
-            </Stack>
-          </Stack>
         </Stack>
+      </TableCell>
+      
+      <TableCell align='right' padding='checkbox' >
+        <IconButton
+          sx={{ mr: 1 }}
+          color={popover.open ? 'inherit' : 'default'}
+          onClick={popover.onOpen}
+        >
+          <Iconify icon="eva:more-vertical-fill" />
+        </IconButton>
       </TableCell>
     </TableRow>
   );

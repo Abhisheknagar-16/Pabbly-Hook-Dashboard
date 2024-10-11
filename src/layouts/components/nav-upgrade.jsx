@@ -65,7 +65,7 @@ export function NavUpgrade({ sx, ...other }) {
           </Typography>
         </Stack>
         
-        <Tooltip title="Upgrade for advanced features." arrow placement='top'>
+        <Tooltip disableInteractive title="Upgrade for advanced features." arrow placement='top'>
         <Button variant="contained" href="https://www.pabbly.com/connect/inr/" target="_blank" rel="noopener">
           Upgrade to Pro
         </Button>
@@ -120,7 +120,7 @@ export function UpgradeBlock({ sx, ...other }) {
 
       <Stack alignItems="flex-start" sx={{ position: 'relative' }}>
         <Box component="span" sx={{ typography: 'h5', color: 'common.white' }}>
-          35% OFF
+          5% OFF
         </Box>
 
         <Box
@@ -132,10 +132,10 @@ export function UpgradeBlock({ sx, ...other }) {
             typography: 'subtitle2',
           }}
         >
-          Power up Productivity!
+          Join Pabbly Hook Now!
         </Box>
         
-        <Tooltip title="Upgrade for advanced features." arrow placement='top'>
+        <Tooltip disableInteractive title="Upgrade for advanced features." arrow placement='top'>
         <Button variant="contained" href="https://www.pabbly.com/connect/inr/" target="_blank" size="small" color="warning">
           Upgrade to Pro
         </Button>

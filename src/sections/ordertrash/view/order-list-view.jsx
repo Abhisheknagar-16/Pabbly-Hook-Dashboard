@@ -50,8 +50,8 @@ const STATUS_CONNECTION = ORDER_STATUS_CONNECTION.filter(status => status.value 
 const TABLE_HEAD = [
   { id: 'orderNumber', label: (<Tooltip title="View connections status and date of creation." arrow placement='top'>STATUS/DATE</Tooltip>) },
   { id: 'name', label: (<Tooltip title="Name of connection and folder where it is located." arrow placement='top'>CONNECTION NAME</Tooltip>) },
-  { id: 'createdAt', label: '',align: 'center'},
-  { id: 'createdAt', label: (<Tooltip title="Status of the requests and events." arrow placement='top'>REQUEST/EVENTS</Tooltip>), align: 'center'},
+  { id: 'createdAt', label: (<Tooltip title="Status of the requests and events." arrow placement='top'>REQUEST/EVENTS</Tooltip>), align: 'right'},
+  { id: '', label: ''},
 ];
 
 // ----------------------------------------------------------------------

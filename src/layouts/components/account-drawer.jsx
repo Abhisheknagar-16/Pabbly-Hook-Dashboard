@@ -2,9 +2,9 @@ import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import { Tooltip } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import MenuItem from '@mui/material/MenuItem';
-import { Avatar, Tooltip } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -117,23 +117,23 @@ export function AccountDrawer({ data = [], sx, ...other }) {
                 key={_mock.fullName(index + 1)}
                 title={`Switch to: ${_mock.fullName(index + 1)}`}
               >
-                <Avatar
+                {/* <Avatar
                   alt={_mock.fullName(index + 1)}
                   src={_mock.image.avatar(index + 1)}
                   onClick={() => { }}
-                />
+                /> */}
               </Tooltip>
             ))}
 
             <Tooltip title="Add account">
-              <IconButton
+              {/* <IconButton
                 sx={{
                   bgcolor: varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
                   border: `dashed 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.32)}`,
                 }}
               >
                 <Iconify icon="mingcute:add-line" />
-              </IconButton>
+              </IconButton> */}
             </Tooltip>
           </Stack>
 

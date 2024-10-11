@@ -51,6 +51,7 @@ const TABLE_HEAD = [
   { id: 'orderNumber', label: (<Tooltip title="Status and date of the event." arrow placement='top'>STATUS/NAME/DATE</Tooltip>) },
   { id: 'createdAt', label: (<Tooltip title="Request Id / Event Id." arrow placement='top'>REQUEST/EVENTS</Tooltip>) },
   { id: 'status', label: (<Tooltip title="All events id request,status history." arrow placement='top'>ATTEMPTS</Tooltip>), align: 'right' },
+  { id: '', label: ''},
 
 ];
 
