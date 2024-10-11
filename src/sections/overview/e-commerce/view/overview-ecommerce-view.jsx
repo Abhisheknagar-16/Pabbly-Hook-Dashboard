@@ -115,7 +115,7 @@ export function OverviewEcommerceView() {
                     </div>
                   </Tooltip>
                 }
-                action={<FormDialog width="205px" height="40px" variant="outlined" />}
+                action={<FormDialog variant="outlined" />}
               />
             </Card>
 
