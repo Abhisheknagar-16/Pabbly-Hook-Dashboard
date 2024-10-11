@@ -84,7 +84,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
       </TableCell>
 
       <TableCell>
-        <Stack spacing={2} direction="row" alignItems="center">
+        <Stack spacing={1} direction="row" alignItems="center">
           <Stack
             sx={{
               typography: 'body2',
@@ -149,18 +149,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         </Stack>
       </TableCell>
 
-      <TableCell />
-
-
       <TableCell>
-        <Stack spacing={1} direction="row" alignItems="left" >
+        <Stack spacing={1} direction="row" alignItems="right" >
           <Stack
-
             sx={{
               typography: 'body2',
               flex: '1 1 auto',
               alignItems: 'flex-end',
-              mr: 4
             }}
           >
             <Box component="span">
@@ -187,22 +182,17 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 </Tooltip>
               </a>
             </Box>
-
-
-          </Stack>
-
-          <Stack spacing={2} direction="row" alignItems="right">
-            <Stack>
-              <IconButton
-                sx={{ mt: 0.5, mr: -1 }}
-                color={popover.open ? 'inherit' : 'default'}
-                onClick={popover.onOpen}
-              >
-                <Iconify icon="eva:more-vertical-fill" />
-              </IconButton>
-            </Stack>
           </Stack>
         </Stack>
+      </TableCell>
+      <TableCell align='right' padding='checkbox' >
+        <IconButton
+          sx={{ mr: 1 }}
+          color={popover.open ? 'inherit' : 'default'}
+          onClick={popover.onOpen}
+        >
+          <Iconify icon="eva:more-vertical-fill" />
+        </IconButton>
       </TableCell>
     </TableRow>
   );

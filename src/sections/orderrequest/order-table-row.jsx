@@ -345,7 +345,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <Button
                 onClick={handleOpenSnackbar}
-                variant="contained"
+                variant="soft"
                 size="small"
                 color={
                   row.status === 'Accepted' ? 'success' :

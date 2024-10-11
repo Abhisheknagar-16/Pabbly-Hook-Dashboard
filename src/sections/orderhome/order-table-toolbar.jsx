@@ -91,7 +91,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           sx={{ width: '100%' }}  // Ensures the stack takes full width
         >
           <Typography variant="h6" fontWeight={700} lineHeight={2} >
-            <Tooltip disableInteractive title="Folder Name:Home." arrow placement="top">
+            <Tooltip disableInteractive title="Folder Name: Home" arrow placement="top">
               Home
             </Tooltip>
           </Typography>

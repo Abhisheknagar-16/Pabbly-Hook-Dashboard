@@ -134,11 +134,20 @@ export default function Page() {
                   ))}
                 </Select>
                 <FormHelperText>
-                  Select the time zone that matches your current location
+                  Select the time zone that matches your current location.
                 </FormHelperText>
               </FormControl>
               <Box>
-                <Tooltip title="Click 'Save' to apply the selected time zone to your account, ensuring that all workflow activities and task schedules reflect your local time." arrow placement="top">
+              <Tooltip
+              disableInteractive
+              title={
+                <div style={{ textAlign: 'center' }}>
+                  Click &apos;Save&apos; to apply the selected time zone to your account, ensuring that all workflow activities and task schedules reflect your local time.
+                </div>
+              }
+              arrow
+              placement='top'
+            > 
                   <Button variant="contained" color="inherit" onClick={handleSave}>
                     Save
                   </Button>

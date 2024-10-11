@@ -49,9 +49,10 @@ export function StatsCardTimezone() {
                 <Typography sx={{mt:-0.2,mb:0.2}} variant="h4">Time Zone</Typography>
                 <Typography sx={{ color: 'text.secondary' }}>
                  Select your account&apos;s time zone from here. By selecting your account time zone from the settings menu, you can ensure that all of your works and task executions are displayed at the correct time for your location. &nbsp;
-                  <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                 {/* <a href="https://www.youtube.com/playlist?list=PLgffPJ6GjbaIZTlTtPyVtCLJ43RyaLS-U" target="_blank"
+                    rel="noopener noreferrer" style={{ color: '#078DEE', textDecoration: 'underline' }}>
                     Learn more
-                  </a>
+                  </a> */}
                 </Typography>
               </div>
               <Box sx={{ mt: { xs: 2, sm: 0 } }}>

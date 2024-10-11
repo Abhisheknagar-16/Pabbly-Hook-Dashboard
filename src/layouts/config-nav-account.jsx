@@ -34,7 +34,12 @@ export const _account = [
   //   info: '3',
   // },
   {
-    label: 'My Subscription',
+    label: 'My Account',
+    href: '#',
+    icon: <Iconify icon="solar:home-angle-bold-duotone" />,
+  },
+  {
+    label: 'Subscription',
     href: '#',
     icon: (
       <SvgIcon>
@@ -61,9 +66,4 @@ export const _account = [
   //   href: '#',
   //   icon: <Iconify icon="solar:shield-keyhole-bold-duotone" />,
   // },
-  {
-    label: 'Account settings',
-    href: '#',
-    icon: <Iconify icon="solar:settings-bold-duotone" />,
-  },
 ];

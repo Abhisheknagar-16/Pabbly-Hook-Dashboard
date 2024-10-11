@@ -28,8 +28,8 @@ export function SignOutButton({ onClose, ...other }) {
   }, [checkUserSession, onClose, router]);
 
   return (
-    <Tooltip title="Log out safely." arrow placement='top'>
-    <Button fullWidth variant="soft" size="large" color="error" onClick={handleLogout} {...other}>
+    <Tooltip disableInteractive title="Log out safely." arrow placement='top'>
+    <Button fullWidth variant="soft" size="large" color="primary" onClick={handleLogout} {...other}>
       Logout
     </Button>
     </Tooltip>
