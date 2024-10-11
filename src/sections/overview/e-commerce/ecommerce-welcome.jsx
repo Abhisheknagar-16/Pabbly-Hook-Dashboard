@@ -56,7 +56,7 @@ export function EcommerceWelcome({
           alignItems: { xs: 'center', md: 'flex-start' },
         }}
       >
-        <Typography variant="h4" sx={{ color: '#212529', whiteSpace: 'pre-line', mb: 3 }}>
+        <Typography variant="h4" sx={{ color: '#212529', whiteSpace: 'pre-line', mb: 2}}>
           {title}
         </Typography>
 
@@ -66,7 +66,7 @@ export function EcommerceWelcome({
             color: 'text.secondary',
             fontSize: '14px',
             maxWidth: 700,
-            ...(action && { mb: 2 }),
+            ...(action && { mb: 2}),
           }}
         >
           {description}
@@ -78,7 +78,7 @@ export function EcommerceWelcome({
             color: 'text.secondary',
             fontSize: '14px',
             maxWidth: 800,
-            ...(action && { mb: 2 }),
+            ...(action && { mb: 0 }),
           }}
         >
           <li fontSize="16px">
@@ -92,7 +92,7 @@ export function EcommerceWelcome({
             color: 'text.secondary',
             fontSize: '14px',
             maxWidth: 800,
-            ...(action && { mb: 2 }),
+            ...(action && { mb: 0 }),
           }}
         >
           <li fontSize="16px">
