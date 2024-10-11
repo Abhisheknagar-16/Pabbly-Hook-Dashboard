@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
-import { Grid, Alert, Drawer, AppBar, Divider,Toolbar,Tooltip, useTheme ,Snackbar, TextField, Typography} from '@mui/material';
+import { Grid, Alert, Drawer, AppBar, Divider, Toolbar, Tooltip, useTheme, Snackbar, TextField, Typography } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -30,8 +30,8 @@ const generateRandomData = () => {
   // Generate a random date
   const randomDate = new Date(Date.now() - Math.random() * 10000000000).toISOString();
 
-    // Generate a random Event ID
-    const randomRequestId = `req_66fe${Math.random().toString(36).substring(2, 36)}`;
+  // Generate a random Event ID
+  const randomRequestId = `req_66fe${Math.random().toString(36).substring(2, 36)}`;
 
   // Generate a random Event ID
   const randomEventId = `evt_66fe${Math.random().toString(36).substring(2, 36)}`;
@@ -40,7 +40,7 @@ const generateRandomData = () => {
     EventName: randomName,
     Eventdate: randomDate,
     status: randomStatus,
-    EventId: randomEventId, 
+    EventId: randomEventId,
     RequestId: randomRequestId,
   };
 };
@@ -64,15 +64,15 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   const theme = useTheme();
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
-    // State to hold random data
-    const [randomData, setRandomData] = useState({});
+  // State to hold random data
+  const [randomData, setRandomData] = useState({});
 
-    // Generate random data on component mount
-    useEffect(() => {
-      setRandomData(generateRandomData());
-    }, []); // Empty dependency array ensures it runs once on mount
-  
-    const { EventName, Eventdate, EventId, RequestId } = randomData; // Destructure the new ID
+  // Generate random data on component mount
+  useEffect(() => {
+    setRandomData(generateRandomData());
+  }, []); // Empty dependency array ensures it runs once on mount
+
+  const { EventName, Eventdate, EventId, RequestId } = randomData; // Destructure the new ID
 
   const confirm = useBoolean();
   const popover = usePopover();
@@ -95,13 +95,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     setOpenSnackbar(false);
   };
 
-   // Determine attempt count based on status
-   const attemptCount = row.status === 'success' ? 1 : row.status === 'rejected' ? 2 : row.status === 'scheduled' ? 3 : 0;
+  // Determine attempt count based on status
+  const attemptCount = row.status === 'success' ? 1 : row.status === 'rejected' ? 2 : row.status === 'scheduled' ? 3 : 0;
 
-   // Determine button color based on status
-   const buttonColor = row.status === 'success' ? 'success' : row.status === 'rejected' ? 'error' : 'info';
+  // Determine button color based on status
+  const buttonColor = row.status === 'success' ? 'success' : row.status === 'rejected' ? 'error' : 'info';
 
-   // Tooltip text for the attempt button
+  // Tooltip text for the attempt button
   const attemptTooltip = `This is attempt number ${attemptCount} for a ${row.status} event.`;
 
   const renderPrimary = (
@@ -179,49 +179,49 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-start',
             }}
           >
-   
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
 
-                <Tooltip title="Request ID" arrow placement='top'>
-                  <Typography fontSize={14} color="#1c252e">
-                    {RequestId}
-                  </Typography>
-                </Tooltip>
-                <Tooltip title="Copy request_id " arrow placement="bottom">
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
 
-                  <IconButton
-                    edge="end"
-                    sx={{ color: 'text.disabled' }}
-                    onClick={() => navigator.clipboard.writeText(RequestId)}
-                  >
-                    <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
-                  </IconButton>
-                </Tooltip>
-              </Box>
- 
-           
-              <Box sx={{ display: 'flex', alignItems: 'center', mt: -0.3 }}>
-                <Tooltip title="Event ID" arrow placement='top'>
-                  <Typography fontSize={12} color="#919eab">
-                    {EventId}
-                  </Typography>
-                </Tooltip>
-                <Tooltip title="Copy event_id" arrow placement="bottom">
-                  <IconButton
-                    edge="end"
-                    sx={{ color: 'text.disabled' }}
-                    onClick={() => navigator.clipboard.writeText(EventId)}
-                  >
-                    <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-    
+              <Tooltip title="Request ID" arrow placement='top'>
+                <Typography fontSize={14} color="#1c252e">
+                  {RequestId}
+                </Typography>
+              </Tooltip>
+              <Tooltip title="Copy request_id " arrow placement="bottom">
+
+                <IconButton
+                  edge="end"
+                  sx={{ color: 'text.disabled' }}
+                  onClick={() => navigator.clipboard.writeText(RequestId)}
+                >
+                  <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+
+            <Box sx={{ display: 'flex', alignItems: 'center', mt: -0.3 }}>
+              <Tooltip title="Event ID" arrow placement='top'>
+                <Typography fontSize={12} color="#919eab">
+                  {EventId}
+                </Typography>
+              </Tooltip>
+              <Tooltip title="Copy event_id" arrow placement="bottom">
+                <IconButton
+                  edge="end"
+                  sx={{ color: 'text.disabled' }}
+                  onClick={() => navigator.clipboard.writeText(EventId)}
+                >
+                  <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
           </Stack>
         </Stack>
       </TableCell>
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
-      <Tooltip title={attemptTooltip} arrow placement='top'>
+        <Tooltip title={attemptTooltip} arrow placement='top'>
           <Label
             // variant="soft"
             color={buttonColor}
@@ -234,8 +234,8 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         </Tooltip>
       </TableCell>
       <TableCell align='right' padding='checkbox'>
-      <IconButton
-          sx={{ mr:1 }}
+        <IconButton
+          sx={{ mr: 1 }}
           color={popover.open ? 'inherit' : 'default'}
           onClick={popover.onOpen}
         >
@@ -338,6 +338,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           <Typography
             sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}
           >
+            Event ID - {' '}
             {EventId} {/* Display the random ID */}
             <Tooltip title="Copy event_id " arrow placement="bottom">
               <IconButton
@@ -348,6 +349,11 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
               </IconButton>
             </Tooltip>
+          </Typography>
+          <Typography
+            sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}>
+            Executed at {' '}
+            {formatDate(Eventdate)}
           </Typography>
         </AppBar>
         <Divider />
@@ -396,7 +402,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                     backgroundColor: theme.palette.background.paper,
                     color: theme.palette.text.primary,
                     boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-                  }} 
+                  }}
                 >
                   {row.status === 'success' ? 'Event successfully setup.' : row.status === 'rejected' ? 'Event is rejected.' : 'Unknown status.'}
                 </Alert>
@@ -407,7 +413,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               <Typography variant="body2" sx={{ mt: 1 }}>Source</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-             <TextField disabled size="small" fullWidth value={formatDate(Eventdate)} />
+              <TextField disabled size="small" fullWidth value={formatDate(Eventdate)} />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>Content lenght </Typography>
@@ -558,7 +564,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               </Box>
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{mt:1}}>Query Params</Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>Query Params</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField
