@@ -55,10 +55,10 @@ export const navData = [
     // subheader: 'Overview 6.0.0',
     items: [
       { title: 'Connections', path: paths.dashboard.root, icon: ICONS.connection },
-      { title: 'Issues', path: paths.dashboard.two, icon: ICONS.issues },
-      { title: 'Transformations', path: paths.dashboard.three, icon: ICONS.transformations},
       { title: 'Requests', path: paths.dashboard.four, icon: ICONS.requests},
       { title: 'Events', path: paths.dashboard.five, icon: ICONS.events},
+      // { title: 'Issues', path: paths.dashboard.two, icon: ICONS.issues },
+      { title: 'Transformations', path: paths.dashboard.three, icon: ICONS.transformations},
       { title: 'Time-Zone', path: paths.dashboard.Seven, icon: ICONS.timezone},
     ],
   },

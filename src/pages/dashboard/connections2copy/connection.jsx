@@ -12,7 +12,7 @@ import { OverviewEcommerceView } from 'src/sections/overview/e-commerce copy/vie
 
 // ------------x----------------------------------------------------------
 
-const metadata = { title: `Page six | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Page Setup Connection Form | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
   return (
