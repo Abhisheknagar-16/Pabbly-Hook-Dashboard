@@ -45,7 +45,7 @@ export const paths = {
   // DASHBOARD
   dashboard: {
     root: ROOTS.DASHBOARD,
-    two: `${ROOTS.DASHBOARD}/two`,
+    // two: `${ROOTS.DASHBOARD}/two`,
     three: `${ROOTS.DASHBOARD}/three`,
     four: `${ROOTS.DASHBOARD}/four`,
     five: `${ROOTS.DASHBOARD}/five`,
