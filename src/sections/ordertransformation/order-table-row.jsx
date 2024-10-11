@@ -257,6 +257,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           <Typography
             sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}
           >
+            Transformation ID - {' '}
             {TransformationID} {/* Display the random ID */}
             <Tooltip title="Copy transformation_id" arrow placement="bottom">
               <IconButton
@@ -268,6 +269,11 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               </IconButton>
             </Tooltip>
           </Typography>
+          <Typography
+            sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}>
+            Executed at {' '}
+            {formatDate(TransformationCreated)}
+            </Typography>
         </AppBar>
         <Divider />
         <Box sx={{ width: '90%', mt: 2, ml: 5, bgcolor: '#fff', padding: 2 }}>

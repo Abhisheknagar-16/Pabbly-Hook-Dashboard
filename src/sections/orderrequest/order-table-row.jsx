@@ -319,6 +319,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           <Typography
             sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}
           >
+            Request ID - {' '}
             {RequestId} {/* Display the random ID */}
             <Tooltip title="Copy request_id " arrow placement="bottom">
               <IconButton
@@ -329,6 +330,11 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
               </IconButton>
             </Tooltip>
+          </Typography>
+          <Typography
+            sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}>
+            Executed at {' '}
+            {formatDate(Requestdate)}
           </Typography>
         </AppBar>
         <Divider />
@@ -375,7 +381,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                     backgroundColor: theme.palette.background.paper,
                     color: theme.palette.text.primary,
                     boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-                  }} 
+                  }}
                 >
                   {row.status === 'Accepted' ? 'Request successfully setup.' : row.status === 'Blocked' ? 'Request is blocked.' : 'Unknown status.'}
                 </Alert>
@@ -386,7 +392,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               <Typography variant="body2" sx={{ mt: 1 }}>Source</Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-             <TextField disabled size="small" fullWidth value={formatDate(Requestdate)} />
+              <TextField disabled size="small" fullWidth value={formatDate(Requestdate)} />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>Content lenght </Typography>
