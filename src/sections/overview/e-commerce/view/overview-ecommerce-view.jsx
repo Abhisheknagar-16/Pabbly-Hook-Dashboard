@@ -15,6 +15,7 @@ import {
   DialogTitle,
   DialogActions,
   DialogContent,
+  InputAdornment,
 } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -66,7 +67,7 @@ export function OverviewEcommerceView() {
                     You can create folders and manage connections inside them.
                   </div>
                 } arrow placement="top">
-                  <span>Folder</span>
+                  <span>Folders</span>
                 </Tooltip>
 
                 <IconButton onClick={handledopen} edge="end" sx={{ mr: 0.6, mt: -0.8 }}>
@@ -140,15 +141,25 @@ export function OverviewEcommerceView() {
             Create Folder
           </Tooltip>
         </DialogTitle>
-        <DialogContent sx={{ mt: -1 }}>
+        <Divider sx={{ borderStyle: 'dashed', mb: 2 }}/>
+        <DialogContent>
           <TextField
-            autoFocus
+            // autoFocus
             fullWidth
             type="text"
             margin="dense"
             variant="outlined"
-            placeholder="Name of the Connection"
+            placeholder="Name of the Connection"  
             label="Folder Name"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Tooltip title="Enter folder name here" disableInteractive arrow placement="top">
+                  <Iconify icon="material-symbols:info-outline"  />
+                  </Tooltip>
+                </InputAdornment>
+              ),
+            }}
             helperText={
               <>
                 Enter the name of the connection.{' '}

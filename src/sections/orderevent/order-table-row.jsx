@@ -50,11 +50,11 @@ const formatDate = (dateString) => {
   const options = {
     year: 'numeric',
     month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    fractionalSecondDigits: 3,
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false, // 24-hour format
   };
   const date = new Date(dateString);
   return date.toLocaleString('en-US', options).replace(',', '');
@@ -156,13 +156,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Tooltip></Box>
             <Box
               component="span"
-              sx={{ color: 'text.disabled', fontSize: '12px', fontWeight: 400 }}
-            />
-            <Box
-              component="span"
-              sx={{ color: 'text.disabled', fontSize: '12px', fontWeight: 400 }}
+              sx={{ color: 'text.disabled'}}
             >
-              <Tooltip title={`Event date: ${formatDate(Eventdate)}`} arrow placement='top'>
+              <Tooltip title={
+                  <div style={{ textAlign: 'center' }}>
+                    {`Event created: ${formatDate(Eventdate)} (UTC+00:00) America/Danmarkshavn`}
+                  </div>
+                } arrow placement='top'>
                 {formatDate(Eventdate)}
               </Tooltip>
             </Box>
@@ -202,7 +202,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
 
             <Box sx={{ display: 'flex', alignItems: 'center', mt: -0.3 }}>
               <Tooltip title="Event ID" arrow placement='top'>
-                <Typography fontSize={12} color="#919eab">
+                <Typography fontSize={14} color="#919eab">
                   {EventId}
                 </Typography>
               </Tooltip>
