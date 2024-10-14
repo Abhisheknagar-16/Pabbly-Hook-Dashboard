@@ -9,9 +9,11 @@ import Typography from '@mui/material/Typography';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import { Alert, Tooltip, MenuItem, } from '@mui/material';
+import { Alert, Tooltip, Divider, MenuItem, InputAdornment, } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
+
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -77,10 +79,9 @@ export function FormDialog({ height, width, variant }) {
 
       <Dialog open={dialog.value} onClose={dialog.onFalse}>
         <DialogTitle><Tooltip title="Create a connection with a name and folder location." arrow placement="top">Create Connection</Tooltip></DialogTitle>
+        <Divider sx={{ borderStyle: 'dashed', mb: 2 }}/>
 
-        <DialogContent sx={{ mt: -1 }}>
-          {/* <Typography sx={{ mb: 0 }}>Connection Name</Typography> */}
-
+        <DialogContent >
           <TextField
             autoFocus
             fullWidth
@@ -89,6 +90,15 @@ export function FormDialog({ height, width, variant }) {
             variant="outlined"
             label="Connection Name"
             placeholder='Name of the Connection'
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Tooltip title="Enter folder name here" disableInteractive arrow placement="top">
+                  <Iconify icon="material-symbols:info-outline"  />
+                  </Tooltip>
+                </InputAdornment>
+              ),
+            }}
             helperText={
               <>
                 Enter the name of the connection.{' '}

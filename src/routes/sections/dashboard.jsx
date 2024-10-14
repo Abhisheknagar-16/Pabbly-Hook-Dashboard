@@ -40,14 +40,14 @@ export const dashboardRoutes = [
       { path: 'five', element: <PageFive /> },
       { path: 'six', element: <PageSix /> },
       { path: 'seven', element: <PageSeven /> },
-      // {
-      //   path: 'group',
-      //   children: [
-      //     { element: <PageFour />, index: true },
-      //     { path: 'five', element: <PageFive /> },
-      //     { path: 'six', element: <PageSix /> },
-      //   ],
-      // },
+      {
+        path: 'group',
+        children: [
+          { element: <PageSeven />, index: true },
+          // { path: 'five', element: <PageFive /> },
+          // { path: 'six', element: <PageSix /> },
+        ],
+      },
     ],
   },
 ];

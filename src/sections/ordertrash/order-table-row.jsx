@@ -47,11 +47,11 @@ const formatDate = (dateString) => {
   const options = {
     year: 'numeric',
     month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    fractionalSecondDigits: 3,
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false, // 24-hour format
   };
   const date = new Date(dateString);
   return date.toLocaleString('en-US', options).replace(',', '');
@@ -106,9 +106,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Tooltip>
             <Box
               component="span"
-              sx={{ color: 'text.disabled', fontSize: '12px', fontWeight: 400 }}
+              sx={{ color: 'text.disabled'}}
             >
-              <Tooltip title={`Connection Date: ${formatDate(connectionDate)}`} arrow placement='top'>
+              <Tooltip title={
+                  <div style={{ textAlign: 'center' }}>
+                    {`Connection created: ${formatDate(connectionDate)} (UTC+00:00) America/Danmarkshavn`}
+                  </div>
+                } arrow placement='top'>
                 {formatDate(connectionDate)}
               </Tooltip>
             </Box>
@@ -142,7 +146,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Typography>
             <Box
               component="span"
-              sx={{ color: 'text.disabled', fontSize: '12px', fontWeight: 400 }}
+              sx={{ color: 'text.disabled'}}
             />
 
           </Stack>
@@ -171,7 +175,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
 
             <Box
               component="span"
-              sx={{ color: 'text.disabled', fontSize: '14px', fontWeight: 400 }}
+              sx={{ color: 'text.disabled' }}
             >
               <a
                 style={{ textDecoration: 'none', color: '#919eab' }}

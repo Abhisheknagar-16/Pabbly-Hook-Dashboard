@@ -40,7 +40,8 @@ const ICONS = {
   transformations:icon('ic-transformations'),
   requests:icon('ic-requests'),
   events:icon('ic-events'),
-  timezone:icon('ic-time-zone')
+  timezone:icon('ic-time-zone'),
+  setting:icon('ic-settings')
 
   
 };
@@ -59,25 +60,25 @@ export const navData = [
       { title: 'Events', path: paths.dashboard.five, icon: ICONS.events},
       // { title: 'Issues', path: paths.dashboard.two, icon: ICONS.issues },
       { title: 'Transformations', path: paths.dashboard.three, icon: ICONS.transformations},
-      { title: 'Time-Zone', path: paths.dashboard.Seven, icon: ICONS.timezone},
+      // { title: 'Time-Zone', path: paths.dashboard.Seven, icon: ICONS.timezone},
     ],
   },
   /**
    * Management
    */
-  // {
-  //   subheader: 'Management',
-  //   items: [
-  //     {
-  //       title: 'Group',
-  //       path: paths.dashboard.group.root,
-  //       icon: ICONS.user,
-  //       children: [
-  //         { title: 'Four', path: paths.dashboard.group.root },
-  //         { title: 'Five', path: paths.dashboard.group.five },
-  //         { title: 'Six', path: paths.dashboard.group.six },
-  //       ],
-  //     },
-  //   ],
-  // },
+  {
+    subheader: 'Management',
+    items: [
+      {
+        title: 'Setting',
+        path: paths.dashboard.group.root,
+        icon: ICONS.setting,
+        children: [
+          { title: 'Time Zone', path: paths.dashboard.group.root },
+          // { title: 'Five', path: paths.dashboard.group.five },
+          // { title: 'Six', path: paths.dashboard.group.six },
+        ],
+      },
+    ],
+  },
 ];

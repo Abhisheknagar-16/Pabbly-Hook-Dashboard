@@ -17,34 +17,36 @@ import { usePopover,CustomPopover } from 'src/components/custom-popover';
 
 const ITEMS = [
   { id: '12', label: 'Home (0)' },  // Home item
+  { id: '18', label: 'Pabbly Connect (0)' }, 
   {
     id: '1',
     label: 'Main Folder (2)',
     children: [
-      { id: '2', label: 'Hello' },
+      { id: '2', label: 'Child Folder 1-Subscrip..(0)' },
       {
         id: '3',
-        label: 'Subtree with children',
+        label: 'Child Folder 2 (3)',
         children: [
-          { id: '6', label: 'Hello' },
+          { id: '6', label: 'Child Folder 1-Subscrip..(0)' },
           {
             id: '7',
-            label: 'Sub-subtree with children',
+            label: 'Grand Child (4)',
             children: [
-              { id: '9', label: 'Child 1' },
-              { id: '10', label: 'Child 2' },
-              { id: '11', label: 'Child 3' },
+              { id: '9', label: 'Folder 1' },
+              { id: '10', label: 'Folder 2' },
+              { id: '11', label: 'Folder 3' },
             ],
           },
-          { id: '8', label: 'Hello' },
+          { id: '8', label: 'Child Folder 3' },
         ],
       },
-      { id: '4', label: 'World' },
-      { id: '5', label: 'Something something' },
+      { id: '4', label: 'Child Folder 4 (0)' },
+      { id: '5', label: 'Child Folder 4 (2)' },
     ],
   },
   { id: '13', label: 'Pabbly Subcription Billi..(0)' },
   { id: '14', label: 'Pabbly Email Marketing (0)' },
+  { id: '17', label: 'Pabbly Form Bulider (0)' },
   { id: '15', label: 'Pabbly Hook (0)' },
 ];
 
@@ -151,9 +153,9 @@ const StyledTreeItem = styled((props) => {
   [stylesMode.dark]: { color: theme.vars.palette.grey[200] },
   [`& .${treeItemClasses.content}`]: {
     borderRadius: theme.spacing(0.5),
-    padding: theme.spacing(0.5, 1),
+    padding: theme.spacing(0.2, 1),
     margin: theme.spacing(0.2, 0),
-    [`& .${treeItemClasses.label}`]: { fontSize: '0.8rem', fontWeight: 500 },
+    [`& .${treeItemClasses.label}`]: { fontSize: '14px', fontWeight: 500 },
   },
   [`& .${treeItemClasses.iconContainer}`]: {
     borderRadius: '50%',
@@ -178,7 +180,7 @@ export function CustomStyling({ onTrashClick, onHomeClick }) {
       <RichTreeView
         aria-label="customized"
         defaultExpandedItems={['1']}
-        sx={{ overflowX: 'hidden', minHeight: 200, width: 1 }}
+        sx={{ overflowX: 'hidden', minHeight: 0, width: 1 }}
         slots={{ item: (props) => <StyledTreeItem {...props} onTrashClick={onTrashClick} onHomeClick={onHomeClick} /> }}
         items={ITEMS}
       />
@@ -186,7 +188,7 @@ export function CustomStyling({ onTrashClick, onHomeClick }) {
       <RichTreeView
         aria-label="customized"
         defaultExpandedItems={['16']}
-        sx={{ overflowX: 'hidden', minHeight: 2, width: 1 }}
+        sx={{ overflowX: 'hidden', minHeight: 0, width: 1 }}
         slots={{ item: (props) => <StyledTreeItem {...props} onTrashClick={onTrashClick} onHomeClick={onHomeClick} /> }}
         items={ITEMS1}
       />
