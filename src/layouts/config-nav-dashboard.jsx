@@ -67,7 +67,7 @@ export const navData = [
    * Management
    */
   {
-    subheader: 'Management',
+    // subheader: 'Management',
     items: [
       {
         title: 'Setting',
