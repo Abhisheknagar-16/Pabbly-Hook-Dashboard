@@ -8,7 +8,7 @@ import { RouterLink } from 'src/routes/components';
 
 // ----------------------------------------------------------------------
 
-export function JwtConfirm() {
+export function JwtRest() {
 
   const renderHead = (
     <Stack spacing={1.5} sx={{ mb: 0,mt:26}}>
@@ -45,22 +45,19 @@ export function JwtConfirm() {
           </Box>
 
           <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
-            Confirm Your Email Address!
+            Rest Link Sent!
           </Typography>
 
           <Divider sx={{ mt:2 }} />
 
           <Typography sx={{ mt:2 }}>
-           We have sent a verification email to {' '}
+          You&apos;ll get a password reset link at {' '}
             <Link href="numeral-whale-32@inboxkitten.com." sx={{ fontWeight: 'bold', color: '#078dee' }}>
             numeral-whale-32@inboxkitten.com
             </Link>
-            . Please check your inbox and verify your email address.
+            .
           </Typography>
-
-          <Typography sx={{ mt:2 }}>
-           If you don&apos;t receive the email within 15 minutes, kindly check your spam or junk mail folder. If the email is there, please mark it as &ldquo;Not Junk&ldquo; to ensure future messages are delivered to your inbox.
-          </Typography>
+          <Typography>If the email exists.</Typography>
 
           <Typography sx={{ mt:2 }}>
           If you any questions, or need help with anything, please contact us at support@pabbly.com.

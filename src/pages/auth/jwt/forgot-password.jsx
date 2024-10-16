@@ -2,6 +2,8 @@ import { Helmet } from 'react-helmet-async';
 
 import { Box, Button, Typography } from '@mui/material';
 
+import { paths } from 'src/routes/paths';
+
 import { CONFIG } from 'src/config-global';
 
 import { JwtForgotpassword } from 'src/sections/auth/jwt/jwt-forgot-password';
@@ -40,12 +42,13 @@ export default function Page() {
         </Typography>
         <Button
           variant="contained"
-          color="success"
+          color="primary"
           sx={{
             width: { xs: 'auto', md: 'auto' } // Full width on mobile, auto on desktop
           }}
+          href={paths.auth.jwt.signUp}
         >
-          Sign Up
+          Create Account
         </Button>
       </Box>
       <Helmet>

@@ -44,14 +44,14 @@ export default function Page() {
 
         <Button
         component={RouterLink}
-        href={paths.auth.jwt.confirm}
+        href={paths.auth.jwt.signUp}
           variant="contained"
-          color="success"
+          color="primary"
           sx={{
             width: { xs: 'auto', md: 'auto' } // Full width on mobile, auto on desktop
           }}
         >
-          Sign Up
+          Create Account
         </Button>
       </Box>
 

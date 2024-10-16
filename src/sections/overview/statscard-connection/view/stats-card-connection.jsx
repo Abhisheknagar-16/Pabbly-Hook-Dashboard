@@ -51,7 +51,7 @@ export function StatsCard() {
                 <Typography sx={{ mt: -0.2, mb: 0.2 }} variant="h4">Connections</Typography>
                 {/* <Tooltip title="Create a connection to experience the full benefits of Pabbly Hook." arrow placement='top'> */}
                 <Typography sx={{ color: 'text.secondary' }}>
-                  The screen shows all your Connections. &nbsp;
+                Create and manage all of your connection in one place with Pabbly Hook dashboard.  &nbsp;
                   <a
                     href="https://www.youtube.com/playlist?list=PLgffPJ6GjbaIZTlTtPyVtCLJ43RyaLS-U"
                     style={{ color: '#078DEE', textDecoration: 'underline' }}
@@ -77,7 +77,7 @@ export function StatsCard() {
             }}
           >
 
-            <Tooltip disableInteractive title="Number of total event." arrow placement='top'>
+            <Tooltip disableInteractive title="Total number of events executed in your account." arrow placement='top'>
               <div>
                 <CourseWidgetSummary
                   title="Total Events"
@@ -88,7 +88,7 @@ export function StatsCard() {
               </div>
             </Tooltip>
 
-            <Tooltip disableInteractive title="Number of total request." arrow placement='top'>
+            <Tooltip disableInteractive title="Total number of requests processed in your account." arrow placement='top'>
               <div>
                 <CourseWidgetSummary
                   title="Total Request"
@@ -99,7 +99,7 @@ export function StatsCard() {
               </div>
             </Tooltip>
 
-            <Tooltip title="Number of total connections." arrow placement='top'>
+            <Tooltip title="Number of connections created in your account." arrow placement='top'>
               <div>
                 <CourseWidgetSummary
                   title="Total Connections"

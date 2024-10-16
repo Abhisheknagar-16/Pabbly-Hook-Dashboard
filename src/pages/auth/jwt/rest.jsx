@@ -1,54 +1,20 @@
-import Box from '@mui/material/Box';
-import Tooltip from '@mui/material/Tooltip';
-import { useTheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
+import { Helmet } from 'react-helmet-async';
 
-import { CarouselAlign } from 'src/sections/carousel/carousel-align';
+import { Box } from '@mui/material';
 
-// import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { CONFIG } from 'src/config-global';
+
+import { JwtRest } from 'src/sections/auth/jwt/jwt-rest';
 
 
-// import { CONFIG } from 'src/config-global';
+// ----------------------------------------------------------------------
 
-export function Section({
-  sx,
-  method,
-  layoutQuery,
-  method1,
-  method2,
-  title = 'No Restrictions on Features!',
-  subtitle = 'Scale & Grow Your Business with Pabbly.',
-  ...other
-}) {
-  const theme = useTheme();
+const metadata = { title: `Rest Email | Jwt - ${CONFIG.site.name}` };
 
+export default function Page() {
   return (
-    <Box
-      sx={{
-        background: `linear-gradient(180deg, 
-        rgba(236, 255, 247, 0.5) 0%,   
-        rgba(163, 228, 201, 0.65) 100% 
-      )`,
-        backgroundSize: 'cover',
-        px: 3,
-        pb: 0,
-        width: '100%',
-        maxWidth: 480,
-        display: 'none',
-        position: 'relative',
-        pt: 'var(--layout-header-desktop-height)',
-        [theme.breakpoints.up(layoutQuery)]: {
-          gap: 2,
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-          justifyContent: 'center',
-        },
-        ...sx,
-      }}
-      {...other}
-    >
-      <Box
+    <>
+     <Box
         alignItems="left"
         justifyContent="left"
         position="fixed" // Set the position to relative for the box
@@ -76,95 +42,11 @@ export function Section({
         <path d="M453.306 111.455C453.306 114.663 451.697 116.266 448.482 116.266C443.237 116.266 438.733 114.387 434.966 110.627C431.2 106.869 429.316 102.351 429.316 97.0748V25.2583C429.316 22.0496 430.924 20.4442 434.14 20.4442C437.313 20.4442 438.898 22.0496 438.898 25.2593V97.0815C438.898 99.7195 439.845 101.984 441.74 103.875C443.634 105.765 445.881 106.711 448.481 106.711C451.697 106.711 453.306 108.292 453.306 111.455Z" fill="#3B3938" />
         <path d="M511 121.061C511 127.612 508.654 133.239 503.961 137.944C499.269 142.646 493.618 145 487.009 145C482.867 145 478.881 143.922 475.048 141.771C471.082 139.573 468.151 136.696 466.258 133.137C465.773 132.17 465.531 131.314 465.531 130.568C465.531 129.292 466.048 128.184 467.084 127.24C468.119 126.294 469.275 125.823 470.554 125.823C471.654 125.823 473.648 127.426 476.535 130.634C479.42 133.84 482.912 135.444 487.01 135.444C490.975 135.444 494.368 134.037 497.187 131.227C500.006 128.414 501.417 125.032 501.417 121.078V111.456C497.143 114.664 492.341 116.267 487.01 116.267C480.401 116.267 474.751 113.925 470.058 109.242C465.365 104.559 463.02 98.9181 463.02 92.3206V53.9287C463.02 50.7623 464.627 49.1786 467.844 49.1786C471.016 49.1786 472.602 50.7623 472.602 53.9287V92.3278C472.602 96.2874 474.012 99.6741 476.832 102.489C479.651 105.305 483.044 106.711 487.009 106.711C490.974 106.711 494.367 105.305 497.187 102.489C500.006 99.6741 501.417 96.2868 501.417 92.3278V53.9287C501.417 50.7623 503.024 49.1786 506.241 49.1786C509.413 49.1786 510.999 50.7613 510.999 53.9266V121.061H511Z" fill="#3B3938" />
       </svg>
+      <Helmet>
+        <title> {metadata.title}</title>
+      </Helmet>
 
-      <div>
-        <Typography variant="h3" sx={{ textAlign: 'center' }}>
-          {title}
-        </Typography>
-
-        {subtitle && (
-          <Typography sx={{ color: 'text.secondary', textAlign: 'center', mt: 1 }}>
-            {subtitle}
-          </Typography>
-        )}
-      </div>
-      {/* <Box> */}
-      <CarouselAlign/>
-      {/* </Box> */}
-
-
-      {!!method?.length && method && (
-        <Box component="ul" gap={5} display="flex">
-          {method1.map((option) => {
-            const selected = method === option.label.toLowerCase();
-
-            return (
-              <Box
-                key={option.label}
-                component="li"
-                sx={{
-                  ...(!selected && {
-                    cursor: 'not-allowed',
-                    filter: 'grayscale(1)',
-                  }),
-                }}
-              >
-                <Tooltip
-                  title={
-                    <Box sx={{ textAlign: 'center' }}>
-                      Pabbl&apos;y services are audited and certified for high standards of security, availability, and VD and ISO confidentiality, affirming our ecur commitment to safeguard your data with integrity.
-                    </Box>
-                  }
-                  placement="top"
-                  arrow
-                >
-                  <Box
-                    component="img"
-                    alt={option.label}
-                    src={option.icon}
-                    sx={{ width: 80, height: 80 }}
-                  />
-                </Tooltip>
-
-              </Box>
-            );
-          })}
-          {method2.map((option) => {
-            const selected = method === option.label.toLowerCase();
-
-            return (
-              <Box
-                key={option.label}
-                component="li"
-                sx={{
-                  ...(!selected && {
-                    cursor: 'not-allowed',
-                    filter: 'grayscale(1)',
-                  }),
-                }}
-              >
-                <Tooltip
-                  title={
-                    <Box sx={{ textAlign: 'center' }}>
-                      Pabbly adheres to rigorous information security standards, ensuring the protection and confidentiality of your data within our automation and integration solutions.
-                    </Box>
-                  }
-                  placement="top"
-                  arrow
-                >
-                  <Box
-                    component="img"
-                    alt={option.label}
-                    src={option.icon}
-                    sx={{ width: 80, height: 80 }}
-                  />
-                </Tooltip>
-
-              </Box>
-            );
-          })}
-        </Box>
-      )}
-    </Box>
+     <JwtRest/>
+     </>
   );
 }
