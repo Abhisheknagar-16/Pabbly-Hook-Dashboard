@@ -2,6 +2,8 @@ import { Helmet } from 'react-helmet-async';
 
 import { Box, Button, Typography } from '@mui/material';
 
+import { paths } from 'src/routes/paths';
+
 import { CONFIG } from 'src/config-global';
 
 import { JwtSignUpView } from 'src/sections/auth/jwt';
@@ -39,13 +41,14 @@ export default function Page() {
         </Typography>
         <Button
           variant="contained"
-          color="success"
+          color="primary"
+          href={paths.auth.jwt.signIn}
           sx={{
             // width: { xs: '100%', md: 'auto' }, // Full button width on mobile/tablet, auto on laptop
             maxWidth: { xs: 'auto', md: '100px' }, // Optional max width for laptop view
           }}
         >
-          Sign In
+          Login
         </Button>
       </Box>
       <Helmet>

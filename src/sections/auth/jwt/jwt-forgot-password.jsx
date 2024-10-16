@@ -75,37 +75,45 @@ export function JwtForgotpassword() {
   });
 
   const renderHead = (
-    <Stack spacing={1.5} sx={{ mb: 5 }}>
+    <Stack spacing={0} sx={{ mb: 3 }}>
       <Typography variant="h5">Forgot Password</Typography>
-
-      <Stack direction="row" spacing={0.5}>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Remember your password?
+        Don&apos;t worry. We&apos;ll email reset link.
         </Typography>
-
-        <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="subtitle2">
-          Sign In 
-        </Link> 
-      </Stack>
     </Stack>
   );
 
   const renderForm = (
-    <Stack spacing={3}>
+    <Stack spacing={2}>
       <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
       
 
       <LoadingButton
         fullWidth
-        color="inherit"
+        color="primary"
         size="large"
         type="submit"
         variant="contained"
         loading={isSubmitting}
+        href={paths.auth.jwt.rest}
         loadingIndicator="Reset password..."
       >
-        Reset Password
+        Email me reset link 
       </LoadingButton>
+      <Stack
+        direction="row"
+        spacing={0.5}
+        justifyContent="center" // Centers content horizontally
+        alignItems="center" // Centers content vertically
+      >
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          Remember your password?
+        </Typography>
+
+        <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="subtitle2">
+          Login here
+        </Link> 
+      </Stack>
       {/* <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="body2"
           color="inherit"
           sx={{ alignSelf: 'center' }}>

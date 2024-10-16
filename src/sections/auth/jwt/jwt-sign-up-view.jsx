@@ -105,18 +105,18 @@ export function JwtSignUpView() {
   };
 
   const renderHead = (
-    <Stack spacing={1.5} sx={{ mb: 2 }}>
-      <Typography variant="h5">Sign Up for Pabbly account</Typography>
-      <Stack direction="row" spacing={0.5} sx={{mb:1}}>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Already have an account?
+    <Stack spacing={0} mb={1}>
+      <Typography variant="h5">Create Pabbly Account</Typography>
+      <Stack direction="row" spacing={0}>
+        <Typography variant="body2" sx={{ color: 'text.secondary',mb:2 }}>
+        Sign up in seconds. No credit card required.
         </Typography>
 
-        <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="subtitle2">
+        {/* <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="subtitle2">
           Sign In
-        </Link>
+        </Link> */}
       </Stack>
-      <Stack direction="row" spacing={0.5}>
+      <Stack direction="row" sx={{mb:1}} >
         <Button
           fullWidth
           variant="outlined"
@@ -139,7 +139,7 @@ export function JwtSignUpView() {
   );
 
   const renderForm = (
-    <Stack spacing={3}>
+    <Stack spacing={2}>
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <Field.Text name="firstName" label="First name" InputLabelProps={{ shrink: true }} />
         <Field.Text name="lastName" label="Last name" InputLabelProps={{ shrink: true }} />
@@ -192,15 +192,35 @@ export function JwtSignUpView() {
 
       <LoadingButton
         fullWidth
-        color="inherit"
+        color="primary"
         size="large"
         type="submit"
         variant="contained"
         loading={isSubmitting}
+        href={paths.auth.jwt.confirm}
         loadingIndicator="Create account..."
       >
-        Sign Up
+        Create Account
       </LoadingButton>
+      <Stack
+        direction="row"
+        spacing={0.5}
+        justifyContent="center" // Centers content horizontally
+        alignItems="center" // Centers content vertically
+      >
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        Already have an account? 
+        </Typography>
+        <Link
+          component={RouterLink}
+          href={paths.auth.jwt.signIn}
+          variant="body2"
+          color="primary"
+          sx={{ alignSelf: 'center' }} // Aligns this item to the center
+        >
+          Login here 
+        </Link>
+      </Stack>
     </Stack>
   );
 
@@ -208,12 +228,12 @@ export function JwtSignUpView() {
     <Typography
       component="div"
       sx={{
-        mt: 3,
         textAlign: 'center',
         typography: 'caption',
         color: 'text.secondary',
       }}
     >
+      <Divider sx={{mt:1, mb:1}}/>
       {'By signing up, I agree to '}
       <Link color="primary" href="https://www.pabbly.com/terms-conditions/" target="_blank"
         rel="noopener noreferrer">
