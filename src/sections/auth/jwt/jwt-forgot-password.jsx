@@ -116,7 +116,7 @@ export function JwtForgotpassword() {
       </LoadingButton>
       <Snackbar
         open={openSnackbar}
-        autoHideDuration={2000}
+        autoHideDuration={3000}
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{mt:6}}
