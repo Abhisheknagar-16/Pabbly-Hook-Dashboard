@@ -36,8 +36,7 @@ import { CustomStyling } from 'src/sections/tree-view/custom-styling';
 
 import { useMockedUser } from 'src/auth/hooks';
 
-
-// the selected row field 
+// the selected row field
 const selectfolder = [
   {
     value: 'USD',
@@ -186,7 +185,6 @@ const Time = [
 // ----------------------------------------------------------------------
 
 export function OverviewEcommerceView() {
-
   const [open, setOpen] = useState(false);
   const [dopen, setdopen] = useState(false);
   const [folderopen, foldersopen] = useState(false);
@@ -267,38 +265,39 @@ export function OverviewEcommerceView() {
   return (
     <DashboardContent maxWidth="xl" sx={{ px: { xs: 0, sm: 0, lg: 5, xl: 0 } }}>
       <Grid container spacing={3}>
-
         {/* folder section */}
-        <Grid item xs={12} md={3} lg={3} >
+        <Grid item xs={12} md={3} lg={3}>
           <Card sx={{ pl: 2.4, pr: 2, pt: 2, pb: 2 }}>
             <Typography variant="h6" fontWeight={700}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Tooltip title="Manage folders" arrow placement='top'>
+                <Tooltip title="Manage folders" arrow placement="top">
                   Folder
                 </Tooltip>
                 <IconButton onClick={handledopen} edge="end" sx={{ mr: 0.6, mt: -0.8 }}>
-                  <Tooltip title="Create a new folder." arrow placement='top'>
+                  <Tooltip title="Create a new folder." arrow placement="top">
                     <Iconify icon="icon-park-solid:add" style={{ color: 'black' }} width="12" />
                   </Tooltip>
                 </IconButton>
 
-
                 <Dialog open={dopen} onClose={handledlose}>
-                  <DialogTitle >
-                    <Tooltip title="Create a connection with a name and folder location." arrow placement='top'>
+                  <DialogTitle>
+                    <Tooltip
+                      title="Create a connection with a name and folder location."
+                      arrow
+                      placement="top"
+                    >
                       Create Folder
                     </Tooltip>
                   </DialogTitle>
 
                   <DialogContent sx={{ mt: -1 }}>
-
                     <TextField
                       autoFocus
                       fullWidth
                       type="text"
                       margin="dense"
                       variant="outlined"
-                      placeholder='Name of the Connection'
+                      placeholder="Name of the Connection"
                       label="Folder Name"
                       // defaultValue="Name of the Connection"
                       helperText={
@@ -320,8 +319,16 @@ export function OverviewEcommerceView() {
                       //  label="Select"
                       margin="dense"
                       defaultValue="USD"
-                      helperText={<> Select the folder or subfolder where you want to create the connection.{' '}
-                        <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}> Learn more </a> </>}
+                      helperText={
+                        <>
+                          {' '}
+                          Select the folder or subfolder where you want to create the connection.{' '}
+                          <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                            {' '}
+                            Learn more{' '}
+                          </a>{' '}
+                        </>
+                      }
                     >
                       {selectfolder.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -329,7 +336,6 @@ export function OverviewEcommerceView() {
                         </MenuItem>
                       ))}
                     </TextField>
-
                   </DialogContent>
 
                   <DialogActions>
@@ -351,7 +357,8 @@ export function OverviewEcommerceView() {
         {/* setup connection form */}
         <Grid xs={12} md={9}>
           <Card>
-            <CardHeader sx={{ mt: -1 }}
+            <CardHeader
+              sx={{ mt: -1 }}
               title="Setup Connections"
               subheader={
                 <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
@@ -373,7 +380,7 @@ export function OverviewEcommerceView() {
                 type="email"
                 margin="dense"
                 variant="outlined"
-                placeholder='Name of the Connection'
+                placeholder="Name of the Connection"
                 label="Connection Name"
                 helperText="Enter the name of the connection."
                 sx={{ mt: 3 }}
@@ -388,8 +395,8 @@ export function OverviewEcommerceView() {
                 margin="dense"
                 variant="outlined"
                 label="Webhook URL"
-                placeholder='Enter URL'
-                helperText="Enter the webhook URL."
+                placeholder="Enter URL"
+                helperText="Copy and paste the Pabbly Hook URL into your request source."
                 value={url}
                 onChange={handleChange}
                 InputProps={{
@@ -398,7 +405,8 @@ export function OverviewEcommerceView() {
                       <Tooltip title="Copy URL" arrow placement="bottom">
                         <IconButton edge="end" onClick={handleCopy}>
                           <Iconify width={18} icon="solar:copy-bold" />
-                        </IconButton></Tooltip>
+                        </IconButton>
+                      </Tooltip>
                     </InputAdornment>
                   ),
                 }}
@@ -412,10 +420,7 @@ export function OverviewEcommerceView() {
               <FormControlLabel label="POST" control={<Checkbox size="normal" Checked />} />
               <FormControlLabel label="PUT" control={<Checkbox size="normal" Checked />} />
               <FormControlLabel label="PATCH" control={<Checkbox size="normal" Checked />} />
-              <FormControlLabel
-                label="DELETE"
-                control={<Checkbox size="normal" Checked />}
-              />
+              <FormControlLabel label="DELETE" control={<Checkbox size="normal" Checked />} />
 
               <Typography sx={{ mb: 2, color: 'text.secondary', fontSize: '13px', mt: 1 }}>
                 Allow only specific HTTP methods to be accepted by Webhook. Requests that dont match
@@ -431,61 +436,72 @@ export function OverviewEcommerceView() {
                 margin="dense"
                 variant="outlined"
                 label="Destination URl"
-                placeholder='Enter Webhook URL'
-                helperText="Define where your events should be sent. Destinations can be reused across multiple connections."
+                placeholder="Enter Webhook URL"
+                helperText="Enter the destination webhook URL where Pabbly Hook will forward the webhook data for processing."
               />
             </DialogContent>
 
             <DialogContent>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography sx={{ mb: 0 }}>Rate limit</Typography>
-                <Box sx={{ flexGrow: 1 }} /> {/* This will take up the available space */}
-                <Tooltip title="Activate request limit."
-                  arrow
-                  placement="top">
-                  <FormControlLabel
-                    justifyContent="end"
-                    control={<Switch onChange={handleRatelimitToggle} />}
-                  />
-                </Tooltip>
+                <FormControlLabel
+                  control={
+                    <Tooltip
+                      title="Click to enable or disable rate limit."
+                      disableInteractive
+                      arrow
+                      placement="top"
+                    >
+                      <Switch onChange={handleRatelimitToggle} />
+                    </Tooltip>
+                  }
+                  label={
+                    <Tooltip
+                      title="Set the event delivery rate to control the maximum number of events sent to your destination."
+                      disableInteractive
+                      arrow
+                      placement="top"
+                    >
+                      <Typography>Rate limit</Typography>
+                    </Tooltip>
+                  }
+                  labelPlacement="end" // Places the label next to the switch
+                />
               </Box>
 
               {showRatelimitField && (
-                <TextField
-                  id="outlined-Rate-limit"
-                  select
-                  fullWidth
-                  // label="Select"
-                  defaultValue="USD"
-                  helperText=" Enable events rate limit to control the maximum throughput of events delivered to your destination."
-                  sx={{ mt: 2 }}
-                >
-                  {Ratelimit.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                <>
+                  <TextField
+                    id="outlined-Rate-limit"
+                    select
+                    fullWidth
+                    // label="Select"
+                    defaultValue="USD"
+                    helperText=" Enable events rate limit to control the maximum throughput of events delivered to your destination."
+                    sx={{ mt: 2 }}
+                  >
+                    {Ratelimit.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <Typography sx={{ mb: 2, mt: 2 }}>Time Frame</Typography>
+                  <TextField
+                    id="outlined-select-currency"
+                    select
+                    fullWidth
+                    // label="Select"
+                    defaultValue="USD"
+                    helperText="Please select your time frame"
+                  >
+                    {currencies.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </>
               )}
-            </DialogContent>
-
-            <DialogContent>
-              <Typography sx={{ mb: 2, mt: 2 }}>Time Frame</Typography>
-
-              <TextField
-                id="outlined-select-currency"
-                select
-                fullWidth
-                // label="Select"
-                defaultValue="USD"
-                helperText="Please select your time frame"
-              >
-                {currencies.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
             </DialogContent>
 
             <DialogContent sx={{ mb: 2 }}>
@@ -497,7 +513,7 @@ export function OverviewEcommerceView() {
                 fullWidth
                 // label="Select"
                 defaultValue="USD"
-                helperText="Force the requests to your destination to use a specific HTTP method. By default, the request will be made with the same method as the original request."
+                helperText="Specify the HTTP method for requests to your destination. By default, the request will use the same method as the original request."
               >
                 {Destination.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -515,11 +531,12 @@ export function OverviewEcommerceView() {
             />
 
             <DialogContent>
-              <FormControlLabel control={
-                <Tooltip title="Enable retries on failure." arrow placement="top">
-                  <Switch onChange={handleRetryToggle} />
-                </Tooltip>
-              }
+              <FormControlLabel
+                control={
+                  <Tooltip title="Enable retries on failure." arrow placement="top">
+                    <Switch onChange={handleRetryToggle} />
+                  </Tooltip>
+                }
                 label="Retry"
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
@@ -592,11 +609,12 @@ export function OverviewEcommerceView() {
             </DialogContent>
 
             <DialogContent>
-              <FormControlLabel control={
-                <Tooltip title="Activate retry delay." arrow placement="top">
-                  <Switch onChange={handleDelayToggle} />
-                </Tooltip>
-              }
+              <FormControlLabel
+                control={
+                  <Tooltip title="Click to enable or disable transformation." arrow placement="top">
+                    <Switch onChange={handleDelayToggle} />
+                  </Tooltip>
+                }
                 label="Delay"
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
@@ -640,11 +658,12 @@ export function OverviewEcommerceView() {
             </DialogContent>
 
             <DialogContent>
-              <FormControlLabel control={
-                <Tooltip title="Batch size to process." arrow placement="top">
-                  <Switch onChange={handleBatchSizeToggle} />
-                </Tooltip>
-              }
+              <FormControlLabel
+                control={
+                  <Tooltip title="Batch size to process." arrow placement="top">
+                    <Switch onChange={handleBatchSizeToggle} />
+                  </Tooltip>
+                }
                 label="BatchSize"
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
@@ -652,7 +671,7 @@ export function OverviewEcommerceView() {
                 <TextField
                   fullWidth
                   label="Batch Size"
-                  placeholder='Enter any number'
+                  placeholder="Enter any number"
                   variant="outlined"
                   helperText="Define a Batch Size for the event."
                   sx={{ mb: 2, mt: 2 }}
@@ -661,12 +680,12 @@ export function OverviewEcommerceView() {
             </DialogContent>
 
             <DialogContent>
-
-              <FormControlLabel control={
-                <Tooltip title="Apply filter." arrow placement='top'>
-                  <Switch onChange={handleFilterToggle} />
-                </Tooltip>
-              }
+              <FormControlLabel
+                control={
+                  <Tooltip title="Apply filter." arrow placement="top">
+                    <Switch onChange={handleFilterToggle} />
+                  </Tooltip>
+                }
                 label="Filter"
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
@@ -684,7 +703,7 @@ export function OverviewEcommerceView() {
                       <TextField
                         fullWidth
                         // label="Body Content"
-                        placeholder='Body Content'
+                        placeholder="Body Content"
                         variant="outlined"
                         helperText="Set the body content."
                         multiline
@@ -708,7 +727,7 @@ export function OverviewEcommerceView() {
                       <TextField
                         fullWidth
                         // label="Headers Content"
-                        placeholder='Header Content'
+                        placeholder="Header Content"
                         variant="outlined"
                         helperText="Set the headers content."
                         multiline
@@ -732,7 +751,7 @@ export function OverviewEcommerceView() {
                       <TextField
                         fullWidth
                         // label="Query Parameters"
-                        placeholder='Query Parameters'
+                        placeholder="Query Parameters"
                         variant="outlined"
                         helperText="Set the query parameters."
                         multiline
@@ -756,12 +775,11 @@ export function OverviewEcommerceView() {
                       <TextField
                         fullWidth
                         // label="Path Parameters"
-                        placeholder='Path Parameters'
+                        placeholder="Path Parameters"
                         variant="outlined"
                         helperText="Set the path parameters."
                         multiline
                         rows={4}
-
                         InputProps={{
                           endAdornment: (
                             <InputAdornment sx={{ mt: -9.5 }}>
@@ -793,7 +811,7 @@ export function OverviewEcommerceView() {
                       autoFocus
                       margin="dense"
                       label="Webhook URL"
-                      placeholder='webhook URL copy'
+                      placeholder="webhook URL copy"
                       fullWidth
                       variant="outlined"
                       helperText='Use this URL to receive your requests from "dfsg". Valid requests to this URL will be sent to your destination "dfaddf", and Hookdeck will reply immediately with an HTTP 200.'
@@ -816,7 +834,6 @@ export function OverviewEcommerceView() {
                       Create
                     </Button>
                     <Snackbar
-
                       open={openSnackbar}
                       autoHideDuration={1000}
                       onClose={handleCloseSnackbar}
@@ -826,7 +843,8 @@ export function OverviewEcommerceView() {
                         boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
                       }}
                     >
-                      <Alert onClose={handleCloseSnackbar}
+                      <Alert
+                        onClose={handleCloseSnackbar}
                         severity="success"
                         sx={{
                           width: '100%',
@@ -834,7 +852,8 @@ export function OverviewEcommerceView() {
                           fontWeight: 'bold',
                           backgroundColor: theme.palette.background.paper,
                           color: theme.palette.text.primary,
-                        }}>
+                        }}
+                      >
                         Connection successfully setup.
                       </Alert>
                     </Snackbar>
@@ -851,7 +870,6 @@ export function OverviewEcommerceView() {
             <OrderListViewHome />
           </Box>
         </Grid>
-
       </Grid>
     </DashboardContent>
   );
