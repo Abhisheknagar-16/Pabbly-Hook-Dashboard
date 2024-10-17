@@ -1,5 +1,5 @@
 import { z as zod } from 'zod';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -10,6 +10,10 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 // import InputAdornment from '@mui/material/InputAdornment';
+
+import { useTheme } from '@emotion/react';
+
+import { Snackbar } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -47,6 +51,16 @@ export function JwtForgotpassword() {
 
   const password = useBoolean();
 
+  const theme = useTheme();
+  const [openSnackbar, setOpenSnackbar] = React.useState(true);
+  const handleOpenSnackbar = () => {
+    setOpenSnackbar(true);
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
   const defaultValues = {
     email: 'demo@minimals.cc',
     password: '@demo1',
@@ -77,29 +91,53 @@ export function JwtForgotpassword() {
   const renderHead = (
     <Stack spacing={0} sx={{ mb: 3 }}>
       <Typography variant="h5">Forgot Password</Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
         Don&apos;t worry. We&apos;ll email reset link.
-        </Typography>
+      </Typography>
     </Stack>
   );
 
   const renderForm = (
     <Stack spacing={2}>
       <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
-      
 
       <LoadingButton
         fullWidth
         color="primary"
         size="large"
-        type="submit"
+        // type="submit"
         variant="contained"
-        loading={isSubmitting}
-        href={paths.auth.jwt.rest}
-        loadingIndicator="Reset password..."
+        // loading={isSubmitting}
+        // href={paths.auth.jwt.rest}
+        onClick={handleOpenSnackbar}
+        // loadingIndicator="Reset password..."
       >
-        Email me reset link 
+        Email me reset link
       </LoadingButton>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{mt:6}}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="success"
+          sx={{
+            // width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+            color: theme.palette.text.primary,
+          }}
+        >
+          If your email is in our database, you&apos;ll receive a <br /> password recovery link
+          shortly.
+        </Alert>
+      </Snackbar>
+
       <Stack
         direction="row"
         spacing={0.5}
@@ -112,7 +150,7 @@ export function JwtForgotpassword() {
 
         <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="subtitle2">
           Login here
-        </Link> 
+        </Link>
       </Stack>
       {/* <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="body2"
           color="inherit"
@@ -120,7 +158,6 @@ export function JwtForgotpassword() {
          return to sign in
         </Link>  */}
     </Stack>
-    
   );
 
   return (

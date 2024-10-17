@@ -67,35 +67,34 @@ export function StatsCardissue() {
               gridTemplateColumns: { sm: 'repeat(2, 1fr)', xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' },
             }}
           >
-            <Tooltip title="Number of total connections." arrow placement='top'>
-              <div>
-                <CourseWidgetSummary
-                  title="Total Connections"
-                  total={232}
-                  icon={`${CONFIG.site.basePath}/assets/icons/courses/connections.png`}
-                />
-              </div>
-            </Tooltip>
-
-
-            <Tooltip title="Number of total request." arrow placement='top'>
-              <div>
-                <CourseWidgetSummary
-                  title="Total Request"
-                  total={986470}
-                  color="secondary"
-                  icon={`${CONFIG.site.basePath}/assets/icons/courses/total-events.png`}
-                />
-              </div>
-            </Tooltip>
-
-            <Tooltip title="Number of total events." arrow placement='top'>
+            <Tooltip disableInteractive title="Total number of events executed in your account." arrow placement='top'>
               <div>
                 <CourseWidgetSummary
                   title="Total Events"
                   total={986414}
                   color="success"
-                  icon={`${CONFIG.site.basePath}/assets/icons/courses/request.png`}
+                  icon={`${CONFIG.site.basePath}/assets/icons/courses/eventicon.png`}
+                />
+              </div>
+            </Tooltip>
+
+            <Tooltip disableInteractive title="Total number of requests processed in your account." arrow placement='top'>
+              <div>
+                <CourseWidgetSummary
+                  title="Total Request"
+                  total={986470}
+                  color="secondary"
+                  icon={`${CONFIG.site.basePath}/assets/icons/courses/requesticon.png`}
+                />
+              </div>
+            </Tooltip>
+
+            <Tooltip title="Number of connections created in your account." arrow placement='top'>
+              <div>
+                <CourseWidgetSummary
+                  title="Total Connections"
+                  total={232}
+                  icon={`${CONFIG.site.basePath}/assets/icons/courses/connectionicon.png`}
                 />
               </div>
             </Tooltip>

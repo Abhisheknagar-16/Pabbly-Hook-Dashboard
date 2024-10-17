@@ -64,7 +64,7 @@ export function OverviewEcommerceView() {
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Tooltip disableInteractive title={
                   <div style={{ textAlign: 'center' }}>
-                    You can create folders and manage connections inside them.
+                    You can create folders, subfolders, and manage connections within them.
                   </div>
                 } arrow placement="top">
                   <span>Folders</span>

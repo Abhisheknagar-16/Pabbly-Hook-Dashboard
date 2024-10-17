@@ -91,7 +91,11 @@ const StyledTreeItem = styled((props) => {
             <span>{props.label}</span>
           </Tooltip>
           {props.label.includes('Trash') ? (
-            <Tooltip title="All deleted connections will be moved to trash." disableInteractive placement="top" arrow>
+            <Tooltip title={
+              <div style={{ textAlign: 'center' }}>
+                Trash folder holds all connections that have been deleted.
+              </div>
+            } disableInteractive placement="top" arrow>
             <IconButton color={popoverOpen ? 'inherit' : 'default'}>
               <Iconify icon="solar:trash-bin-trash-bold" />
             </IconButton>

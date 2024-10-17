@@ -54,7 +54,7 @@ export function FormDialog({ height, width, variant }) {
     <div>
       <Tooltip
         disableInteractive
-        title="Create your connection and its resources"
+        title="Click to create new connection."
         arrow
         placement="top"
       >
@@ -101,7 +101,7 @@ export function FormDialog({ height, width, variant }) {
             }}
             helperText={
               <>
-                Enter the name of the connection.{' '}
+                Enter the name of connection.{' '}
                 <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
                   Learn more
                 </a>
@@ -117,7 +117,7 @@ export function FormDialog({ height, width, variant }) {
             // label="Select"
             margin="dense"
             defaultValue="USD"
-            helperText={<> Select the folder or subfolder where you want to create the connection.{' '}
+            helperText={<>Select the folder or subfolder where you want to create the connection.{' '}
               <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}> Learn more </a> </>}
           >
             {selectfolder.map((option) => (
