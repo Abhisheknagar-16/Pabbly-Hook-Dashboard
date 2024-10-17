@@ -20,7 +20,7 @@ export default function Page() {
         sx={{
           position: 'absolute',
           top: { xs: 8, md: 16 },
-          right: { xs: 8, md: 16 },
+          right: { xs: 4, md: 16 },
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row' }, // Stack items on smaller screens, row for desktop
           alignItems: 'center', // Align items vertically
