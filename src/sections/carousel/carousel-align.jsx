@@ -7,7 +7,7 @@ import { List, ListItem, Typography } from '@mui/material';
 import { Carousel, useCarousel, CarouselDotButtons } from 'src/components/carousel';
 
 export function CarouselAutoplay() {
-  const autoplay = Autoplay({ delay: 2000, stopOnInteraction: false });
+  const autoplay = Autoplay({ delay: 3000, stopOnInteraction: false });
   const carousel = useCarousel(
     {
       loop: true,
