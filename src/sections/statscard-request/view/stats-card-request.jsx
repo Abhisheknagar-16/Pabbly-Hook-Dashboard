@@ -68,7 +68,7 @@ export function StatsCardRequest() {
               gridTemplateColumns: { sm: 'repeat(2, 1fr)', xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' },
             }}
           >
-            <Tooltip disableInteractive title="Number of total event." arrow placement='top'>
+            <Tooltip disableInteractive title="Total number of events executed in your account." arrow placement='top'>
               <div>
                 <CourseWidgetSummary
                   title="Total Events"
@@ -79,7 +79,7 @@ export function StatsCardRequest() {
               </div>
             </Tooltip>
 
-            <Tooltip disableInteractive title="Number of total request." arrow placement='top'>
+            <Tooltip disableInteractive title="Total number of requests processed in your account." arrow placement='top'>
               <div>
                 <CourseWidgetSummary
                   title="Total Request"
@@ -90,7 +90,7 @@ export function StatsCardRequest() {
               </div>
             </Tooltip>
 
-            <Tooltip title="Number of total connections." arrow placement='top'>
+            <Tooltip title="Number of connections created in your account." arrow placement='top'>
               <div>
                 <CourseWidgetSummary
                   title="Total Connections"
