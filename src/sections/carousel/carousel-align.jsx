@@ -1,15 +1,21 @@
-import { useState, useEffect } from 'react';
+import Autoplay from 'embla-carousel-autoplay';
+import React, { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import { List, ListItem, Typography } from '@mui/material';
 
 import { Carousel, useCarousel, CarouselDotButtons } from 'src/components/carousel';
 
-export function CarouselAlign() {
-  const carousel = useCarousel({
-    containScroll: false,
-    slideSpacing: '20px',
-  });
+export function CarouselAutoplay() {
+  const autoplay = Autoplay({ delay: 2000, stopOnInteraction: false });
+  const carousel = useCarousel(
+    {
+      loop: true,
+      containScroll: false,
+      slideSpacing: '20px',
+    },
+    [autoplay]
+  );
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
@@ -66,35 +72,35 @@ export function CarouselAlign() {
       ),
     },
     {
-        title: 'Pabbly Email Marketing',
-        description: 'Send emails to subscribers.',
-        icon: (
-          <svg
-            width="36"
-            height="37"
-            viewBox="0 0 36 37"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clipPath="url(#clip0_2273_7065)">
-              <path
-                d="M27.6923 0.5H8.30769C3.71948 0.5 0 4.21948 0 8.80769V28.1923C0 32.7805 3.71948 36.5 8.30769 36.5H27.6923C32.2805 36.5 36 32.7805 36 28.1923V8.80769C36 4.21948 32.2805 0.5 27.6923 0.5Z"
-                fill="#E9E3FF"
-              />
-              <path
-                d="M18 22C17.4834 22 16.9669 21.8306 16.5262 21.4872L10 16.4125V23.5C10 24.3281 10.6716 25 11.5 25H24.5C25.3284 25 26 24.3284 26 23.5V16.4125L19.475 21.4906C19.0344 21.8313 18.5156 22 18 22ZM10.5091 15.5406L17.1403 20.7C17.6463 21.0937 18.355 21.0937 18.8609 20.7L25.4922 15.5406C25.7844 15.2906 26 14.9062 26 14.5C26 13.6716 25.3281 13 24.5 13H11.5C10.6716 13 10 13.6716 10 14.5C10 14.9062 10.1878 15.2906 10.5091 15.5406Z"
-                fill="#6F4CFC"
-              />
-            </g>
-            <rect x="0.5" y="1" width="35" height="35" rx="17.5" stroke="white" />
-            <defs>
-              <clipPath id="clip0_2273_7065">
-                <rect y="0.5" width="36" height="36" rx="18" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-        ),
-      },
+      title: 'Pabbly Email Marketing',
+      description: 'Send emails to subscribers.',
+      icon: (
+        <svg
+          width="36"
+          height="37"
+          viewBox="0 0 36 37"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clipPath="url(#clip0_2273_7065)">
+            <path
+              d="M27.6923 0.5H8.30769C3.71948 0.5 0 4.21948 0 8.80769V28.1923C0 32.7805 3.71948 36.5 8.30769 36.5H27.6923C32.2805 36.5 36 32.7805 36 28.1923V8.80769C36 4.21948 32.2805 0.5 27.6923 0.5Z"
+              fill="#E9E3FF"
+            />
+            <path
+              d="M18 22C17.4834 22 16.9669 21.8306 16.5262 21.4872L10 16.4125V23.5C10 24.3281 10.6716 25 11.5 25H24.5C25.3284 25 26 24.3284 26 23.5V16.4125L19.475 21.4906C19.0344 21.8313 18.5156 22 18 22ZM10.5091 15.5406L17.1403 20.7C17.6463 21.0937 18.355 21.0937 18.8609 20.7L25.4922 15.5406C25.7844 15.2906 26 14.9062 26 14.5C26 13.6716 25.3281 13 24.5 13H11.5C10.6716 13 10 13.6716 10 14.5C10 14.9062 10.1878 15.2906 10.5091 15.5406Z"
+              fill="#6F4CFC"
+            />
+          </g>
+          <rect x="0.5" y="1" width="35" height="35" rx="17.5" stroke="white" />
+          <defs>
+            <clipPath id="clip0_2273_7065">
+              <rect y="0.5" width="36" height="36" rx="18" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+      ),
+    },
     {
       title: 'Pabbly Hook',
       description: 'Webhook event handling for scalable applications.',
@@ -188,24 +194,36 @@ export function CarouselAlign() {
       ),
     },
     {
-        title: "Pabbly Email Verification",
-        description: "Verify and remove bad emails.",
-        icon: (
-          <svg width="36" height="37" viewBox="0 0 36 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clipPath="url(#clip0_2273_7073)">
-              <path d="M27.6923 0.5H8.30769C3.71948 0.5 0 4.21948 0 8.80769V28.1923C0 32.7805 3.71948 36.5 8.30769 36.5H27.6923C32.2805 36.5 36 32.7805 36 28.1923V8.80769C36 4.21948 32.2805 0.5 27.6923 0.5Z" fill="#BFFFDD" />
-              <path d="M24.707 13.3424C25.0976 13.7982 25.0976 14.5347 24.707 14.9905L16.7065 24.3248C16.3159 24.7807 15.6846 24.7807 15.294 24.3248L11.2929 19.6577C10.9024 19.2019 10.9024 18.4654 11.2929 18.0095C11.6835 17.5537 12.3166 17.5537 12.7073 18.0095L15.9721 21.849L23.2944 13.3424C23.685 12.8859 24.3163 12.8859 24.707 13.3424Z" fill="#05C95F" stroke="#05C95F" />
-            </g>
-            <rect x="0.5" y="1" width="35" height="35" rx="17.5" stroke="white" />
-            <defs>
-              <clipPath id="clip0_2273_7073">
-                <rect y="0.5" width="36" height="36" rx="18" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-  
-        )
-      },
+      title: 'Pabbly Email Verification',
+      description: 'Verify and remove bad emails.',
+      icon: (
+        <svg
+          width="36"
+          height="37"
+          viewBox="0 0 36 37"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clipPath="url(#clip0_2273_7073)">
+            <path
+              d="M27.6923 0.5H8.30769C3.71948 0.5 0 4.21948 0 8.80769V28.1923C0 32.7805 3.71948 36.5 8.30769 36.5H27.6923C32.2805 36.5 36 32.7805 36 28.1923V8.80769C36 4.21948 32.2805 0.5 27.6923 0.5Z"
+              fill="#BFFFDD"
+            />
+            <path
+              d="M24.707 13.3424C25.0976 13.7982 25.0976 14.5347 24.707 14.9905L16.7065 24.3248C16.3159 24.7807 15.6846 24.7807 15.294 24.3248L11.2929 19.6577C10.9024 19.2019 10.9024 18.4654 11.2929 18.0095C11.6835 17.5537 12.3166 17.5537 12.7073 18.0095L15.9721 21.849L23.2944 13.3424C23.685 12.8859 24.3163 12.8859 24.707 13.3424Z"
+              fill="#05C95F"
+              stroke="#05C95F"
+            />
+          </g>
+          <rect x="0.5" y="1" width="35" height="35" rx="17.5" stroke="white" />
+          <defs>
+            <clipPath id="clip0_2273_7073">
+              <rect y="0.5" width="36" height="36" rx="18" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+      ),
+    },
   ];
 
   const chunks = [];
@@ -219,56 +237,54 @@ export function CarouselAlign() {
     };
 
     carousel.dots.onClickDot = (index) => {
-      carousel.dots.select(index); // Move carousel to clicked dot
-      handleCarouselChange(index); // Set the current index state
+      carousel.dots.select(index);
+      handleCarouselChange(index);
     };
 
     carousel.arrows.onNext = () => {
-      const nextIndex = Math.min(currentCardIndex);
-      carousel.arrows.goTo(nextIndex); // Go to next slide
-      handleCarouselChange(nextIndex); // Update the index
+      const nextIndex = Math.min(currentCardIndex + 1, chunks.length - 1);
+      carousel.arrows.goTo(nextIndex);
+      handleCarouselChange(nextIndex);
     };
 
     carousel.arrows.onPrev = () => {
       const prevIndex = Math.max(currentCardIndex - 1, 0);
-      carousel.arrows.goTo(prevIndex); // Go to previous slide
-      handleCarouselChange(prevIndex); // Update the index
+      carousel.arrows.goTo(prevIndex);
+      handleCarouselChange(prevIndex);
     };
-  });
+
+    // No need to explicitly call play() as autoplay is configured in useCarousel
+  }, [carousel, currentCardIndex, chunks.length]);
 
   return (
-    <>
-      <Box>
-        <Carousel carousel={carousel}>
-          {chunks.map((chunk, index) => (
-            <List key={index}>
-              {chunk.map((service, serviceIndex) => (
-                <ListItem key={serviceIndex}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    {service.icon}
-                    <Box>
-                      <Typography variant="h6" style={{ fontWeight: 'bold' }}>
-                        {service.title}
-                      </Typography>
-                      <Typography variant="body2">{service.description}</Typography>
-                    </Box>
+    <Box
+      sx={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+    >
+      <Carousel carousel={carousel}>
+        {chunks.map((chunk, index) => (
+          <List key={index}>
+            {chunk.map((service, serviceIndex) => (
+              <ListItem key={serviceIndex}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  {service.icon}
+                  <Box>
+                    <Typography variant="h6" style={{ fontWeight: 'bold' }}>
+                      {service.title}
+                    </Typography>
+                    <Typography variant="body2">{service.description}</Typography>
                   </Box>
-                </ListItem>
-              ))}
-            </List>
-          ))}
-        </Carousel>
-      </Box>
-
-      <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mt: 2,mb:4 }}>
-        <CarouselDotButtons
-          scrollSnaps={carousel.dots.scrollSnaps}
-          selectedIndex={carousel.dots.selectedIndex}
-          onClickDot={carousel.dots.onClickDot}
-        />
-      </Box>
-
-      {/* Add/Delete Card Buttons */}
-    </>
+                </Box>
+              </ListItem>
+            ))}
+          </List>
+        ))}
+      </Carousel>
+      <CarouselDotButtons
+        scrollSnaps={carousel.dots.scrollSnaps}
+        selectedIndex={carousel.dots.selectedIndex}
+        onClickDot={carousel.dots.onClickDot}
+        sx={{ mt: 2, mb: 2 }}
+      />
+    </Box>
   );
 }
