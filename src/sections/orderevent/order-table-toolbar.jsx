@@ -48,11 +48,15 @@ const Selectstatus = [
   },
   {
     value: 'EUR',
-    label: 'Active',
+    label: 'Success',
   },
   {
-    value: 'tUR',
-    label: 'Inactive',
+    value: 'mur',
+    label: 'Rejected',
+  },
+  {
+    value: 'Eup',
+    label: 'Scheduled',
   },
 ];
 
