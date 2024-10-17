@@ -52,7 +52,7 @@ export function JwtForgotpassword() {
   const password = useBoolean();
 
   const theme = useTheme();
-  const [openSnackbar, setOpenSnackbar] = React.useState(true);
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const handleOpenSnackbar = () => {
     setOpenSnackbar(true);
   };
@@ -125,7 +125,8 @@ export function JwtForgotpassword() {
           onClose={handleCloseSnackbar}
           severity="success"
           sx={{
-            // width: '100%',
+            
+            width: {xs:'100%',sm:'60%',md:'60%'},
             fontSize: '14px',
             fontWeight: 'bold',
             backgroundColor: theme.palette.background.paper,
@@ -133,7 +134,7 @@ export function JwtForgotpassword() {
             color: theme.palette.text.primary,
           }}
         >
-          If your email is in our database, you&apos;ll receive a <br /> password recovery link
+          If your email is in our database, you&apos;ll receive a password recovery link
           shortly.
         </Alert>
       </Snackbar>
