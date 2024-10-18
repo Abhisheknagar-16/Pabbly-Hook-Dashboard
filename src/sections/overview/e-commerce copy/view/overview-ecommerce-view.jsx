@@ -387,7 +387,7 @@ export function OverviewEcommerceView() {
               />
             </DialogContent>
 
-            <DialogContent sx={{ mb: 3 }}>
+            <DialogContent sx={{ mb: 2 }}>
               <TextField
                 autoFocus
                 fullWidth
@@ -441,7 +441,26 @@ export function OverviewEcommerceView() {
               />
             </DialogContent>
 
-            <DialogContent>
+            <DialogContent >
+              <Typography sx={{ mb: 2 }}>Destination HTTP Method</Typography>
+
+              <TextField
+                id="outlined-select-currency"
+                select
+                fullWidth
+                // label="Select"
+                defaultValue="USD"
+                helperText="Specify the HTTP method for requests to your destination. By default, the request will use the same method as the original request."
+              >
+                {Destination.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </DialogContent>
+
+            <DialogContent sx={{mt:2,mb:2}}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <FormControlLabel
                   control={
@@ -504,24 +523,6 @@ export function OverviewEcommerceView() {
               )}
             </DialogContent>
 
-            <DialogContent sx={{ mb: 2 }}>
-              <Typography sx={{ mb: 2, mt: 3 }}>Destination HTTP Method</Typography>
-
-              <TextField
-                id="outlined-select-currency"
-                select
-                fullWidth
-                // label="Select"
-                defaultValue="USD"
-                helperText="Specify the HTTP method for requests to your destination. By default, the request will use the same method as the original request."
-              >
-                {Destination.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </DialogContent>
 
             <Divider sx={{ borderStyle: 'dashed' }} />
             <CardHeader
