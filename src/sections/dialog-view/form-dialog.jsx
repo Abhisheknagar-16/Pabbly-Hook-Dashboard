@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import { Alert, Tooltip, Divider, MenuItem, InputAdornment, } from '@mui/material';
+import { Alert, Tooltip, Divider, MenuItem, useTheme, InputAdornment, } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -38,6 +38,7 @@ const selectfolder = [
 
 export function FormDialog({ height, width, variant }) {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const theme = useTheme();
   const navigate = useNavigate();
   const dialog = useBoolean();
   const handleOpenSnackbar = () => {
@@ -133,12 +134,12 @@ export function FormDialog({ height, width, variant }) {
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={dialog.onFalse} variant="outlined" color="inherit">
+          <Button onClick={dialog.onFalse} variant="outlined" >
             Cancel
           </Button>
 
 
-          <Button onClick={handleOpenSnackbar} variant="contained">
+          <Button onClick={handleOpenSnackbar} variant="contained" color='primary'>
             Create
           </Button>
 
@@ -151,10 +152,16 @@ export function FormDialog({ height, width, variant }) {
             message="This is an error Alert."
             anchorOrigin={{
               vertical: 'top',
-              horizontal: 'center',  // Changed to 'center' from 'mid 10%' to use a valid Material-UI position
+              horizontal: 'right',  // Changed to 'center' from 'mid 10%' to use a valid Material-UI position
             }}
           >
-            <Alert onClose={handleCloseSnackbar} severity="success">
+            <Alert onClose={handleCloseSnackbar} severity="success" sx={{
+                          width: '100%',
+                          fontSize: '14px',
+                          fontWeight: 'bold',
+                          backgroundColor: theme.palette.background.paper,
+                          color: theme.palette.text.primary,
+                        }}>
               Connection successfully setup.
             </Alert>
           </Snackbar>

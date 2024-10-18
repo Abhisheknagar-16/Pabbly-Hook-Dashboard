@@ -31,7 +31,7 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/iconify';
 
-import { OrderListViewHome } from 'src/sections/orderhome/view';
+// import { OrderListViewHome } from 'src/sections/orderhome/view';
 import { CustomStyling } from 'src/sections/tree-view/custom-styling';
 
 import { useMockedUser } from 'src/auth/hooks';
@@ -91,24 +91,24 @@ const Ratelimit = [
     label: '4',
   },
 ];
-const Interval = [
-  {
-    value: 'USD',
-    label: 'second',
-  },
-  {
-    value: 'EUR',
-    label: 'minute',
-  },
-  {
-    value: 'BTC',
-    label: 'hour',
-  },
-  {
-    value: 'JPY',
-    label: 'day',
-  },
-];
+// const Interval = [
+//   {
+//     value: 'USD',
+//     label: 'second',
+//   },
+//   {
+//     value: 'EUR',
+//     label: 'minute',
+//   },
+//   {
+//     value: 'BTC',
+//     label: 'hour',
+//   },
+//   {
+//     value: 'JPY',
+//     label: 'day',
+//   },
+// ];
 const Destination = [
   {
     value: 'USD',
@@ -134,47 +134,51 @@ const Destination = [
 const Strategy = [
   {
     value: 'USD',
-    label: 'Linearly',
+    label: 'JSON',
   },
   {
     value: 'EUR',
-    label: 'Exponentially',
+    label: 'Plain text',
   },
 ];
-const Maximum = [
+const Transformation = [
   {
     value: 'USD',
-    label: 'Select one',
+    label: 'Select Transformation',
+  },
+  {
+    value: 'UtD',
+    label: 'Test 1',
   },
   {
     value: 'EUR',
-    label: 'Select two',
+    label: 'Test 2',
   },
   {
     value: 'BTC',
-    label: 'Select three',
+    label: 'Test 3',
   },
   {
     value: 'JPY',
-    label: 'Select four',
+    label: 'Test 4',
   },
 ];
 const Time = [
   {
     value: 'USD',
-    label: '1 times',
+    label: 'Second',
   },
   {
     value: 'EUR',
-    label: '2 times',
+    label: 'Minute',
   },
   {
     value: 'BTC',
-    label: '3 times',
+    label: 'Hour',
   },
   {
     value: 'JPY',
-    label: '4 times',
+    label: 'Day',
   },
   // {
   //   value: 'JPT',
@@ -191,9 +195,19 @@ export function OverviewEcommerceView() {
 
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [url, setUrl] = useState('');
+  const [url1, setUrl2] = useState('');
 
   const handleCopy = () => {
     navigator.clipboard.writeText(url);
+  };
+
+  const Copy = () => {
+    navigator.clipboard.writeText(url1);
+  };
+
+  const Change = (event) => {
+    setUrl2(event.target.value);
+    navigator.clipboard.writeText(event.target.value); // Automatically copies the text as you type
   };
 
   const handleChange = (event) => {
@@ -232,9 +246,9 @@ export function OverviewEcommerceView() {
   };
 
   const [showRatelimitField, setShowRatelimitField] = useState(false);
-  const [showRetryField, setShowRetryField] = useState(false);
+  const [showCustomresponseField, setShowRetryField] = useState(false);
   const [showDelayField, setShowDelayField] = useState(false);
-  const [showBatchSizeField, setShowBatchSizeField] = useState(false);
+  const [showTransformationField, setTransformationField] = useState(false);
   const [showFilterField, setShowFilterField] = useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
 
@@ -242,7 +256,7 @@ export function OverviewEcommerceView() {
     setShowRatelimitField(event.target.checked);
   };
 
-  const handleRetryToggle = (event) => {
+  const handlecustomToggle = (event) => {
     setShowRetryField(event.target.checked);
   };
 
@@ -250,8 +264,8 @@ export function OverviewEcommerceView() {
     setShowDelayField(event.target.checked);
   };
 
-  const handleBatchSizeToggle = (event) => {
-    setShowBatchSizeField(event.target.checked);
+  const handleTransformationToggle = (event) => {
+    setTransformationField(event.target.checked);
   };
 
   const handleFilterToggle = (event) => {
@@ -339,10 +353,10 @@ export function OverviewEcommerceView() {
                   </DialogContent>
 
                   <DialogActions>
-                    <Button onClick={handledlose} variant="outlined" color="inherit">
+                    <Button onClick={handledlose} variant="outlined" >
                       Cancel
                     </Button>
-                    <Button onClick={handledlose} variant="contained">
+                    <Button onClick={handledlose} variant="contained" color='primary'>
                       Create
                     </Button>
                   </DialogActions>
@@ -402,7 +416,7 @@ export function OverviewEcommerceView() {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <Tooltip title="Copy URL" arrow placement="bottom">
+                      <Tooltip title="Click to copy Pabbly Hook webhook URL." arrow placement="bottom">
                         <IconButton edge="end" onClick={handleCopy}>
                           <Iconify width={18} icon="solar:copy-bold" />
                         </IconButton>
@@ -441,7 +455,7 @@ export function OverviewEcommerceView() {
               />
             </DialogContent>
 
-            <DialogContent >
+            <DialogContent>
               <Typography sx={{ mb: 2 }}>Destination HTTP Method</Typography>
 
               <TextField
@@ -460,7 +474,7 @@ export function OverviewEcommerceView() {
               </TextField>
             </DialogContent>
 
-            <DialogContent sx={{mt:2,mb:2}}>
+            <DialogContent sx={{ mt: 2, mb: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <FormControlLabel
                   control={
@@ -475,12 +489,17 @@ export function OverviewEcommerceView() {
                   }
                   label={
                     <Tooltip
-                      title="Set the event delivery rate to control the maximum number of events sent to your destination."
+                      title={
+                        <div style={{ textAlign: 'center' }}>
+                          Set the event delivery rate to control the maximum number of events sent
+                          to your destination.
+                        </div>
+                      }
                       disableInteractive
                       arrow
                       placement="top"
                     >
-                      <Typography>Rate limit</Typography>
+                      <Typography sx={{ fontSize: '15px' }}>Rate Limit</Typography>
                     </Tooltip>
                   }
                   labelPlacement="end" // Places the label next to the switch
@@ -489,13 +508,14 @@ export function OverviewEcommerceView() {
 
               {showRatelimitField && (
                 <>
+                  <Typography sx={{ mt: 1, fontSize: '15px' }}>Rate Limit</Typography>
                   <TextField
                     id="outlined-Rate-limit"
                     select
                     fullWidth
                     // label="Select"
                     defaultValue="USD"
-                    helperText=" Enable events rate limit to control the maximum throughput of events delivered to your destination."
+                    helperText="Enter the maximum number of events allowed in the time frame."
                     sx={{ mt: 2 }}
                   >
                     {Ratelimit.map((option) => (
@@ -511,7 +531,7 @@ export function OverviewEcommerceView() {
                     fullWidth
                     // label="Select"
                     defaultValue="USD"
-                    helperText="Please select your time frame"
+                    helperText="Select the time period for the rate limit (e.g., per second, per minute, per hours)."
                   >
                     {currencies.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
@@ -523,7 +543,6 @@ export function OverviewEcommerceView() {
               )}
             </DialogContent>
 
-
             <Divider sx={{ borderStyle: 'dashed' }} />
             <CardHeader
               title="Set Connections Rules"
@@ -534,94 +553,34 @@ export function OverviewEcommerceView() {
             <DialogContent>
               <FormControlLabel
                 control={
-                  <Tooltip title="Enable retries on failure." arrow placement="top">
-                    <Switch onChange={handleRetryToggle} />
-                  </Tooltip>
-                }
-                label="Retry"
-                sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
-              />
-              {showRetryField && (
-                <>
-                  <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Strategy</Typography>
-                  <TextField
-                    id="outlined-select-numbers"
-                    select
-                    fullWidth
-                    defaultValue="USD"
-                    helperText="Configure a automatic retry strategy for any events delivery failures."
+                  <Tooltip
+                    title="Click to enable or disable transformation."
+                    disableInteractive
+                    arrow
+                    placement="top"
                   >
-                    {Strategy.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-
-                  <Typography sx={{ mb: 1, mt: 2, fontSize: '15px' }}>Interval</Typography>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    fullWidth
-                    defaultValue="USD"
-                    helperText="Configure a automatic retry strategy for any events delivery failures."
-                    sx={{ mb: 1 }}
-                  >
-                    {Interval.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-
-                  <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Every</Typography>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    fullWidth
-                    defaultValue="USD"
-                    helperText="Configure a automatic retry strategy for any events delivery failures."
-                    sx={{ mb: 1 }}
-                  >
-                    {Maximum.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-
-                  <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Maximum Count</Typography>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    fullWidth
-                    defaultValue="USD"
-                    helperText="Configure a automatic retry strategy for any events delivery failures."
-                    sx={{ mb: 2 }}
-                  >
-                    {Maximum.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </>
-              )}
-            </DialogContent>
-
-            <DialogContent>
-              <FormControlLabel
-                control={
-                  <Tooltip title="Click to enable or disable transformation." arrow placement="top">
                     <Switch onChange={handleDelayToggle} />
                   </Tooltip>
                 }
-                label="Delay"
+                label={
+                  <Tooltip
+                    title={
+                      <div style={{ textAlign: 'center' }}>
+                        Set the delay between receiving an event and delivering it.
+                      </div>
+                    }
+                    disableInteractive
+                    arrow
+                    placement="top"
+                  >
+                    <Typography sx={{ fontSize: '15px' }}>Delay</Typography>
+                  </Tooltip>
+                }
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
               {showDelayField && (
                 <>
-                  <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Backoff Interval</Typography>
+                  <Typography sx={{ mt: 1, fontSize: '15px' }}>Backoff Interval</Typography>
                   <TextField
                     id="outlined-Rate-limit"
                     select
@@ -629,7 +588,7 @@ export function OverviewEcommerceView() {
                     // label="Delay between retries"
                     defaultValue="USD"
                     helperText="Incase destination endpoint is down."
-                    sx={{ mt: 2 }}
+                    sx={{ mt: 1 }}
                   >
                     {Ratelimit.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
@@ -637,15 +596,13 @@ export function OverviewEcommerceView() {
                       </MenuItem>
                     ))}
                   </TextField>
-                  <Typography sx={{ mb: 1, mt: 2, fontSize: '15px' }}>
-                    Number of Retries When Backoff
-                  </Typography>
+                  <Typography sx={{ mb: 1, mt: 2, fontSize: '15px' }}>Time Limit Period</Typography>
                   <TextField
                     id="time select"
                     select
                     fullWidth
                     defaultValue="USD"
-                    helperText="Incase destination endpoint is down."
+                    helperText="Select the time unit."
                     sx={{ mb: 2 }}
                   >
                     {Time.map((option) => (
@@ -661,33 +618,175 @@ export function OverviewEcommerceView() {
             <DialogContent>
               <FormControlLabel
                 control={
-                  <Tooltip title="Batch size to process." arrow placement="top">
-                    <Switch onChange={handleBatchSizeToggle} />
+                  <Tooltip
+                    title="Click to enable or disable transformation."
+                    disableInteractive
+                    arrow
+                    placement="top"
+                  >
+                    <Switch onChange={handleTransformationToggle} />
                   </Tooltip>
                 }
-                label="BatchSize"
+                label={
+                  <Tooltip
+                    title={
+                      <div style={{ textAlign: 'center' }}>
+                        A transformation allows you to modify an event&apos;s payload before
+                        it&apos;s delivered.
+                      </div>
+                    }
+                    disableInteractive
+                    arrow
+                    placement="top"
+                  >
+                    <Typography sx={{ fontSize: '15px' }}>Transformation</Typography>
+                  </Tooltip>
+                }
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
-              {showBatchSizeField && (
-                <TextField
-                  fullWidth
-                  label="Batch Size"
-                  placeholder="Enter any number"
-                  variant="outlined"
-                  helperText="Define a Batch Size for the event."
-                  sx={{ mb: 2, mt: 2 }}
-                />
+              {showTransformationField && (
+                <>
+                  {/* <Typography sx={{ mt: 1, fontSize: '15px' }}>Transform</Typography> */}
+                  <TextField
+                    id="outlined-select-currency"
+                    select
+                    fullWidth
+                    defaultValue="USD"
+                    helperText="Select a transformation."
+                    sx={{ mb: 2, mt: 2 }}
+                  >
+                    {Transformation.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    startIcon={
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z"
+                        />
+                      </svg>
+                    }
+                    sx={{ mb: 2 }}
+                  >
+                    Create new Transformation
+                  </Button>
+                </>
               )}
             </DialogContent>
 
             <DialogContent>
               <FormControlLabel
                 control={
-                  <Tooltip title="Apply filter." arrow placement="top">
+                  <Tooltip
+                    title="Click to enable or disable custom response."
+                    disableInteractive
+                    arrow
+                    placement="top"
+                  >
+                    <Switch onChange={handlecustomToggle} />
+                  </Tooltip>
+                }
+                label={
+                  <Tooltip
+                    title={
+                      <div style={{ textAlign: 'center' }}>
+                        Replace the default Pabbly Hook HTTP response with a custom static response
+                        in JSON or TXT format.
+                      </div>
+                    }
+                    disableInteractive
+                    arrow
+                    placement="top"
+                  >
+                    <Typography sx={{ fontSize: '15px' }}>Custom Response</Typography>
+                  </Tooltip>
+                }
+                sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
+              />
+              {showCustomresponseField && (
+                <>
+                  <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Content Type</Typography>
+                  <TextField
+                    id="outlined-select-numbers"
+                    select
+                    fullWidth
+                    defaultValue="USD"
+                    helperText="Select the format of response."
+                    sx={{ mb: 1 }}
+                  >
+                    {Strategy.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+
+                  <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Content</Typography>
+                  <TextField
+                        fullWidth
+                        // label="Body Content"
+                        // placeholder="Body Content"
+                        variant="outlined"
+                        // helperText="Set the body content."
+                        sx={{mb:2}}
+                        multiline
+                        rows={4}
+                        value={url1}
+                        onChange={Change}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment sx={{ mt: -9.5 }}>
+                              <Tooltip title="Copy Text" arrow placement="bottom">
+                                <IconButton edge="end" onClick={Copy}>
+                                  <Iconify width={18} icon="solar:copy-bold" />
+                                </IconButton>
+                              </Tooltip>
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                </>
+              )}
+            </DialogContent>
+
+            <DialogContent>
+              <FormControlLabel
+                control={
+                  <Tooltip
+                    title="Click to enable or disable filter."
+                    disableInteractive
+                    arrow
+                    placement="top"
+                  >
                     <Switch onChange={handleFilterToggle} />
                   </Tooltip>
                 }
-                label="Filter"
+                label={
+                  <Tooltip
+                    title={
+                      <div style={{ textAlign: 'center' }}>
+                        Filter the event based on the request body, headers, query or path.
+                      </div>
+                    }
+                    disableInteractive
+                    arrow
+                    placement="top"
+                  >
+                    <Typography sx={{ fontSize: '15px' }}>Filter</Typography>
+                  </Tooltip>
+                }
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
 
@@ -801,7 +900,7 @@ export function OverviewEcommerceView() {
 
             <DialogContent sx={{ mb: 3, mt: 2 }}>
               <>
-                <Button variant="contained" sx={{ mr: 2 }} onClick={handleClickOpen}>
+                <Button variant="contained" sx={{ mr: 2 }} color='primary' onClick={handleClickOpen}>
                   Create
                 </Button>
                 <Dialog open={open} onClose={handleClose}>
@@ -831,7 +930,7 @@ export function OverviewEcommerceView() {
                     <Button onClick={handleClose} variant="outlined" color="inherit">
                       Cancel
                     </Button>
-                    <Button onClick={handleOpenSnackbar} variant="contained" color="inherit">
+                    <Button onClick={handleOpenSnackbar} variant="contained" color="primary">
                       Create
                     </Button>
                     <Snackbar
@@ -867,9 +966,9 @@ export function OverviewEcommerceView() {
             </DialogContent>
           </Card>
 
-          <Box mt={3}>
+          {/* <Box mt={3}>
             <OrderListViewHome />
-          </Box>
+          </Box> */}
         </Grid>
       </Grid>
     </DashboardContent>

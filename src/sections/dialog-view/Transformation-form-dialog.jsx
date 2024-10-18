@@ -33,7 +33,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 //   },
 // ];
 
-export function FormDialog() {
+export function TransformationDialog() {
   const theme = useTheme();
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const dialog = useBoolean();
