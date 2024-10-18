@@ -193,10 +193,10 @@ export function OverviewEcommerceView() {
           </TextField>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handledlose} variant="outlined" color="inherit">
+          <Button onClick={handledlose} variant="outlined" >
             Cancel
           </Button>
-          <Button onClick={handledlose} variant="contained">
+          <Button onClick={handledlose} variant="contained" color='primary'>
             Create
           </Button>
         </DialogActions>
