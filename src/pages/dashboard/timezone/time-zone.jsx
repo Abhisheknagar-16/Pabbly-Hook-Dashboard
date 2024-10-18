@@ -70,7 +70,7 @@ export default function Page() {
 
         <Box sx={{ mt: 4 }}>
           <Card>
-            <CardHeader title="Time Zone" sx={{ mb: 3 }} />
+            <CardHeader title="Time Zon" sx={{ mb: 3 }} />
             <Divider />
             <Box sx={{ p: 3 }}>
               <Typography variant="subtitle2" sx={{ mb: 2 }}>
