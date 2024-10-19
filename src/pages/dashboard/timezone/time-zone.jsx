@@ -13,7 +13,7 @@ import { StatsCardTimezone } from 'src/sections/statscard-timezone/view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Page Seven | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Page Time-Zone | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
 

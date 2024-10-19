@@ -6,7 +6,7 @@ import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Box, Grid, Button, Tooltip, FormLabel, Typography, FormControl, } from '@mui/material';
+import { Box, Grid, Button, Tooltip, FormLabel, Typography, FormControl } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
@@ -36,18 +36,18 @@ const Strategy = [
   },
 ];
 
-const Selectstatus = [
+const selectfolder = [
   {
     value: 'USD',
-    label: 'Select Status',
+    label: 'Select Folder',
   },
   {
     value: 'EUR',
-    label: 'Accepted',
+    label: 'Home',
   },
   {
     value: 'tUR',
-    label: 'Blocked',
+    label: 'test',
   },
 ];
 
@@ -82,15 +82,14 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
         direction={{ xs: 'column', md: 'row' }}
         sx={{ p: 2.5, pr: { xs: 2.5, md: 1 } }}
       >
-
         <Stack
           direction="row"
           justifyContent="space-between"
           alignItems="center"
-          spacing={2}  // Adjust spacing between elements
-          sx={{ width: '100%' }}  // Ensures the stack takes full width
+          spacing={2} // Adjust spacing between elements
+          sx={{ width: '100%' }} // Ensures the stack takes full width
         >
-          <Typography variant="h6" fontWeight={700} lineHeight={2} >
+          <Typography variant="h6" fontWeight={700} lineHeight={2}>
             <Tooltip title="List of all request ID's and there status." arrow placement="top">
               Request
             </Tooltip>
@@ -100,7 +99,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
             <Tooltip title="Click here to request by request name or ID's." arrow placement="top">
               <TextField
                 sx={{
-                  width: { xs: '100%', sm: '300px', md: '394px' },  // Responsive width for TextField
+                  width: { xs: '100%', sm: '300px', md: '394px' }, // Responsive width for TextField
                 }}
                 value={filters.state.name}
                 onChange={handleFilterName}
@@ -117,13 +116,9 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
 
             <Stack>
               <Tooltip placement="top" arrow title="Filter request by status or name.">
-              <Button
-                  size='small'
-                  onClick={popover.onOpen}
-                  sx={{ mr: 1.2 }}
-                >
+                <Button size="small" onClick={popover.onOpen} sx={{ mr: 1.2 }}>
                   <Iconify icon="solar:filter-bold" sx={{ color: 'black' }} />
-                  <Typography sx={{ variant: "h6", fontWeight: '700', ml: 1, mr: 0.2 }}>
+                  <Typography sx={{ variant: 'h6', fontWeight: '700', ml: 1, mr: 0.2 }}>
                     Filter
                   </Typography>
                 </Button>
@@ -140,11 +135,20 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
         slotProps={{ arrow: { placement: 'bottom-top' } }}
       >
         {/* //////////////////////Custom filter popover////////////////////// */}
-        <MenuList sx={{ height: 'auto', width: 'auto' }}>
+        <MenuList
+          sx={{
+            height: 'auto',
+            width: {
+              xs: '100%', // Full width for mobile screens
+              sm: '100%', // Full width for tablet screens
+              md: '762px', // Original width for larger screens
+            },
+          }}
+        >
           <Box sx={{ padding: 1 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sx={{ mb: 2 }}>
-              <Typography variant="h6" fontWeight={700} ml={0.5} >
+                <Typography variant="h6" fontWeight={700} ml={0.5}>
                   Filter Request
                 </Typography>
               </Grid>
@@ -152,16 +156,16 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={3}>
                   <FormControl fullWidth>
-                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 1 }}>Request Name</FormLabel>
-                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 3 }}>Request ID</FormLabel>
-                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 2.5 }}>Request Folder</FormLabel>
+                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 1 }}>Connection Name</FormLabel>
+                    {/* <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 3 }}>Request ID</FormLabel> */}
+                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 2.5 }}>Connection Folder</FormLabel>
                     {/* <FormLabel sx={{ ml: 3, fontSize: 16, mt: 3 }}>Status</FormLabel> */}
                   </FormControl>
                 </Grid>
 
                 <Grid item xs={12} sm={3}>
                   <Grid container spacing={1} direction="column">
-                    {['Equal to', 'Equal to', 'In'].map((label, index) => (
+                    {['Equal to', 'In'].map((label, index) => (
                       <Grid item xs={12} key={index} ml={2}>
                         <FormControl fullWidth>
                           <Button
@@ -176,13 +180,12 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
                   </Grid>
                 </Grid>
 
-
                 <Grid item xs={12} sm={6}>
                   <Grid container spacing={1} direction="column">
                     <Grid item xs={12} sm={6} sx={{ ml: 2 }}>
                       <TextField
                         id="outlined-select-numbers"
-                        size='small'
+                        size="small"
                         select
                         fullWidth
                         defaultValue="USD"
@@ -195,7 +198,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
                       </TextField>
                     </Grid>
 
-                    <Grid item xs={12} ml={2}>
+                    {/* <Grid item xs={12} ml={2}>
                       <TextField
                         size='small'
                         id="outlined-select-numbers"
@@ -209,17 +212,22 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
                           </MenuItem>
                         ))}
                       </TextField>
-                    </Grid>
+                    </Grid> */}
 
                     <Grid item xs={12} ml={2}>
                       <TextField
-                        size='small'
-                        autoFocus
+                        size="small"
+                        id="outlined-select-numbers"
+                        select
                         fullWidth
-                        variant="outlined"
-                        placeholder='Home'
-                      // label="Connection Name"
-                      />
+                        defaultValue="USD"
+                      >
+                        {selectfolder.map((option) => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </TextField>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -233,7 +241,6 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
           </Box>
         </MenuList>
       </CustomPopover>
-
     </>
   );
 }

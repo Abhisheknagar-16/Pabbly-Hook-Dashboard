@@ -13,10 +13,10 @@ import { AuthGuard } from 'src/auth/guard';
 const IndexPage = lazy(() => import('src/pages/dashboard/connections/connection'));
 const PageCreateConnection = lazy(() => import('src/pages/dashboard/connections2copy/connection'));
 // const PageTwo = lazy(() => import('src/pages/dashboard/issues/issue'));
-const PageThree = lazy(() => import('src/pages/dashboard/transformations/transformation'));
-const PageFour = lazy(() => import('src/pages/dashboard/request/request'));
-const PageFive = lazy(() => import('src/pages/dashboard/events/events'));
-const PageSeven = lazy(() => import('src/pages/dashboard/timezone/time-zone'));
+const PageTransformation = lazy(() => import('src/pages/dashboard/transformations/transformation'));
+const PageRequest = lazy(() => import('src/pages/dashboard/request/request'));
+const PageEvent = lazy(() => import('src/pages/dashboard/events/events'));
+const PageTimezone = lazy(() => import('src/pages/dashboard/timezone/time-zone'));
 const PageUpdateConnection = lazy(() => import('src/pages/dashboard/Updateconnection/updateconnection'));
 
 // ----------------------------------------------------------------------
@@ -36,16 +36,16 @@ export const dashboardRoutes = [
     children: [
       { element: <IndexPage />, index: true },
       // { path: 'two', element: <PageTwo /> },
-      { path: 'three', element: <PageThree /> },
-      { path: 'four', element: <PageFour /> },
-      { path: 'five', element: <PageFive /> },
+      { path: 'transformation', element: <PageTransformation /> },
+      { path: 'request', element: <PageRequest /> },
+      { path: 'event', element: <PageEvent /> },
       { path: 'CreateConnection', element: <PageCreateConnection /> },
-      { path: 'seven', element: <PageSeven /> },
+      { path: 'settings/timezone', element: <PageTimezone /> },
       { path: 'updateconnection', element: <PageUpdateConnection /> },
       {
-        path: 'group',
+        path: 'settings',
         children: [
-          { element: <PageSeven />, index: true },
+          { element: <PageTimezone />, index: true },
           // { path: 'five', element: <PageFive /> },
           // { path: 'six', element: <PageSix /> },
         ],

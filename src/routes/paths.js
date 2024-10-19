@@ -47,18 +47,18 @@ export const paths = {
   dashboard: {
     root: ROOTS.DASHBOARD,
     // two: `${ROOTS.DASHBOARD}/two`,
-    three: `${ROOTS.DASHBOARD}/three`,
-    four: `${ROOTS.DASHBOARD}/four`,
-    five: `${ROOTS.DASHBOARD}/five`,
+    transformation: `${ROOTS.DASHBOARD}/transformation`,
+    request: `${ROOTS.DASHBOARD}/request`,
+    event: `${ROOTS.DASHBOARD}/event`,
     CreateConnection: `${ROOTS.DASHBOARD}/CreateConnection`,
-    Seven: `${ROOTS.DASHBOARD}/seven`,
+    timezone: `${ROOTS.DASHBOARD}/timezone`,
     updateconnection: `${ROOTS.DASHBOARD}/updateconnection`,
 
-    group: {
-      root: `${ROOTS.DASHBOARD}/group`,
-      five: `${ROOTS.DASHBOARD}/group/five`,
-      six: `${ROOTS.DASHBOARD}/group/six`,
-      Seven: `${ROOTS.DASHBOARD}/group/seven`,
+    settings: {
+      root: `${ROOTS.DASHBOARD}/settings`,
+      timezone: `${ROOTS.DASHBOARD}/settings/timezone`,
+      // six: `${ROOTS.DASHBOARD}/group/six`,
+      // Seven: `${ROOTS.DASHBOARD}/group/seven`,
     },
   },
 };
