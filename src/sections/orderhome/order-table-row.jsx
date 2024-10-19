@@ -134,7 +134,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             <Box component="span">
               <a
                 style={{ textDecoration: 'none', color: '#078dee' }}
-                href={paths.dashboard.six}
+                href={paths.dashboard.updateconnection}
               >
                 <Tooltip disableInteractive title={`Connection Name: ${connectionName}`} arrow placement='top'>
                   {connectionName}

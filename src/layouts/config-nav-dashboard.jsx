@@ -56,10 +56,10 @@ export const navData = [
     // subheader: 'Overview 6.0.0',
     items: [
       { title: 'Connections', path: paths.dashboard.root, icon: ICONS.connection },
-      { title: 'Requests', path: paths.dashboard.four, icon: ICONS.requests},
-      { title: 'Events', path: paths.dashboard.five, icon: ICONS.events},
+      { title: 'Requests', path: paths.dashboard.request, icon: ICONS.requests},
+      { title: 'Events', path: paths.dashboard.event, icon: ICONS.events},
       // { title: 'Issues', path: paths.dashboard.two, icon: ICONS.issues },
-      { title: 'Transformations', path: paths.dashboard.three, icon: ICONS.transformations},
+      { title: 'Transformations', path: paths.dashboard.transformation, icon: ICONS.transformations},
       // { title: 'Time-Zone', path: paths.dashboard.Seven, icon: ICONS.timezone},
     ],
   },
@@ -71,10 +71,10 @@ export const navData = [
     items: [
       {
         title: 'Setting',
-        path: paths.dashboard.group.root,
+        path: paths.dashboard.settings.root,
         icon: ICONS.setting,
         children: [
-          { title: 'Time Zone', path: paths.dashboard.group.root },
+          { title: 'Time Zone', path: paths.dashboard.settings.timezone },
           // { title: 'Five', path: paths.dashboard.group.five },
           // { title: 'Six', path: paths.dashboard.group.six },
         ],
