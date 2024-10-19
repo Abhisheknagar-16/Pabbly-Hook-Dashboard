@@ -50,8 +50,9 @@ export const paths = {
     three: `${ROOTS.DASHBOARD}/three`,
     four: `${ROOTS.DASHBOARD}/four`,
     five: `${ROOTS.DASHBOARD}/five`,
-    six: `${ROOTS.DASHBOARD}/six`,
+    CreateConnection: `${ROOTS.DASHBOARD}/CreateConnection`,
     Seven: `${ROOTS.DASHBOARD}/seven`,
+    updateconnection: `${ROOTS.DASHBOARD}/updateconnection`,
 
     group: {
       root: `${ROOTS.DASHBOARD}/group`,
