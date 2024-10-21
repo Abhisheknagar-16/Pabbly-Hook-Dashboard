@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -52,6 +52,20 @@ export function CreateConnectionFormDialog({ height, width, variant }) {
     setOpenSnackbar(false);
   };
 
+  const [urlrequired, setUrlrequied] = useState('');
+  const [errorrequired, setError] = useState(false);
+
+  const handleChangetext = (event) => {
+    setUrlrequied(event.target.value);
+
+    // Simple validation: check if the field is empty
+    if (event.target.value === '') {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  };
+
   return (
     <div>
       <Tooltip disableInteractive title="Click to create new connection." arrow placement="top">
@@ -91,8 +105,12 @@ export function CreateConnectionFormDialog({ height, width, variant }) {
 
         <DialogContent>
           <TextField
+            error={errorrequired}
+            value={urlrequired}
+            onChange={handleChangetext}
             autoFocus
             fullWidth
+            required
             type="email"
             margin="dense"
             variant="outlined"
@@ -108,12 +126,16 @@ export function CreateConnectionFormDialog({ height, width, variant }) {
               ),
             }}
             helperText={
-              <>
-                Enter the name of connection.{' '}
-                <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
-                  Learn more
-                </a>
-              </>
+              errorrequired ? (
+                'This field is required.'
+              ) : (
+                <>
+                  Enter the name of the connection.{' '}
+                  <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                    Learn more
+                  </a>
+                </>
+              )
             }
           />
           <Typography sx={{ mt: 2 }}>Select Folder</Typography>

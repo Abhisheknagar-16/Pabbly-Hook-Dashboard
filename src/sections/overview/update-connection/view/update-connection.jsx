@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import CodeMirror from '@uiw/react-codemirror';
+import { javascript } from '@codemirror/lang-javascript';
 
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
@@ -21,9 +23,11 @@ import {
   Typography,
   IconButton,
   DialogTitle,
+  FormControl,
   DialogActions,
   DialogContent,
   InputAdornment,
+  FormHelperText,
   FormControlLabel,
 } from '@mui/material';
 
@@ -33,7 +37,7 @@ import { Iconify } from 'src/components/iconify';
 
 import { CustomStyling } from 'src/sections/tree-view/custom-styling';
 
-import { useMockedUser } from 'src/auth/hooks';
+import { useMockedUser } from 'src/auth/hooks'; // Correct import
 
 // the selected row field
 const selectfolder = [
@@ -190,23 +194,96 @@ const Time = [
 export function UpdateConnection() {
   const [open, setOpen] = useState(false);
   const [dopen, setdopen] = useState(false);
-  const [folderopen, foldersopen] = useState(false);
+
+  const [urlrequired1, setUrlrequied1] = useState('');
+  const [errorrequired1, setError1] = useState(false);
+
+  const handleChangetext1 = (event) => {
+    setUrlrequied1(event.target.value);
+
+    // Simple validation: check if the field is empty
+    if (event.target.value === '') {
+      setError1(true);
+    } else {
+      setError1(false);
+    }
+  };
+
+  const [urlrequired, setUrlrequied] = useState('');
+  const [errorrequired, setError] = useState(false);
+
+  const handleChangetext = (event) => {
+    setUrlrequied(event.target.value);
+
+    // Simple validation: check if the field is empty
+    if (event.target.value === '') {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  };
+  const [checkboxState, setCheckboxState] = useState({
+    GET: true,
+    POST: false,
+    PUT: false,
+    PATCH: false,
+    DELETE: false,
+  });
+
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    setCheckboxState((prev) => ({ ...prev, [name]: checked }));
+  };
+
+  // Calculate how many checkboxes are checked
+  const checkedCount = Object.values(checkboxState).filter(Boolean).length;
+
+  const initialJsonData = {
+    apiKey:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzRhZDgwMzU2MDZjMTM1Zjk5NTgxZiIsIm5hbWUiOiJBaVNlbnN5IERlbW8gQWNjb3VudCIsImFwcE5hbWUiOiJBaVNlbnN5IiwiY2xpZW50SWQiOiI2MzAyOWM3Mjg1ODcxODUxYTQ5MzJmNTgiLCJhY3RpdmVQbGFuIjoiUFJPX01PTlRITFkiLCJpYXQiOjE3MjgzNzQ5ODV9.6N7-Y7rYAIkyYkf_ti5TRfCChwKyWY0Gai5tzP2QnVI',
+    campaignName: 'New Camp 16 Oct',
+    destination: '919581984489',
+    userName: 'AiSensy Demo Account',
+    templateParams: ['$FirstName', '$FirstName'],
+    source: 'new-landing-page form',
+    media: {},
+    buttons: [],
+    carouselCards: [],
+    location: {},
+    paramsFallbackValue: {
+      FirstName: 'user',
+    },
+  };
+  const [code, setCode] = useState(JSON.stringify(initialJsonData, null, 2));
+
+  const [selectedFormat, setSelectedFormat] = useState('USD'); // Default format
+
+  const [plainText, setPlainText] = useState('');
+
+  const handleCodeChange = (value) => {
+    setCode(value); // Update code as a string
+
+    try {
+      const parsedData = JSON.parse(value); // Attempt to parse JSON
+      console.log('Parsed JSON:', parsedData); // For debugging or additional handling
+    } catch (error) {
+      console.error('Invalid JSON format:', error); // Handle invalid JSON
+    }
+  };
+
+  const handleFormatChange = (event) => {
+    setSelectedFormat(event.target.value);
+  };
+
+  const handlePlainTextChange = (event) => {
+    setPlainText(event.target.value);
+  };
 
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [url, setUrl] = useState('');
-  const [url1, setUrl2] = useState('');
 
   const handleCopy = () => {
     navigator.clipboard.writeText(url);
-  };
-
-  const Copy = () => {
-    navigator.clipboard.writeText(url1);
-  };
-
-  const Change = (event) => {
-    setUrl2(event.target.value);
-    navigator.clipboard.writeText(event.target.value); // Automatically copies the text as you type
   };
 
   const handleChange = (event) => {
@@ -231,9 +308,6 @@ export function UpdateConnection() {
   };
   const handledlose = () => {
     setdopen(false);
-  };
-  const folderclose = () => {
-    foldersopen(false);
   };
 
   const { user } = useMockedUser();
@@ -302,24 +376,45 @@ export function UpdateConnection() {
                       Create Folder
                     </Tooltip>
                   </DialogTitle>
+                  <Divider sx={{ borderStyle: 'dashed', mb: 2 }} />
 
                   <DialogContent sx={{ mt: -1 }}>
                     <TextField
+                      error={errorrequired1}
+                      value={urlrequired1}
+                      onChange={handleChangetext1}
                       autoFocus
                       fullWidth
-                      type="text"
+                      required
                       margin="dense"
                       variant="outlined"
                       placeholder="Name of the Connection"
                       label="Folder Name"
-                      // defaultValue="Name of the Connection"
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Tooltip
+                              title="Enter folder name here"
+                              disableInteractive
+                              arrow
+                              placement="top"
+                            >
+                              <Iconify icon="material-symbols:info-outline" />
+                            </Tooltip>
+                          </InputAdornment>
+                        ),
+                      }}
                       helperText={
-                        <>
-                          Enter the name of the connection.{' '}
-                          <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
-                            Learn more
-                          </a>
-                        </>
+                        errorrequired ? (
+                          'This field is required.'
+                        ) : (
+                          <>
+                            Enter the name of the connection.{' '}
+                            <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                              Learn more
+                            </a>
+                          </>
+                        )
                       }
                     />
 
@@ -334,12 +429,10 @@ export function UpdateConnection() {
                       defaultValue="USD"
                       helperText={
                         <>
-                          {' '}
                           Select the folder or subfolder where you want to create the connection.{' '}
                           <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
-                            {' '}
-                            Learn more{' '}
-                          </a>{' '}
+                            Learn more
+                          </a>
                         </>
                       }
                     >
@@ -352,10 +445,10 @@ export function UpdateConnection() {
                   </DialogContent>
 
                   <DialogActions>
-                    <Button onClick={handledlose} variant="outlined" >
+                    <Button onClick={handledlose} variant="outlined">
                       Cancel
                     </Button>
-                    <Button onClick={handledlose} variant="contained" color='primary'>
+                    <Button onClick={handledlose} variant="contained" color="primary">
                       Create
                     </Button>
                   </DialogActions>
@@ -367,12 +460,12 @@ export function UpdateConnection() {
           </Card>
         </Grid>
 
-        {/* setup connection form */}
+        {/* Update connection form */}
         <Grid xs={12} md={9}>
           <Card>
             <CardHeader
               sx={{ mt: -1 }}
-              title="Setup Connections"
+              title="Update Connections"
               subheader={
                 <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
                   Define where your events come from, and Webhook will provide a corresponding
@@ -415,7 +508,11 @@ export function UpdateConnection() {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <Tooltip title="Click to copy Pabbly Hook webhook URL." arrow placement="bottom">
+                      <Tooltip
+                        title="Click to copy Pabbly Hook webhook URL."
+                        arrow
+                        placement="bottom"
+                      >
                         <IconButton edge="end" onClick={handleCopy}>
                           <Iconify width={18} icon="solar:copy-bold" />
                         </IconButton>
@@ -426,31 +523,94 @@ export function UpdateConnection() {
               />
             </DialogContent>
 
-            <DialogContent>
+            <DialogContent sx={{ mb: 1 }}>
               <Typography sx={{ mb: 1 }}>HTTP Methods</Typography>
 
-              <FormControlLabel label="GET" control={<Checkbox size="normal" defaultChecked />} />
-              <FormControlLabel label="POST" control={<Checkbox size="normal" Checked />} />
-              <FormControlLabel label="PUT" control={<Checkbox size="normal" Checked />} />
-              <FormControlLabel label="PATCH" control={<Checkbox size="normal" Checked />} />
-              <FormControlLabel label="DELETE" control={<Checkbox size="normal" Checked />} />
+              <FormControl required error={checkedCount < 1}>
+                <Box flexDirection="row" justifyContent="center" sx={{ ml: 0.3 }}>
+                  <FormControlLabel
+                    label="GET"
+                    control={
+                      <Checkbox
+                        size="normal"
+                        checked={checkboxState.GET}
+                        onChange={handleCheckboxChange}
+                        name="GET"
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    label="POST"
+                    control={
+                      <Checkbox
+                        size="normal"
+                        checked={checkboxState.POST}
+                        onChange={handleCheckboxChange}
+                        name="POST"
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    label="PUT"
+                    control={
+                      <Checkbox
+                        size="normal"
+                        checked={checkboxState.PUT}
+                        onChange={handleCheckboxChange}
+                        name="PUT"
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    label="PATCH"
+                    control={
+                      <Checkbox
+                        size="normal"
+                        checked={checkboxState.PATCH}
+                        onChange={handleCheckboxChange}
+                        name="PATCH"
+                      />
+                    }
+                  />
+                  <FormControlLabel
+                    label="DELETE"
+                    control={
+                      <Checkbox
+                        size="normal"
+                        checked={checkboxState.DELETE}
+                        onChange={handleCheckboxChange}
+                        name="DELETE"
+                      />
+                    }
+                  />
+                </Box>
 
-              <Typography sx={{ mb: 2, color: 'text.secondary', fontSize: '13px', mt: 1 }}>
-                Allow only specific HTTP methods to be accepted by Webhook. Requests that dont match
-                the allowed HTTP will be logged.
-              </Typography>
+                <FormHelperText>
+                  {checkedCount < 1
+                    ? 'Select at least one HTTP methods that will be used for the webhook.'
+                    : "Allow only specific HTTP methods to be accepted. Requests that don't match the allowed HTTP will be logged."}
+                </FormHelperText>
+              </FormControl>
             </DialogContent>
 
             <DialogContent sx={{ mb: 2 }}>
               <TextField
+                error={errorrequired}
+                value={urlrequired}
+                onChange={handleChangetext}
                 autoFocus
                 fullWidth
+                required
                 type="email"
                 margin="dense"
                 variant="outlined"
-                label="Destination URl"
+                label="Destination URL"
                 placeholder="Enter Webhook URL"
-                helperText="Enter the destination webhook URL where Pabbly Hook will forward the webhook data for processing."
+                helperText={
+                  errorrequired
+                    ? 'This field is required.'
+                    : 'Enter the destination webhook URL where Pabbly Hook will forward the webhook data for processing.'
+                }
               />
             </DialogContent>
 
@@ -679,7 +839,7 @@ export function UpdateConnection() {
                     }
                     sx={{ mb: 2 }}
                   >
-                    Create new Transformation
+                    Create Transformation
                   </Button>
                 </>
               )}
@@ -721,7 +881,8 @@ export function UpdateConnection() {
                     id="outlined-select-numbers"
                     select
                     fullWidth
-                    defaultValue="USD"
+                    value={selectedFormat}
+                    onChange={handleFormatChange}
                     helperText="Select the format of response."
                     sx={{ mb: 1 }}
                   >
@@ -733,22 +894,42 @@ export function UpdateConnection() {
                   </TextField>
 
                   <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Content</Typography>
-                  <TextField
+                  <Box
+                    sx={{
+                      ...(selectedFormat === 'USD' && {
+                        border: '1px solid #ccc', // Dashed border styling only for JSON (CodeMirror) field
+                        borderRadius: 1,
+                        padding: 1,
+                      }),
+                      mt: 2,
+                      mb: 2,
+                    }}
+                  >
+                    {selectedFormat === 'USD' ? (
+                      <CodeMirror
+                        value={code}
+                        height="200px"
+                        extensions={[javascript()]}
+                        onChange={handleCodeChange}
+                        theme="light"
+                      />
+                    ) : (
+                      <TextField
                         fullWidth
-                        // label="Body Content"
-                        // placeholder="Body Content"
-                        variant="outlined"
-                        // helperText="Set the body content."
-                        sx={{mb:2}}
                         multiline
                         rows={4}
-                        value={url1}
-                        onChange={Change}
+                        value={plainText}
+                        onChange={handlePlainTextChange}
+                        variant="outlined"
+                        placeholder="Enter plain text content here..."
                         InputProps={{
                           endAdornment: (
                             <InputAdornment sx={{ mt: -9.5 }}>
                               <Tooltip title="Copy Text" arrow placement="bottom">
-                                <IconButton edge="end" onClick={Copy}>
+                                <IconButton
+                                  edge="end"
+                                  onClick={() => navigator.clipboard.writeText(plainText)}
+                                >
                                   <Iconify width={18} icon="solar:copy-bold" />
                                 </IconButton>
                               </Tooltip>
@@ -756,6 +937,8 @@ export function UpdateConnection() {
                           ),
                         }}
                       />
+                    )}
+                  </Box>
                 </>
               )}
             </DialogContent>
@@ -899,7 +1082,12 @@ export function UpdateConnection() {
 
             <DialogContent sx={{ mb: 3, mt: 2 }}>
               <>
-                <Button variant="contained" sx={{ mr: 2 }} color='primary' onClick={handleClickOpen}>
+                <Button
+                  variant="contained"
+                  sx={{ mr: 2 }}
+                  color="primary"
+                  onClick={handleClickOpen}
+                >
                   Update
                 </Button>
                 <Dialog open={open} onClose={handleClose}>
@@ -964,7 +1152,6 @@ export function UpdateConnection() {
               </Button>
             </DialogContent>
           </Card>
-
         </Grid>
       </Grid>
     </DashboardContent>
