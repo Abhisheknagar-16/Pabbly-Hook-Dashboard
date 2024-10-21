@@ -26,7 +26,7 @@ import { Iconify } from 'src/components/iconify';
 import { OrderListViewHome } from 'src/sections/orderhome/view';
 import { OrderListViewtrash } from 'src/sections/ordertrash/view';
 import { CustomStyling } from 'src/sections/tree-view/custom-styling';
-import { CreateConnectionFormDialog} from 'src/sections/dialog-view/create-connection-form-dialog';
+import { CreateConnectionFormDialog } from 'src/sections/dialog-view/create-connection-form-dialog';
 
 import { EcommerceWelcome } from '../ecommerce-welcome';
 
@@ -43,15 +43,29 @@ export function SetupConnectionForm() {
 
   // Open and close dialog
   const handledopen = () => setdopen(true);
-  const handledlose = () => setdopen(false);
+  const handledclose = () => setdopen(false);
 
   // Toggle between showing trash and showing home content
   const handleTrashClick = () => {
-    setShowTrash(true);  // Switch to showing trash view
+    setShowTrash(true); // Switch to showing trash view
   };
 
   const handleHomeClick = () => {
-    setShowTrash(false);  // Switch back to home (main view)
+    setShowTrash(false); // Switch back to home (main view)
+  };
+
+  const [urlrequired, setUrlrequied] = useState('');
+  const [errorrequired, setError] = useState(false);
+
+  const handleChangetext = (event) => {
+    setUrlrequied(event.target.value);
+
+    // Simple validation: check if the field is empty
+    if (event.target.value === '') {
+      setError(true);
+    } else {
+      setError(false);
+    }
   };
 
   return (
@@ -62,11 +76,16 @@ export function SetupConnectionForm() {
           <Card sx={{ pl: 2.4, pr: 2, pt: 2, pb: 2 }}>
             <Typography variant="h6" fontWeight={700}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Tooltip disableInteractive title={
-                  <div style={{ textAlign: 'center' }}>
-                    You can create folders, subfolders, and manage connections within them.
-                  </div>
-                } arrow placement="top">
+                <Tooltip
+                  disableInteractive
+                  title={
+                    <div style={{ textAlign: 'center' }}>
+                      You can create folders, subfolders, and manage connections within them.
+                    </div>
+                  }
+                  arrow
+                  placement="top"
+                >
                   <span>Folders</span>
                 </Tooltip>
 
@@ -110,7 +129,12 @@ export function SetupConnectionForm() {
                 step2="Now select apps you want to integrate into the trigger and action step."
                 step3="Once the Connection is completed, save and enable it."
                 img={
-                  <Tooltip disableInteractive title="Click to watch tutorial." arrow placement="top">
+                  <Tooltip
+                    disableInteractive
+                    title="Click to watch tutorial."
+                    arrow
+                    placement="top"
+                  >
                     <div>
                       <MotivationIllustration hideBackground />
                     </div>
@@ -124,7 +148,7 @@ export function SetupConnectionForm() {
             <Box sx={{ width: '100%' }}>
               <Card>
                 {showTrash ? (
-                  <OrderListViewtrash />  // Show trash view if trash is selected
+                  <OrderListViewtrash /> // Show trash view if trash is selected
                 ) : (
                   <OrderListViewHome /> // Show main content view (OrderListView) if Home is selected
                 )}
@@ -135,40 +159,52 @@ export function SetupConnectionForm() {
       </Grid>
 
       {/* Folder Dialog */}
-      <Dialog open={dopen} onClose={handledlose} sx={{ position: 'fixed' }}>
+      <Dialog open={dopen} onClose={handledclose} sx={{ position: 'fixed' }}>
         <DialogTitle>
-          <Tooltip title="Create a connection with a name and folder location." arrow placement="top">
+          <Tooltip
+            title="Create a connection with a name and folder location."
+            arrow
+            placement="top"
+          >
             Create Folder
           </Tooltip>
         </DialogTitle>
-        <Divider sx={{ borderStyle: 'dashed', mb: 2 }}/>
+        <Divider sx={{ borderStyle: 'dashed', mb: 2 }} />
         <DialogContent>
           <TextField
-            // autoFocus
+            error={errorrequired}
+            value={urlrequired}
+            onChange={handleChangetext}
+            autoFocus
             fullWidth
-            type="text"
+            required
             margin="dense"
             variant="outlined"
-            placeholder="Name of the Connection"  
+            placeholder="Name of the Connection"
             label="Folder Name"
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
                   <Tooltip title="Enter folder name here" disableInteractive arrow placement="top">
-                  <Iconify icon="material-symbols:info-outline"  />
+                    <Iconify icon="material-symbols:info-outline" />
                   </Tooltip>
                 </InputAdornment>
               ),
             }}
             helperText={
-              <>
-                Enter the name of the connection.{' '}
-                <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
-                  Learn more
-                </a>
-              </>
+              errorrequired ? (
+                'This field is required.'
+              ) : (
+                <>
+                  Enter the name of the connection.{' '}
+                  <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                    Learn more
+                  </a>
+                </>
+              )
             }
           />
+
           <Typography sx={{ mt: 2 }}>Select Folder</Typography>
           <TextField
             id="outlined-select-currency"
@@ -193,10 +229,10 @@ export function SetupConnectionForm() {
           </TextField>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handledlose} variant="outlined" >
+          <Button onClick={handledclose} variant="outlined">
             Cancel
           </Button>
-          <Button onClick={handledlose} variant="contained" color='primary'>
+          <Button onClick={handledclose} variant="contained" color="primary">
             Create
           </Button>
         </DialogActions>
