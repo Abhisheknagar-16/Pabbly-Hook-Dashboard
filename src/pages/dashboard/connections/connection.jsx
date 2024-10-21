@@ -5,7 +5,7 @@ import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import { StatsCard } from 'src/sections/overview/statscard-connection/view';
-import { OverviewEcommerceView } from 'src/sections/overview/e-commerce/view';
+import { SetupConnectionForm } from 'src/sections/overview/setup-connection-form/view';
 // import { EcommerceWelcome } from 'src/sections/overview/e-commerce/ecommerce-welcome';
 
 // import { BlankView } from 'src/sections/blank/view';
@@ -23,7 +23,7 @@ export default function Page() {
       </Helmet>
       {/* <BlankView title="Page two" /> */}
       <StatsCard />
-      <OverviewEcommerceView />
+      <SetupConnectionForm/>
       </DashboardContent>
       </div>
     

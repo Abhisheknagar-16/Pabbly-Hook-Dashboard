@@ -42,7 +42,7 @@ export default function Page() {
         </Typography>
         <Button
           variant="contained"
-          color="primary"
+          color="inherit"
           sx={{
             width: { xs: 'auto', md: 'auto' } // Full width on mobile, auto on desktop
           }}

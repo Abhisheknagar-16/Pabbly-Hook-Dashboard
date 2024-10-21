@@ -47,21 +47,20 @@ export function TransformationDialog() {
 
   return (
     <div>
-      <Tooltip
-        title="Start building a new transformation "
-        arrow
-        placement="top"
-      >
+      <Tooltip title="Start building a new transformation " arrow placement="top">
         <div>
           <Button
             sx={{ mt: -1 }}
-            size='large'
+            size="large"
             variant="contained"
             color="primary"
             onClick={dialog.onTrue}
             startIcon={
               <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z" />
+                <path
+                  fill="currentColor"
+                  d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z"
+                />
               </svg>
             }
           >
@@ -74,7 +73,7 @@ export function TransformationDialog() {
         open={dialog.value}
         onClose={dialog.onFalse}
         PaperProps={{
-          style: { width: '500px', maxWidth: '500px' },  // Set the width here
+          style: { width: '500px', maxWidth: '500px' }, // Set the width here
         }}
       >
         <DialogTitle>
@@ -104,10 +103,10 @@ export function TransformationDialog() {
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={dialog.onFalse} variant="outlined" color="inherit">
+          <Button onClick={dialog.onFalse} variant="outlined">
             Cancel
           </Button>
-          <Button onClick={handleOpenSnackbar} variant="contained">
+          <Button onClick={handleOpenSnackbar} variant="contained" color="primary">
             Create
           </Button>
           <Snackbar
@@ -116,24 +115,26 @@ export function TransformationDialog() {
             onClose={handleCloseSnackbar}
             message="This is an error Alert."
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                      sx={{
-                        boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-                      }}
+            sx={{
+              boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+            }}
           >
-            <Alert onClose={handleCloseSnackbar} severity="success"
-                        sx={{
-                          width: '100%',
-                          fontSize: '14px',
-                          fontWeight: 'bold',
-                          backgroundColor: theme.palette.background.paper,
-                          color: theme.palette.text.primary,
-                        }} >
+            <Alert
+              onClose={handleCloseSnackbar}
+              severity="success"
+              sx={{
+                width: '100%',
+                fontSize: '14px',
+                fontWeight: 'bold',
+                backgroundColor: theme.palette.background.paper,
+                color: theme.palette.text.primary,
+              }}
+            >
               Transformation successfully setup.
             </Alert>
           </Snackbar>
         </DialogActions>
       </Dialog>
-
     </div>
   );
 }

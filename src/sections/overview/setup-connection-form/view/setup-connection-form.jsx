@@ -25,8 +25,8 @@ import { Iconify } from 'src/components/iconify';
 
 import { OrderListViewHome } from 'src/sections/orderhome/view';
 import { OrderListViewtrash } from 'src/sections/ordertrash/view';
-import { FormDialog } from 'src/sections/dialog-view/form-dialog';
 import { CustomStyling } from 'src/sections/tree-view/custom-styling';
+import { CreateConnectionFormDialog} from 'src/sections/dialog-view/create-connection-form-dialog';
 
 import { EcommerceWelcome } from '../ecommerce-welcome';
 
@@ -37,7 +37,7 @@ const selectfolder = [
   { value: 'JPY', label: 'World' },
 ];
 
-export function OverviewEcommerceView() {
+export function SetupConnectionForm() {
   const [dopen, setdopen] = useState(false);
   const [showTrash, setShowTrash] = useState(false);
 
@@ -116,7 +116,7 @@ export function OverviewEcommerceView() {
                     </div>
                   </Tooltip>
                 }
-                action={<FormDialog variant="outlined" />}
+                action={<CreateConnectionFormDialog variant="outlined" />}
               />
             </Card>
 

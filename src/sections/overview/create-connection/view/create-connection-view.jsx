@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import CodeMirror from '@uiw/react-codemirror';
+import { javascript } from '@codemirror/lang-javascript'; // Correct import
 
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
@@ -188,27 +190,59 @@ const Time = [
 
 // ----------------------------------------------------------------------
 
-export function OverviewEcommerceView() {
+export function CreateConnection() {
   const [open, setOpen] = useState(false);
   const [dopen, setdopen] = useState(false);
   const [folderopen, foldersopen] = useState(false);
 
+  const initialJsonData = {
+    apiKey:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzRhZDgwMzU2MDZjMTM1Zjk5NTgxZiIsIm5hbWUiOiJBaVNlbnN5IERlbW8gQWNjb3VudCIsImFwcE5hbWUiOiJBaVNlbnN5IiwiY2xpZW50SWQiOiI2MzAyOWM3Mjg1ODcxODUxYTQ5MzJmNTgiLCJhY3RpdmVQbGFuIjoiUFJPX01PTlRITFkiLCJpYXQiOjE3MjgzNzQ5ODV9.6N7-Y7rYAIkyYkf_ti5TRfCChwKyWY0Gai5tzP2QnVI',
+    campaignName: 'New Camp 16 Oct',
+    destination: '919581984489',
+    userName: 'AiSensy Demo Account',
+    templateParams: ['$FirstName', '$FirstName'],
+    source: 'new-landing-page form',
+    media: {},
+    buttons: [],
+    carouselCards: [],
+    location: {},
+    paramsFallbackValue: {
+      FirstName: 'user',
+    },
+  };
+  const [code, setCode] = useState(JSON.stringify(initialJsonData, null, 2));
+
+  const [selectedFormat, setSelectedFormat] = useState('USD'); // Default format
+
+  const [plainText, setPlainText] = useState('');
+
+  const handleCodeChange = (value) => {
+    setCode(value); // Update code as a string
+
+    try {
+      const parsedData = JSON.parse(value); // Attempt to parse JSON
+      console.log('Parsed JSON:', parsedData); // For debugging or additional handling
+    } catch (error) {
+      console.error('Invalid JSON format:', error); // Handle invalid JSON
+    }
+  };
+
+  const handleFormatChange = (event) => {
+    setSelectedFormat(event.target.value);
+  };
+
+  const handlePlainTextChange = (event) => {
+    setPlainText(event.target.value);
+  };
+
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [url, setUrl] = useState('');
-  const [url1, setUrl2] = useState('');
 
   const handleCopy = () => {
     navigator.clipboard.writeText(url);
   };
 
-  const Copy = () => {
-    navigator.clipboard.writeText(url1);
-  };
-
-  const Change = (event) => {
-    setUrl2(event.target.value);
-    navigator.clipboard.writeText(event.target.value); // Automatically copies the text as you type
-  };
 
   const handleChange = (event) => {
     setUrl(event.target.value);
@@ -232,9 +266,6 @@ export function OverviewEcommerceView() {
   };
   const handledlose = () => {
     setdopen(false);
-  };
-  const folderclose = () => {
-    foldersopen(false);
   };
 
   const { user } = useMockedUser();
@@ -353,10 +384,10 @@ export function OverviewEcommerceView() {
                   </DialogContent>
 
                   <DialogActions>
-                    <Button onClick={handledlose} variant="outlined" >
+                    <Button onClick={handledlose} variant="outlined">
                       Cancel
                     </Button>
-                    <Button onClick={handledlose} variant="contained" color='primary'>
+                    <Button onClick={handledlose} variant="contained" color="primary">
                       Create
                     </Button>
                   </DialogActions>
@@ -416,7 +447,11 @@ export function OverviewEcommerceView() {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <Tooltip title="Click to copy Pabbly Hook webhook URL." arrow placement="bottom">
+                      <Tooltip
+                        title="Click to copy Pabbly Hook webhook URL."
+                        arrow
+                        placement="bottom"
+                      >
                         <IconButton edge="end" onClick={handleCopy}>
                           <Iconify width={18} icon="solar:copy-bold" />
                         </IconButton>
@@ -722,7 +757,8 @@ export function OverviewEcommerceView() {
                     id="outlined-select-numbers"
                     select
                     fullWidth
-                    defaultValue="USD"
+                    value={selectedFormat}
+                    onChange={handleFormatChange}
                     helperText="Select the format of response."
                     sx={{ mb: 1 }}
                   >
@@ -734,22 +770,42 @@ export function OverviewEcommerceView() {
                   </TextField>
 
                   <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Content</Typography>
-                  <TextField
+                  <Box
+                    sx={{
+                      ...(selectedFormat === 'USD' && {
+                        border: '1px dashed #ccc', // Dashed border styling only for JSON (CodeMirror) field
+                        borderRadius: 1,
+                        padding: 1,
+                      }),
+                      mt: 2,
+                      mb: 2,
+                    }}
+                  >
+                    {selectedFormat === 'USD' ? (
+                      <CodeMirror
+                        value={code}
+                        height="200px"
+                        extensions={[javascript()]}
+                        onChange={handleCodeChange}
+                        theme="light"
+                      />
+                    ) : (
+                      <TextField
                         fullWidth
-                        // label="Body Content"
-                        // placeholder="Body Content"
-                        variant="outlined"
-                        // helperText="Set the body content."
-                        sx={{mb:2}}
                         multiline
                         rows={4}
-                        value={url1}
-                        onChange={Change}
+                        value={plainText}
+                        onChange={handlePlainTextChange}
+                        variant="outlined"
+                        placeholder="Enter plain text content here..."
                         InputProps={{
                           endAdornment: (
                             <InputAdornment sx={{ mt: -9.5 }}>
                               <Tooltip title="Copy Text" arrow placement="bottom">
-                                <IconButton edge="end" onClick={Copy}>
+                                <IconButton
+                                  edge="end"
+                                  onClick={() => navigator.clipboard.writeText(plainText)}
+                                >
                                   <Iconify width={18} icon="solar:copy-bold" />
                                 </IconButton>
                               </Tooltip>
@@ -757,6 +813,8 @@ export function OverviewEcommerceView() {
                           ),
                         }}
                       />
+                    )}
+                  </Box>
                 </>
               )}
             </DialogContent>
@@ -900,7 +958,12 @@ export function OverviewEcommerceView() {
 
             <DialogContent sx={{ mb: 3, mt: 2 }}>
               <>
-                <Button variant="contained" sx={{ mr: 2 }} color='primary' onClick={handleClickOpen}>
+                <Button
+                  variant="contained"
+                  sx={{ mr: 2 }}
+                  color="primary"
+                  onClick={handleClickOpen}
+                >
                   Create
                 </Button>
                 <Dialog open={open} onClose={handleClose}>

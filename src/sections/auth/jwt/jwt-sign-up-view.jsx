@@ -183,7 +183,7 @@ export function JwtSignUpView() {
       />
 
       {/* reCAPTCHA */}
-      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+      <div style={{ width: "100%", display: "flex", justifyContent: "left" }}>
         <ReCAPTCHA
           sitekey="6LdNrKgUAAAAALsQ3getachCJBWULQBj4q17_mgv"
           onChange={onCaptchaChange}

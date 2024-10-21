@@ -46,7 +46,7 @@ export default function Page() {
         component={RouterLink}
         href={paths.auth.jwt.signUp}
           variant="contained"
-          color="primary"
+          color="inherit"
           sx={{
             width: { xs: 'auto', md: 'auto' } // Full width on mobile, auto on desktop
           }}

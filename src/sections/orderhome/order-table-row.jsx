@@ -167,7 +167,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             <Box component="span" >
               <a
                 style={{ textDecoration: 'none', color: '#078dee' }}
-                href={paths.dashboard.four}
+                href={paths.dashboard.request}
               >
                 <Tooltip disableInteractive title="Status of the requests" arrow placement='top'>
                   {requests} Requests
@@ -181,7 +181,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             >
               <a
                 style={{ textDecoration: 'none', color: '#919eab' }}
-                href={paths.dashboard.five}
+                href={paths.dashboard.event}
               >
                 <Tooltip disableInteractive title="Status of the events" arrow placement='top'>
                   {events} events

@@ -37,7 +37,7 @@ const selectfolder = [
   },
 ];
 
-export function FormDialog({ height, width, variant }) {
+export function CreateConnectionFormDialog({ height, width, variant }) {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const theme = useTheme();
   // const navigate = useNavigate();
