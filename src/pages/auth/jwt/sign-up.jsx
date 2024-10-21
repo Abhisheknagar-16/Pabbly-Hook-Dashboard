@@ -41,7 +41,7 @@ export default function Page() {
         </Typography>
         <Button
           variant="contained"
-          color="primary"
+          color="inherit"
           href={paths.auth.jwt.signIn}
           sx={{
             // width: { xs: '100%', md: 'auto' }, // Full button width on mobile/tablet, auto on laptop

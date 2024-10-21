@@ -11,13 +11,13 @@ import { AuthGuard } from 'src/auth/guard';
 // ----------------------------------------------------------------------
 
 const IndexPage = lazy(() => import('src/pages/dashboard/connections/connection'));
-const PageCreateConnection = lazy(() => import('src/pages/dashboard/connections2copy/connection'));
+const PageCreateConnection = lazy(() => import('src/pages/dashboard/Createconnections/create-connection'));
 // const PageTwo = lazy(() => import('src/pages/dashboard/issues/issue'));
 const PageTransformation = lazy(() => import('src/pages/dashboard/transformations/transformation'));
 const PageRequest = lazy(() => import('src/pages/dashboard/request/request'));
 const PageEvent = lazy(() => import('src/pages/dashboard/events/events'));
 const PageTimezone = lazy(() => import('src/pages/dashboard/timezone/time-zone'));
-const PageUpdateConnection = lazy(() => import('src/pages/dashboard/Updateconnection/updateconnection'));
+const PageUpdateConnection = lazy(() => import('src/pages/dashboard/Updateconnection/update-connection'));
 
 // ----------------------------------------------------------------------
 
