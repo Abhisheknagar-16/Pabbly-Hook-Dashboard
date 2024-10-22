@@ -1,14 +1,18 @@
+// JsonEditorTabs.jsx
 import React, { useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 
-import { Box, Tab, Tabs } from '@mui/material';
+import { Box, Tab, Tabs, Button } from '@mui/material';
 
+const DEFAULT_INPUT = `{
+  "example": "data"
+}`;
 
-const JsonEditorTabs = () => {
+const JsonEditorTabs = ({ onExecute }) => {
   const [selectedTab, setSelectedTab] = useState(0);
-  const [inputValue, setInputValue] = useState('{\n  "example": "data"\n}');
-  const [outputValue, setOutputValue] = useState('{\n  "result": "processed"\n}');
+  const [inputValue, setInputValue] = useState(DEFAULT_INPUT);
+  const [outputValue, setOutputValue] = useState('');
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -16,43 +20,66 @@ const JsonEditorTabs = () => {
 
   const handleInputChange = (value) => {
     setInputValue(value);
-    // You can add your processing logic here to update the output
+  };
+
+  const handleExecute = () => {
+    try {
+      // Parse the input JSON
+      const inputJson = JSON.parse(inputValue);
+
+      // Execute the transformation
+      const result = onExecute(inputJson);
+
+      // Update output if result is not null
+      if (result !== null) {
+        setOutputValue(JSON.stringify(result, null, 2));
+        setSelectedTab(1); // Switch to output tab
+      }
+    } catch (error) {
+      console.error('Invalid JSON input:', error);
+      setOutputValue(`Error: Invalid JSON input - ${error.message}`);
+      setSelectedTab(1); // Switch to output tab to show error
+    }
   };
 
   return (
-    <div className="w-full max-w-xl">
-      <Box className="border rounded-lg shadow-sm">
-        <Tabs 
-          value={selectedTab} 
-          onChange={handleTabChange}
-          className="border-b"
-        >
-          <Tab className="w-1/2" label="Input" />
-          <Tab className="w-1/2" label="Output" />
-        </Tabs>
-        
-        <div className="p-4">
+    <div className="w-full">
+      <Box>
+        <Box sx={{ display: 'flex' ,justifyContent:'space-between' ,mr:1}}>
+          <Box>
+            <Tabs value={selectedTab} onChange={handleTabChange} className="border-b">
+              <Tab label="Input" />
+              <Tab label="Output" />
+            </Tabs>
+          </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <Button variant="contained" size="small" color="primary" onClick={handleExecute}>
+              Run
+            </Button>
+          </Box>
+        </Box>
+        <Box sx={{ p: 2 }}>
           {selectedTab === 0 && (
             <CodeMirror
               value={inputValue}
               height="100vh"
               onChange={handleInputChange}
               extensions={[javascript()]}
-              theme="dark"
+              theme="light"
               className="border rounded"
             />
           )}
           {selectedTab === 1 && (
             <CodeMirror
               value={outputValue}
-              height="100vh"
+              height="100vh "
               editable={false}
               extensions={[javascript()]}
-              theme="dark"
+              theme="light"
               className="border rounded"
             />
           )}
-        </div>
+        </Box>
       </Box>
     </div>
   );
