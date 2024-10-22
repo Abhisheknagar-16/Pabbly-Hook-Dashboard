@@ -8,9 +8,11 @@ import TextField from '@mui/material/TextField';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import { Alert, Tooltip, useTheme } from '@mui/material';
+import { Alert, Divider, Tooltip, useTheme, InputAdornment } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
+
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -82,6 +84,8 @@ export function TransformationDialog() {
           </Tooltip>
         </DialogTitle>
 
+        <Divider sx={{ borderStyle: 'dashed', mb: 2 }} />
+
         <DialogContent>
           <TextField
             autoFocus
@@ -91,6 +95,15 @@ export function TransformationDialog() {
             variant="outlined"
             label="Transformation Name"
             placeholder="Name of the Transformation"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Tooltip title="Enter transformation name here" disableInteractive arrow placement="top">
+                    <Iconify icon="material-symbols:info-outline" />
+                  </Tooltip>
+                </InputAdornment>
+              ),
+            }}
             helperText={
               <>
                 Enter the name of the Transformation.{' '}

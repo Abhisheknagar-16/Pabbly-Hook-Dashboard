@@ -14,6 +14,7 @@ import {
   Card,
   Dialog,
   Switch,
+  Drawer,
   Divider,
   Tooltip,
   MenuItem,
@@ -38,6 +39,7 @@ import { Iconify } from 'src/components/iconify';
 import { CustomStyling } from 'src/sections/tree-view/custom-styling';
 
 import { useMockedUser } from 'src/auth/hooks'; // Correct import
+import { TransformationDrawer } from 'src/sections/dialog-view/transformation-drawer';
 
 // the selected row field
 const selectfolder = [
@@ -207,6 +209,16 @@ export function UpdateConnection() {
     } else {
       setError1(false);
     }
+  };
+
+  const [transformationDrawerOpen, setTransformationDrawerOpen] = useState(false);
+
+  const handleOpenTranformationDrawer = () => {
+    setTransformationDrawerOpen(true);
+  };
+
+  const handleCloseTransformationDrawer = () => {
+    setTransformationDrawerOpen(false);
   };
 
   const [urlrequired, setUrlrequied] = useState('');
@@ -824,6 +836,7 @@ export function UpdateConnection() {
                     variant="contained"
                     color="primary"
                     size="large"
+                     onClick={handleOpenTranformationDrawer}
                     startIcon={
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -841,6 +854,25 @@ export function UpdateConnection() {
                   >
                     Create Transformation
                   </Button>
+                  <Drawer
+                    open={transformationDrawerOpen}
+                    onClose={handleCloseTransformationDrawer}
+                    anchor="right"
+                    slotProps={{ backdrop: { invisible: true } }}
+                    PaperProps={{
+                      sx: {
+                        width: { xs: '100%', sm: '100%', md:'80%' }, // Adjust width based on screen size
+                        '@media (max-width: 300px)': {
+                          padding: '16px',
+                        },
+                      },
+                    }}
+                  >
+                    <TransformationDrawer 
+                    transformationDrawerOpen={transformationDrawerOpen}
+                    setTransformationDrawerOpen={setTransformationDrawerOpen}
+                    />
+                  </Drawer>
                 </>
               )}
             </DialogContent>
