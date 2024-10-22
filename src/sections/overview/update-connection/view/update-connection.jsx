@@ -379,7 +379,7 @@ export function UpdateConnection() {
                 </IconButton>
 
                 <Dialog open={dopen} onClose={handledlose}>
-                  <DialogTitle>
+                <DialogTitle sx={{fontWeight:700}}>
                     <Tooltip
                       title="Create a connection with a name and folder location."
                       arrow
@@ -390,7 +390,7 @@ export function UpdateConnection() {
                   </DialogTitle>
                   <Divider sx={{ borderStyle: 'dashed', mb: 2 }} />
 
-                  <DialogContent sx={{ mt: -1 }}>
+                  <DialogContent>
                     <TextField
                       error={errorrequired1}
                       value={urlrequired1}
@@ -430,13 +430,14 @@ export function UpdateConnection() {
                       }
                     />
 
-                    <Typography sx={{ mt: 2 }}>Select Folder</Typography>
+                    {/* <Typography sx={{ mt: 2 }}>Select Folder</Typography> */}
 
                     <TextField
                       id="outlined-select-currency"
+                      sx={{ mt: 2 }}
                       select
                       fullWidth
-                      //  label="Select"
+                      label="Select Folder"
                       margin="dense"
                       defaultValue="USD"
                       helperText={

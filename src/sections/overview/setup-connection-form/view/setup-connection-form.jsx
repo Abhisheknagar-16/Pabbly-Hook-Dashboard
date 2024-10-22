@@ -160,7 +160,7 @@ export function SetupConnectionForm() {
 
       {/* Folder Dialog */}
       <Dialog open={dopen} onClose={handledclose} sx={{ position: 'fixed' }}>
-        <DialogTitle>
+      <DialogTitle sx={{fontWeight:700}}>
           <Tooltip
             title="Create a connection with a name and folder location."
             arrow
@@ -205,9 +205,11 @@ export function SetupConnectionForm() {
             }
           />
 
-          <Typography sx={{ mt: 2 }}>Select Folder</Typography>
+          {/* <Typography sx={{ mt: 2 }}>Select Folder</Typography> */}
           <TextField
             id="outlined-select-currency"
+            label="Select Folder"
+            sx={{ mt: 2 }}
             select
             fullWidth
             margin="dense"

@@ -358,7 +358,7 @@ export function CreateConnection() {
                 </IconButton>
 
                 <Dialog open={dopen} onClose={handledlose}>
-                  <DialogTitle>
+                  <DialogTitle sx={{ fontWeight: 700 }}>
                     <Tooltip
                       title="Create a connection with a name and folder location."
                       arrow
@@ -369,7 +369,7 @@ export function CreateConnection() {
                   </DialogTitle>
                   <Divider sx={{ borderStyle: 'dashed', mb: 2 }} />
 
-                  <DialogContent sx={{ mt: -1 }}>
+                  <DialogContent>
                     <TextField
                       error={errorrequired1}
                       value={urlrequired1}
@@ -409,13 +409,14 @@ export function CreateConnection() {
                       }
                     />
 
-                    <Typography sx={{ mt: 2 }}>Select Folder</Typography>
+                    {/* <Typography sx={{ mt: 2 }}>Select Folder</Typography> */}
 
                     <TextField
                       id="outlined-select-currency"
+                      sx={{ mt: 2 }}
                       select
                       fullWidth
-                      //  label="Select"
+                      label="Select Folder"
                       margin="dense"
                       defaultValue="USD"
                       helperText={
@@ -815,7 +816,7 @@ export function CreateConnection() {
                     variant="contained"
                     color="primary"
                     size="large"
-                     onClick={handleOpenTranformationDrawer}
+                    onClick={handleOpenTranformationDrawer}
                     startIcon={
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -840,16 +841,16 @@ export function CreateConnection() {
                     slotProps={{ backdrop: { invisible: true } }}
                     PaperProps={{
                       sx: {
-                        width: { xs: '100%', sm: '100%', md:'80%' }, // Adjust width based on screen size
+                        width: { xs: '100%', sm: '100%', md: '80%' }, // Adjust width based on screen size
                         '@media (max-width: 300px)': {
                           padding: '16px',
                         },
                       },
                     }}
                   >
-                    <TransformationDrawer 
-                    transformationDrawerOpen={transformationDrawerOpen}
-                    setTransformationDrawerOpen={setTransformationDrawerOpen}
+                    <TransformationDrawer
+                      transformationDrawerOpen={transformationDrawerOpen}
+                      setTransformationDrawerOpen={setTransformationDrawerOpen}
                     />
                   </Drawer>
                 </>
