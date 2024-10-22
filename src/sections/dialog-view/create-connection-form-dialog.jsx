@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import Snackbar from '@mui/material/Snackbar';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -92,7 +91,7 @@ export function CreateConnectionFormDialog({ height, width, variant }) {
       </Tooltip>
 
       <Dialog open={dialog.value} onClose={dialog.onFalse}>
-        <DialogTitle>
+        <DialogTitle sx={{fontWeight:700}}>
           <Tooltip
             title="Create a connection with a name and folder location."
             arrow
@@ -138,13 +137,13 @@ export function CreateConnectionFormDialog({ height, width, variant }) {
               )
             }
           />
-          <Typography sx={{ mt: 2 }}>Select Folder</Typography>
 
           <TextField
+            sx={{ mt: 2 }}
             id="outlined-select-currency"
             select
             fullWidth
-            // label="Select"
+            label="Select Folder"
             margin="dense"
             defaultValue="USD"
             helperText={
@@ -170,7 +169,7 @@ export function CreateConnectionFormDialog({ height, width, variant }) {
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={dialog.onFalse} variant="outlined" >
+          <Button onClick={dialog.onFalse} variant="outlined">
             Cancel
           </Button>
 

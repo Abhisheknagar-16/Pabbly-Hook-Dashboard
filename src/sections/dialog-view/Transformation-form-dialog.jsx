@@ -78,7 +78,7 @@ export function TransformationDialog() {
           style: { width: '500px', maxWidth: '500px' }, // Set the width here
         }}
       >
-        <DialogTitle>
+        <DialogTitle sx={{fontWeight:700}}>
           <Tooltip title="Create a Transformation." arrow placement="top">
             Create Transformation
           </Tooltip>
