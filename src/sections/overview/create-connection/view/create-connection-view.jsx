@@ -840,7 +840,7 @@ export function CreateConnection() {
                     slotProps={{ backdrop: { invisible: true } }}
                     PaperProps={{
                       sx: {
-                        width: { xs: '100%', sm: 700, md: 1400 }, // Adjust width based on screen size
+                        width: { xs: '100%', sm: '100%', md:'80%' }, // Adjust width based on screen size
                         '@media (max-width: 300px)': {
                           padding: '16px',
                         },
