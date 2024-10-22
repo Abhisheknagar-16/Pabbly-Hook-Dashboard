@@ -465,7 +465,7 @@ export function UpdateConnection() {
           <Card>
             <CardHeader
               sx={{ mt: -1 }}
-              title="Update Connections"
+              title="Update Connection"
               subheader={
                 <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
                   Define where your events come from, and Webhook will provide a corresponding

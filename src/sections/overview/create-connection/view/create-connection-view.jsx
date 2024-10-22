@@ -14,6 +14,7 @@ import {
   Card,
   Dialog,
   Switch,
+  Drawer,
   Divider,
   Tooltip,
   MenuItem,
@@ -37,6 +38,7 @@ import { Iconify } from 'src/components/iconify';
 
 // import { OrderListViewHome } from 'src/sections/orderhome/view';
 import { CustomStyling } from 'src/sections/tree-view/custom-styling';
+import { TransformationDrawer } from 'src/sections/dialog-view/transformation-drawer';
 
 import { useMockedUser } from 'src/auth/hooks';
 
@@ -186,6 +188,16 @@ export function CreateConnection() {
     } else {
       setError1(false);
     }
+  };
+
+  const [transformationDrawerOpen, setTransformationDrawerOpen] = useState(false);
+
+  const handleOpenTranformationDrawer = () => {
+    setTransformationDrawerOpen(true);
+  };
+
+  const handleCloseTransformationDrawer = () => {
+    setTransformationDrawerOpen(false);
   };
 
   const [urlrequired, setUrlrequied] = useState('');
@@ -803,6 +815,7 @@ export function CreateConnection() {
                     variant="contained"
                     color="primary"
                     size="large"
+                     onClick={handleOpenTranformationDrawer}
                     startIcon={
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -820,6 +833,25 @@ export function CreateConnection() {
                   >
                     Create Transformation
                   </Button>
+                  <Drawer
+                    open={transformationDrawerOpen}
+                    onClose={handleCloseTransformationDrawer}
+                    anchor="right"
+                    slotProps={{ backdrop: { invisible: true } }}
+                    PaperProps={{
+                      sx: {
+                        width: { xs: '100%', sm: 700, md: 1400 }, // Adjust width based on screen size
+                        '@media (max-width: 300px)': {
+                          padding: '16px',
+                        },
+                      },
+                    }}
+                  >
+                    <TransformationDrawer 
+                    transformationDrawerOpen={transformationDrawerOpen}
+                    setTransformationDrawerOpen={setTransformationDrawerOpen}
+                    />
+                  </Drawer>
                 </>
               )}
             </DialogContent>
@@ -900,7 +932,7 @@ export function CreateConnection() {
                         value={plainText}
                         onChange={handlePlainTextChange}
                         variant="outlined"
-                        placeholder="Enter plain text content here..."
+                        placeholder="Enter text here..."
                         InputProps={{
                           endAdornment: (
                             <InputAdornment sx={{ mt: -9.5 }}>
