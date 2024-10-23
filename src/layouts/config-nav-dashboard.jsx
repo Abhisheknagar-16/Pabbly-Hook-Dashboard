@@ -41,7 +41,8 @@ const ICONS = {
   requests:icon('ic-requests'),
   events:icon('ic-events'),
   timezone:icon('ic-time-zone'),
-  setting:icon('ic-settings')
+  setting:icon('ic-settings'),
+  gethelp:icon('ic-gethelp'),
 
   
 };
@@ -79,6 +80,13 @@ export const navData = [
           // { title: 'Six', path: paths.dashboard.group.six },
         ],
       },
+    ],
+  },
+  {
+    // subheader: 'Overview 6.0.0',
+    items: [
+      { title: 'Get Help', path: paths.dashboard.gethelp, icon: ICONS.gethelp },
+     
     ],
   },
 ];
