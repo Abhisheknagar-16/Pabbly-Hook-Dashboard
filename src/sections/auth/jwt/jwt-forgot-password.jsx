@@ -13,7 +13,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 import { useTheme } from '@emotion/react';
 
-import { Snackbar } from '@mui/material';
+import { Card, Snackbar } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -112,7 +112,7 @@ export function JwtForgotpassword() {
         onClick={handleOpenSnackbar}
         // loadingIndicator="Reset password..."
       >
-        Email me reset link
+        Reset link
       </LoadingButton>
       <Snackbar
         open={openSnackbar}
@@ -132,10 +132,16 @@ export function JwtForgotpassword() {
             backgroundColor: theme.palette.background.paper,
             boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
             color: theme.palette.text.primary,
+            textAlign:"left"
           }}
         >
+          <Typography 
+          variant='body2'>
+
           If your email is in our database, you&apos;ll receive a password recovery link
           shortly.
+          </Typography>
+    
         </Alert>
       </Snackbar>
 
@@ -146,11 +152,11 @@ export function JwtForgotpassword() {
         alignItems="center" // Centers content vertically
       >
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Remember your password?
+          Remember your Pabbly account password?
         </Typography>
 
         <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="subtitle2">
-          Login here
+          Login
         </Link>
       </Stack>
       {/* <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="body2"
@@ -162,7 +168,7 @@ export function JwtForgotpassword() {
   );
 
   return (
-    <>
+    <Card sx={{p:4,textAlign:"center"}}>
       {renderHead}
 
       {/* <Alert severity="info" sx={{ mb: 3 }}>
@@ -180,6 +186,6 @@ export function JwtForgotpassword() {
       <Form methods={methods} onSubmit={onSubmit}>
         {renderForm}
       </Form>
-    </>
+      </Card>
   );
 }

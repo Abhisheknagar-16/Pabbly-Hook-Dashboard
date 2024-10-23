@@ -59,6 +59,7 @@ export function Content({ sx, children, layoutQuery, ...other }) {
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center',
+        background:"white",
         [theme.breakpoints.up(layoutQuery)]: {
           px: 0,
           py: 'calc(var(--layout-header-desktop-height) + 24px)',

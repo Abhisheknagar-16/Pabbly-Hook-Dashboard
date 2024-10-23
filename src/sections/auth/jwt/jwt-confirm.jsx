@@ -1,14 +1,28 @@
+import { useState } from 'react';
+import { useTheme } from '@emotion/react';
+
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { Box, Card, Button, Divider, } from '@mui/material';
+import { Box, Card,Alert, Button,  Divider, Snackbar, } from '@mui/material';
 
-import { paths } from 'src/routes/paths';
-import { RouterLink } from 'src/routes/components';
+
 
 // ----------------------------------------------------------------------
 
 export function JwtConfirm() {
+  const theme = useTheme();
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const handleOpenSnackbar = () => {
+    setOpenSnackbar(true);
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
 
   const renderHead = (
     <Stack spacing={1.5} sx={{ mb: 0,mt:26}}>
@@ -70,14 +84,40 @@ export function JwtConfirm() {
             variant="contained"
             color="primary"
             sx={{ mt: 3 }}
-            component={RouterLink} href={paths.auth.jwt.signIn}
+            // component={RouterLink} href={paths.auth.jwt.signIn}
+            onClick={handleOpenSnackbar}
           >
-            Click here to Login
+           
+            Resend Verification Email
           </Button>
 
-          <Link href="#" sx={{ display: 'block', mt: 2, color: '#078dee', cursor: 'pointer' }}>
-            Resend Verification Email
-          </Link>
+      
+
+           <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{mt:6}}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="success"
+          sx={{
+            
+            width: {xs:'100%',sm:'60%',md:'60%'},
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+            color: theme.palette.text.primary,
+            textAlign:"left"
+          }}
+        >
+          If your email is in our database, you&apos;ll receive a password recovery link
+          shortly.
+        </Alert>
+      </Snackbar>
         </Card>
 
       </Box>
