@@ -8,22 +8,15 @@ import VideoPlayListCards from 'src/components/video-play-list-card/video-play-l
 
 export function VideoPlayList({ title, list, ...other }) {
   const videoData = [
-    { title: 'How to use Pabbly Chatflow', videoId: 'CoIfgN0tfhE',  },
-    { title: 'Video 2', videoId: 'CoIfgN0tfhE', time: '07 Min 23 Sec' },
-    { title: 'Video 3', videoId: 'your-youtube-video-id',  },
-    { title: 'Video 4', videoId: 'your-youtube-video-id',   },
-    { title: 'Video 5', videoId: 'your-youtube-video-id',   },
-    { title: 'Video 6', videoId: 'your-youtube-video-id',  },
-    { title: 'Video 7', videoId: 'your-youtube-video-id',   },
-    { title: 'Video 8', videoId: 'your-youtube-video-id',  },
-    { title: 'Video 9', videoId: 'your-youtube-video-id',   }, 
-    { title: 'Video 10', videoId: 'your-youtube-video-id', },
-    { title: 'Video 11', videoId: 'your-youtube-video-id', },
-    { title: 'Video 12', videoId: 'your-youtube-video-id',  },
-    { title: 'Video 13', videoId: 'your-youtube-video-id',  },
-    { title: 'Video 14', videoId: 'your-youtube-video-id',  },
-    { title: 'Video 15', videoId: 'your-youtube-video-id',  },
-    { title: 'Video 16', videoId: 'your-youtube-video-id',  },
+    { title: '1. How to use Pabbly Hook', videoId: 'CoIfgN0tfhE', image:'pabbly-hook.png' },
+    { title: '2. What is Triggers  Action', videoId: 'CoIfgN0tfhE', image:'1. What is Triggers  Action.png' },
+    { title: '3. How to use Webhooks', videoId: 'your-youtube-video-id', image:'2. How to use Webhooks.png' },
+    { title: '4. How to use Email Parser', videoId: 'your-youtube-video-id',  image:'3. How to use Email Parser.png' },
+    { title: '5. How to use Filters', videoId: 'your-youtube-video-id',  image:'4. How to use Filters.png' },
+    { title: '6. How to use Iterator', videoId: 'your-youtube-video-id',  image:'6. How to use Iterator.png'},
+    { title: '7. How to use API Module', videoId: 'your-youtube-video-id',  image:'7. How to use API Module.png' },
+    { title: '8. Google Sheets Triggers', videoId: 'your-youtube-video-id',  image:'8. Google Sheets Triggers.png'},
+    
   ];
 
   return (
@@ -41,7 +34,7 @@ export function VideoPlayList({ title, list, ...other }) {
           key={index}
           Videotitle={video.title}
           buttonText="Watch Now"
-          thumbnailimage="pabbly-hook.png"
+          thumbnailimage={video.image}
           videoId={video.videoId}
           
         />

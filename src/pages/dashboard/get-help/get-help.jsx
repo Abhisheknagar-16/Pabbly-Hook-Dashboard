@@ -61,14 +61,17 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           placement="top"
         >
           <Button
-            onClick={dialog.onTrue}
-            sx={{ mt: isMobile ? 2 : 0 }}
-            size="large"
-            variant="outlined"
-            color="primary"
-          >
-            Watch all tutorials
-          </Button>
+  onClick={() => {
+    dialog.onTrue();
+    window.open("https://www.youtube.com/@Pabbly", "_blank");
+  }}
+  sx={{ mt: isMobile ? 2 : 0 }}
+  size="large"
+  variant="outlined"
+  color="primary"
+>
+  Watch all tutorials
+</Button>
         </Tooltip>
       </Box>
 
