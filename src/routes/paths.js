@@ -51,7 +51,7 @@ export const paths = {
     request: `${ROOTS.DASHBOARD}/request`,
     event: `${ROOTS.DASHBOARD}/event`,
     CreateConnection: `${ROOTS.DASHBOARD}/CreateConnection`,
-    timezone: `${ROOTS.DASHBOARD}/timezone`,
+    // timezone: `${ROOTS.DASHBOARD}/timezone`,
     updateconnection: `${ROOTS.DASHBOARD}/updateconnection`,
 
     settings: {
@@ -60,5 +60,7 @@ export const paths = {
       // six: `${ROOTS.DASHBOARD}/group/six`,
       // Seven: `${ROOTS.DASHBOARD}/group/seven`,
     },
+
+    gethelp: `${ROOTS.DASHBOARD}/gethelp`,
   },
 };

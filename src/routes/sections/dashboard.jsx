@@ -18,6 +18,7 @@ const PageRequest = lazy(() => import('src/pages/dashboard/request/request'));
 const PageEvent = lazy(() => import('src/pages/dashboard/events/events'));
 const PageTimezone = lazy(() => import('src/pages/dashboard/timezone/time-zone'));
 const PageUpdateConnection = lazy(() => import('src/pages/dashboard/Updateconnection/update-connection'));
+const PageGetHelp = lazy(() => import('src/pages/dashboard/get-help/get-help'));
 
 // ----------------------------------------------------------------------
 
@@ -40,16 +41,17 @@ export const dashboardRoutes = [
       { path: 'request', element: <PageRequest /> },
       { path: 'event', element: <PageEvent /> },
       { path: 'CreateConnection', element: <PageCreateConnection /> },
-      { path: 'settings/timezone', element: <PageTimezone /> },
+      // { path: 'settings/timezone', element: <PageTimezone /> },
       { path: 'updateconnection', element: <PageUpdateConnection /> },
       {
-        path: 'settings',
+        path: 'settings/timezone',
         children: [
           { element: <PageTimezone />, index: true },
           // { path: 'five', element: <PageFive /> },
           // { path: 'six', element: <PageSix /> },
         ],
       },
+      {path: 'gethelp', element: <PageGetHelp/>},
     ],
   },
 ];
