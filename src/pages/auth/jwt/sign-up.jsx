@@ -1,8 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 
-import { Box, Button, Typography } from '@mui/material';
+import { Box,Button,Typography } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/config-global';
 
@@ -13,6 +14,13 @@ import { JwtSignUpView } from 'src/sections/auth/jwt';
 const metadata = { title: `Sign up | Jwt - ${CONFIG.site.name}` };
 
 export default function Page() {
+
+  const router = useRouter();
+
+  const redirectToSignup =()=>{  
+    router.push(paths.auth.jwt.signIn)
+   
+  }
   return (
     <>
       <Box
@@ -37,12 +45,13 @@ export default function Page() {
             textAlign: { xs: 'center', md: 'left' }, // Center text for mobile/tablet, left-align for laptop
           }}
         >
-          Already a user?
+          Already have a Pabbly Account?
         </Typography>
         <Button
-          variant="contained"
+          variant="outlined"
           color="primary"
-          href={paths.auth.jwt.signIn}
+          // href={paths.auth.jwt.signIn}
+          onClick={redirectToSignup}
           sx={{
             // width: { xs: '100%', md: 'auto' }, // Full button width on mobile/tablet, auto on laptop
             maxWidth: { xs: 'auto', md: '100px' }, // Optional max width for laptop view
@@ -55,8 +64,13 @@ export default function Page() {
       <Helmet>
         <title>{metadata.title}</title>
       </Helmet>
+      
+        
+        <JwtSignUpView />
 
-      <JwtSignUpView />
+    
+       
+     
     </>
   );
 }

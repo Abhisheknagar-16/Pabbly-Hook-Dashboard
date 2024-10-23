@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Box, Button, Typography } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/config-global';
 
@@ -13,6 +14,15 @@ import { JwtForgotpassword } from 'src/sections/auth/jwt/jwt-forgot-password';
 const metadata = { title: `Forgot password | Jwt - ${CONFIG.site.name}` };
 
 export default function Page() {
+
+  
+  const router = useRouter();
+
+  const redirectToSignup =()=>{  
+    router.push(paths.auth.jwt.signUp)
+   
+  }
+
   return (
     // <div style={{ backgroundColor: '#F5fffa', width: '100%', height: 'auto' }}>
     <>
@@ -41,12 +51,12 @@ export default function Page() {
           Don&apos;t have a Pabbly Account yet?
         </Typography>
         <Button
-          variant="contained"
+          variant="outlined"
           color="primary"
           sx={{
-            width: { xs: 'auto', md: 'auto' } // Full width on mobile, auto on desktop
+            width: { xs: 'auto', md: 'auto', } // Full width on mobile, auto on desktop
           }}
-          href={paths.auth.jwt.signUp}
+         onClick={redirectToSignup}
         >
           Create Account
         </Button>

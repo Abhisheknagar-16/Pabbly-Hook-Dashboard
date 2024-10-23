@@ -2,18 +2,30 @@ import { Helmet } from 'react-helmet-async';
 
 import { Box, Button, Typography } from '@mui/material';
 
+// import { RouterLink } from 'src/routes/components';
+
 import { paths } from 'src/routes/paths';
-import { RouterLink } from 'src/routes/components';
+import { useRouter } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/config-global';
 
 import { JwtSignInView } from 'src/sections/auth/jwt';
+
 
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Sign in | Jwt - ${CONFIG.site.name}` };
 
 export default function Page() {
+
+
+  const router = useRouter();
+
+  const redirectToLogin =()=>{  
+    router.push(paths.auth.jwt.signUp)
+   
+  }
+
   return (
     // <div style={{ backgroundColor: '#F5fffa', width: '100%', height: 'auto' }}>
     <>
@@ -42,24 +54,37 @@ export default function Page() {
           Don&apos;t have a Pabbly Account yet?
         </Typography>
 
-        <Button
+        {/* <Button
         component={RouterLink}
         href={paths.auth.jwt.signUp}
-          variant="contained"
+          variant="outlined"
           color="primary"
-          sx={{
-            width: { xs: 'auto', md: 'auto' } // Full width on mobile, auto on desktop
-          }}
+          // sx={{
+          //   width: { xs: 'auto', md: 'auto' } // Full width on mobile, auto on desktop
+          // }}
+        >    
+          Create Account
+        </Button> */}
+
+        <Button    
+        variant='outlined'
+        color='primary'
+        // href={paths.auth.jwt.signUp}
+        onClick={redirectToLogin}
+        sx={{border:'solid 1px '}}
         >
           Create Account
         </Button>
+  
+       
       </Box>
 
       <Helmet>
         <title> {metadata.title}</title>
       </Helmet>
-
+ 
       <JwtSignInView />
+  
     </>
     //  </div>
   );
