@@ -11,7 +11,7 @@ import { StatsCardTransformation } from 'src/sections/statscard-transformation/v
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Page three | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Page transformation | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
   return (

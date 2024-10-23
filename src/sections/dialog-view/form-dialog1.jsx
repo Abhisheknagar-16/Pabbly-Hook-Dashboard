@@ -81,8 +81,6 @@ export function FormDialog() {
         <DialogTitle sx={{fontSize:'24px',fontWeight:'700'}}><Tooltip title="Create a connection with a name and folder location." arrow placement="top">Create Connection</Tooltip></DialogTitle>
 
         <DialogContent  sx={{mt:-1}}>
-          {/* <Typography sx={{ mb: 0 }}>Connection Name</Typography> */}
-
           <TextField
             autoFocus
             fullWidth
@@ -106,7 +104,6 @@ export function FormDialog() {
             id="outlined-select-currency"
             select
             fullWidth
-            // label="Select"
             margin="dense"
             defaultValue="USD"
             helperText={<> Select the folder or subfolder where you want to create the connection.{' '}

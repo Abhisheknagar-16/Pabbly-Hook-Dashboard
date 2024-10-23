@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { FormDialog } from 'src/sections/dialog-view/form-dialog2';
+import { TransformationDialog } from 'src/sections/dialog-view/Transformation-form-dialog';
 
 import { CourseWidgetSummary } from '../course-widget-summary';
 
@@ -56,7 +56,7 @@ export function StatsCardTransformation() {
                 </Typography>
               </div>
               <Box sx={{ mt: { xs: 2, sm: 1.8 } }}>
-                <FormDialog />
+                <TransformationDialog />
               </Box>
             </Box>
           </Box>

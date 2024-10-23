@@ -11,12 +11,14 @@ import { AuthGuard } from 'src/auth/guard';
 // ----------------------------------------------------------------------
 
 const IndexPage = lazy(() => import('src/pages/dashboard/connections/connection'));
-const PageSix = lazy(() => import('src/pages/dashboard/connections2copy/connection'));
+const PageCreateConnection = lazy(() => import('src/pages/dashboard/Createconnections/create-connection'));
 // const PageTwo = lazy(() => import('src/pages/dashboard/issues/issue'));
-const PageThree = lazy(() => import('src/pages/dashboard/transformations/transformation'));
-const PageFour = lazy(() => import('src/pages/dashboard/request/request'));
-const PageFive = lazy(() => import('src/pages/dashboard/events/events'));
-const PageSeven = lazy(() => import('src/pages/dashboard/timezone/time-zone'));
+const PageTransformation = lazy(() => import('src/pages/dashboard/transformations/transformation'));
+const PageRequest = lazy(() => import('src/pages/dashboard/request/request'));
+const PageEvent = lazy(() => import('src/pages/dashboard/events/events'));
+const PageTimezone = lazy(() => import('src/pages/dashboard/timezone/time-zone'));
+const PageUpdateConnection = lazy(() => import('src/pages/dashboard/Updateconnection/update-connection'));
+const PageGetHelp = lazy(() => import('src/pages/dashboard/get-help/get-help'));
 
 // ----------------------------------------------------------------------
 
@@ -35,19 +37,21 @@ export const dashboardRoutes = [
     children: [
       { element: <IndexPage />, index: true },
       // { path: 'two', element: <PageTwo /> },
-      { path: 'three', element: <PageThree /> },
-      { path: 'four', element: <PageFour /> },
-      { path: 'five', element: <PageFive /> },
-      { path: 'six', element: <PageSix /> },
-      { path: 'seven', element: <PageSeven /> },
+      { path: 'transformation', element: <PageTransformation /> },
+      { path: 'request', element: <PageRequest /> },
+      { path: 'event', element: <PageEvent /> },
+      { path: 'CreateConnection', element: <PageCreateConnection /> },
+      // { path: 'settings/timezone', element: <PageTimezone /> },
+      { path: 'updateconnection', element: <PageUpdateConnection /> },
       {
-        path: 'group',
+        path: 'settings/timezone',
         children: [
-          { element: <PageSeven />, index: true },
+          { element: <PageTimezone />, index: true },
           // { path: 'five', element: <PageFive /> },
           // { path: 'six', element: <PageSix /> },
         ],
       },
+      {path: 'gethelp', element: <PageGetHelp/>},
     ],
   },
 ];

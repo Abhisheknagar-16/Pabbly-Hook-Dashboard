@@ -1,30 +1,16 @@
-// import { paths } from 'src/routes/paths';
-
-// import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
-
-import { FormDialog } from './form-dialog';
 import { AlertDialog } from './alert-dialog';
 import { ScrollDialog } from './scroll-dialog';
 import { SimpleDialog } from './simple-dialog';
 import { MaxWidthDialog } from './max-width-dialog';
-// import { ComponentHero } from '../../component-hero';
 import { FullScreenDialog } from './full-screen-dialog';
 import { TransitionsDialog } from './transitions-dialog';
 import { ComponentBlock, ComponentContainer } from '../component-block';
+import { CreateConnectionFormDialog } from './create-connection-form-dialog';
 // ----------------------------------------------------------------------
 
 export function DialogView() {
   return (
-    <>
-      {/* <ComponentHero>
-        <CustomBreadcrumbs
-          heading="Dialog"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Dialog' }]}
-          moreLink={['https://mui.com/components/dialogs']}
-        />
-      </ComponentHero> */}
-
-      <ComponentContainer
+    <ComponentContainer
         sx={{
           rowGap: 5,
           columnGap: 3,
@@ -45,7 +31,7 @@ export function DialogView() {
         </ComponentBlock>
 
         <ComponentBlock title="Form">
-          <FormDialog />
+          <CreateConnectionFormDialog />
         </ComponentBlock>
 
         <ComponentBlock title="Full Screen">
@@ -60,6 +46,5 @@ export function DialogView() {
           <ScrollDialog />
         </ComponentBlock>
       </ComponentContainer>
-    </>
   );
 }

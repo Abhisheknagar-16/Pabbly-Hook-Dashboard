@@ -1,7 +1,25 @@
 import { Helmet } from 'react-helmet-async';
 import { useRef, useState, useEffect } from 'react';
 
-import { Box, Card, Alert, Button, Select, Divider, Tooltip, useTheme, MenuItem, Snackbar, TextField, CardHeader, Typography, InputLabel, FormControl, FormHelperText, InputAdornment, } from '@mui/material';
+import {
+  Box,
+  Card,
+  Alert,
+  Button,
+  Select,
+  Divider,
+  Tooltip,
+  useTheme,
+  MenuItem,
+  Snackbar,
+  TextField,
+  CardHeader,
+  Typography,
+  InputLabel,
+  FormControl,
+  FormHelperText,
+  InputAdornment,
+} from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 import { timezone } from 'src/assets/data/time-zone';
@@ -13,10 +31,9 @@ import { StatsCardTimezone } from 'src/sections/statscard-timezone/view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Page Seven | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Page Time-Zone | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
-
   const theme = useTheme();
   const [timeZone, setTimeZone] = useState('(GMT-05:00) Eastern Time (US & Canada)');
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,7 +47,7 @@ export default function Page() {
     setSnackbarOpen(true);
 
     // Close the dialog after a short delay
-    setTimeout(() => { }, 500);
+    setTimeout(() => {}, 500);
   };
 
   const handleSnackbarClose = (event, reason) => {
@@ -70,7 +87,24 @@ export default function Page() {
 
         <Box sx={{ mt: 4 }}>
           <Card>
-            <CardHeader title="Time Zone" sx={{ mb: 3 }} />
+            <CardHeader
+              title={
+                <Typography variant="h6" sx={{ cursor: 'pointer' }}>
+                  <Tooltip
+                    title={
+                      <div style={{ textAlign: 'center' }}>
+                        Choose the time zone for your account. All the date and time in your account will align with the time zone that you set here.
+                      </div>
+                    }
+                    arrow
+                    placement="top"
+                  >
+                    <span>Time Zone</span>
+                  </Tooltip>
+                </Typography>
+              }
+              sx={{ mb: 3 }}
+            />
             <Divider />
             <Box sx={{ p: 3 }}>
               <Typography variant="subtitle2" sx={{ mb: 2 }}>
@@ -129,7 +163,17 @@ export default function Page() {
                   </Box>
                   {filteredTimeZones.map((tz) => (
                     <MenuItem key={tz} value={tz}>
+                    <Tooltip
+                    title={
+                      <div style={{ textAlign: 'center' }}>
+                        {tz}
+                      </div>
+                    }
+                    arrow
+                    placement="top"
+                  >
                       {tz}
+                    </Tooltip>
                     </MenuItem>
                   ))}
                 </Select>
@@ -138,17 +182,19 @@ export default function Page() {
                 </FormHelperText>
               </FormControl>
               <Box>
-              <Tooltip
-              disableInteractive
-              title={
-                <div style={{ textAlign: 'center' }}>
-                  Click &apos;Save&apos; to apply the selected time zone to your account, ensuring that all workflow activities and task schedules reflect your local time.
-                </div>
-              }
-              arrow
-              placement='top'
-            > 
-                  <Button variant="contained" color="inherit" onClick={handleSave}>
+                <Tooltip
+                  disableInteractive
+                  title={
+                    <div style={{ textAlign: 'center' }}>
+                      Click &apos;Save&apos; to apply the selected time zone to your account,
+                      ensuring that all workflow activities and task schedules reflect your local
+                      time.
+                    </div>
+                  }
+                  arrow
+                  placement="top"
+                >
+                  <Button variant="contained" color="primary" onClick={handleSave}>
                     Save
                   </Button>
                 </Tooltip>
@@ -156,7 +202,7 @@ export default function Page() {
             </Box>
           </Card>
         </Box>
-        
+
         <Snackbar
           open={snackbarOpen}
           autoHideDuration={1000}
@@ -178,7 +224,6 @@ export default function Page() {
             Time Zone Updated Successfully!
           </Alert>
         </Snackbar>
-
       </DashboardContent>
     </div>
   );

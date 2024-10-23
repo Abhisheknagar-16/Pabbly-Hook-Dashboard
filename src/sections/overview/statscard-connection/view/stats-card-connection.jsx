@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { FormDialog } from 'src/sections/dialog-view/form-dialog';
+import { CreateConnectionFormDialog} from 'src/sections/dialog-view/create-connection-form-dialog';
 
 import { CourseWidgetSummary } from '../course-widget-summary';
 
@@ -64,7 +64,7 @@ export function StatsCard() {
                 {/* </Tooltip> */}
               </div>
               <Box sx={{ mt: { xs: 2, sm: 1.8 } }}>
-                <FormDialog />
+                <CreateConnectionFormDialog/>
               </Box>
             </Box>
           </Box>
