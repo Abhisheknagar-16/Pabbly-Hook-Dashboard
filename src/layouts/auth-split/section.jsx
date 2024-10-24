@@ -4,6 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import { CarouselAutoplay } from 'src/sections/carousel/carousel-align';
+import { CONFIG } from 'src/config-global';
 
 export function Section({
   sx,
@@ -16,6 +17,9 @@ export function Section({
   ...other
 }) {
   const theme = useTheme();
+
+   const AicpaImage = `${CONFIG.site.basePath}/assets/icons/platforms/image 11.svg`;
+  const IsoImage  = `${CONFIG.site.basePath}/assets/icons/platforms/image 10.svg`
 
   return (
     <Box
@@ -112,57 +116,27 @@ export function Section({
       </div>
       <CarouselAutoplay />
 
-      {!!method?.length && method && (
-        <Box component="ul" gap={5} display="flex">
-          {method1.map((option) => {
-            const selected = method === option.label.toLowerCase();
-
-            return (
-              <Box
-                key={option.label}
-                component="li"
-                sx={{
-                  ...(!selected && {
-                    cursor: 'not-allowed',
-                    filter: 'grayscale(1)',
-                  }),
-                }}
-              >
-                <Tooltip
-                  title={
-                    <Box sx={{ textAlign: 'center' }}>
-                      Pabbl&apos;y services are audited and certified for high standards of
+      <Box gap={5} display="flex">
+       <Tooltip
+            title={
+              <Box sx={{ textAlign: 'center' }}>
+                       Pabbl&apos;y services are audited and certified for high standards of
                       security, availability, and VD and ISO confidentiality, affirming our ecur
                       commitment to safeguard your data with integrity.
-                    </Box>
+
+                  </Box>
+                 
                   }
                   placement="top"
                   arrow
                 >
-                  <Box
+                <Box
                     component="img"
-                    alt={option.label}
-                    src={option.icon}
+                    alt="Side Image"
+                    src={AicpaImage}
                     sx={{ width: 80, height: 80 }}
                   />
                 </Tooltip>
-              </Box>
-            );
-          })}
-          {method2.map((option) => {
-            const selected = method === option.label.toLowerCase();
-
-            return (
-              <Box
-                key={option.label}
-                component="li"
-                sx={{
-                  ...(!selected && {
-                    cursor: 'not-allowed',
-                    filter: 'grayscale(1)',
-                  }),
-                }}
-              >
                 <Tooltip
                   title={
                     <Box sx={{ textAlign: 'center' }}>
@@ -176,16 +150,13 @@ export function Section({
                 >
                   <Box
                     component="img"
-                    alt={option.label}
-                    src={option.icon}
+                    alt="Left"
+                    src={IsoImage}
                     sx={{ width: 80, height: 80 }}
                   />
                 </Tooltip>
               </Box>
-            );
-          })}
-        </Box>
-      )}
+
     </Box>
   );
 }
