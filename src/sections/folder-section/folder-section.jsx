@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useMemo, useState, useCallback } from 'react';
 
 import {
   Box,
@@ -21,6 +21,7 @@ import { Iconify } from 'src/components/iconify';
 
 import { CustomStyling } from '../tree-view/custom-styling';
 
+// Move selectfolder outside component and memoize it
 const selectfolder = [
   { value: 'USD', label: 'Main' },
   { value: 'EUR', label: 'Hello' },
@@ -28,10 +29,22 @@ const selectfolder = [
   { value: 'JPY', label: 'World' },
 ];
 
-export function FolderSection({ handleTrashClick, handleHomeClick }) {
+// Wrap the component with memo to prevent unnecessary re-renders
+const FolderSection = memo(({ handleTrashClick, handleHomeClick }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const handleOpen = () => setDialogOpen(true);
-  const handleClose = () => setDialogOpen(false);
+  
+  // Memoize handlers
+  const handleOpen = useCallback(() => {
+    setDialogOpen(true);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setDialogOpen(false);
+  }, []);
+
+  // Memoize the folder options to prevent unnecessary re-creation
+  const folderOptions = useMemo(() => selectfolder, []);
+
   return (
     <>
       <Card sx={{ pl: 2.4, pr: 2, pt: 2, pb: 2 }}>
@@ -51,19 +64,24 @@ export function FolderSection({ handleTrashClick, handleHomeClick }) {
             </Tooltip>
 
             <IconButton onClick={handleOpen} edge="end" sx={{ mr: 0.6, mt: -0.8 }}>
-                <Tooltip disableInteractive title="Create a new folder." arrow placement="top">
-                  <Iconify icon="icon-park-solid:add" style={{ color: '#078dee' }} width="12" />
-                </Tooltip>
-              </IconButton>
+              <Tooltip disableInteractive title="Create a new folder." arrow placement="top">
+                <Iconify icon="icon-park-solid:add" style={{ color: '#078dee' }} width="12" />
+              </Tooltip>
+            </IconButton>
           </Box>
         </Typography>
         <Divider sx={{ borderStyle: 'dashed', mb: 0.6, mt: 1 }} />
-        {/* Pass both onTrashClick and onHomeClick to CustomStyling */}
-        <CustomStyling onTrashClick={handleTrashClick} onHomeClick={handleHomeClick} />
+        <CustomStyling 
+          onTrashClick={handleTrashClick} 
+          onHomeClick={handleHomeClick} 
+        />
       </Card>
 
-      {/* Folder Dialog */}
-      <Dialog open={dialogOpen} onClose={handleClose} sx={{ position: 'fixed' }}>
+      <Dialog 
+        open={dialogOpen} 
+        onClose={handleClose} 
+        sx={{ position: 'fixed' }}
+      >
         <DialogTitle sx={{ fontWeight: 700 }}>
           <Tooltip
             title="Create a connection with a name and folder location."
@@ -102,7 +120,6 @@ export function FolderSection({ handleTrashClick, handleHomeClick }) {
             }
           />
 
-          {/* <Typography sx={{ mt: 2 }}>Select Folder</Typography> */}
           <TextField
             id="outlined-select-currency"
             label="Select Folder"
@@ -120,7 +137,7 @@ export function FolderSection({ handleTrashClick, handleHomeClick }) {
               </>
             }
           >
-            {selectfolder.map((option) => (
+            {folderOptions.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
@@ -138,4 +155,9 @@ export function FolderSection({ handleTrashClick, handleHomeClick }) {
       </Dialog>
     </>
   );
-}
+});
+
+// Add display name for debugging purposes
+FolderSection.displayName = 'FolderSection';
+
+export { FolderSection };

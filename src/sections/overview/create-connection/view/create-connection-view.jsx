@@ -178,11 +178,11 @@ export function CreateConnection() {
     setTransformationUpdateDrawerOpen(false);
   };
 
-  const [urlrequired, setUrlrequied] = useState('');
+  const [destinationUrl, setDestinationUrl] = useState('');
   const [errorrequired, setError] = useState(false);
 
   const handleChangetext = (event) => {
-    setUrlrequied(event.target.value);
+    setDestinationUrl(event.target.value);
 
     // Simple validation: check if the field is empty
     if (event.target.value === '') {
@@ -192,7 +192,7 @@ export function CreateConnection() {
     }
   };
   const [checkboxState, setCheckboxState] = useState({
-    GET: true,
+    GET: false,
     POST: false,
     PUT: false,
     PATCH: false,
@@ -363,8 +363,8 @@ export function CreateConnection() {
                 label="Webhook URL"
                 placeholder="Enter URL"
                 helperText="Copy and paste the Pabbly Hook URL into your request source."
-                value={url}
-                onChange={handleChange}
+                //  value={url}
+                // onChange={handleChange}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -456,7 +456,7 @@ export function CreateConnection() {
             <DialogContent sx={{ mb: 2 }}>
               <TextField
                 error={errorrequired}
-                value={urlrequired}
+                value={destinationUrl}
                 onChange={handleChangetext}
                 autoFocus
                 fullWidth
@@ -683,7 +683,7 @@ export function CreateConnection() {
                     </TextField>
                     <Box sx={{ mt: 3, ml: 1 }}>
                       <IconButton
-                        onClick={handleOpenTranformationUpdateDrawer}
+                      onClick={handleOpenTranformationUpdateDrawer}
                         sx={{
                           alignItems: 'center',
                           // Hide edit button when "Select Transformation" (USD) is selected
@@ -693,24 +693,24 @@ export function CreateConnection() {
                         <Iconify icon="fluent:edit-20-filled" />
                       </IconButton>
                       <Drawer
-                        open={transformationUpdateDrawerOpen}
-                        onClose={handleCloseTransformationUpdateDrawer}
-                        anchor="right"
-                        slotProps={{ backdrop: { invisible: true } }}
-                        PaperProps={{
-                          sx: {
-                            width: { xs: '100%', sm: '100%', md: '80%' }, // Adjust width based on screen size
-                            '@media (max-width: 300px)': {
-                              padding: '16px',
-                            },
-                          },
-                        }}
-                      >
-                        <TransformationDrawerUpdate
-                          transformationDrawerOpen={transformationUpdateDrawerOpen}
-                          setTransformationDrawerOpen={setTransformationUpdateDrawerOpen}
-                        />
-                      </Drawer>
+                    open={transformationUpdateDrawerOpen}
+                    onClose={handleCloseTransformationUpdateDrawer}
+                    anchor="right"
+                    slotProps={{ backdrop: { invisible: true } }}
+                    PaperProps={{
+                      sx: {
+                        width: { xs: '100%', sm: '100%', md: '80%' }, // Adjust width based on screen size
+                        '@media (max-width: 300px)': {
+                          padding: '16px',
+                        },
+                      },
+                    }}
+                  >
+                    <TransformationDrawerUpdate
+                      transformationDrawerOpen={transformationUpdateDrawerOpen}
+                      setTransformationDrawerOpen={setTransformationUpdateDrawerOpen}
+                    />
+                  </Drawer>
                     </Box>
                   </Box>
                   <Button

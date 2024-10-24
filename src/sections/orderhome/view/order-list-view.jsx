@@ -6,6 +6,7 @@ import Tabs from '@mui/material/Tabs';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import Button from '@mui/material/Button';
+import { CardHeader, Divider } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import TableBody from '@mui/material/TableBody';
 import IconButton from '@mui/material/IconButton';
@@ -135,7 +136,24 @@ export function OrderListViewHome() {
   return (
     <>
       <DashboardContent disablePadding>
-        <Card sx={{ md: 15 }}>
+        <Card sx={{ md: 15 }} >
+        <CardHeader
+            title={
+              <Box>
+                <Box sx={{ typography: 'subtitle2', fontSize: '18px', fontWeight: 600 }}>
+                  {/* <Tooltip title={`Folder Name: ${selectedFolder}`} arrow placement="bottom">
+                    {selectedFolder}
+                  </Tooltip> */}
+                  Home
+                </Box>
+              </Box>
+            }
+            // action={total && <Label color={color}>{total}</Label>}
+            sx={{
+              p: 3,
+            }}
+          />
+          <Divider />
           <Tabs
             value={filters.state.status}
             onChange={handleFilterStatus}
