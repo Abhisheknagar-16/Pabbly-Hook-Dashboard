@@ -15,43 +15,43 @@ import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-const Strategy = [
-  {
-    value: 'USD',
-    label: 'Select Connection',
-  },
-  {
-    value: 'EUR',
-    label: 'Test 1',
-  },
-  {
-    value: 'FUR',
-    label: 'Test 2',
-  },
-  {
-    value: 'DUR',
-    label: 'Test 3',
-  },
-  {
-    value: 'INR',
-    label: 'Test 4',
-  },
-];
+// const Strategy = [
+//   {
+//     value: 'USD',
+//     label: 'Select Connection',
+//   },
+//   {
+//     value: 'EUR',
+//     label: 'Test 1',
+//   },
+//   {
+//     value: 'FUR',
+//     label: 'Test 2',
+//   },
+//   {
+//     value: 'DUR',
+//     label: 'Test 3',
+//   },
+//   {
+//     value: 'INR',
+//     label: 'Test 4',
+//   },
+// ];
 
-const Selectstatus = [
-  {
-    value: 'USD',
-    label: 'Select Status',
-  },
-  {
-    value: 'EUR',
-    label: 'Active',
-  },
-  {
-    value: 'tUR',
-    label: 'Inactive',
-  },
-];
+// const Selectstatus = [
+//   {
+//     value: 'USD',
+//     label: 'Select Status',
+//   },
+//   {
+//     value: 'EUR',
+//     label: 'Active',
+//   },
+//   {
+//     value: 'tUR',
+//     label: 'Inactive',
+//   },
+// ];
 
 export function OrderTableToolbar({
   filters,
