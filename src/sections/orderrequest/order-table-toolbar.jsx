@@ -115,15 +115,23 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
             </Tooltip>
 
             <Stack>
-              <Tooltip placement="top" arrow title="Filter request by status or name.">
-                <Button size="small" onClick={popover.onOpen} sx={{ mr: 1.2 }}>
-                  <Iconify icon="solar:filter-bold" sx={{ color: 'black' }} />
-                  <Typography sx={{ variant: 'h6', fontWeight: '700', ml: 1, mr: 0.2 }}>
-                    Filter
-                  </Typography>
-                </Button>
-              </Tooltip>
-            </Stack>
+  <Tooltip
+    title={
+      <div style={{ textAlign: 'center' }}>
+        Filter requests by date, connection, request ID and folder.
+      </div>
+    }
+    arrow
+    placement="top"
+  >
+    <Button size="small" onClick={popover.onOpen} sx={{ mr: 1.2 }}>
+      <Iconify icon="solar:filter-bold" sx={{ color: 'black' }} />
+      <Typography sx={{ variant: 'h6', fontWeight: '700', ml: 1, mr: 0.2 }}>
+        Filter
+      </Typography>
+    </Button>
+  </Tooltip>
+</Stack>
           </Stack>
         </Stack>
       </Stack>
@@ -233,7 +241,7 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
                 </Grid>
               </Grid>
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end', mb: 1, mt: 1 }}>
-                <Button variant="contained" onClick={handleSubmit} size="small">
+                <Button color="primary" variant="contained" onClick={handleSubmit} size="small">
                   Apply Filter
                 </Button>
               </Grid>

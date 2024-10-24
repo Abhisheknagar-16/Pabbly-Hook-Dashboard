@@ -503,7 +503,7 @@ export function CreateConnection() {
                       <Tooltip
                         title="Click to copy Pabbly Hook webhook URL."
                         arrow
-                        placement="bottom"
+                        placement="top"
                       >
                         <IconButton edge="end" onClick={handleCopy}>
                           <Iconify width={18} icon="solar:copy-bold" />
@@ -516,7 +516,12 @@ export function CreateConnection() {
             </DialogContent>
 
             <DialogContent sx={{ mb: 1 }}>
-              <Typography sx={{ mb: 1 }}>HTTP Methods</Typography>
+              
+            <Typography sx={{ mb: 1 }}>
+    <Tooltip title="Select HTTP Methods." arrow  placement="top">
+      <span>HTTP Methods</span>
+    </Tooltip>
+  </Typography>
 
               <FormControl required error={checkedCount < 1}>
                 <Box flexDirection="row" justifyContent="center" sx={{ ml: 0.3 }}>
@@ -937,7 +942,7 @@ export function CreateConnection() {
                         InputProps={{
                           endAdornment: (
                             <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Copy Text" arrow placement="bottom">
+                              <Tooltip title="Copy " arrow placement="bottom">
                                 <IconButton
                                   edge="end"
                                   onClick={() => navigator.clipboard.writeText(plainText)}
@@ -1007,7 +1012,7 @@ export function CreateConnection() {
                         InputProps={{
                           endAdornment: (
                             <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Copy Text" arrow placement="bottom">
+                              <Tooltip title="Click here to copy." arrow placement="top">
                                 <IconButton edge="end" onClick={handleCopy}>
                                   <Iconify width={18} icon="solar:copy-bold" />
                                 </IconButton>
@@ -1031,7 +1036,7 @@ export function CreateConnection() {
                         InputProps={{
                           endAdornment: (
                             <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Copy Text" arrow placement="bottom">
+                              <Tooltip title="Click here to copy." arrow placement="top">
                                 <IconButton edge="end" onClick={handleCopy}>
                                   <Iconify width={18} icon="solar:copy-bold" />
                                 </IconButton>
@@ -1055,7 +1060,7 @@ export function CreateConnection() {
                         InputProps={{
                           endAdornment: (
                             <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Copy Text" arrow placement="bottom">
+                              <Tooltip title="Click here to copy." arrow placement="top">
                                 <IconButton edge="end" onClick={handleCopy}>
                                   <Iconify width={18} icon="solar:copy-bold" />
                                 </IconButton>
@@ -1077,7 +1082,7 @@ export function CreateConnection() {
                         InputProps={{
                           endAdornment: (
                             <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Copy Text" arrow placement="bottom">
+                              <Tooltip title="Click here to copy." arrow placement="top">
                                 <IconButton edge="end" onClick={handleCopy}>
                                   <Iconify width={18} icon="solar:copy-bold" />
                                 </IconButton>
@@ -1129,9 +1134,9 @@ export function CreateConnection() {
                     <Button onClick={handleClose} variant="outlined" color="inherit">
                       Cancel
                     </Button>
-                    <Button onClick={handleOpenSnackbar} variant="contained" color="primary">
+                    {/* <Button onClick={handleOpenSnackbar} variant="contained" color="primary">
                       Create
-                    </Button>
+                    </Button> */}
                     <Snackbar
                       open={openSnackbar}
                       autoHideDuration={1000}

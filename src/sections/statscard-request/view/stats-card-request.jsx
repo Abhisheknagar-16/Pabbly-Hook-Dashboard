@@ -48,7 +48,7 @@ export function StatsCardRequest() {
               <div>
                 <Typography sx={{mt:-0.2,mb:0.2}} variant="h4">Requests</Typography>
                 <Typography sx={{ color: 'text.secondary' }}>
-                  The screen shows all your Requests. &nbsp;
+                View the HTTP request that Pabbly Hook receives from the source. &nbsp;
                   <a href="https://www.youtube.com/playlist?list=PLgffPJ6GjbaIZTlTtPyVtCLJ43RyaLS-U" target="_blank"
                     rel="noopener noreferrer" style={{ color: '#078DEE', textDecoration: 'underline' }}>
                     Learn more

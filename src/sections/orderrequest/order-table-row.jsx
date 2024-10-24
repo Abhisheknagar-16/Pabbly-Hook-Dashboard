@@ -184,7 +184,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           >
             <Box component="span">
               <Tooltip title={`Request ID: ${RequestId}`} arrow placement="top">{RequestId}</Tooltip>
-              <Tooltip title="Copy request_id" arrow placement="bottom">
+              <Tooltip title="Copy request_id" arrow placement="top">
                 <IconButton
                   edge="end"
                   sx={{ color: 'text.disabled' }}
@@ -321,7 +321,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           >
             Request ID - {' '}
             {RequestId} {/* Display the random ID */}
-            <Tooltip title="Copy request_id " arrow placement="bottom">
+            <Tooltip title="Copy request_id " arrow placement="top">
               <IconButton
                 edge="end"
                 sx={{ color: 'text.disabled' }}
@@ -536,7 +536,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                     })
                   }
                 >
-                  <Tooltip title="Copy request_code" arrow placement="bottom">
+                  <Tooltip title="Copy request_code" arrow placement="top">
                     <Iconify width={16} icon="solar:copy-bold" />
                   </Tooltip>
                 </IconButton>
