@@ -6,10 +6,10 @@ import Tabs from '@mui/material/Tabs';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import Button from '@mui/material/Button';
-import { CardHeader, Divider } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import TableBody from '@mui/material/TableBody';
 import IconButton from '@mui/material/IconButton';
+import { Divider, CardHeader } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -49,11 +49,42 @@ import { OrderTableFiltersResult } from '../order-table-filters-result';
 const STATUS_CONNECTION = [{ value: 'all', label: 'All' }, ...ORDER_STATUS_CONNECTION];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: (<Tooltip disableInteractive title="View connections status and date of creation." arrow placement='top'>STATUS/DATE</Tooltip>) },
-  { id: 'name', label: (<Tooltip disableInteractive title="Name of connection and folder where it is located." arrow placement='top'>CONNECTION NAME</Tooltip>) },
-  { id: 'createdAt', label: (<Tooltip disableInteractive title="Status of the requests and events." arrow placement='top'>REQUEST/EVENTS</Tooltip>), align: 'right'},
+  {
+    id: 'orderNumber',
+    label: (
+      <Tooltip
+        disableInteractive
+        title="View connections status and date of creation."
+        arrow
+        placement="top"
+      >
+        STATUS/DATE
+      </Tooltip>
+    ),
+  },
+  {
+    id: 'name',
+    label: (
+      <Tooltip
+        disableInteractive
+        title="Name of connection and folder where it is located."
+        arrow
+        placement="top"
+      >
+        CONNECTION NAME
+      </Tooltip>
+    ),
+  },
+  {
+    id: 'createdAt',
+    label: (
+      <Tooltip disableInteractive title="Status of the requests and events." arrow placement="top">
+        REQUEST/EVENTS
+      </Tooltip>
+    ),
+    align: 'right',
+  },
   { id: '', label: '' },
-
 ];
 
 // ----------------------------------------------------------------------
@@ -133,11 +164,28 @@ export function OrderListViewHome() {
     [filters, table]
   );
 
+  const getTooltipContent = (value) => {
+    switch (value.toLowerCase()) {
+      case 'all':
+        return 'Show all connections including active and inactive';
+      case 'active':
+        return 'Show only active connections';
+      case 'inactive':
+        return 'Show only inactive connections';
+      case 'pending':
+        return 'View connections waiting for approval';
+      case 'rejected':
+        return 'View connections that have been rejected';
+      default:
+        return `View ${value} connections`;
+    }
+  };
+
   return (
     <>
       <DashboardContent disablePadding>
-        <Card sx={{ md: 15 }} >
-        <CardHeader
+        <Card sx={{ md: 15 }}>
+          <CardHeader
             title={
               <Box>
                 <Box sx={{ typography: 'subtitle2', fontSize: '18px', fontWeight: 600 }}>
@@ -169,18 +217,20 @@ export function OrderListViewHome() {
                 iconPosition="end"
                 value={tab.value}
                 label={
-                  ['Active', 'Inactive'].includes(tab.value) ? (
-                    <Tooltip disableInteractive placement='top' arrow title={`This is ${tab.value} tab`}>
-                      <span>{tab.label}</span>
-                    </Tooltip>
-                  ) : (
-                    tab.label
-                  )
+                  <Tooltip
+                    disableInteractive
+                    placement="top"
+                    arrow
+                    title={getTooltipContent(tab.value)}
+                  >
+                    <span>{tab.label}</span>
+                  </Tooltip>
                 }
                 icon={
                   <Label
                     variant={
-                      ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') || 'soft'
+                      ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') ||
+                      'soft'
                     }
                     color={
                       (tab.value === 'Active' && 'success') ||
@@ -195,13 +245,13 @@ export function OrderListViewHome() {
                 }
               />
             ))}
-
           </Tabs>
 
           <OrderTableToolbar
             filters={filters}
             onResetPage={table.onResetPage}
             dateError={dateError}
+            numSelected={table.selected.length}
           />
 
           {canReset && (

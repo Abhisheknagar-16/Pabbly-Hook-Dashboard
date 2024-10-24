@@ -10,7 +10,6 @@ import {
   MenuItem,
   TextField,
   Typography,
-  IconButton,
   DialogTitle,
   DialogContent,
   DialogActions,
@@ -32,7 +31,7 @@ const selectfolder = [
 // Wrap the component with memo to prevent unnecessary re-renders
 const FolderSection = memo(({ handleTrashClick, handleHomeClick }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
-  
+
   // Memoize handlers
   const handleOpen = useCallback(() => {
     setDialogOpen(true);
@@ -48,7 +47,7 @@ const FolderSection = memo(({ handleTrashClick, handleHomeClick }) => {
   return (
     <>
       <Card sx={{ pl: 2.4, pr: 2, pt: 2, pb: 2 }}>
-        <Typography variant="h6" fontWeight={700}>
+        <Typography variant="h6">
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Tooltip
               disableInteractive
@@ -63,25 +62,32 @@ const FolderSection = memo(({ handleTrashClick, handleHomeClick }) => {
               <span>Folders</span>
             </Tooltip>
 
-            <IconButton onClick={handleOpen} edge="end" sx={{ mr: 0.6, mt: -0.8 }}>
-              <Tooltip disableInteractive title="Create a new folder." arrow placement="top">
-                <Iconify icon="icon-park-solid:add" style={{ color: '#078dee' }} width="12" />
-              </Tooltip>
-            </IconButton>
+            <Tooltip title="Create a new folder." disableInteractive arrow placement="top">
+              <Button
+                sx={{
+                  mr: 1,
+                  mb: 1,
+                  p: 1,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  minWidth: 0,
+                }}
+                onClick={handleOpen}
+                maxWidth
+                color="primary"
+                variant="contained"
+              >
+                <Iconify icon="fa6-solid:plus" />
+              </Button>
+            </Tooltip>
           </Box>
         </Typography>
         <Divider sx={{ borderStyle: 'dashed', mb: 0.6, mt: 1 }} />
-        <CustomStyling 
-          onTrashClick={handleTrashClick} 
-          onHomeClick={handleHomeClick} 
-        />
+        <CustomStyling onTrashClick={handleTrashClick} onHomeClick={handleHomeClick} />
       </Card>
 
-      <Dialog 
-        open={dialogOpen} 
-        onClose={handleClose} 
-        sx={{ position: 'fixed' }}
-      >
+      <Dialog open={dialogOpen} onClose={handleClose} sx={{ position: 'fixed' }}>
         <DialogTitle sx={{ fontWeight: 700 }}>
           <Tooltip
             title="Create a connection with a name and folder location."
