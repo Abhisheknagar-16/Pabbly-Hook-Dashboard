@@ -3,15 +3,14 @@ import Tooltip from '@mui/material/Tooltip';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-import { CarouselAutoplay } from 'src/sections/carousel/carousel-align';
 import { CONFIG } from 'src/config-global';
+
+import { CarouselAutoplay } from 'src/sections/carousel/carousel-align';
 
 export function Section({
   sx,
   method,
   layoutQuery,
-  method1,
-  method2,
   title = 'No Restrictions on Features!',
   subtitle = 'Scale & Grow Your Business with Pabbly.',
   ...other
