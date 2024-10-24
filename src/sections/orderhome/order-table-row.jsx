@@ -217,21 +217,25 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
       >
         <MenuList >
           <MenuItem>
+            <Iconify icon="line-md:switch-off-filled-to-switch-filled-transition" />
+            Enable Connection
+          </MenuItem>
+          <MenuItem>
+            <Iconify icon="line-md:switch-filled-to-switch-off-filled-transition" />
+            Disable Connection
+          </MenuItem>
+          <MenuItem>
             <Iconify icon="mingcute:history-fill" />
             Update
           </MenuItem>
           <MenuItem>
-            <Iconify icon="clarity:clone-solid" />
-            Clone
-          </MenuItem>
-          <MenuItem>
-            <Iconify icon="solar:move-to-folder-bold" />
+            <Iconify icon="fluent:folder-move-16-filled" />
             Move to folder
           </MenuItem>
-          <MenuItem>
+          {/* <MenuItem>
             <Iconify icon="material-symbols:family-history" />
             Connection History
-          </MenuItem>
+          </MenuItem> */}
           <Divider sx={{ borderStyle: 'dashed' }} />
           <MenuItem
             onClick={() => {
@@ -241,7 +245,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             sx={{ color: 'error.main' }}
           >
             <Iconify icon="solar:trash-bin-trash-bold" />
-            Delete
+            Delete Connection
           </MenuItem>
         </MenuList>
       </CustomPopover>

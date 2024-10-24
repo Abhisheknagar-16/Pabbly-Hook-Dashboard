@@ -215,18 +215,18 @@ export function OrderTableToolbar({
       >
         <MenuList>
           {[
-            { value: 'published', label: 'Move Workflow', icon: 'fluent:folder-move-16-filled' },
+            { value: 'published', label: 'Move Connection', icon: 'fluent:folder-move-16-filled' },
             {
               value: 'draft',
-              label: 'Enable Workflow',
+              label: 'Enable Connection',
               icon: 'line-md:switch-off-filled-to-switch-filled-transition',
             },
             {
               value: 'published',
-              label: 'Disable Workflow',
+              label: 'Disable Connection',
               icon: 'line-md:switch-filled-to-switch-off-filled-transition',
             },
-            { value: 'draft', label: 'Delete Workflow', icon: 'solar:trash-bin-trash-bold' },
+            { value: 'draft', label: 'Delete Connection', icon: 'solar:trash-bin-trash-bold', },
           ].map((option) => (
             <MenuItem
               key={option.value}
