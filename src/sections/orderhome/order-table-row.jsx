@@ -8,7 +8,8 @@ import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
-import { Tooltip, Divider, IconButton, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { Alert, Tooltip, Divider, Snackbar, IconButton, Typography } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 
@@ -19,9 +20,17 @@ import { Iconify } from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
+import { MoveToFolderPopover } from '../dialog-view/move-to-folder-dialog';
+
 // Random data generator
 const generateRandomData = () => {
-  const names = ['Rajpal Singh Tomar', 'Ankit Kumar', 'Priya Sharma', 'Ankit Mandli', 'Ayush Bisen'];
+  const names = [
+    'Rajpal Singh Tomar',
+    'Ankit Kumar',
+    'Priya Sharma',
+    'Ankit Mandli',
+    'Ayush Bisen',
+  ];
   const statuses = ['Active', 'Inactive'];
 
   const randomName = names[Math.floor(Math.random() * names.length)];
@@ -58,6 +67,30 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   const confirm = useBoolean();
   const popover = usePopover();
 
+  const [openEnabelConnectionSnackbar, setEnabelConnectionSnackbar] = React.useState(false);
+
+  const handleOpenEnableConnnectonSnackbar = () => {
+    setEnabelConnectionSnackbar(true);
+  };
+
+  const handleCloseEnableConnnectonSnackbar = () => {
+    setEnabelConnectionSnackbar(false);
+  };
+
+  const [openDisabelConnectionSnackbar, setDisabelConnectionSnackbar] = React.useState(false);
+
+  const handleOpenDisabelConnnectonSnackbar = () => {
+    setDisabelConnectionSnackbar(true);
+  };
+
+  const handleCloseDisabelConnnectonSnackbar = () => {
+    setDisabelConnectionSnackbar(false);
+  };
+
+  const theme = useTheme();
+
+  const [moveToFolderPopoverOpen, setMoveToFolderPopoverOpen] = useState(false);
+
   // State to hold random data
   const [randomData, setRandomData] = useState({});
 
@@ -71,7 +104,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   const renderPrimary = (
     <TableRow hover selected={selected}>
       <TableCell padding="checkbox">
-        <Tooltip disableInteractive title="Select" arrow placement='top'>
+        <Tooltip disableInteractive title="Select" arrow placement="top">
           <Checkbox
             checked={selected}
             onClick={onSelectRow}
@@ -89,7 +122,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-start',
             }}
           >
-            <Tooltip placement='top' disableInteractive arrow title={row.status === 'Active' ? 'Connection is Active' : 'Connection is Inactive'}>
+            <Tooltip
+              placement="top"
+              disableInteractive
+              arrow
+              title={row.status === 'Active' ? 'Connection is Active' : 'Connection is Inactive'}
+            >
               <Label
                 variant="soft"
                 color={
@@ -101,10 +139,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 {row.status}
               </Label>
             </Tooltip>
-            <Box
-              component="span"
-              sx={{ color: 'text.disabled' }}
-            >
+            <Box component="span" sx={{ color: 'text.disabled' }}>
               <Tooltip
                 disableInteractive
                 title={
@@ -113,7 +148,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                   </div>
                 }
                 arrow
-                placement='top'
+                placement="top"
               >
                 {formatDate(connectionDate)}
               </Tooltip>
@@ -136,26 +171,28 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 style={{ textDecoration: 'none', color: '#078dee' }}
                 href={paths.dashboard.updateconnection}
               >
-                <Tooltip disableInteractive title={`Connection Name: ${connectionName}`} arrow placement='top'>
+                <Tooltip
+                  disableInteractive
+                  title={`Connection Name: ${connectionName}`}
+                  arrow
+                  placement="top"
+                >
                   {connectionName}
                 </Tooltip>
               </a>
             </Box>
             <Typography sx={{ color: ' #919eab ', fontSize: '14px' }}>
-              <Tooltip disableInteractive title="Folder Name: Home" arrow placement='top'>
+              <Tooltip disableInteractive title="Folder Name: Home" arrow placement="top">
                 Home
               </Tooltip>
             </Typography>
-            <Box
-              component="span"
-              sx={{ color: 'text.disabled' }}
-            />
+            <Box component="span" sx={{ color: 'text.disabled' }} />
           </Stack>
         </Stack>
       </TableCell>
 
       <TableCell>
-        <Stack spacing={1} direction="row" alignItems="right" >
+        <Stack spacing={1} direction="row" alignItems="right">
           <Stack
             sx={{
               typography: 'body2',
@@ -164,26 +201,20 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               // mr: 4
             }}
           >
-            <Box component="span" >
+            <Box component="span">
               <a
                 style={{ textDecoration: 'none', color: '#078dee' }}
                 href={paths.dashboard.request}
               >
-                <Tooltip disableInteractive title="Status of the requests" arrow placement='top'>
+                <Tooltip disableInteractive title="Status of the requests" arrow placement="top">
                   {requests} Requests
                 </Tooltip>
               </a>
             </Box>
 
-            <Box
-              component="span"
-              sx={{ color: 'text.disabled' }}
-            >
-              <a
-                style={{ textDecoration: 'none', color: '#919eab' }}
-                href={paths.dashboard.event}
-              >
-                <Tooltip disableInteractive title="Status of the events" arrow placement='top'>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              <a style={{ textDecoration: 'none', color: '#919eab' }} href={paths.dashboard.event}>
+                <Tooltip disableInteractive title="Status of the events" arrow placement="top">
                   {events} events
                 </Tooltip>
               </a>
@@ -192,7 +223,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         </Stack>
       </TableCell>
 
-      <TableCell align='right' padding='checkbox' >
+      <TableCell align="right" padding="checkbox">
         <IconButton
           sx={{ mr: 1 }}
           color={popover.open ? 'inherit' : 'default'}
@@ -204,8 +235,6 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     </TableRow>
   );
 
-
-
   return (
     <>
       {renderPrimary}
@@ -215,40 +244,108 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         onClose={popover.onClose}
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
-        <MenuList >
-          <MenuItem>
-            <Iconify icon="line-md:switch-off-filled-to-switch-filled-transition" />
-            Enable Connection
-          </MenuItem>
-          <MenuItem>
-            <Iconify icon="line-md:switch-filled-to-switch-off-filled-transition" />
-            Disable Connection
-          </MenuItem>
-          <MenuItem>
-            <Iconify icon="mingcute:history-fill" />
-            Update
-          </MenuItem>
-          <MenuItem>
-            <Iconify icon="fluent:folder-move-16-filled" />
-            Move to folder
-          </MenuItem>
-          {/* <MenuItem>
-            <Iconify icon="material-symbols:family-history" />
-            Connection History
-          </MenuItem> */}
+        <MenuList>
+          <Tooltip title="Click to enable connections." arrow placement="left">
+            <MenuItem onClick={handleOpenEnableConnnectonSnackbar}>
+              <Iconify icon="line-md:switch-off-filled-to-switch-filled-transition" />
+              Enable Connection
+            </MenuItem>
+          </Tooltip>
+          <Tooltip title="Click to disable connections." arrow placement="left">
+            <MenuItem onClick={handleOpenDisabelConnnectonSnackbar}>
+              <Iconify icon="line-md:switch-filled-to-switch-off-filled-transition" />
+              Disable Connection
+            </MenuItem>
+          </Tooltip>
+          {/* <Tooltip title="Move to update." arrow placement="left">
+            <MenuItem>
+              <Iconify icon="mingcute:history-fill" />
+              Update
+            </MenuItem>
+          </Tooltip> */}
+          <Tooltip title="Move to folder." arrow placement="left">
+            <MenuItem
+              onClick={() => {
+                setMoveToFolderPopoverOpen(true); // Open the Auto Re-Execution dialog
+                popover.onClose();
+              }}
+              sx={{ color: 'secondary' }}
+            >
+              <Iconify icon="fluent:folder-move-16-filled" />
+              Move To Folder
+            </MenuItem>
+          </Tooltip>
           <Divider sx={{ borderStyle: 'dashed' }} />
-          <MenuItem
-            onClick={() => {
-              confirm.onTrue();
-              popover.onClose();
-            }}
-            sx={{ color: 'error.main' }}
-          >
-            <Iconify icon="solar:trash-bin-trash-bold" />
-            Delete Connection
-          </MenuItem>
+          <Tooltip title="Click to delete connections." arrow placement="left">
+            <MenuItem
+              onClick={() => {
+                confirm.onTrue();
+                popover.onClose();
+              }}
+              sx={{ color: 'error.main' }}
+            >
+              <Iconify icon="solar:trash-bin-trash-bold" />
+              Delete Connection
+            </MenuItem>
+          </Tooltip>
         </MenuList>
       </CustomPopover>
+
+      <Snackbar
+        open={openEnabelConnectionSnackbar}
+        autoHideDuration={4000}
+        onClose={handleCloseEnableConnnectonSnackbar}
+        Z-index={100}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{
+          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+          mt: 7,
+        }}
+      >
+        <Alert
+          onClose={handleCloseEnableConnnectonSnackbar}
+          severity="success"
+          sx={{
+            width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+          }}
+        >
+          Connection successfully enable.
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={openDisabelConnectionSnackbar}
+        autoHideDuration={4000}
+        onClose={handleCloseDisabelConnnectonSnackbar}
+        Z-index={100}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{
+          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+          mt: 7,
+        }}
+      >
+        <Alert
+          onClose={handleCloseDisabelConnnectonSnackbar}
+          severity="error"
+          sx={{
+            width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+          }}
+        >
+          Connection successfully disable.
+        </Alert>
+      </Snackbar>
+
+      <MoveToFolderPopover
+        open={moveToFolderPopoverOpen}
+        onClose={() => setMoveToFolderPopoverOpen(false)}
+      />
       <ConfirmDialog
         open={confirm.value}
         onClose={confirm.onFalse}

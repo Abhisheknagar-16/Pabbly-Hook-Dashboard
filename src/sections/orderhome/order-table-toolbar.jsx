@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState  } from 'react';
+import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 
 import Stack from '@mui/material/Stack';
@@ -7,7 +7,16 @@ import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Box, Button, Tooltip, Popover, Typography, FormControl, Autocomplete, useMediaQuery, } from '@mui/material';
+import {
+  Box,
+  Button,
+  Tooltip,
+  Popover,
+  Typography,
+  FormControl,
+  Autocomplete,
+  useMediaQuery,
+} from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -73,12 +82,7 @@ export function OrderTableToolbar({
   const [operator, setOperator] = useState('contains');
   const [filterValue, setFilterValue] = useState('');
 
-  const sortconnection = [
-    'Test 1',
-    'Test 2',
-    'Test 3',
-    'Test 4'
-  ];
+  const sortconnection = ['Test 1', 'Test 2', 'Test 3', 'Test 4'];
   const connectionstatus = ['All Status', 'Active', 'Inactive'];
   const folder = [
     'Pabbly Connect',
@@ -190,7 +194,7 @@ export function OrderTableToolbar({
             </Button>
           )}
 
-          <Tooltip title="Filter workflows by status or folders." arrow placement="top">
+          <Tooltip title="Filter connection by status or folders." arrow placement="top">
             <Button
               sx={{
                 ...buttonStyle,
@@ -215,37 +219,50 @@ export function OrderTableToolbar({
       >
         <MenuList>
           {[
-            { value: 'published', label: 'Move Connection', icon: 'fluent:folder-move-16-filled' },
+            {
+              value: 'published',
+              label: 'Move Connection',
+              icon: 'fluent:folder-move-16-filled',
+              tooltip: 'Move to Connection',
+            },
             {
               value: 'draft',
               label: 'Enable Connection',
               icon: 'line-md:switch-off-filled-to-switch-filled-transition',
+              tooltip: 'Click to enable connections',
             },
             {
               value: 'published',
               label: 'Disable Connection',
               icon: 'line-md:switch-filled-to-switch-off-filled-transition',
+              tooltip: 'Click to disable connections',
             },
-            { value: 'draft', label: 'Delete Connection', icon: 'solar:trash-bin-trash-bold', },
+            {
+              value: 'draft',
+              label: 'Delete Connection',
+              icon: 'solar:trash-bin-trash-bold',
+              tooltip: 'Click to delete connections',
+            },
           ].map((option) => (
-            <MenuItem
-              key={option.value}
-              selected={option.value === publish}
-              onClick={() => {
-                handlePopoverClose();
-                onChangePublish(option.value);
-              }}
-            >
-              {option.icon && (
-                <Iconify
-                  icon={option.icon}
-                  width={20}
-                  height={20}
-                  sx={{ mr: 2, color: 'inherit' }}
-                />
-              )}
-              {option.label}
-            </MenuItem>
+            <Tooltip key={option.value} title={option.tooltip} arrow placement="left">
+              <MenuItem
+                selected={option.value === publish}
+                onClick={() => {
+                  handlePopoverClose();
+                  onChangePublish(option.value);
+                }}
+              >
+                {option.icon && (
+                  <Iconify
+                    icon={option.icon}
+                    width={20}
+                    height={20}
+                    sx={{ mr: 2, color: 'inherit' }}
+                  />
+                )}
+                {option.label}
+              </MenuItem>
+            </Tooltip>
           ))}
         </MenuList>
       </Popover>
@@ -324,7 +341,9 @@ export function OrderTableToolbar({
               }}
             >
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
-                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>Connection Name</Typography>
+                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
+                  Connection Name
+                </Typography>
               </FormControl>
 
               <FormControl
@@ -376,9 +395,7 @@ export function OrderTableToolbar({
               }}
             >
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
-                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
-                  Connection ID
-                </Typography>
+                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>Connection ID</Typography>
               </FormControl>
 
               <FormControl

@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import TableBody from '@mui/material/TableBody';
 import IconButton from '@mui/material/IconButton';
+import { Divider, CardHeader } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -134,6 +135,26 @@ export function OrderListViewtrash() {
     <>
       <DashboardContent disablePadding>
         <Card sx={{ md: 15 }}>
+        <CardHeader
+            title={
+              <Box>
+                <Box sx={{ typography: 'subtitle2', fontSize: '18px', fontWeight: 600 }}>
+                  {/* <Tooltip title={`Folder Name: ${selectedFolder}`} arrow placement="bottom">
+                    {selectedFolder}
+                  </Tooltip> */}
+                  Trash
+                </Box>
+                <Box sx={{ typography: 'body2', fontSize: '14px', color: 'text.secondary' }}>
+                Deleted connection can be restored or permanently deleted from the trash folder.
+              </Box>
+              </Box>
+            }
+            // action={total && <Label color={color}>{total}</Label>}
+            sx={{
+              p: 3,
+            }}
+          />
+          <Divider />
           <Tabs
             value={filters.state.status}
             onChange={handleFilterStatus}
@@ -169,6 +190,7 @@ export function OrderListViewtrash() {
             filters={filters}
             onResetPage={table.onResetPage}
             dateError={dateError}
+            numSelected={table.selected.length}
           />
 
           {canReset && (

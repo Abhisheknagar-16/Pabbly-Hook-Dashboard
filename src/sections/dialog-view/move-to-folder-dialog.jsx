@@ -131,7 +131,7 @@ export function MoveToFolderPopover({ title, content, action, open, onClose, ...
               {...params}
               label={
                 <Tooltip
-                  title="Select folder to which the workflow needs to be moved."
+                  title="Select folder to which the connection needs to be moved."
                   arrow
                   placement="top"
                 >
@@ -144,7 +144,7 @@ export function MoveToFolderPopover({ title, content, action, open, onClose, ...
                     'Please select a required folder.'
                   ) : (
                     <>
-                      Select the folder or subfolder where you want to move the workflow(s).{' '}
+                      Select the folder or subfolder where you want to move the connections.{' '}
                       <Link
                         href="https://forum.pabbly.com/threads/folders.20987/"
                         style={{ color: '#078DEE' }}
@@ -190,7 +190,7 @@ export function MoveToFolderPopover({ title, content, action, open, onClose, ...
             color: theme.palette.text.primary,
           }}
         >
-          The workflow(s) moved successfully.
+          The Connection moved successfully.
         </Alert>
       </Snackbar>
     </Dialog>
