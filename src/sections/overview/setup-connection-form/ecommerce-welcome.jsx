@@ -32,7 +32,7 @@ export function EcommerceWelcome({
         }),
         pt: 5,
         pb: 5,
-        pr: { xs: 2, md: 5 },
+        pr: { xs: 3, md: 5 },
         gap: 5,
         borderRadius: 2,
         display: 'flex',
