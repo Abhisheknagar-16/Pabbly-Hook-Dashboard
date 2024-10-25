@@ -115,11 +115,11 @@ export function RenameFolderDialog({ open, onClose, ConnectionName }) {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
+        Z-index={1000}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{
           boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-          mt: 7,
-          zIndex:1000
+          mt: 6.5,
         }}
       >
         <Alert
@@ -133,7 +133,7 @@ export function RenameFolderDialog({ open, onClose, ConnectionName }) {
             color: theme.palette.text.primary,
           }}
         >
-          Updated!
+          Folder renamed successfully.
         </Alert>
       </Snackbar>
     </>

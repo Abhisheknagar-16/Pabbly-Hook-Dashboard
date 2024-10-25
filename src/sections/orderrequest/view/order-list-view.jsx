@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import TableBody from '@mui/material/TableBody';
 import IconButton from '@mui/material/IconButton';
+import { Divider, CardHeader } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -48,7 +49,7 @@ import { OrderTableFiltersResult } from '../order-table-filters-result';
 const STATUS_REQUEST = [{ value: 'all', label: 'All' }, ...ORDER_REQUEST_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: (<Tooltip title="View request status and date of creation." arrow placement='top'>STATUS/DATE/NAME</Tooltip>) },
+  { id: 'orderNumber', label: (<Tooltip title="View request status, date and name of creation." arrow placement='top'>STATUS/DATE/NAME</Tooltip>) },
   // { id: 'name', label: (<Tooltip title="Name of the requests." arrow placement='top'>REQUEST NAME</Tooltip>) },
   { id: 'name', label: (<Tooltip title="View request ID's." arrow placement='top'>REQUEST ID</Tooltip>) },
   { id: 'totalAmount', label: (<Tooltip title="View request id and their summary." arrow placement='top'>REQUEST CODE </Tooltip>), align: 'right' },
@@ -136,6 +137,23 @@ export function OrderListViewRequest() {
     <>
      <DashboardContent maxWidth="xl" sx={{ px: { xs: 0, sm: 0, lg: 5, xl: 0 } }}>
         <Card sx={{ md: 15 }} >
+        <CardHeader
+            title={
+              <Box>
+                <Box sx={{ typography: 'subtitle2', fontSize: '18px', fontWeight: 600 }}>
+                  {/* <Tooltip title={`Folder Name: ${selectedFolder}`} arrow placement="bottom">
+                    {selectedFolder}
+                  </Tooltip> */}
+                  Request
+                </Box>
+              </Box>
+            }
+            // action={total && <Label color={color}>{total}</Label>}
+            sx={{
+              p: 3,
+            }}
+          />
+          <Divider />
           <Tabs
             value={filters.state.status}
             onChange={handleFilterStatus}
@@ -189,6 +207,7 @@ export function OrderListViewRequest() {
             filters={filters}
             onResetPage={table.onResetPage}
             dateError={dateError}
+            numSelected={table.selected.length}
           />
 
           {canReset && (

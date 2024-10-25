@@ -167,7 +167,7 @@ export function CreateFolderDialog({ open, onClose }) {
             color: theme.palette.text.primary,
           }}
         >
-          Success!
+          Folder created successfully!
         </Alert>
       </Snackbar>
     </>
