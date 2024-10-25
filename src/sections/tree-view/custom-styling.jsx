@@ -15,7 +15,7 @@ import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 import { QuickShareDialog } from '../dialog-view/quick-share-dailog';
 import { CreateFolderDialog } from '../dialog-view/create-folder-dailog';
-import { RenameFolderDialog } from '../dialog-view/rename_folder-dailog';
+import { RenameFolderDialog } from '../dialog-view/rename-folder-dailog';
 
 // ----------------------------------------------------------------------
 

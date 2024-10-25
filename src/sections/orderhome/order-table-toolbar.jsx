@@ -12,6 +12,7 @@ import {
   Button,
   Tooltip,
   Popover,
+  Divider,
   Typography,
   FormControl,
   Autocomplete,
@@ -22,51 +23,11 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
 
-// ----------------------------------------------------------------------
-
-// const Strategy = [
-//   {
-//     value: 'USD',
-//     label: 'Select Connection',
-//   },
-//   {
-//     value: 'EUR',
-//     label: 'Test 1',
-//   },
-//   {
-//     value: 'FUR',
-//     label: 'Test 2',
-//   },
-//   {
-//     value: 'DUR',
-//     label: 'Test 3',
-//   },
-//   {
-//     value: 'INR',
-//     label: 'Test 4',
-//   },
-// ];
-
-// const Selectstatus = [
-//   {
-//     value: 'USD',
-//     label: 'Select Status',
-//   },
-//   {
-//     value: 'EUR',
-//     label: 'Active',
-//   },
-//   {
-//     value: 'tUR',
-//     label: 'Inactive',
-//   },
-// ];
+// ----------------------------------------------------------------------.
 
 export function OrderTableToolbar({
   filters,
   onResetPage,
-  onClose,
-  dateError,
   publish,
   onChangePublish,
   numSelected,
@@ -181,13 +142,6 @@ export function OrderTableToolbar({
               sx={{
                 ...buttonStyle,
                 width: isBelow600px ? '155px' : '155px', // Fixed width for "Select Action"
-
-                // backgroundColor: 'white',
-                // color: theme.palette.primary.main,
-                // border: `1px solid ${theme.palette.primary.main}`,
-                // '&:hover': {
-                //   backgroundColor: 'white',
-                // },
               }}
             >
               Select Action
@@ -242,27 +196,40 @@ export function OrderTableToolbar({
               label: 'Delete Connection',
               icon: 'solar:trash-bin-trash-bold',
               tooltip: 'Click to delete connections',
+              color: 'error.main', // New color property for the delete action
+              isDelete: true, // Custom property to indicate this is the delete action
             },
           ].map((option) => (
-            <Tooltip key={option.value} title={option.tooltip} arrow placement="left">
-              <MenuItem
-                selected={option.value === publish}
-                onClick={() => {
-                  handlePopoverClose();
-                  onChangePublish(option.value);
-                }}
-              >
-                {option.icon && (
-                  <Iconify
-                    icon={option.icon}
-                    width={20}
-                    height={20}
-                    sx={{ mr: 2, color: 'inherit' }}
-                  />
-                )}
-                {option.label}
-              </MenuItem>
-            </Tooltip>
+            <React.Fragment key={option.value}>
+              {/* Render Divider above the "Delete Connection" item */}
+              {option.isDelete && <Divider sx={{ borderStyle: 'dashed' }} />}
+
+              <Tooltip title={option.tooltip} arrow placement="left">
+                <MenuItem
+                  selected={option.value === publish}
+                  onClick={() => {
+                    handlePopoverClose();
+                    onChangePublish(option.value);
+                  }}
+                  sx={{
+                    color: option.label === 'Delete Connection' ? 'error.main' : 'inherit',
+                  }}
+                >
+                  {option.icon && (
+                    <Iconify
+                      icon={option.icon}
+                      width={20}
+                      height={20}
+                      sx={{
+                        mr: 2,
+                        color: option.label === 'Delete Connection' ? 'error.main' : 'inherit',
+                      }}
+                    />
+                  )}
+                  {option.label}
+                </MenuItem>
+              </Tooltip>
+            </React.Fragment>
           ))}
         </MenuList>
       </Popover>
@@ -327,7 +294,6 @@ export function OrderTableToolbar({
               },
             }}
           >
-            {/* Sort Workflow */}
             <Box
               sx={{
                 display: 'flex',
@@ -381,7 +347,6 @@ export function OrderTableToolbar({
               </FormControl>
             </Box>
 
-            {/* Workflow Status */}
             <Box
               sx={{
                 display: 'flex',

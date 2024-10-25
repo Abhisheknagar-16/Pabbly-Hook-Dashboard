@@ -160,7 +160,7 @@ export function QuickShareDialog({ title, content, action, open, onClose, ...oth
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{
           boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-          mt: 7,
+          mt: 6.5,
         }}
       >
         <Alert
@@ -174,7 +174,7 @@ export function QuickShareDialog({ title, content, action, open, onClose, ...oth
             color: theme.palette.text.primary,
           }}
         >
-          Share Successfully!
+          Share Successfully
         </Alert>
       </Snackbar>
     </>

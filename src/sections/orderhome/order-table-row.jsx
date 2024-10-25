@@ -299,7 +299,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{
           boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-          mt: 7,
+          mt: 6.5,
         }}
       >
         <Alert
@@ -313,7 +313,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             color: theme.palette.text.primary,
           }}
         >
-          Connection successfully enable.
+          Connection enable successfully.
         </Alert>
       </Snackbar>
       <Snackbar
@@ -324,12 +324,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{
           boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-          mt: 7,
+          mt: 6.5,
         }}
       >
         <Alert
           onClose={handleCloseDisabelConnnectonSnackbar}
-          severity="error"
+          severity="success"
           sx={{
             width: '100%',
             fontSize: '14px',
@@ -338,7 +338,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             color: theme.palette.text.primary,
           }}
         >
-          Connection successfully disable.
+          Connection disabled successfully.
         </Alert>
       </Snackbar>
 
