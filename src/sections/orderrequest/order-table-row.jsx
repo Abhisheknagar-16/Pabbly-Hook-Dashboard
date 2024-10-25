@@ -32,7 +32,13 @@ import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 const generateRandomData = () => {
-  const names = ['Rajpal Singh Tomar', 'Abhishek Nagar', 'Ankit Mandli', 'Ayush Bisen', 'Nikhil Patel'];
+  const names = [
+    'Rajpal Singh Tomar',
+    'Abhishek Nagar',
+    'Ankit Mandli',
+    'Ayush Bisen',
+    'Nikhil Patel',
+  ];
 
   const statuses = ['Accepted', 'Blocked'];
 
@@ -82,7 +88,6 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
 
   const { RequestName, Requestdate, RequestId } = randomData; // Destructure the new ID
 
-
   const handleOpenSnackbar = () => {
     setOpenSnackbar(true);
   };
@@ -96,7 +101,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     // Add more items as needed
   ];
   // Function to copy text to clipboard
-  const handleCopy = (text) => { };
+  const handleCopy = (text) => {};
   const confirm = useBoolean();
   const popover = usePopover();
 
@@ -113,11 +118,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   const renderPrimary = (
     <TableRow hover selected={selected}>
       <TableCell padding="checkbox">
-        <Tooltip arrow placement="top" title="Select"><Checkbox
-          checked={selected}
-          onClick={onSelectRow}
-          inputProps={{ id: `row-checkbox-${row.id}`, 'aria-label': `Row checkbox` }}
-        /></Tooltip>
+        <Tooltip arrow placement="top" title="Select">
+          <Checkbox
+            checked={selected}
+            onClick={onSelectRow}
+            inputProps={{ id: `row-checkbox-${row.id}`, 'aria-label': `Row checkbox` }}
+          />
+        </Tooltip>
       </TableCell>
 
       <TableCell>
@@ -138,8 +145,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                     : ''
               }
               arrow
-              placement='top'
+              placement="top"
               disableHoverListener={row.status !== 'Accepted' && row.status !== 'Blocked'}
+              disableInteractive
             >
               <Label
                 size="small"
@@ -152,20 +160,28 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               >
                 {row.status}
               </Label>
-
             </Tooltip>
-            <Box component="span"><Tooltip title={`Request Name: ${RequestName}`} arrow placement='top'>
-              {RequestName}
-            </Tooltip></Box>
-            <Box
-              component="span"
-              sx={{ color: 'text.disabled'}}
-            >
-              <Tooltip title={
+            <Box component="span">
+              <Tooltip
+                title={`Request Name: ${RequestName}`}
+                disableInteractive
+                arrow
+                placement="top"
+              >
+                {RequestName}
+              </Tooltip>
+            </Box>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              <Tooltip
+                title={
                   <div style={{ textAlign: 'center' }}>
                     {`Request created: ${formatDate(Requestdate)} (UTC+00:00) America/Danmarkshavn`}
                   </div>
-                } arrow placement='top'>
+                }
+                disableInteractive
+                arrow
+                placement="top"
+              >
                 {formatDate(Requestdate)}
               </Tooltip>
             </Box>
@@ -183,7 +199,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             }}
           >
             <Box component="span">
-              <Tooltip title={`Request ID: ${RequestId}`} arrow placement="top">{RequestId}</Tooltip>
+              <Tooltip title={`Request ID: ${RequestId}`} disableInteractive arrow placement="top">
+                {RequestId}
+              </Tooltip>
               <Tooltip title="Copy request_id" arrow placement="bottom">
                 <IconButton
                   edge="end"
@@ -194,10 +212,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 </IconButton>
               </Tooltip>
             </Box>
-            <Box
-              component="span"
-              sx={{ color: 'text.disabled' }}
-            />
+            <Box component="span" sx={{ color: 'text.disabled' }} />
           </Stack>
         </Stack>
       </TableCell>
@@ -213,7 +228,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           >
             {evtItems.map((item) => (
               <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Tooltip title="Tap to view full request details " arrow placement="top">
+                <Tooltip title="Request details for tracking and debugging." disableInteractive arrow placement="top">
                   <Typography onClick={handleOpenDrawer} fontSize={14} color="primary.main">
                     {item.label}
                   </Typography>
@@ -319,8 +334,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           <Typography
             sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}
           >
-            Request ID - {' '}
-            {RequestId} {/* Display the random ID */}
+            Request ID - {RequestId} {/* Display the random ID */}
             <Tooltip title="Copy request_id " arrow placement="bottom">
               <IconButton
                 edge="end"
@@ -332,9 +346,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Tooltip>
           </Typography>
           <Typography
-            sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}>
-            Executed at {' '}
-            {formatDate(Requestdate)}
+            sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}
+          >
+            Executed at {formatDate(Requestdate)}
           </Typography>
         </AppBar>
         <Divider />
@@ -345,18 +359,21 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           <Divider />
           <Grid container spacing={2} mt={2}>
             <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>Status</Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                Status
+              </Typography>
             </Grid>
-
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <Button
                 onClick={handleOpenSnackbar}
                 variant="soft"
                 size="small"
                 color={
-                  row.status === 'Accepted' ? 'success' :
-                    row.status === 'Blocked' ? 'error' :
-                      'default'
+                  row.status === 'Accepted'
+                    ? 'success'
+                    : row.status === 'Blocked'
+                      ? 'error'
+                      : 'default'
                 } // Conditionally set the button color
               >
                 {row.status}
@@ -373,7 +390,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               >
                 <Alert
                   onClose={handleCloseSnackbar}
-                  severity={row.status === 'Accepted' ? 'success' : row.status === 'Blocked' ? 'error' : 'info'}
+                  severity={
+                    row.status === 'Accepted'
+                      ? 'success'
+                      : row.status === 'Blocked'
+                        ? 'error'
+                        : 'info'
+                  }
                   sx={{
                     width: '100%',
                     fontSize: '14px',
@@ -383,25 +406,34 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                     boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
                   }}
                 >
-                  {row.status === 'Accepted' ? 'Request successfully setup.' : row.status === 'Blocked' ? 'Request is blocked.' : 'Unknown status.'}
+                  {row.status === 'Accepted'
+                    ? 'Request successfully setup.'
+                    : row.status === 'Blocked'
+                      ? 'Request is blocked.'
+                      : 'Unknown status.'}
                 </Alert>
               </Snackbar>
             </Grid>
-
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>Source</Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                Source
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField disabled size="small" fullWidth value={formatDate(Requestdate)} />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>Content lenght </Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                Content lenght{' '}
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField disabled size="small" fullWidth value={RequestId} />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>Content type</Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                Content type
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField
@@ -413,37 +445,41 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               />
             </Grid>{' '}
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>Method</Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                Method
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <TextField disabled value="Get" fullWidth variant="outlined" size="small" />
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>Body</Typography>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                Body
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
               <Box
                 sx={{
                   position: 'relative',
                   maxHeight: 400,
-                  overflowY: 'auto',  // Control vertical overflow
-                  overflowX: 'hidden',  // Hide horizontal overflow to avoid scroll
+                  overflowY: 'auto', // Control vertical overflow
+                  overflowX: 'hidden', // Hide horizontal overflow to avoid scroll
                   border: '1px solid #E5E8EB',
                   borderRadius: 1,
                   // Custom scrollbar styling
                   '&::-webkit-scrollbar': {
-                    width: '8px',  // Set the width of the scrollbar
+                    width: '8px', // Set the width of the scrollbar
                   },
                   '&::-webkit-scrollbar-thumb': {
-                    backgroundColor: '#888',  // Color of the scrollbar thumb
-                    borderRadius: '10px',  // Border radius for rounded scrollbar
+                    backgroundColor: '#888', // Color of the scrollbar thumb
+                    borderRadius: '10px', // Border radius for rounded scrollbar
                   },
                   '&::-webkit-scrollbar-thumb:hover': {
-                    backgroundColor: '#555',  // Color on hover
+                    backgroundColor: '#555', // Color on hover
                   },
                   '&::-webkit-scrollbar-track': {
-                    backgroundColor: '#f1f1f1',  // Background of the scrollbar track
-                    borderRadius: '10px',  // Border radius for the track
+                    backgroundColor: '#f1f1f1', // Background of the scrollbar track
+                    borderRadius: '10px', // Border radius for the track
                   },
                 }}
               >
@@ -451,10 +487,10 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                   language="javascript"
                   customStyle={{
                     backgroundColor: 'transparent',
-                    wordWrap: 'break-word',  // Ensure long lines wrap
-                    whiteSpace: 'pre-wrap',  // Maintain formatting while allowing wrapping
+                    wordWrap: 'break-word', // Ensure long lines wrap
+                    whiteSpace: 'pre-wrap', // Maintain formatting while allowing wrapping
                   }}
-                  wrapLongLines  // Ensure code lines don't overflow horizontally
+                  wrapLongLines // Ensure code lines don't overflow horizontally
                 >
                   {`(request, context) => {
     // Initialize a counter
@@ -544,7 +580,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Grid>
           </Grid>
         </Box>
-      </Drawer >
+      </Drawer>
     </>
   );
 }
