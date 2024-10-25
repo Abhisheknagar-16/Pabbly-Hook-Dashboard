@@ -13,12 +13,14 @@ import { Iconify } from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
-import { CreateFolderDialog } from '../dialog-view/create_folder-dailog';
+import { QuickShareDialog } from '../dialog-view/quick-share-dailog';
+import { CreateFolderDialog } from '../dialog-view/create-folder-dailog';
+import { RenameFolderDialog } from '../dialog-view/rename-folder-dailog';
 
 // ----------------------------------------------------------------------
 
 const ITEMS = [
-  { id: '12', label: 'Home (0)' }, // Home item
+  { id: '12', label: 'Home (0)' },
   { id: '18', label: 'Pabbly Connect (0)' },
   {
     id: '1',
@@ -54,126 +56,157 @@ const ITEMS = [
 
 const ITEMS1 = [{ id: '16', label: 'Trash (0)' }];
 
+// Styled TreeItem component
 const StyledTreeItem = styled((props) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const popoverOpen = Boolean(anchorEl);
-
   const confirm = useBoolean();
   const popover = usePopover();
+  const [createFolderOpen, setCreateFolderOpen] = useState(false);
+  const [renameDialogOpen, setRenameDialogOpen] = useState(false);
+  const [quickShareDialogOpen, setQuickShareDialogOpen] = useState(false);
 
   const handleItemClick = (event) => {
-    // Handle the "Trash" click
     if (props.label.includes('Trash')) {
       event.preventDefault();
       props.onTrashClick();
     }
 
-    // Handle the "Home" click
     if (props.label.includes('Home')) {
       event.preventDefault();
-      props.onHomeClick(); // Trigger Home click passed down from the parent
+      props.onHomeClick();
     }
   };
 
-  const [folderDialogOpen, setFolderDialogOpen] = useState(false);
-
-  const handleFolderDialogClose = () => {
-    setFolderDialogOpen(false);
+  const handleCreateFolderOpen = () => {
+    setCreateFolderOpen(true);
+    popover.onClose(); // Close the popover when opening dialog
   };
 
-  const handleMenuClose = (event) => {
-    event.stopPropagation();
-    setAnchorEl(null);
+  const handleRenameFolderClick = (event) => {
+    setRenameDialogOpen(true);
+    popover.onClose();
   };
 
-  const handleCreateFolderOpen = (event) => {
-    setFolderDialogOpen(true);
-    popover.onClose(); // Close the popover when opening the CreateFolderDialog
+  const handleQuickShareDialogClick = (event) => {
+    setQuickShareDialogOpen(true);
+    popover.onClose();
+    // handleMenuClose(event);
+  };
+
+  const handleCreateFolderClose = () => {
+    setCreateFolderOpen(false);
+  };
+
+  const handleRenameFolderClose = () => {
+    setRenameDialogOpen(false);
+  };
+
+  const handleQuickShareDialogClose = () => {
+    setQuickShareDialogOpen(false);
   };
 
   return (
-    <TreeItem
-      {...props}
-      onClick={handleItemClick}
-      label={
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: '100%',
-          }}
-        >
-          <Tooltip title={`Folder Name: ${props.label}`} placement="top" arrow>
-            <span>{props.label}</span>
-          </Tooltip>
-          {props.label.includes('Trash') ? (
-            <Tooltip
-              title={
-                <div style={{ textAlign: 'center' }}>
-                  Trash folder holds all connections that have been deleted.
-                </div>
-              }
-              disableInteractive
-              placement="top"
-              arrow
-            >
-              <IconButton color={popoverOpen ? 'inherit' : 'default'}>
-                <Iconify icon="solar:trash-bin-trash-bold" />
-              </IconButton>
-            </Tooltip>
-          ) : (
-            <IconButton color={popoverOpen ? 'inherit' : 'default'} onClick={popover.onOpen}>
-              <Iconify icon="eva:more-vertical-fill" />
-            </IconButton>
-          )}
-          <CustomPopover
-            open={popover.open}
-            anchorEl={popover.anchorEl}
-            onClose={popover.onClose}
-            slotProps={{ arrow: { placement: 'right-top' } }}
+    <>
+      <TreeItem
+        {...props}
+        onClick={handleItemClick}
+        label={
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: '100%',
+            }}
           >
-            <MenuList>
-              <MenuItem onClick={handleCreateFolderOpen}>
-                <Iconify icon="mingcute:add-fill" />
-                Create Folder
-              </MenuItem>
-              <MenuItem>
-                <Iconify icon="fluent:edit-20-filled" />
-                Rename
-              </MenuItem>
-              <MenuItem>
-                <Iconify icon="solar:share-bold" />
-                Share
-              </MenuItem>
-              <Divider sx={{ borderStyle: 'dashed' }} />
-              <MenuItem
-                onClick={() => {
-                  confirm.onTrue();
-                  popover.onClose();
-                }}
-                sx={{ color: 'error.main' }}
+            <Tooltip title={`Folder Name: ${props.label}`} placement="top" arrow>
+              <span>{props.label}</span>
+            </Tooltip>
+
+            {props.label.includes('Trash') ? (
+              <Tooltip
+                title={
+                  <div style={{ textAlign: 'center' }}>
+                    Trash folder holds all connections that have been deleted.
+                  </div>
+                }
+                disableInteractive
+                placement="top"
+                arrow
               >
-                <Iconify icon="solar:trash-bin-trash-bold" />
-                Delete
-              </MenuItem>
-            </MenuList>
-          </CustomPopover>
-          <CreateFolderDialog open={folderDialogOpen} onClose={handleFolderDialogClose} />
-          <ConfirmDialog
-            open={confirm.value}
-            onClose={confirm.onFalse}
-            title="Delete"
-            content="Are you sure want to delete?"
-            action={
-              <Button variant="contained" color="error">
-                Delete
-              </Button>
-            }
-          />
-        </div>
-      }
-    />
+                <IconButton>
+                  <Iconify icon="solar:trash-bin-trash-bold" />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Tooltip title="Click to see options." disableInteractive arrow placement="top">
+                <IconButton onClick={popover.onOpen}>
+                  <Iconify icon="eva:more-vertical-fill" />
+                </IconButton>
+              </Tooltip>
+            )}
+
+            <CustomPopover
+              open={popover.open}
+              anchorEl={popover.anchorEl}
+              onClose={popover.onClose}
+              slotProps={{ arrow: { placement: 'right-top' } }}
+            >
+              <MenuList>
+                <Tooltip title="Create a new folder." arrow placement="left">
+                  <MenuItem onClick={handleCreateFolderOpen}>
+                    <Iconify icon="mingcute:add-fill" />
+                    Create Folder
+                  </MenuItem>
+                </Tooltip>
+                <Tooltip title="Change the folder's name." arrow placement="left">
+                  <MenuItem onClick={handleRenameFolderClick}>
+                    <Iconify icon="fluent:edit-20-filled" />
+                    Rename
+                  </MenuItem>
+                </Tooltip>
+                <Tooltip title="Share the folder with others." arrow placement="left">
+                  <MenuItem onClick={handleQuickShareDialogClick}>
+                    <Iconify icon="solar:share-bold" />
+                    Share
+                  </MenuItem>
+                </Tooltip>
+                <Divider sx={{ borderStyle: 'dashed' }} />
+                <Tooltip title="Click to delete connection." arrow placement="left">
+                  <MenuItem
+                    onClick={() => {
+                      confirm.onTrue();
+                      popover.onClose();
+                    }}
+                    sx={{ color: 'error.main' }}
+                  >
+                    <Iconify icon="solar:trash-bin-trash-bold" />
+                    Delete
+                  </MenuItem>
+                </Tooltip>
+              </MenuList>
+            </CustomPopover>
+          </div>
+        }
+      />
+
+      <CreateFolderDialog open={createFolderOpen} onClose={handleCreateFolderClose} />
+
+      <RenameFolderDialog open={renameDialogOpen} onClose={handleRenameFolderClose} />
+
+      <QuickShareDialog open={quickShareDialogOpen} onClose={handleQuickShareDialogClose} />
+
+      <ConfirmDialog
+        open={confirm.value}
+        onClose={confirm.onFalse}
+        title="Delete"
+        content="Are you sure want to delete?"
+        action={
+          <Button variant="contained" color="error">
+            Delete
+          </Button>
+        }
+      />
+    </>
   );
 })(({ theme }) => ({
   color: theme.vars.palette.grey[800],
@@ -198,8 +231,6 @@ const StyledTreeItem = styled((props) => {
     borderLeft: `1px dashed ${varAlpha(theme.vars.palette.text.primaryChannel, 0.4)}`,
   },
 }));
-
-// ----------------------------------------------------------------------
 
 export function CustomStyling({ onTrashClick, onHomeClick }) {
   return (

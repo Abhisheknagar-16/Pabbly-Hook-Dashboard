@@ -1,254 +1,474 @@
 import * as React from 'react';
-import { useCallback } from 'react';
+import { useState } from 'react';
+import { useTheme } from '@emotion/react';
 
 import Stack from '@mui/material/Stack';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Box, Grid, Button, Tooltip, FormLabel, Typography, FormControl } from '@mui/material';
+import {
+  Box,
+  Button,
+  Tooltip,
+  Popover,
+  Divider,
+  Typography,
+  FormControl,
+  Autocomplete,
+  useMediaQuery,
+} from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
-import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
-const Strategy = [
-  {
-    value: 'USD',
-    label: 'Select Connection',
-  },
-  {
-    value: 'EUR',
-    label: 'Test 1',
-  },
-  {
-    value: 'FUR',
-    label: 'Test 2',
-  },
-  {
-    value: 'DUR',
-    label: 'Test 3',
-  },
-  {
-    value: 'INR',
-    label: 'Test 4',
-  },
-];
+export function OrderTableToolbar({ filters, onResetPage, publish, onChangePublish, numSelected }) {
+  const theme = useTheme();
+  const isBelow600px = useMediaQuery(theme.breakpoints.down('sm'));
 
-const selectfolder = [
-  {
-    value: 'USD',
-    label: 'Select Folder',
-  },
-  {
-    value: 'EUR',
-    label: 'Home',
-  },
-  {
-    value: 'tUR',
-    label: 'test',
-  },
-];
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [filterAnchorEl, setFilterAnchorEl] = useState(null);
+  const [selectedColumn, setSelectedColumn] = useState('');
+  const [operator, setOperator] = useState('contains');
+  const [filterValue, setFilterValue] = useState('');
 
-export function OrderTableToolbar({ filters, onResetPage, dateError }) {
-  const popover = usePopover();
+  const sortconnection = ['Test 1', 'Test 2', 'Test 3', 'Test 4'];
+  const connectionstatus = ['All Status', 'Accepted', 'Blocked'];
+  const folder = [
+    'Pabbly Connect',
+    'Main Folder',
+    '- Child Folder 1 - Subscription Billing',
+    '- Child Folder 2',
+    '-- Grand child 1',
+    '-- Grand child 2',
+    '--- Folder 1',
+    '--- Folder 2',
+    '--- Folder 3',
+    '-- Grand child 3',
+    '- Child Folder 3',
+    '- Child Folder 4',
+    'Pabbly Subscription Billing',
+    'Pabbly Email Marketing',
+    'Pabbly Form Builder',
+    'Pabbly Email Verification',
+    'Pabbly Hook',
+    'Client (A)',
+    '- Child Folder 1 - Subscription Billing',
+    '- Child Folder 2',
+    '-- Grand child 1',
+    '-- Grand child 2',
+    '--- Folder 1',
+    '--- Folder 2',
+    '--- Folder 3',
+    '-- Grand child 3',
+    '- Child Folder 3',
+    '- Child Folder 4',
+  ];
 
-  const handleFilterName = useCallback(
-    (event) => {
-      onResetPage();
-      filters.setState({ name: event.target.value });
-    },
-    [filters, onResetPage]
-  );
+  const handlePopoverOpen = (event) => setAnchorEl(event.currentTarget);
+  const handlePopoverClose = () => setAnchorEl(null);
+  const handleFilterClick = (event) => setFilterAnchorEl(event.currentTarget);
+  const handleFilterClose = () => setFilterAnchorEl(null);
 
-  const handleFilterStartDate = useCallback(
-    (newValue) => {
-      onResetPage();
-      filters.setState({ startDate: newValue });
-    },
-    [filters, onResetPage]
-  );
+  const handleApplyFilter = () => {
+    console.log('Applying filter:', { column: selectedColumn, operator, value: filterValue });
+    filters.setState({ [selectedColumn.toLowerCase()]: filterValue });
+    onResetPage();
+    handleFilterClose();
+  };
 
-  const handleSubmit = () => {
-    console.log('Form submitted!');
+  const handleFilterName = (event) => {
+    onResetPage(); // Reset the page to page 1 when filtering
+    filters.setState({ name: event.target.value }); // Set the name filter based on the search input
+  };
+
+  const buttonStyle = {
+    fontSize: '15px',
+    height: '48px',
+    textTransform: 'none',
+    padding: '0 16px',
   };
 
   return (
     <>
       <Stack
         spacing={2}
-        alignItems={{ xs: 'flex-end', md: 'center' }}
-        direction={{ xs: 'column', md: 'row' }}
-        sx={{ p: 2.5, pr: { xs: 2.5, md: 1 } }}
+        alignItems="center"
+        direction={isBelow600px ? 'column' : 'row'}
+        sx={{ p: 2.5, width: '100%' }}
       >
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          spacing={2} // Adjust spacing between elements
-          sx={{ width: '100%' }} // Ensures the stack takes full width
+        <Box sx={{ width: '100%' }}>
+          <TextField
+            fullWidth
+            value={filters.state.name}
+            onChange={handleFilterName} // Handle changes for search input
+            placeholder="Search your request name or ID's..."
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 2,
+            flexDirection: 'row',
+            width: isBelow600px ? '100%' : 'auto',
+            justifyContent: 'flex-end', // Aligns buttons to the right
+          }}
         >
-          <Typography variant="h6" fontWeight={700} lineHeight={2}>
-            <Tooltip title="List of all request ID's and there status." arrow placement="top">
-              Request
-            </Tooltip>
-          </Typography>
+          {numSelected > 0 && (
+            <Button
+              endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
+              onClick={handlePopoverOpen}
+              // variant="outlined"
+              color="primary"
+              sx={{
+                ...buttonStyle,
+                width: isBelow600px ? '155px' : '155px', // Fixed width for "Select Action"
+              }}
+            >
+              Select Action
+            </Button>
+          )}
 
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Tooltip title="Click here to request by request name or ID's." arrow placement="top">
-              <TextField
-                sx={{
-                  width: { xs: '100%', sm: '300px', md: '394px' }, // Responsive width for TextField
-                }}
-                value={filters.state.name}
-                onChange={handleFilterName}
-                placeholder="Search your request name or ID's"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Tooltip>
-
-            <Stack>
-  <Tooltip
-    title={
-      <div style={{ textAlign: 'center' }}>
-        Filter requests by date, connection, request ID and folder.
-      </div>
-    }
-    arrow
-    placement="top"
-  >
-    <Button size="small" onClick={popover.onOpen} sx={{ mr: 1.2 }}>
-      <Iconify icon="solar:filter-bold" sx={{ color: 'black' }} />
-      <Typography sx={{ variant: 'h6', fontWeight: '700', ml: 1, mr: 0.2 }}>
-        Filter
-      </Typography>
-    </Button>
-  </Tooltip>
-</Stack>
-          </Stack>
-        </Stack>
+          <Tooltip
+            title={
+              <div style={{ textAlign: 'center' }}>
+                Filter requests by date, connection, request ID and folder.
+              </div>
+            }
+            disableInteractive
+            arrow
+            placement="top"
+          >
+            <Button
+              sx={{
+                ...buttonStyle,
+                width: isBelow600px ? (numSelected > 0 ? '104.34px' : '104.34px') : '104.34px', // Fixed width for "Filters"
+              }}
+              // variant="outlined"
+              startIcon={<Iconify icon="mdi:filter" />}
+              onClick={handleFilterClick}
+            >
+              Filters
+            </Button>
+          </Tooltip>
+        </Box>
       </Stack>
 
-      <CustomPopover
-        open={popover.open}
-        anchorEl={popover.anchorEl}
-        onClose={popover.onClose}
-        slotProps={{ arrow: { placement: 'bottom-top' } }}
+      <Popover
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={handlePopoverClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
       >
-        {/* //////////////////////Custom filter popover////////////////////// */}
-        <MenuList
+        <MenuList>
+          {[
+            {
+              value: 'published',
+              label: 'Move Connection',
+              icon: 'fluent:folder-move-16-filled',
+              tooltip: 'Move to Connection',
+            },
+            {
+              value: 'draft',
+              label: 'Enable Connection',
+              icon: 'line-md:switch-off-filled-to-switch-filled-transition',
+              tooltip: 'Click to enable connections',
+            },
+            {
+              value: 'published',
+              label: 'Disable Connection',
+              icon: 'line-md:switch-filled-to-switch-off-filled-transition',
+              tooltip: 'Click to disable connections',
+            },
+            {
+              value: 'draft',
+              label: 'Delete Connection',
+              icon: 'solar:trash-bin-trash-bold',
+              tooltip: 'Click to delete connections',
+              color: 'error.main', // New color property for the delete action
+              isDelete: true, // Custom property to indicate this is the delete action
+            },
+          ].map((option) => (
+            <React.Fragment key={option.value}>
+              {/* Render Divider above the "Delete Connection" item */}
+              {option.isDelete && <Divider sx={{ borderStyle: 'dashed' }} />}
+
+              <Tooltip title={option.tooltip} arrow placement="left">
+                <MenuItem
+                  selected={option.value === publish}
+                  onClick={() => {
+                    handlePopoverClose();
+                    onChangePublish(option.value);
+                  }}
+                  sx={{
+                    color: option.label === 'Delete Connection' ? 'error.main' : 'inherit',
+                  }}
+                >
+                  {option.icon && (
+                    <Iconify
+                      icon={option.icon}
+                      width={20}
+                      height={20}
+                      sx={{
+                        mr: 2,
+                        color: option.label === 'Delete Connection' ? 'error.main' : 'inherit',
+                      }}
+                    />
+                  )}
+                  {option.label}
+                </MenuItem>
+              </Tooltip>
+            </React.Fragment>
+          ))}
+        </MenuList>
+      </Popover>
+
+      <Popover
+        open={Boolean(filterAnchorEl)}
+        anchorEl={filterAnchorEl}
+        onClose={handleFilterClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Box
           sx={{
-            height: 'auto',
             width: {
-              xs: '100%', // Full width for mobile screens
-              sm: '100%', // Full width for tablet screens
-              md: '762px', // Original width for larger screens
+              xs: '100%',
+              sm: '100%',
+              md: 650,
+            },
+            flexDirection: {
+              xs: 'column',
+              sm: 'column',
+              md: 'row',
             },
           }}
         >
-          <Box sx={{ padding: 1 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sx={{ mb: 2 }}>
-                <Typography variant="h6" fontWeight={700} ml={0.5}>
-                  Filter Request
-                </Typography>
-              </Grid>
-
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={3}>
-                  <FormControl fullWidth>
-                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 1 }}>Connection Name</FormLabel>
-                    {/* <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 3 }}>Request ID</FormLabel> */}
-                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 2.5 }}>Connection Folder</FormLabel>
-                    {/* <FormLabel sx={{ ml: 3, fontSize: 16, mt: 3 }}>Status</FormLabel> */}
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12} sm={3}>
-                  <Grid container spacing={1} direction="column">
-                    {['Equal to', 'In'].map((label, index) => (
-                      <Grid item xs={12} key={index} ml={2}>
-                        <FormControl fullWidth>
-                          <Button
-                            variant="outlined"
-                            style={{ fontSize: '12.5px', padding: '8px 40px' }}
-                          >
-                            {label}
-                          </Button>
-                        </FormControl>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Grid>
-
-                <Grid item xs={12} sm={6}>
-                  <Grid container spacing={1} direction="column">
-                    <Grid item xs={12} sm={6} sx={{ ml: 2 }}>
-                      <TextField
-                        id="outlined-select-numbers"
-                        size="small"
-                        select
-                        fullWidth
-                        defaultValue="USD"
-                      >
-                        {Strategy.map((option) => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    </Grid>
-
-                    {/* <Grid item xs={12} ml={2}>
-                      <TextField
-                        size='small'
-                        id="outlined-select-numbers"
-                        select
-                        fullWidth
-                        defaultValue="USD"
-                      >
-                        {Selectstatus.map((option) => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    </Grid> */}
-
-                    <Grid item xs={12} ml={2}>
-                      <TextField
-                        size="small"
-                        id="outlined-select-numbers"
-                        select
-                        fullWidth
-                        defaultValue="USD"
-                      >
-                        {selectfolder.map((option) => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end', mb: 1, mt: 1 }}>
-                <Button color="primary" variant="contained" onClick={handleSubmit} size="small">
-                  Apply Filter
-                </Button>
-              </Grid>
-            </Grid>
+          {/* Filter Header */}
+          <Box
+            sx={{
+              borderBottom: '1px dashed #919eab33',
+              p: 2,
+              display: 'flex',
+              height: '100%',
+              width: '100%',
+            }}
+          >
+            <Box sx={{ width: '100%' }}>
+              <Typography variant="h6" sx={{ fontWeight: '600' }}>
+                Filter Request
+              </Typography>
+            </Box>
+            <Iconify
+              icon="uil:times"
+              onClick={handleFilterClose}
+              style={{
+                width: 20,
+                height: 20,
+                cursor: 'pointer',
+                color: '#637381',
+              }}
+            />
           </Box>
-        </MenuList>
-      </CustomPopover>
+
+          {/* Filter Options */}
+          <Box
+            sx={{
+              p: '16px 16px 0px 16px',
+              gap: 2,
+              flexDirection: {
+                xs: 'column',
+                sm: 'column',
+                md: 'row',
+              },
+            }}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: {
+                  xs: 'column',
+                  sm: 'column',
+                  md: 'row',
+                },
+                gap: 2,
+                mb: 2,
+              }}
+            >
+              <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
+                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
+                  Connection Name
+                </Typography>
+              </FormControl>
+
+              <FormControl
+                fullWidth
+                sx={{
+                  mb: { xs: 2, sm: 2, md: 0 },
+                  width: { xs: '100%', sm: '100%', md: '390px' },
+                }}
+              >
+                <TextField
+                  id="select-currency-label-x"
+                  variant="outlined"
+                  fullWidth
+                  label="Equals to"
+                  disabled
+                  size="small"
+                />
+              </FormControl>
+
+              <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
+                <Autocomplete
+                  sx={{
+                    '& .MuiInputBase-input': {
+                      fontSize: '14px',
+                    },
+                    '& .MuiInputLabel-root': {
+                      fontSize: '14px',
+                    },
+                  }}
+                  size="small"
+                  options={sortconnection}
+                  renderInput={(params) => <TextField {...params} label="Select" />}
+                  // sx={{ width: 300 }}
+                />
+              </FormControl>
+            </Box>
+
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: {
+                  xs: 'column',
+                  sm: 'column',
+                  md: 'row',
+                },
+                gap: 2,
+                mb: 2,
+              }}
+            >
+              <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
+                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>Connection ID</Typography>
+              </FormControl>
+
+              <FormControl
+                fullWidth
+                sx={{
+                  mb: { xs: 2, sm: 2, md: 0 },
+                  width: { xs: '100%', sm: '100%', md: '390px' },
+                }}
+              >
+                <TextField
+                  id="select-currency-label-x"
+                  variant="outlined"
+                  fullWidth
+                  label="Equals to"
+                  disabled
+                  size="small"
+                />
+              </FormControl>
+
+              <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
+                <Autocomplete
+                  sx={{
+                    '& .MuiInputBase-input': {
+                      fontSize: '14px',
+                    },
+                    '& .MuiInputLabel-root': {
+                      fontSize: '14px',
+                    },
+                  }}
+                  size="small"
+                  options={connectionstatus}
+                  renderInput={(params) => <TextField {...params} label="Select" />}
+                  // sx={{ width: 300 }}
+                />
+              </FormControl>
+            </Box>
+
+            {/* Folder */}
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: {
+                  xs: 'column',
+                  sm: 'column',
+                  md: 'row',
+                },
+                gap: 2,
+                mb: 2,
+              }}
+            >
+              <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
+                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>Folder</Typography>
+              </FormControl>
+
+              <FormControl
+                fullWidth
+                sx={{
+                  mb: { xs: 2, sm: 2, md: 0 },
+                  width: { xs: '100%', sm: '100%', md: '390px' },
+                }}
+              >
+                <TextField
+                  id="select-currency-label-x"
+                  variant="outlined"
+                  fullWidth
+                  label="In"
+                  disabled
+                  size="small"
+                />
+              </FormControl>
+
+              <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
+                <Autocomplete
+                  sx={{
+                    '& .MuiInputBase-input': {
+                      fontSize: '14px',
+                    },
+                    '& .MuiInputLabel-root': {
+                      fontSize: '14px',
+                    },
+                  }}
+                  size="small"
+                  options={folder}
+                  renderInput={(params) => <TextField {...params} label="Select" />}
+                  // sx={{ width: 300 }}
+                />
+              </FormControl>
+            </Box>
+          </Box>
+
+          {/* Filter Footer */}
+          <Box
+            sx={{
+              p: 2,
+              gap: 2,
+              display: 'flex',
+              justifyContent: 'flex-end',
+              borderTop: '1px dashed #919eab33',
+            }}
+          >
+            {/* <Button variant="outlined" color="inherit" onClick={handleFilterClose}>
+              Cancel
+            </Button> */}
+            <Button variant="contained" color="primary" onClick={handleApplyFilter}>
+              Apply Filter
+            </Button>
+          </Box>
+        </Box>
+      </Popover>
     </>
   );
 }

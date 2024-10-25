@@ -12,7 +12,7 @@ import { SetupConnectionForm } from 'src/sections/overview/setup-connection-form
 
 // ------------x----------------------------------------------------------
 
-const metadata = { title: `Page two | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Pabbly Hook | Dashboard - ${CONFIG.site.name}` };
 
 export default function Page() {
   return (

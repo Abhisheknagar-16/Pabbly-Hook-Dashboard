@@ -12,6 +12,7 @@ import {
   Button,
   Tooltip,
   Popover,
+  Divider,
   useMediaQuery,
 } from '@mui/material';
 
@@ -25,8 +26,6 @@ import { Iconify } from 'src/components/iconify';
 export function OrderTableToolbar({
   filters,
   onResetPage,
-  onClose,
-  dateError,
   publish,
   onChangePublish,
   numSelected,
@@ -195,27 +194,40 @@ export function OrderTableToolbar({
               label: 'Delete Connection',
               icon: 'solar:trash-bin-trash-bold',
               tooltip: 'Click to delete connections',
+              color: 'error.main', // New color property for the delete action
+              isDelete: true, // Custom property to indicate this is the delete action
             },
           ].map((option) => (
-            <Tooltip key={option.value} title={option.tooltip} arrow placement="left">
-              <MenuItem
-                selected={option.value === publish}
-                onClick={() => {
-                  handlePopoverClose();
-                  onChangePublish(option.value);
-                }}
-              >
-                {option.icon && (
-                  <Iconify
-                    icon={option.icon}
-                    width={20}
-                    height={20}
-                    sx={{ mr: 2, color: 'inherit' }}
-                  />
-                )}
-                {option.label}
-              </MenuItem>
-            </Tooltip>
+            <React.Fragment key={option.value}>
+              {/* Render Divider above the "Delete Connection" item */}
+              {option.isDelete && <Divider sx={{ borderStyle: 'dashed' }} />}
+
+              <Tooltip title={option.tooltip} arrow placement="left">
+                <MenuItem
+                  selected={option.value === publish}
+                  onClick={() => {
+                    handlePopoverClose();
+                    onChangePublish(option.value);
+                  }}
+                  sx={{
+                    color: option.label === 'Delete Connection' ? 'error.main' : 'inherit',
+                  }}
+                >
+                  {option.icon && (
+                    <Iconify
+                      icon={option.icon}
+                      width={20}
+                      height={20}
+                      sx={{
+                        mr: 2,
+                        color: option.label === 'Delete Connection' ? 'error.main' : 'inherit',
+                      }}
+                    />
+                  )}
+                  {option.label}
+                </MenuItem>
+              </Tooltip>
+            </React.Fragment>
           ))}
         </MenuList>
       </Popover>

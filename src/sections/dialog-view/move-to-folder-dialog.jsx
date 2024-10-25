@@ -176,7 +176,7 @@ export function MoveToFolderPopover({ title, content, action, open, onClose, ...
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{
           boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-          mt: 7,
+          mt: 6.5,
         }}
       >
         <Alert
@@ -184,13 +184,13 @@ export function MoveToFolderPopover({ title, content, action, open, onClose, ...
           severity="success"
           sx={{
             width: '100%',
-            fontSize: '16px',
+            fontSize: '14px',
             fontWeight: 'bold',
             backgroundColor: theme.palette.background.paper,
             color: theme.palette.text.primary,
           }}
         >
-          The Connection moved successfully.
+          Connection moved successfully.
         </Alert>
       </Snackbar>
     </Dialog>
