@@ -48,9 +48,16 @@ import { OrderTableFiltersResult } from '../order-table-filters-result';
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...ORDER_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: (<Tooltip title="Status and date of the event." arrow placement='top'>STATUS/NAME/DATE</Tooltip>) },
-  { id: 'createdAt', label: (<Tooltip title="Request Id / Event Id." arrow placement='top'>REQUEST/EVENTS</Tooltip>) },
-  { id: 'status', label: (<Tooltip title="All events id request,status history." arrow placement='top'>ATTEMPTS</Tooltip>), align: 'right' },
+  { id: 'orderNumber', label: (<Tooltip title="View connections status, name and date of creation." arrow placement='top'>STATUS/NAME/DATE</Tooltip>) },
+  { id: 'createdAt', label: (<Tooltip title="View request and event details from ID." arrow placement='top'>REQUEST/EVENTS</Tooltip>) },
+  { id: 'status', label: (<Tooltip
+    title={
+      <div style={{ textAlign: 'center' }}>
+      Number of delivery attempts for this event, indicating retries for failures.
+      </div>
+    }
+    arrow
+    placement="top">ATTEMPTS</Tooltip>), align: 'right' },
   { id: '', label: ''},
 
 ];

@@ -48,7 +48,7 @@ export function StatsCardEvent() {
               <div>
                 <Typography sx={{mt:-0.2,mb:0.2}} variant="h4">Events</Typography>
                 <Typography sx={{ color: 'text.secondary' }}>
-                  The screen shows all your Events. &nbsp;
+                Events in Pabbly Hook provide a comprehensive view of all past activities, allowing you to filter and sort them by various properties for easier navigation. &nbsp;
                   <a href="https://www.youtube.com/playlist?list=PLgffPJ6GjbaIZTlTtPyVtCLJ43RyaLS-U" target="_blank"
                     rel="noopener noreferrer" style={{ color: '#078DEE', textDecoration: 'underline' }}>
                     Learn more
@@ -68,7 +68,7 @@ export function StatsCardEvent() {
               gridTemplateColumns: { sm: 'repeat(2, 1fr)', xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' },
             }}
           >
-            <Tooltip disableInteractive title="Total number of events executed in your account." arrow placement='top'>
+            <Tooltip disableInteractive title="Number of connections created in your account." arrow placement='top'>
               <div>
                 <CourseWidgetSummary
                   title="Total Events"
@@ -90,7 +90,7 @@ export function StatsCardEvent() {
               </div>
             </Tooltip>
 
-            <Tooltip title="Number of connections created in your account." arrow placement='top'>
+            <Tooltip title="Total number of events executed in your account." arrow placement='top'>
               <div>
                 <CourseWidgetSummary
                   title="Total Connections"

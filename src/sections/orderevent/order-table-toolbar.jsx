@@ -124,7 +124,14 @@ export function OrderTableToolbar({ filters, onResetPage, dateError }) {
             </Tooltip>
 
             <Stack>
-              <Tooltip placement="top" arrow title="Filter event by status or name.">
+            <Tooltip
+                    title={
+                      <div style={{ textAlign: 'center' }}>
+                       Filter events by date, connection, request ID and folder.
+                      </div>
+                    }
+                    arrow
+                    placement="top">
                 <Button size="small" onClick={popover.onOpen} sx={{ mr: 1.2 }}>
                   <Iconify icon="solar:filter-bold" sx={{ color: 'black' }} />
                   <Typography sx={{ variant: 'h6', fontWeight: '700', ml: 1, mr: 0.2 }}>

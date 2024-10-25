@@ -255,6 +255,22 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
+          
+          <MenuItem
+            onClick={() => {
+              onViewRow();
+              popover.onClose();
+            }}
+          >
+            <Iconify icon="solar:eye-bold" />
+            View
+          </MenuItem>
+
+
+       
+            <Divider sx={{borderStyle:'dashed'}}/>
+         
+                   
           <MenuItem
             onClick={() => {
               confirm.onTrue();
@@ -264,15 +280,6 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           >
             <Iconify icon="solar:trash-bin-trash-bold" />
             Delete
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              onViewRow();
-              popover.onClose();
-            }}
-          >
-            <Iconify icon="solar:eye-bold" />
-            View
           </MenuItem>
         </MenuList>
       </CustomPopover>
