@@ -30,15 +30,15 @@ export function EcommerceWelcome({
           )}`,
           imgUrl: `${CONFIG.site.basePath}/assets/background/`,
         }),
-        pt: 2.4,
-        pb: 3,
-        pr: { xs: 2, md: 3.5 },
-        gap: 3,
+        pt: 5,
+        pb: 5,
+        pr: { xs: 2, md: 5 },
+        gap: 5,
         borderRadius: 2,
         display: 'flex',
         height: { md: 1 },
         position: 'relative',
-        pl: { xs: 3, md: 3.5 },
+        pl: { xs: 3, md: 5 },
         alignItems: 'center',
         color: 'common.white',
         textAlign: { xs: 'center', md: 'left' },
@@ -78,7 +78,7 @@ export function EcommerceWelcome({
             color: 'text.secondary',
             fontSize: '14px',
             maxWidth: 800,
-            ...(action && { mb: 0 }),
+            ...(action && { mb: 1 }),
           }}
         >
           <li fontSize="16px">
@@ -92,7 +92,7 @@ export function EcommerceWelcome({
             color: 'text.secondary',
             fontSize: '14px',
             maxWidth: 800,
-            ...(action && { mb: 0 }),
+            ...(action && { mb: 1 }),
           }}
         >
           <li fontSize="16px">
@@ -117,7 +117,7 @@ export function EcommerceWelcome({
         {action && action}
       </Box>
 
-      {img && <Box sx={{ maxWidth: 310 }}>{img}</Box>}
+      {img && <Box sx={{ maxWidth: 400}}>{img}</Box>}
     </Box>
   );
 }

@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 
 import Grid from '@mui/material/Unstable_Grid2';
-import {
-  Box,
-  Card,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Box, Card, Tooltip, Typography } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 import { MotivationIllustration } from 'src/assets/illustrations';
@@ -29,16 +24,12 @@ export function SetupConnectionForm() {
     setShowTrash(false); // Switch back to home (main view)
   };
 
-
   return (
     <DashboardContent maxWidth="xl" sx={{ px: { xs: 0, sm: 0, lg: 5, xl: 0 } }}>
       <Grid container spacing={3}>
-      <Grid item xs={12} md={4} lg={3}>
-       <FolderSection
-       handleTrashClick={handleTrashClick}
-       handleHomeClick={handleHomeClick}
-       />
-       </Grid>
+        <Grid item xs={12} md={4} lg={3}>
+          <FolderSection handleTrashClick={handleTrashClick} handleHomeClick={handleHomeClick} />
+        </Grid>
 
         {/* Content Section (Right side) */}
         <Grid item xs={12} md={8} lg={9}>
@@ -57,7 +48,7 @@ export function SetupConnectionForm() {
                     arrow
                     placement="top"
                   >
-                    <Typography variant="h6" fontWeight={700} color="#1c252e">
+                    <Typography variant="h6"  sx={{color:'#1c252e'}}>
                       No Connections found!
                     </Typography>
                   </Tooltip>
@@ -66,18 +57,7 @@ export function SetupConnectionForm() {
                 step1="Click on the 'Create Connection' button available in the top right section."
                 step2="Now select apps you want to integrate into the trigger and action step."
                 step3="Once the Connection is completed, save and enable it."
-                img={
-                  <Tooltip
-                    disableInteractive
-                    title="Click to watch tutorial."
-                    arrow
-                    placement="top"
-                  >
-                    <div>
-                      <MotivationIllustration hideBackground />
-                    </div>
-                  </Tooltip>
-                }
+                img={<MotivationIllustration hideBackground />}
                 action={<CreateConnectionFormDialog variant="outlined" />}
               />
             </Card>
@@ -95,8 +75,6 @@ export function SetupConnectionForm() {
           </Box>
         </Grid>
       </Grid>
-
- 
     </DashboardContent>
   );
 }
