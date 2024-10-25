@@ -37,30 +37,11 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import { Iconify } from 'src/components/iconify';
 
 // import { OrderListViewHome } from 'src/sections/orderhome/view';
-import { CustomStyling } from 'src/sections/tree-view/custom-styling';
+import { FolderSection } from 'src/sections/folder-section/folder-section';
 import { TransformationDrawer } from 'src/sections/dialog-view/transformation-drawer';
-
-import { useMockedUser } from 'src/auth/hooks';
+import { TransformationDrawerUpdate } from 'src/sections/dialog-view/transformation-drawer-update';
 
 // the selected row field
-const selectfolder = [
-  {
-    value: 'USD',
-    label: 'Main',
-  },
-  {
-    value: 'EUR',
-    label: 'Hello',
-  },
-  {
-    value: 'BTC',
-    label: 'Subtree with children',
-  },
-  {
-    value: 'JPY',
-    label: 'world',
-  },
-];
 const currencies = [
   {
     value: 'USD',
@@ -174,21 +155,6 @@ const Time = [
 
 export function CreateConnection() {
   const [open, setOpen] = useState(false);
-  const [dopen, setdopen] = useState(false);
-
-  const [urlrequired1, setUrlrequied1] = useState('');
-  const [errorrequired1, setError1] = useState(false);
-
-  const handleChangetext1 = (event) => {
-    setUrlrequied1(event.target.value);
-
-    // Simple validation: check if the field is empty
-    if (event.target.value === '') {
-      setError1(true);
-    } else {
-      setError1(false);
-    }
-  };
 
   const [transformationDrawerOpen, setTransformationDrawerOpen] = useState(false);
 
@@ -200,11 +166,21 @@ export function CreateConnection() {
     setTransformationDrawerOpen(false);
   };
 
-  const [urlrequired, setUrlrequied] = useState('');
+  const [transformationUpdateDrawerOpen, setTransformationUpdateDrawerOpen] = useState(false);
+
+  const handleOpenTranformationUpdateDrawer = () => {
+    setTransformationUpdateDrawerOpen(true);
+  };
+
+  const handleCloseTransformationUpdateDrawer = () => {
+    setTransformationUpdateDrawerOpen(false);
+  };
+
+  const [destinationUrl, setDestinationUrl] = useState('');
   const [errorrequired, setError] = useState(false);
 
   const handleChangetext = (event) => {
-    setUrlrequied(event.target.value);
+    setDestinationUrl(event.target.value);
 
     // Simple validation: check if the field is empty
     if (event.target.value === '') {
@@ -214,7 +190,7 @@ export function CreateConnection() {
     }
   };
   const [checkboxState, setCheckboxState] = useState({
-    GET: true,
+    GET: false,
     POST: false,
     PUT: false,
     PATCH: false,
@@ -290,18 +266,10 @@ export function CreateConnection() {
     setOpenSnackbar(false);
   };
 
-  const handledopen = () => {
-    setdopen(true);
-  };
   // Function to handle dialog close
   const handleClose = () => {
     setOpen(false);
   };
-  const handledlose = () => {
-    setdopen(false);
-  };
-
-  const { user } = useMockedUser();
 
   const theme = useTheme();
 
@@ -340,116 +308,14 @@ export function CreateConnection() {
     setSelectedTab(newValue);
   };
 
+  const [selectedTransformation, setSelectedTransformation] = useState('USD');
+
   return (
     <DashboardContent maxWidth="xl" sx={{ px: { xs: 0, sm: 0, lg: 5, xl: 0 } }}>
       <Grid container spacing={3}>
         {/* folder section */}
         <Grid item xs={12} md={3} lg={3}>
-          <Card sx={{ pl: 2.4, pr: 2, pt: 2, pb: 2 }}>
-            <Typography variant="h6" fontWeight={700}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Tooltip title="Manage folders" arrow placement="top">
-                  Folder
-                </Tooltip>
-                <IconButton onClick={handledopen} edge="end" sx={{ mr: 0.6, mt: -0.8 }}>
-                  <Tooltip title="Create a new folder." arrow placement="top">
-                    <Iconify icon="icon-park-solid:add" style={{ color: 'black' }} width="12" />
-                  </Tooltip>
-                </IconButton>
-
-                <Dialog open={dopen} onClose={handledlose}>
-                  <DialogTitle sx={{ fontWeight: 700 }}>
-                    <Tooltip
-                      title="Create a connection with a name and folder location."
-                      arrow
-                      placement="top"
-                    >
-                      Create Folder
-                    </Tooltip>
-                  </DialogTitle>
-                  <Divider sx={{ borderStyle: 'dashed', mb: 2 }} />
-
-                  <DialogContent>
-                    <TextField
-                      error={errorrequired1}
-                      value={urlrequired1}
-                      onChange={handleChangetext1}
-                      autoFocus
-                      fullWidth
-                      required
-                      margin="dense"
-                      variant="outlined"
-                      placeholder="Name of the Connection"
-                      label="Folder Name"
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Tooltip
-                              title="Enter folder name here"
-                              disableInteractive
-                              arrow
-                              placement="top"
-                            >
-                              <Iconify icon="material-symbols:info-outline" />
-                            </Tooltip>
-                          </InputAdornment>
-                        ),
-                      }}
-                      helperText={
-                        errorrequired ? (
-                          'This field is required.'
-                        ) : (
-                          <>
-                            Enter the name of the connection.{' '}
-                            <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
-                              Learn more
-                            </a>
-                          </>
-                        )
-                      }
-                    />
-
-                    {/* <Typography sx={{ mt: 2 }}>Select Folder</Typography> */}
-
-                    <TextField
-                      id="outlined-select-currency"
-                      sx={{ mt: 2 }}
-                      select
-                      fullWidth
-                      label="Select Folder"
-                      margin="dense"
-                      defaultValue="USD"
-                      helperText={
-                        <>
-                          Select the folder or subfolder where you want to create the connection.{' '}
-                          <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
-                            Learn more
-                          </a>
-                        </>
-                      }
-                    >
-                      {selectfolder.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </DialogContent>
-
-                  <DialogActions>
-                    <Button onClick={handledlose} variant="outlined">
-                      Cancel
-                    </Button>
-                    <Button onClick={handledlose} variant="contained" color="primary">
-                      Create
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-              </Box>
-            </Typography>
-            <Divider sx={{ borderStyle: 'dashed', mb: 0.6, mt: 1 }} />
-            <CustomStyling />
-          </Card>
+          <FolderSection />
         </Grid>
 
         {/* setup connection form */}
@@ -495,8 +361,8 @@ export function CreateConnection() {
                 label="Webhook URL"
                 placeholder="Enter URL"
                 helperText="Copy and paste the Pabbly Hook URL into your request source."
-                value={url}
-                onChange={handleChange}
+                //  value={url}
+                // onChange={handleChange}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -593,7 +459,7 @@ export function CreateConnection() {
             <DialogContent sx={{ mb: 2 }}>
               <TextField
                 error={errorrequired}
-                value={urlrequired}
+                value={destinationUrl}
                 onChange={handleChangetext}
                 autoFocus
                 fullWidth
@@ -802,21 +668,54 @@ export function CreateConnection() {
               />
               {showTransformationField && (
                 <>
-                  {/* <Typography sx={{ mt: 1, fontSize: '15px' }}>Transform</Typography> */}
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    fullWidth
-                    defaultValue="USD"
-                    helperText="Select a transformation."
-                    sx={{ mb: 2, mt: 2 }}
+                  <Box sx={{ display: 'flex' }}>
+                    <TextField
+                      id="outlined-select-currency"
+                      select
+                      fullWidth
+                      value={selectedTransformation}
+                      onChange={(e) => setSelectedTransformation(e.target.value)}
+                      helperText="Select a transformation."
+                      sx={{ mb: 2, mt: 2 }}
+                    >
+                      {Transformation.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <Box sx={{ mt: 3, ml: 1 }}>
+                      <IconButton
+                      onClick={handleOpenTranformationUpdateDrawer}
+                        sx={{
+                          alignItems: 'center',
+                          // Hide edit button when "Select Transformation" (USD) is selected
+                          display: selectedTransformation === 'USD' ? 'none' : 'flex',
+                        }}
+                      >
+                        <Iconify icon="fluent:edit-20-filled" />
+                      </IconButton>
+                      <Drawer
+                    open={transformationUpdateDrawerOpen}
+                    onClose={handleCloseTransformationUpdateDrawer}
+                    anchor="right"
+                    slotProps={{ backdrop: { invisible: true } }}
+                    PaperProps={{
+                      sx: {
+                        width: { xs: '100%', sm: '100%', md: '80%' }, // Adjust width based on screen size
+                        '@media (max-width: 300px)': {
+                          padding: '16px',
+                        },
+                      },
+                    }}
                   >
-                    {Transformation.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                    <TransformationDrawerUpdate
+                      transformationDrawerOpen={transformationUpdateDrawerOpen}
+                      setTransformationDrawerOpen={setTransformationUpdateDrawerOpen}
+                    />
+                  </Drawer>
+                    </Box>
+                  </Box>
                   <Button
                     variant="contained"
                     color="primary"
@@ -835,10 +734,15 @@ export function CreateConnection() {
                         />
                       </svg>
                     }
-                    sx={{ mb: 2 }}
+                    sx={{
+                      mb: 2,
+                      // Show Create button only when "Select Transformation" (USD) is selected
+                      display: selectedTransformation === 'USD' ? 'flex' : 'none',
+                    }}
                   >
                     Create Transformation
                   </Button>
+
                   <Drawer
                     open={transformationDrawerOpen}
                     onClose={handleCloseTransformationDrawer}
@@ -1169,10 +1073,6 @@ export function CreateConnection() {
               </Button>
             </DialogContent>
           </Card>
-
-          {/* <Box mt={3}>
-            <OrderListViewHome />
-          </Box> */}
         </Grid>
       </Grid>
     </DashboardContent>

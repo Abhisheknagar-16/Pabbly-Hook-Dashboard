@@ -9,8 +9,8 @@ import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { Button, Divider, SvgIcon } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
+import {Card, Button,  Divider, SvgIcon } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -127,7 +127,7 @@ export function JwtSignInView() {
   );
 
   const renderForm = (
-    <Stack spacing={3}>
+    <Stack spacing={2}>
       <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
 
       <Stack spacing={1.5}>
@@ -182,7 +182,7 @@ export function JwtSignInView() {
         <Link
           component={RouterLink}
           href={paths.auth.jwt.forgotpassword}
-          variant="body2"
+          variant="subtitle2"
           color="primary"
           sx={{ alignSelf: 'center' }} // Aligns this item to the center
         >
@@ -193,24 +193,27 @@ export function JwtSignInView() {
   );
 
   return (
-    <>
-      {renderHead}
+  
 
-      {/* <Alert severity="info" sx={{ mb: 3 }}>
-        Use <strong>demo@pabbly.com</strong>
-        {' with password '}
-        <strong>{defaultValues.password}</strong>
-      </Alert> */}
+    <Card sx={{p:4,textAlign:"center"}}>
+    {renderHead}
 
-      {!!errorMsg && (
-        <Alert severity="error" sx={{ mb: 3 }}>
-          {errorMsg}
-        </Alert>
-      )}
+{/* <Alert severity="info" sx={{ mb: 3 }}>
+  Use <strong>demo@pabbly.com</strong>
+  {' with password '}
+  <strong>{defaultValues.password}</strong>
+</Alert> */}
 
-      <Form methods={methods} onSubmit={onSubmit}>
-        {renderForm}
-      </Form>
-    </>
+{!!errorMsg && (
+  <Alert severity="error" sx={{ mb: 3 }}>
+    {errorMsg}
+  </Alert>
+)}
+
+<Form methods={methods} onSubmit={onSubmit}>
+  {renderForm}
+</Form>
+    
+</Card>
   );
 }

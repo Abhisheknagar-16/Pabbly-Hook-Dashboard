@@ -11,13 +11,15 @@ import { varAlpha, stylesMode } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
-import { usePopover,CustomPopover } from 'src/components/custom-popover';
+import { usePopover, CustomPopover } from 'src/components/custom-popover';
+
+import { CreateFolderDialog } from '../dialog-view/create_folder-dailog';
 
 // ----------------------------------------------------------------------
 
 const ITEMS = [
-  { id: '12', label: 'Home (0)' },  // Home item
-  { id: '18', label: 'Pabbly Connect (0)' }, 
+  { id: '12', label: 'Home (0)' }, // Home item
+  { id: '18', label: 'Pabbly Connect (0)' },
   {
     id: '1',
     label: 'Main Folder (2)',
@@ -50,9 +52,7 @@ const ITEMS = [
   { id: '15', label: 'Pabbly Hook (0)' },
 ];
 
-const ITEMS1 = [
-  { id: '16', label: 'Trash (0)' },
-];
+const ITEMS1 = [{ id: '16', label: 'Trash (0)' }];
 
 const StyledTreeItem = styled((props) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -60,7 +60,6 @@ const StyledTreeItem = styled((props) => {
 
   const confirm = useBoolean();
   const popover = usePopover();
-
 
   const handleItemClick = (event) => {
     // Handle the "Trash" click
@@ -72,8 +71,24 @@ const StyledTreeItem = styled((props) => {
     // Handle the "Home" click
     if (props.label.includes('Home')) {
       event.preventDefault();
-      props.onHomeClick();  // Trigger Home click passed down from the parent
+      props.onHomeClick(); // Trigger Home click passed down from the parent
     }
+  };
+
+  const [folderDialogOpen, setFolderDialogOpen] = useState(false);
+
+  const handleFolderDialogClose = () => {
+    setFolderDialogOpen(false);
+  };
+
+  const handleMenuClose = (event) => {
+    event.stopPropagation();
+    setAnchorEl(null);
+  };
+
+  const handleCreateFolderOpen = (event) => {
+    setFolderDialogOpen(true);
+    popover.onClose(); // Close the popover when opening the CreateFolderDialog
   };
 
   return (
@@ -81,73 +96,81 @@ const StyledTreeItem = styled((props) => {
       {...props}
       onClick={handleItemClick}
       label={
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          width: '100%',
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+          }}
+        >
           <Tooltip title={`Folder Name: ${props.label}`} placement="top" arrow>
             <span>{props.label}</span>
           </Tooltip>
           {props.label.includes('Trash') ? (
-            <Tooltip title={
-              <div style={{ textAlign: 'center' }}>
-                Trash folder holds all connections that have been deleted.
-              </div>
-            } disableInteractive placement="top" arrow>
-            <IconButton color={popoverOpen ? 'inherit' : 'default'}>
-              <Iconify icon="solar:trash-bin-trash-bold" />
-            </IconButton>
-          </Tooltip>
+            <Tooltip
+              title={
+                <div style={{ textAlign: 'center' }}>
+                  Trash folder holds all connections that have been deleted.
+                </div>
+              }
+              disableInteractive
+              placement="top"
+              arrow
+            >
+              <IconButton color={popoverOpen ? 'inherit' : 'default'}>
+                <Iconify icon="solar:trash-bin-trash-bold" />
+              </IconButton>
+            </Tooltip>
           ) : (
             <IconButton color={popoverOpen ? 'inherit' : 'default'} onClick={popover.onOpen}>
               <Iconify icon="eva:more-vertical-fill" />
             </IconButton>
           )}
-         <CustomPopover
-        open={popover.open}
-        anchorEl={popover.anchorEl}
-        onClose={popover.onClose}
-        slotProps={{ arrow: { placement: 'right-top' } }}
-      >
-        <MenuList >
-          <MenuItem>
-            <Iconify icon="mingcute:add-fill" />
-            Create Folder
-          </MenuItem>
-          <MenuItem>
-            <Iconify icon="fluent:edit-20-filled" />
-            Rename
-          </MenuItem>
-          <MenuItem>
-            <Iconify icon="solar:share-bold" />
-            Share
-          </MenuItem>
-          <Divider sx={{ borderStyle: 'dashed' }} />
-          <MenuItem
-            onClick={() => {
-              confirm.onTrue();
-              popover.onClose();
-            }}
-            sx={{ color: 'error.main' }}
+          <CustomPopover
+            open={popover.open}
+            anchorEl={popover.anchorEl}
+            onClose={popover.onClose}
+            slotProps={{ arrow: { placement: 'right-top' } }}
           >
-            <Iconify icon="solar:trash-bin-trash-bold" />
-            Delete
-          </MenuItem>
-        </MenuList>
-      </CustomPopover>
-      <ConfirmDialog
-        open={confirm.value}
-        onClose={confirm.onFalse}
-        title="Delete"
-        content="Are you sure want to delete?"
-        action={
-          <Button variant="contained" color="error" >
-            Delete
-          </Button>
-        }
-      />
+            <MenuList>
+              <MenuItem onClick={handleCreateFolderOpen}>
+                <Iconify icon="mingcute:add-fill" />
+                Create Folder
+              </MenuItem>
+              <MenuItem>
+                <Iconify icon="fluent:edit-20-filled" />
+                Rename
+              </MenuItem>
+              <MenuItem>
+                <Iconify icon="solar:share-bold" />
+                Share
+              </MenuItem>
+              <Divider sx={{ borderStyle: 'dashed' }} />
+              <MenuItem
+                onClick={() => {
+                  confirm.onTrue();
+                  popover.onClose();
+                }}
+                sx={{ color: 'error.main' }}
+              >
+                <Iconify icon="solar:trash-bin-trash-bold" />
+                Delete
+              </MenuItem>
+            </MenuList>
+          </CustomPopover>
+          <CreateFolderDialog open={folderDialogOpen} onClose={handleFolderDialogClose} />
+          <ConfirmDialog
+            open={confirm.value}
+            onClose={confirm.onFalse}
+            title="Delete"
+            content="Are you sure want to delete?"
+            action={
+              <Button variant="contained" color="error">
+                Delete
+              </Button>
+            }
+          />
         </div>
       }
     />
@@ -185,7 +208,11 @@ export function CustomStyling({ onTrashClick, onHomeClick }) {
         aria-label="customized"
         defaultExpandedItems={['1']}
         sx={{ overflowX: 'hidden', minHeight: 0, width: 1 }}
-        slots={{ item: (props) => <StyledTreeItem {...props} onTrashClick={onTrashClick} onHomeClick={onHomeClick} /> }}
+        slots={{
+          item: (props) => (
+            <StyledTreeItem {...props} onTrashClick={onTrashClick} onHomeClick={onHomeClick} />
+          ),
+        }}
         items={ITEMS}
       />
       <Divider sx={{ borderStyle: 'dashed', mb: 1, mt: 1 }} />
@@ -193,7 +220,11 @@ export function CustomStyling({ onTrashClick, onHomeClick }) {
         aria-label="customized"
         defaultExpandedItems={['16']}
         sx={{ overflowX: 'hidden', minHeight: 0, width: 1 }}
-        slots={{ item: (props) => <StyledTreeItem {...props} onTrashClick={onTrashClick} onHomeClick={onHomeClick} /> }}
+        slots={{
+          item: (props) => (
+            <StyledTreeItem {...props} onTrashClick={onTrashClick} onHomeClick={onHomeClick} />
+          ),
+        }}
         items={ITEMS1}
       />
     </>

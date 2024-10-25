@@ -1,239 +1,224 @@
 import * as React from 'react';
-import { useCallback } from 'react';
+import { useState } from 'react';
+import { useTheme } from '@emotion/react';
 
 import Stack from '@mui/material/Stack';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Box, Grid, Button, Tooltip, FormLabel, Typography, FormControl, } from '@mui/material';
+import {
+  Box,
+  Button,
+  Tooltip,
+  Popover,
+  useMediaQuery,
+} from '@mui/material';
+
+import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
-import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
-const Strategy = [
-  {
-    value: 'USD',
-    label: 'Select Connection',
-  },
-  {
-    value: 'EUR',
-    label: 'Test 1',
-  },
-  {
-    value: 'FUR',
-    label: 'Test 2',
-  },
-  {
-    value: 'DUR',
-    label: 'Test 3',
-  },
-  {
-    value: 'INR',
-    label: 'Test 4',
-  },
-];
 
-const Selectstatus = [
-  {
-    value: 'USD',
-    label: 'Select Status',
-  },
-  {
-    value: 'EUR',
-    label: 'Active',
-  },
-  {
-    value: 'tUR',
-    label: 'Inactive',
-  },
-];
+export function OrderTableToolbar({
+  filters,
+  onResetPage,
+  onClose,
+  dateError,
+  publish,
+  onChangePublish,
+  numSelected,
+}) {
+  const theme = useTheme();
+  const isBelow900px = useMediaQuery(theme.breakpoints.down('md'));
+  const isBelow600px = useMediaQuery(theme.breakpoints.down('sm'));
+  const confirm = useBoolean();
 
-export function OrderTableToolbar({ filters, onResetPage, dateError }) {
-  const popover = usePopover();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [filterAnchorEl, setFilterAnchorEl] = useState(null);
+  const [selectedColumn, setSelectedColumn] = useState('');
+  const [operator, setOperator] = useState('contains');
+  const [filterValue, setFilterValue] = useState('');
 
-  const handleFilterName = useCallback(
-    (event) => {
-      onResetPage();
-      filters.setState({ name: event.target.value });
-    },
-    [filters, onResetPage]
-  );
+  const sortconnection = ['Test 1', 'Test 2', 'Test 3', 'Test 4'];
+  const connectionstatus = ['All Status', 'Active', 'Inactive'];
+  const folder = [
+    'Pabbly Connect',
+    'Main Folder',
+    '- Child Folder 1 - Subscription Billing',
+    '- Child Folder 2',
+    '-- Grand child 1',
+    '-- Grand child 2',
+    '--- Folder 1',
+    '--- Folder 2',
+    '--- Folder 3',
+    '-- Grand child 3',
+    '- Child Folder 3',
+    '- Child Folder 4',
+    'Pabbly Subscription Billing',
+    'Pabbly Email Marketing',
+    'Pabbly Form Builder',
+    'Pabbly Email Verification',
+    'Pabbly Hook',
+    'Client (A)',
+    '- Child Folder 1 - Subscription Billing',
+    '- Child Folder 2',
+    '-- Grand child 1',
+    '-- Grand child 2',
+    '--- Folder 1',
+    '--- Folder 2',
+    '--- Folder 3',
+    '-- Grand child 3',
+    '- Child Folder 3',
+    '- Child Folder 4',
+  ];
 
-  const handleFilterStartDate = useCallback(
-    (newValue) => {
-      onResetPage();
-      filters.setState({ startDate: newValue });
-    },
-    [filters, onResetPage]
-  );
+  const handlePopoverOpen = (event) => setAnchorEl(event.currentTarget);
+  const handlePopoverClose = () => setAnchorEl(null);
+  const handleFilterClick = (event) => setFilterAnchorEl(event.currentTarget);
+  const handleFilterClose = () => setFilterAnchorEl(null);
 
-  const handleSubmit = () => {
-    console.log('Form submitted!');
+  const handleApplyFilter = () => {
+    console.log('Applying filter:', { column: selectedColumn, operator, value: filterValue });
+    filters.setState({ [selectedColumn.toLowerCase()]: filterValue });
+    onResetPage();
+    handleFilterClose();
+  };
+
+  const handleFilterName = (event) => {
+    onResetPage(); // Reset the page to page 1 when filtering
+    filters.setState({ name: event.target.value }); // Set the name filter based on the search input
+  };
+
+  const buttonStyle = {
+    fontSize: '15px',
+    height: '48px',
+    textTransform: 'none',
+    padding: '0 16px',
   };
 
   return (
     <>
       <Stack
         spacing={2}
-        alignItems={{ xs: 'flex-end', md: 'center' }}
-        direction={{ xs: 'column', md: 'row' }}
-        sx={{ p: 2.5, pr: { xs: 2.5, md: 1 } }}
+        alignItems="center"
+        direction={isBelow600px ? 'column' : 'row'}
+        sx={{ p: 2.5, width: '100%' }}
       >
+        <Box sx={{ width: '100%' }}>
+          <TextField
+            fullWidth
+            value={filters.state.name}
+            onChange={handleFilterName} // Handle changes for search input
+            placeholder="Search your Connetion name or ID's..."
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
 
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          spacing={2}  // Adjust spacing between elements
-          sx={{ width: '100%' }}  // Ensures the stack takes full width
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 2,
+            flexDirection: 'row',
+            width: isBelow600px ? '100%' : 'auto',
+            justifyContent: 'flex-end', // Aligns buttons to the right
+          }}
         >
-          <Typography variant="h6" fontWeight={700} lineHeight={2} >
-            <Tooltip title="Folder Name:Trash." arrow placement="top">
-              Trash
-            </Tooltip>
-          </Typography>
+          {numSelected > 0 && (
+            <Button
+              endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
+              onClick={handlePopoverOpen}
+              // variant="outlined"
+              color="primary"
+              sx={{
+                ...buttonStyle,
+                width: isBelow600px ? '155px' : '155px', // Fixed width for "Select Action"
+              }}
+            >
+              Select Action
+            </Button>
+          )}
 
-          <Stack direction="row" alignItems="center" spacing={2}>
-
-            <Tooltip title="Click here to search by connection name or ID's." arrow placement="top">
-              <TextField
-                sx={{
-                  width: { xs: '100%', sm: '300px', md: '394px' },  // Responsive width for TextField
-                }}
-                value={filters.state.name}
-                onChange={handleFilterName}
-                placeholder="Search your Connection name or ID's"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Tooltip>
-            <Stack>
-              <Tooltip placement="top" arrow title="Filter connection by status or name.">
-                <Button
-                  size='small'
-                  onClick={popover.onOpen}
-                  sx={{ mr: 1.2 }}
-                >
-                  <Iconify icon="solar:filter-bold" sx={{ color: 'black' }} />
-                  <Typography sx={{ variant: "h6", fontWeight: '700', ml: 1, mr: 0.2 }}>
-                    Filter
-                  </Typography>
-                </Button>
-              </Tooltip>
-            </Stack>
-          </Stack>
-        </Stack>
-
+          {/* <Tooltip title="Filter connection by status or folders." arrow placement="top">
+            <Button
+              sx={{
+                ...buttonStyle,
+                width: isBelow600px ? (numSelected > 0 ? '104.34px' : '104.34px') : '104.34px', // Fixed width for "Filters"
+              }}
+              // variant="outlined"
+              startIcon={<Iconify icon="mdi:filter" />}
+              onClick={handleFilterClick}
+            >
+              Filters
+            </Button>
+          </Tooltip> */}
+        </Box>
       </Stack>
 
-      <CustomPopover
-        open={popover.open}
-        anchorEl={popover.anchorEl}
-        onClose={popover.onClose}
-        slotProps={{ arrow: { placement: 'bottom-top' } }}
+      <Popover
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={handlePopoverClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
       >
-        {/* //////////////////////Custom filter popover////////////////////// */}
-        <MenuList sx={{ height: 'auto', width: 'auto' }}>
-          <Box sx={{ padding: 1 }}>
-            <Grid container spacing={2}>
-            <Grid item xs={12} sx={{ mb: 2 }}>
-                <Typography variant="h6" fontWeight={700} ml={0.5} >
-                  Filter Trash
-                </Typography>
-              </Grid>
-
-              <Grid container spacing={1}>
-                <Grid item xs={12} sm={3}>
-                  <FormControl fullWidth>
-                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 1 }}>Connection Name</FormLabel>
-                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 3 }}>Connection ID</FormLabel>
-                    <FormLabel sx={{ ml: 2.4, fontSize: 16, mt: 2.5 }}> Folder</FormLabel>
-                    {/* <FormLabel sx={{ ml: 3, fontSize: 16, mt: 3 }}>Status</FormLabel> */}
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12} sm={3} >
-                  <Grid container spacing={1} direction="column">
-                    {['Equal to', 'Equal to', 'In'].map((label, index) => (
-                      <Grid item xs={12} key={index} ml={2}>
-                        <FormControl fullWidth>
-                          <Button
-                            variant="outlined"
-                            style={{ fontSize: '12.5px', padding: '8px 40px' }}
-                          >
-                            {label}
-                          </Button>
-                        </FormControl>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Grid>
-
-
-                <Grid item xs={12} sm={6}>
-                  <Grid container spacing={1} direction="column">
-                    <Grid item xs={8} sm={6} sx={{ mt: 0, ml: 2 }}>
-                      <TextField
-                        id="outlined-select-numbers"
-                        size='small'
-                        select
-                        fullWidth
-                        defaultValue="USD"
-                      >
-                        {Strategy.map((option) => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    </Grid>
-
-                    <Grid item xs={12} ml={2}>
-                      <TextField
-                        size='small'
-                        id="outlined-select-numbers"
-                        select
-                        fullWidth
-                        defaultValue="USD"
-                      >
-                        {Selectstatus.map((option) => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    </Grid>
-
-                    <Grid item xs={12} ml={2}>
-                      <TextField
-                        size='small'
-                        autoFocus
-                        fullWidth
-                        variant="outlined"
-                        placeholder='Home'
-                      // label="Connection Name"
-                      />
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end', mb: 1, mt: 1 }}>
-                <Button variant="contained" onClick={handleSubmit} size="small">
-                  Apply Filter
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
+        <MenuList>
+          {[
+            {
+              value: 'published',
+              label: 'Move Connection',
+              icon: 'fluent:folder-move-16-filled',
+              tooltip: 'Move to Connection',
+            },
+            // {
+            //   value: 'draft',
+            //   label: 'Enable Connection',
+            //   icon: 'line-md:switch-off-filled-to-switch-filled-transition',
+            //   tooltip: 'Click to enable connections',
+            // },
+            {
+              value: 'published',
+              label: 'Disable Connection',
+              icon: 'line-md:switch-filled-to-switch-off-filled-transition',
+              tooltip: 'Click to disable connections',
+            },
+            {
+              value: 'draft',
+              label: 'Delete Connection',
+              icon: 'solar:trash-bin-trash-bold',
+              tooltip: 'Click to delete connections',
+            },
+          ].map((option) => (
+            <Tooltip key={option.value} title={option.tooltip} arrow placement="left">
+              <MenuItem
+                selected={option.value === publish}
+                onClick={() => {
+                  handlePopoverClose();
+                  onChangePublish(option.value);
+                }}
+              >
+                {option.icon && (
+                  <Iconify
+                    icon={option.icon}
+                    width={20}
+                    height={20}
+                    sx={{ mr: 2, color: 'inherit' }}
+                  />
+                )}
+                {option.label}
+              </MenuItem>
+            </Tooltip>
+          ))}
         </MenuList>
-      </CustomPopover>
+      </Popover>
     </>
   );
 }
