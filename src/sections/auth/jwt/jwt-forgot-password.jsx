@@ -15,8 +15,6 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
-import { useBoolean } from 'src/hooks/use-boolean';
-
 import { Form, Field } from 'src/components/hook-form';
 
 import { useAuthContext } from 'src/auth/hooks';
@@ -29,10 +27,7 @@ export const SignInSchema = zod.object({
     .string()
     .min(1, { message: 'Email is required!' })
     .email({ message: 'Email must be a valid email address!' }),
-  password: zod
-    .string()
-    .min(1, { message: 'Password is required!' })
-    .min(6, { message: 'Password must be at least 6 characters!' }),
+ 
 });
 
 // ----------------------------------------------------------------------
@@ -43,8 +38,6 @@ export function JwtForgotpassword() {
   const { checkUserSession } = useAuthContext();
 
   const [errorMsg, setErrorMsg] = useState('');
-
-  const password = useBoolean();
 
   const theme = useTheme();
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
