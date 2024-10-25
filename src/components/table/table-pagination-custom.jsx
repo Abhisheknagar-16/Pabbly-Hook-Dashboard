@@ -22,7 +22,7 @@ export function TablePaginationCustom({
         sx={{ borderTopColor: 'transparent' }}
       />
 
-  {onChangeDense && (
+  {/* {onChangeDense && (
         <FormControlLabel
         label={<span>Dense</span>}
         control={
@@ -38,7 +38,7 @@ export function TablePaginationCustom({
         }}
       />
       
-      )}
+      )} */}
     </Box>
   );
 }
