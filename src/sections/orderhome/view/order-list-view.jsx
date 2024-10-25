@@ -189,10 +189,14 @@ export function OrderListViewHome() {
             title={
               <Box>
                 <Box sx={{ typography: 'subtitle2', fontSize: '18px', fontWeight: 600 }}>
-                  {/* <Tooltip title={`Folder Name: ${selectedFolder}`} arrow placement="bottom">
-                    {selectedFolder}
-                  </Tooltip> */}
-                  Home
+                  <Tooltip
+                    title="Folder Name: Home"
+                    disableInteractive
+                    arrow
+                    placement="top"
+                  >
+                    Home
+                  </Tooltip>
                 </Box>
               </Box>
             }
