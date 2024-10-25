@@ -190,7 +190,7 @@ export function CreateConnection() {
     }
   };
   const [checkboxState, setCheckboxState] = useState({
-    GET: false,
+    GET: true,
     POST: false,
     PUT: false,
     PATCH: false,
