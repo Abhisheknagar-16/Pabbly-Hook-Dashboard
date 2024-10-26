@@ -245,7 +245,7 @@ export function JwtSignUpView() {
       <Field.Text
         name="password"
         label="Password"
-        placeholder="6+ characters"
+        placeholder="Enter Password"
         type={password.value ? 'text' : 'password'}
        
         InputProps={{
