@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import * as React from 'react';
 import { useState } from 'react';
 import { useTheme } from '@emotion/react';
@@ -7,10 +6,7 @@ import Stack from '@mui/material/Stack';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import { DatePicker } from '@mui/x-date-pickers';
 import InputAdornment from '@mui/material/InputAdornment';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import {
   Box,
   Button,
@@ -23,13 +19,23 @@ import {
   useMediaQuery,
 } from '@mui/material';
 
+import { useBoolean } from 'src/hooks/use-boolean';
+
 import { Iconify } from 'src/components/iconify';
 
-// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------.
 
-export function OrderTableToolbar({ filters, onResetPage, publish, onChangePublish, numSelected }) {
+export function OrderTableToolbar({
+  filters,
+  onResetPage,
+  publish,
+  onChangePublish,
+  numSelected,
+}) {
   const theme = useTheme();
+  const isBelow900px = useMediaQuery(theme.breakpoints.down('md'));
   const isBelow600px = useMediaQuery(theme.breakpoints.down('sm'));
+  const confirm = useBoolean();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [filterAnchorEl, setFilterAnchorEl] = useState(null);
@@ -38,7 +44,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
   const [filterValue, setFilterValue] = useState('');
 
   const sortconnection = ['Test 1', 'Test 2', 'Test 3', 'Test 4'];
-  // const connectionstatus = ['All Status', 'Success', 'Rejected', 'Scheduled'];
+  const connectionstatus = ['All Status', 'Active', 'Inactive'];
   const folder = [
     'Pabbly Connect',
     'Main Folder',
@@ -87,9 +93,6 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
     filters.setState({ name: event.target.value }); // Set the name filter based on the search input
   };
 
-  const [startDate, setStartDate] = useState(dayjs(new Date()));
-  const [endDate, setEndDate] = useState(dayjs(new Date()));
-
   const buttonStyle = {
     fontSize: '15px',
     height: '48px',
@@ -106,8 +109,12 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
         sx={{ p: 2.5, width: '100%' }}
       >
         <Box sx={{ width: '100%' }}>
-          <Tooltip
-            title="click here to event by request name or ID's."
+        <Tooltip
+            title={
+              <div style={{ textAlign: 'center' }}>
+                click here to transformation by transformation name or ID&apos;s.
+              </div>
+            }
             arrow
             placement="top"
             disableInteractive
@@ -116,7 +123,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
               fullWidth
               value={filters.state.name}
               onChange={handleFilterName} // Handle changes for search input
-              placeholder="Search your event name or ID's..."
+              placeholder="Search your transformation name or ID's..."
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -152,16 +159,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
             </Button>
           )}
 
-          <Tooltip
-            title={
-              <div style={{ textAlign: 'center' }}>
-                Filter event by date, connection, request ID and folder.
-              </div>
-            }
-            disableInteractive
-            arrow
-            placement="top"
-          >
+          <Tooltip title="Filter transformation by status or folders." arrow placement="top">
             <Button
               sx={{
                 ...buttonStyle,
@@ -259,7 +257,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
             width: {
               xs: '100%',
               sm: '100%',
-              md: 850,
+              md: 650,
             },
             flexDirection: {
               xs: 'column',
@@ -280,7 +278,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
           >
             <Box sx={{ width: '100%' }}>
               <Typography variant="h6" sx={{ fontWeight: '600' }}>
-                Filter Event
+                Filter Transformation
               </Typography>
             </Box>
             <Iconify
@@ -320,7 +318,9 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
               }}
             >
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
-                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>Date Range</Typography>
+                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
+                  Connection Name
+                </Typography>
               </FormControl>
 
               <FormControl
@@ -334,60 +334,27 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
                   id="select-currency-label-x"
                   variant="outlined"
                   fullWidth
-                  label="Between"
+                  label="Equals to"
                   disabled
                   size="small"
                 />
               </FormControl>
 
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
-                <Stack direction="row" spacing={2} flexGrow={1}>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                      label="Start Date"
-                      value={startDate}
-                      minDate={dayjs('2017-01-01')}
-                      onChange={(newValue) => setStartDate(newValue)}
-                      slotProps={{
-                        textField: {
-                          // fullWidth: true,
-                          sx: {
-                            height: '39px', // Adjust the height as desired
-                            '& .MuiInputBase-root': {
-                              height: '100%', // Ensures the inner input adjusts with the outer height
-                            },
-                            '& .MuiInputBase-input': {
-                              padding: '12px 14px', // Adjust padding to fit the new height
-                            },
-                          },
-                        },
-                      }}
-                    />
-                  </LocalizationProvider>
-
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                      label="End Date"
-                      value={endDate}
-                      minDate={dayjs('2017-01-01')}
-                      onChange={(newValue) => setEndDate(newValue)}
-                      slotProps={{
-                        textField: {
-                          // fullWidth: true,
-                          sx: {
-                            height: '39px', // Adjust the height as desired
-                            '& .MuiInputBase-root': {
-                              height: '100%', // Ensures the inner input adjusts with the outer height
-                            },
-                            '& .MuiInputBase-input': {
-                              padding: '12px 14px', // Adjust padding to fit the new height
-                            },
-                          },
-                        },
-                      }}
-                    />
-                  </LocalizationProvider>
-                </Stack>
+                <Autocomplete
+                  sx={{
+                    '& .MuiInputBase-input': {
+                      fontSize: '14px',
+                    },
+                    '& .MuiInputLabel-root': {
+                      fontSize: '14px',
+                    },
+                  }}
+                  size="small"
+                  options={sortconnection}
+                  renderInput={(params) => <TextField {...params} label="Select" />}
+                  // sx={{ width: 300 }}
+                />
               </FormControl>
             </Box>
 
@@ -435,7 +402,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
                     },
                   }}
                   size="small"
-                  options={sortconnection}
+                  options={connectionstatus}
                   renderInput={(params) => <TextField {...params} label="Select" />}
                   // sx={{ width: 300 }}
                 />
@@ -456,7 +423,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
               }}
             >
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
-                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>Request ID</Typography>
+                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>Folder</Typography>
               </FormControl>
 
               <FormControl
@@ -470,14 +437,27 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
                   id="select-currency-label-x"
                   variant="outlined"
                   fullWidth
-                  label="Equals to"
+                  label="In"
                   disabled
                   size="small"
                 />
               </FormControl>
 
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
-                <TextField fullWidth size="small" label="Request ID" />
+                <Autocomplete
+                  sx={{
+                    '& .MuiInputBase-input': {
+                      fontSize: '14px',
+                    },
+                    '& .MuiInputLabel-root': {
+                      fontSize: '14px',
+                    },
+                  }}
+                  size="small"
+                  options={folder}
+                  renderInput={(params) => <TextField {...params} label="Select" />}
+                  // sx={{ width: 300 }}
+                />
               </FormControl>
             </Box>
           </Box>

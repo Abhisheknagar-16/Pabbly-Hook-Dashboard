@@ -7,7 +7,7 @@ import { varAlpha, bgGradient } from 'src/theme/styles';
 
 // ----------------------------------------------------------------------
 
-export function EcommerceWelcome({
+export function BigCardView({
   title,
   description,
   step1,

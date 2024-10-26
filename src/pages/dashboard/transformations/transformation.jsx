@@ -4,7 +4,8 @@ import { Helmet } from 'react-helmet-async';
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { OrderListViewTransformation } from 'src/sections/ordertransformation/view';
+import { TransformationTableView } from 'src/sections/orderhome copy/view';
+// import { OrderListViewTransformation } from 'src/sections/ordertransformation/view';
 import { StatsCardTransformation } from 'src/sections/statscard-transformation/view';
 
 
@@ -22,7 +23,8 @@ export default function Page() {
       </Helmet>
 
       <StatsCardTransformation/>
-      <OrderListViewTransformation/>
+      {/* <OrderListViewTransformation/> */}
+      <TransformationTableView/>
       </DashboardContent>
 
     </div>

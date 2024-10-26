@@ -4,14 +4,14 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { Box, Card, Tooltip, Typography } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
-import { MotivationIllustration } from 'src/assets/illustrations';
+import { ModalVideoView } from 'src/assets/illustrations';
 
 import { HomeTableView} from 'src/sections/orderhome/view';
 import { TrashTableView } from 'src/sections/ordertrash/view';
 import { FolderSection } from 'src/sections/folder-section/folder-section';
 import { CreateConnectionFormDialog } from 'src/sections/dialog-view/create-connection-form-dialog';
 
-import { EcommerceWelcome } from '../ecommerce-welcome';
+import { BigCardView } from '../Bigcard';
 
 export function SetupConnectionForm() {
   const [showTrash, setShowTrash] = useState(false);
@@ -36,7 +36,7 @@ export function SetupConnectionForm() {
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
             {/* No Connections Card */}
             <Card sx={{ mb: 3, width: '100%' }}>
-              <EcommerceWelcome
+              <BigCardView
                 title={
                   <Tooltip
                     disableInteractive
@@ -57,7 +57,7 @@ export function SetupConnectionForm() {
                 step1="Click on the 'Create Connection' button available in the top right section."
                 step2="Now select apps you want to integrate into the trigger and action step."
                 step3="Once the Connection is completed, save and enable it."
-                img={<MotivationIllustration hideBackground />}
+                img={<ModalVideoView hideBackground />}
                 action={<CreateConnectionFormDialog variant="outlined" />}
               />
             </Card>
