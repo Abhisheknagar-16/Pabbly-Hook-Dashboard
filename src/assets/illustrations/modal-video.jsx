@@ -8,7 +8,7 @@ import { CONFIG } from 'src/config-global';
 
 import { Iconify } from 'src/components/iconify';
 
-function MotivationIllustration({ hideBackground, sx, ...other }) {
+function ModalVideoView({ hideBackground, sx, ...other }) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -68,11 +68,11 @@ function MotivationIllustration({ hideBackground, sx, ...other }) {
         onClose={handleClose}
         maxWidth="lg"
         fullWidth
-        sx={{ '& .MuiDialog-paper': { width: 1080, height: 600 } }}
+        sx={{ '& .MuiDialog-paper': { width: 1060, height: 600 } }}
       >
         <IconButton
           onClick={handleClose}
-          sx={{ position: 'absolute', top: 10, right: 10, zIndex: 1 }}
+          sx={{ position: 'absolute', top: 5, right:0, zIndex: 1, color:'#ffffff' }}
         >
           <CloseIcon />
         </IconButton>
@@ -86,4 +86,4 @@ function MotivationIllustration({ hideBackground, sx, ...other }) {
   );
 }
 
-export default memo(MotivationIllustration);
+export default memo(ModalVideoView);
