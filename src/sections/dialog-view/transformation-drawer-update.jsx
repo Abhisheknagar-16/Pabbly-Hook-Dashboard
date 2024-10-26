@@ -1,7 +1,9 @@
 // TransformationDrawer.jsx
 import React, { useState } from 'react';
 import { useTheme } from '@emotion/react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import CodeMirror from '@uiw/react-codemirror';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { javascript } from '@codemirror/lang-javascript';
 
 import {

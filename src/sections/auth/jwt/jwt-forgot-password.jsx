@@ -1,27 +1,20 @@
 import { z as zod } from 'zod';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTheme } from '@emotion/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-// import IconButton from '@mui/material/IconButton';
+import { Card, Snackbar } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
-// import InputAdornment from '@mui/material/InputAdornment';
-
-import { useTheme } from '@emotion/react';
-
-import { Card, Snackbar } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
-import { useBoolean } from 'src/hooks/use-boolean';
-
-// import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
 
 import { useAuthContext } from 'src/auth/hooks';
@@ -34,10 +27,7 @@ export const SignInSchema = zod.object({
     .string()
     .min(1, { message: 'Email is required!' })
     .email({ message: 'Email must be a valid email address!' }),
-  password: zod
-    .string()
-    .min(1, { message: 'Password is required!' })
-    .min(6, { message: 'Password must be at least 6 characters!' }),
+ 
 });
 
 // ----------------------------------------------------------------------
@@ -49,8 +39,6 @@ export function JwtForgotpassword() {
 
   const [errorMsg, setErrorMsg] = useState('');
 
-  const password = useBoolean();
-
   const theme = useTheme();
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const handleOpenSnackbar = () => {
@@ -59,6 +47,9 @@ export function JwtForgotpassword() {
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
+
+    router.push(paths.auth.jwt.confirm)
+
   };
 
   const defaultValues = {
@@ -99,7 +90,7 @@ export function JwtForgotpassword() {
 
   const renderForm = (
     <Stack spacing={2}>
-      <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
+      <Field.Text name="email" label="Email address" />
 
       <LoadingButton
         fullWidth

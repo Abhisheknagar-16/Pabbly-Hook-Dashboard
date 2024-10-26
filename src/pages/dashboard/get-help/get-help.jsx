@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-modal-video/css/modal-video.min.css';
 
 import { useTheme } from '@mui/material/styles';

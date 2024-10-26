@@ -24,7 +24,7 @@ export default function Page() {
   }
 
   return (
-    // <div style={{ backgroundColor: '#F5fffa', width: '100%', height: 'auto' }}>
+  
     <>
     <Box
         sx={{
@@ -67,6 +67,6 @@ export default function Page() {
 
      <JwtForgotpassword/>
      </>
-  //  </div>
+
   );
 }

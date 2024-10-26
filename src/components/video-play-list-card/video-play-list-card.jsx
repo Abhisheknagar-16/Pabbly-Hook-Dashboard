@@ -1,6 +1,8 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-modal-video/scss/modal-video.scss';
 
 import React, { useState } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import ModalVideo from 'react-modal-video';
 
 import { Box, Card, Button,Tooltip} from '@mui/material';

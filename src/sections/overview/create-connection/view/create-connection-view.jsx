@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import CodeMirror from '@uiw/react-codemirror';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { javascript } from '@codemirror/lang-javascript'; // Correct import
 
 import Alert from '@mui/material/Alert';

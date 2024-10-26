@@ -236,18 +236,18 @@ export function JwtSignUpView() {
   const renderForm = (
     <Stack spacing={2}>
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="firstName" label="First name" InputLabelProps={{ shrink: true }} />
-        <Field.Text name="lastName" label="Last name" InputLabelProps={{ shrink: true }} />
+        <Field.Text name="firstName" label="First name" />
+        <Field.Text name="lastName" label="Last name" />
       </Stack>
 
-      <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
+      <Field.Text name="email" label="Email address"  />
 
       <Field.Text
         name="password"
         label="Password"
         placeholder="6+ characters"
         type={password.value ? 'text' : 'password'}
-        InputLabelProps={{ shrink: true }}
+       
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -265,7 +265,7 @@ export function JwtSignUpView() {
         placeholder="Confirm Password"
         type={confirmpassword.value ? 'text' : 'password'}
         helperText="Use 8 or more characters for password."
-        InputLabelProps={{ shrink: true }}
+      
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
