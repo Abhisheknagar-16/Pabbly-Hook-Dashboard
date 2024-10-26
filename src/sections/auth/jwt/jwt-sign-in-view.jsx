@@ -128,7 +128,7 @@ export function JwtSignInView() {
 
   const renderForm = (
     <Stack spacing={2}>
-      <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
+      <Field.Text name="email" label="Email address" />
 
       <Stack spacing={1.5}>
         {/* <Link
@@ -146,7 +146,7 @@ export function JwtSignInView() {
           label="Password"
           placeholder="6+ characters"
           type={password.value ? 'text' : 'password'}
-          InputLabelProps={{ shrink: true }}
+        
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">

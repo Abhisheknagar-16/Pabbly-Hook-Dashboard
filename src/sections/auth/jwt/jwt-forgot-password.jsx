@@ -90,7 +90,7 @@ export function JwtForgotpassword() {
 
   const renderForm = (
     <Stack spacing={2}>
-      <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
+      <Field.Text name="email" label="Email address" />
 
       <LoadingButton
         fullWidth

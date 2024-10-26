@@ -91,7 +91,7 @@ export function JwtConfirm() {
 
       setTimeout(()=>{
         router.push(paths.auth.jwt.signIn)
-      },3000)
+      },5000)
      
 
       
@@ -119,7 +119,7 @@ export function JwtConfirm() {
         label="Password"
         placeholder="Enter Password"
         type={password.value ? 'text' : 'password'}
-        InputLabelProps={{ shrink: true }}
+   
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -138,7 +138,7 @@ export function JwtConfirm() {
         label="Re-enter Password"
         placeholder="Confirm Password"
         type={confirmpassword.value ? 'text' : 'password'}
-        InputLabelProps={{ shrink: true }}
+      
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -164,7 +164,7 @@ export function JwtConfirm() {
       </LoadingButton>
       <Snackbar
         open={openSnackbar}
-        autoHideDuration={3000}
+        autoHideDuration={5000}
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{mt:6}}
@@ -186,7 +186,7 @@ export function JwtConfirm() {
           <Typography 
           variant='body2'>
 
-          Your password has been changed succesfully. Use your new password to login
+          Your password has been changed succesfully. Use your new password to <Link component={RouterLink}  href={paths.auth.jwt.signIn} >login here</Link>
           </Typography>
     
         </Alert>
