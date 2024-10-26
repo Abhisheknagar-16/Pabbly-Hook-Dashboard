@@ -1,12 +1,10 @@
 import { _mock } from "./_mock";
 
-
 // ----------------------------------------------------------------------
 
 export const ORDER_TRANSFORMATION_OPTIONS = [
   { value: 'In Use', label: 'In Use' },
   { value: 'Idle', label: 'Idle' },
-  // { value: 'refunded', label: 'Refunded' },
 ];
 
 const ITEMS = [...Array(3)].map((_, index) => ({
@@ -20,17 +18,13 @@ const ITEMS = [...Array(3)].map((_, index) => ({
 
 export const _transformation = [...Array(20)].map((_, index) => {
   const shipping = 10;
-
   const discount = 10;
-
   const taxes = 10;
 
-  const items = (index % 2 && ITEMS.slice(0, 1)) || (index % 3 && ITEMS.slice(1, 3)) || ITEMS;
+  const items = (index % 2 === 0 && ITEMS.slice(0, 1)) || (index % 3 === 0 && ITEMS.slice(1, 3)) || ITEMS;
 
   const totalQuantity = items.reduce((accumulator, item) => accumulator + item.quantity, 0);
-
   const subtotal = items.reduce((accumulator, item) => accumulator + item.price * item.quantity, 0);
-
   const totalAmount = subtotal - shipping - discount + taxes;
 
   const customer = {
@@ -76,9 +70,6 @@ export const _transformation = [...Array(20)].map((_, index) => {
       phoneNumber: '365-374-4961',
     },
     payment: { cardType: 'mastercard', cardNumber: '**** **** **** 5678' },
-    status:
-      (index % 2 && 'In Use') ||
-      (index % 5 && 'Idle') ||
-      'idle',
+    status: index % 2 === 0 ? 'In Use' : 'Idle',
   };
 });

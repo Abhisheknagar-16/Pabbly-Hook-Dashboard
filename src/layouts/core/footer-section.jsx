@@ -40,7 +40,7 @@ export function FooterSection({
           textAlign: 'center',
         }}
       >
-        Pabbly © 2024 Pabbly Hook
+        Pabbly © 2024. All Rights Reserved.
       </Container>
 
       {slots?.bottomArea}

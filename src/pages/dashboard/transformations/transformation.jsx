@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { TransformationTableView } from 'src/sections/orderhome copy/view';
+import { TransformationTableView } from 'src/sections/table-transformation/view';
 // import { OrderListViewTransformation } from 'src/sections/ordertransformation/view';
 import { StatsCardTransformation } from 'src/sections/statscard-transformation/view';
 
