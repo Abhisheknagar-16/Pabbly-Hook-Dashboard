@@ -245,7 +245,7 @@ export function JwtSignUpView() {
       <Field.Text
         name="password"
         label="Password"
-        placeholder="Enter Password"
+        // placeholder="Enter Password"
         type={password.value ? 'text' : 'password'}
        
         InputProps={{
@@ -262,7 +262,7 @@ export function JwtSignUpView() {
       <Field.Text
         name="confirmPassword"
         label="Confirm Password"
-        placeholder="Confirm Password"
+        // placeholder="Confirm Password"
         type={confirmpassword.value ? 'text' : 'password'}
         helperText="Use 8 or more characters for password."
       
