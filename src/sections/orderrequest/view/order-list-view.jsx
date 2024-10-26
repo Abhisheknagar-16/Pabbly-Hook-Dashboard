@@ -133,6 +133,23 @@ export function OrderListViewRequest() {
     [filters, table]
   );
 
+  const getTooltipContent = (value) => {
+    switch (value.toLowerCase()) {
+      case 'all':
+        return 'Show all request including accepted and blocked';
+      case 'accepted':
+        return 'Show only accepted request';
+      case 'blocked':
+        return 'Show only blocked request';
+      case 'pending':
+        return 'View request waiting for approval';
+      case 'rejected':
+        return 'View request that have been rejected';
+      default:
+        return `View ${value} request`;
+    }
+  };
+
   return (
     <>
      <DashboardContent maxWidth="xl" sx={{ px: { xs: 0, sm: 0, lg: 5, xl: 0 } }}>
@@ -141,10 +158,9 @@ export function OrderListViewRequest() {
             title={
               <Box>
                 <Box sx={{ typography: 'subtitle2', fontSize: '18px', fontWeight: 600 }}>
-                  {/* <Tooltip title={`Folder Name: ${selectedFolder}`} arrow placement="bottom">
-                    {selectedFolder}
-                  </Tooltip> */}
+                <Tooltip title="List of all request ID's and there status." disableInteractive arrow placement="top">
                   Request
+                </Tooltip>
                 </Box>
               </Box>
             }
@@ -168,20 +184,27 @@ export function OrderListViewRequest() {
                 key={tab.value}
                 iconPosition="end"
                 value={tab.value}
-                label={tab.label}
+                label={<Tooltip
+                  disableInteractive
+                  placement="top"
+                  arrow
+                  title={getTooltipContent(tab.value)}
+                >
+                  <span>{tab.label}</span>
+                </Tooltip>}
                 icon={
-                  <Tooltip
-                    title={
-                      tab.value === 'Accepted'
-                        ? 'These are the accepted requests'
-                        : tab.value === 'Blocked'
-                          ? 'These are the blocked requests'
-                          : ''
-                    }
-                    arrow
-                    placement='top'
-                    disableHoverListener={tab.value !== 'Accepted' && tab.value !== 'Blocked'}
-                  >
+                  // <Tooltip
+                  //   title={
+                  //     tab.value === 'Accepted'
+                  //       ? 'These are the accepted requests'
+                  //       : tab.value === 'Blocked'
+                  //         ? 'These are the blocked requests'
+                  //         : ''
+                  //   }
+                  //   arrow
+                  //   placement='top'
+                  //   disableHoverListener={tab.value !== 'Accepted' && tab.value !== 'Blocked'}
+                  // >
                     <Label
                       variant={
                         ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') ||
@@ -197,7 +220,7 @@ export function OrderListViewRequest() {
                         ? tableData.filter((user) => user.status === tab.value).length
                         : tableData.length}
                     </Label>
-                  </Tooltip>
+                  // </Tooltip>
                 }
               />
             ))}
