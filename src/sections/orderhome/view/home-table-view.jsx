@@ -21,7 +21,7 @@ import { fIsAfter, fIsBetween } from 'src/utils/format-time';
 
 import { varAlpha } from 'src/theme/styles';
 import { DashboardContent } from 'src/layouts/dashboard';
-import { _request, ORDER_REQUEST_OPTIONS } from 'src/_mock';
+import { _connection, ORDER_STATUS_CONNECTION } from 'src/_mock/connectiontable';
 
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
@@ -40,32 +40,63 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-import { OrderTableRow } from '../order-table-row';
-import { OrderTableToolbar } from '../order-table-toolbar';
-import { OrderTableFiltersResult } from '../order-table-filters-result';
+import { OrderTableRow } from '../home-table-row';
+import { OrderTableToolbar } from '../home-table-toolbar';
+import { OrderTableFiltersResult } from '../home-table-filters-result';
 
 // ----------------------------------------------------------------------
 
-const STATUS_REQUEST = [{ value: 'all', label: 'All' }, ...ORDER_REQUEST_OPTIONS];
+const STATUS_CONNECTION = [{ value: 'all', label: 'All' }, ...ORDER_STATUS_CONNECTION];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: (<Tooltip title="View request status, date and name of creation." arrow placement='top'>STATUS/DATE/NAME</Tooltip>) },
-  // { id: 'name', label: (<Tooltip title="Name of the requests." arrow placement='top'>REQUEST NAME</Tooltip>) },
-  { id: 'name', label: (<Tooltip title="View request ID's." arrow placement='top'>REQUEST ID</Tooltip>) },
-  { id: 'totalAmount', label: (<Tooltip title="View request id and their summary." arrow placement='top'>REQUEST CODE </Tooltip>), align: 'right' },
-
+  {
+    id: 'orderNumber',
+    label: (
+      <Tooltip
+        disableInteractive
+        title="View connections status and date of creation."
+        arrow
+        placement="top"
+      >
+        STATUS/DATE
+      </Tooltip>
+    ),
+  },
+  {
+    id: 'name',
+    label: (
+      <Tooltip
+        disableInteractive
+        title="Name of connection and folder where it is located."
+        arrow
+        placement="top"
+      >
+        CONNECTION NAME
+      </Tooltip>
+    ),
+  },
+  {
+    id: 'createdAt',
+    label: (
+      <Tooltip disableInteractive title="Status of the requests and events." arrow placement="top">
+        REQUEST/EVENTS
+      </Tooltip>
+    ),
+    align: 'right',
+  },
+  { id: '', label: '' },
 ];
 
 // ----------------------------------------------------------------------
 
-export function OrderListViewRequest() {
+export function HomeTableView() {
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
   const router = useRouter();
 
   const confirm = useBoolean();
 
-  const [tableData, setTableData] = useState(_request);
+  const [tableData, setTableData] = useState(_connection);
 
   const filters = useSetState({
     name: '',
@@ -136,31 +167,36 @@ export function OrderListViewRequest() {
   const getTooltipContent = (value) => {
     switch (value.toLowerCase()) {
       case 'all':
-        return 'Show all request including accepted and blocked';
-      case 'accepted':
-        return 'Show only accepted request';
-      case 'blocked':
-        return 'Show only blocked request';
+        return 'Show all connections including active and inactive';
+      case 'active':
+        return 'Show only active connections';
+      case 'inactive':
+        return 'Show only inactive connections';
       case 'pending':
-        return 'View request waiting for approval';
+        return 'View connections waiting for approval';
       case 'rejected':
-        return 'View request that have been rejected';
+        return 'View connections that have been rejected';
       default:
-        return `View ${value} request`;
+        return `View ${value} connections`;
     }
   };
 
   return (
     <>
-     <DashboardContent maxWidth="xl" sx={{ px: { xs: 0, sm: 0, lg: 5, xl: 0 } }}>
-        <Card sx={{ md: 15 }} >
-        <CardHeader
+      <DashboardContent disablePadding>
+        <Card sx={{ md: 15 }}>
+          <CardHeader
             title={
               <Box>
                 <Box sx={{ typography: 'subtitle2', fontSize: '18px', fontWeight: 600 }}>
-                <Tooltip title="List of all request ID's and there status." disableInteractive arrow placement="top">
-                  Request
-                </Tooltip>
+                  <Tooltip
+                    title="Folder Name: Home"
+                    disableInteractive
+                    arrow
+                    placement="top"
+                  >
+                    Home
+                  </Tooltip>
                 </Box>
               </Box>
             }
@@ -179,48 +215,37 @@ export function OrderListViewRequest() {
                 `inset 0 -2px 0 0 ${varAlpha(theme.vars.palette.grey['500Channel'], 0.08)}`,
             }}
           >
-            {STATUS_REQUEST.map((tab) => (
+            {STATUS_CONNECTION.map((tab) => (
               <Tab
                 key={tab.value}
                 iconPosition="end"
                 value={tab.value}
-                label={<Tooltip
-                  disableInteractive
-                  placement="top"
-                  arrow
-                  title={getTooltipContent(tab.value)}
-                >
-                  <span>{tab.label}</span>
-                </Tooltip>}
+                label={
+                  <Tooltip
+                    disableInteractive
+                    placement="top"
+                    arrow
+                    title={getTooltipContent(tab.value)}
+                  >
+                    <span>{tab.label}</span>
+                  </Tooltip>
+                }
                 icon={
-                  // <Tooltip
-                  //   title={
-                  //     tab.value === 'Accepted'
-                  //       ? 'These are the accepted requests'
-                  //       : tab.value === 'Blocked'
-                  //         ? 'These are the blocked requests'
-                  //         : ''
-                  //   }
-                  //   arrow
-                  //   placement='top'
-                  //   disableHoverListener={tab.value !== 'Accepted' && tab.value !== 'Blocked'}
-                  // >
-                    <Label
-                      variant={
-                        ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') ||
-                        'soft'
-                      }
-                      color={
-                        (tab.value === 'Accepted' && 'success') ||
-                        (tab.value === 'Blocked' && 'error') ||
-                        'default'
-                      }
-                    >
-                      {['accepted', 'pending', 'blocked', 'scheduled'].includes(tab.value)
-                        ? tableData.filter((user) => user.status === tab.value).length
-                        : tableData.length}
-                    </Label>
-                  // </Tooltip>
+                  <Label
+                    variant={
+                      ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') ||
+                      'soft'
+                    }
+                    color={
+                      (tab.value === 'Active' && 'success') ||
+                      (tab.value === 'Inactive' && 'error') ||
+                      'default'
+                    }
+                  >
+                    {['Active', 'pending', 'rejected', 'Inactive'].includes(tab.value)
+                      ? tableData.filter((user) => user.status === tab.value).length
+                      : tableData.length}
+                  </Label>
                 }
               />
             ))}
@@ -244,7 +269,6 @@ export function OrderListViewRequest() {
 
           <Box sx={{ position: 'relative', width: '100%' }}>
             <TableSelectedAction
-              sx={{ width: '100%' }}  
               dense={table.dense}
               numSelected={table.selected.length}
               rowCount={dataFiltered.length}
@@ -255,7 +279,7 @@ export function OrderListViewRequest() {
                 )
               }
               action={
-                <Tooltip title="Delete">
+                <Tooltip disableInteractive title="Delete" arrow>
                   <IconButton color="primary" onClick={confirm.onTrue}>
                     <Iconify icon="solar:trash-bin-trash-bold" />
                   </IconButton>
@@ -319,7 +343,6 @@ export function OrderListViewRequest() {
             onRowsPerPageChange={table.onChangeRowsPerPage}
           />
         </Card>
-
       </DashboardContent>
 
       <ConfirmDialog

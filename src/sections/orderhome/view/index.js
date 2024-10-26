@@ -1,1 +1,1 @@
-export * from './order-list-view';
+export * from './home-table-view';

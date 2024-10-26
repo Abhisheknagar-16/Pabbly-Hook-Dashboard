@@ -40,9 +40,9 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-import { OrderTableRow } from '../order-table-row';
-import { OrderTableToolbar } from '../order-table-toolbar';
-import { OrderTableFiltersResult } from '../order-table-filters-result';
+import { OrderTableRow } from '../trash-table-row';
+import { OrderTableToolbar } from '../trash-table-toolbar';
+import { OrderTableFiltersResult } from '../trash-table-filters-result';
 
 // ----------------------------------------------------------------------
 
@@ -57,7 +57,7 @@ const TABLE_HEAD = [
 
 // ----------------------------------------------------------------------
 
-export function OrderListViewtrash() {
+export function TrashTableView() {
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
   const router = useRouter();

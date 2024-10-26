@@ -6,8 +6,8 @@ import { Box, Card, Tooltip, Typography } from '@mui/material';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { MotivationIllustration } from 'src/assets/illustrations';
 
-import { OrderListViewHome } from 'src/sections/orderhome/view';
-import { OrderListViewtrash } from 'src/sections/ordertrash/view';
+import { HomeTableView} from 'src/sections/orderhome/view';
+import { TrashTableView } from 'src/sections/ordertrash/view';
 import { FolderSection } from 'src/sections/folder-section/folder-section';
 import { CreateConnectionFormDialog } from 'src/sections/dialog-view/create-connection-form-dialog';
 
@@ -66,9 +66,9 @@ export function SetupConnectionForm() {
             <Box sx={{ width: '100%' }}>
               <Card>
                 {showTrash ? (
-                  <OrderListViewtrash /> // Show trash view if trash is selected
+                  <TrashTableView/> // Show trash view if trash is selected
                 ) : (
-                  <OrderListViewHome /> // Show main content view (OrderListView) if Home is selected
+                  <HomeTableView/> // Show main content view (OrderListView) if Home is selected
                 )}
               </Card>
             </Box>

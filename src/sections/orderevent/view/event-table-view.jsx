@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import TableBody from '@mui/material/TableBody';
 import IconButton from '@mui/material/IconButton';
+import { Divider, CardHeader } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -39,32 +40,55 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-import { OrderTableRow } from '../order-table-row';
-import { OrderTableToolbar } from '../order-table-toolbar';
-import { OrderTableFiltersResult } from '../order-table-filters-result';
+import { OrderTableRow } from '../event-table-row';
+import { OrderTableToolbar } from '../event-table-toolbar';
+import { OrderTableFiltersResult } from '../event-table-filter-result';
 
 // ----------------------------------------------------------------------
 
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...ORDER_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: (<Tooltip title="View connections status, name and date of creation." arrow placement='top'>STATUS/NAME/DATE</Tooltip>) },
-  { id: 'createdAt', label: (<Tooltip title="View request and event details from ID." arrow placement='top'>REQUEST/EVENTS</Tooltip>) },
-  { id: 'status', label: (<Tooltip
-    title={
-      <div style={{ textAlign: 'center' }}>
-      Number of delivery attempts for this event, indicating retries for failures.
-      </div>
-    }
-    arrow
-    placement="top">ATTEMPTS</Tooltip>), align: 'right' },
-  { id: '', label: ''},
-
+  {
+    id: 'orderNumber',
+    label: (
+      <Tooltip title="View connections status, name and date of creation." disableInteractive arrow placement="top">
+        STATUS/NAME/DATE
+      </Tooltip>
+    ),
+  },
+  {
+    id: 'createdAt',
+    label: (
+      <Tooltip title="View request and event details from ID." disableInteractive arrow placement="top">
+        REQUEST/EVENTS
+      </Tooltip>
+    ),
+  },
+  {
+    id: 'status',
+    label: (
+      <Tooltip
+        title={
+          <div style={{ textAlign: 'center' }}>
+            Number of delivery attempts for this event, indicating retries for failures.
+          </div>
+        }
+        disableInteractive
+        arrow
+        placement="top"
+      >
+        ATTEMPTS
+      </Tooltip>
+    ),
+    align: 'right',
+  },
+  { id: '', label: '' },
 ];
 
 // ----------------------------------------------------------------------
 
-export function OrderListViewEvent() {
+export function EventTableView() {
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
   const router = useRouter();
@@ -139,10 +163,47 @@ export function OrderListViewEvent() {
     [filters, table]
   );
 
+  const getTooltipContent = (value) => {
+    switch (value.toLowerCase()) {
+      case 'all':
+        return 'Show all event including success, rejected & scheduled';
+      case 'active':
+        return 'Show only active event';
+      case 'inactive':
+        return 'Show only inactive event';
+      case 'pending':
+        return 'View event waiting for approval';
+      case 'rejected':
+        return 'View event that have been rejected';
+      default:
+        return `View ${value} event`;
+    }
+  };
+
   return (
     <>
       <DashboardContent maxWidth="xl" sx={{ px: { xs: 0, sm: 0, lg: 5, xl: 0 } }}>
         <Card sx={{ md: 15 }}>
+          <CardHeader
+            title={
+              <Box>
+                <Box sx={{ typography: 'subtitle2', fontSize: '18px', fontWeight: 600 }}>
+                  <Tooltip
+                    title="List of all event ID's and there status."
+                    disableInteractive
+                    arrow
+                    placement="top"
+                  >
+                    Event
+                  </Tooltip>
+                </Box>
+              </Box>
+            }
+            sx={{
+              p: 3,
+            }}
+          />
+          <Divider />
           <Tabs
             value={filters.state.status}
             onChange={handleFilterStatus}
@@ -157,44 +218,34 @@ export function OrderListViewEvent() {
                 key={tab.value}
                 iconPosition="end"
                 value={tab.value}
-                label={tab.label}
-                icon={
+                label={
                   <Tooltip
-                    title={
-                      tab.value === 'success'
-                        ? 'These are successful requests'
-                        : tab.value === 'rejected'
-                          ? 'These are rejected requests'
-                          : tab.value === 'scheduled'
-                            ? 'These are scheduled requests'
-                            : ''
-                    }
+                    disableInteractive
+                    placement="top"
                     arrow
-                    placement='top'
-                    disableHoverListener={
-                      tab.value !== 'success' && tab.value !== 'rejected' && tab.value !== 'scheduled'
-                    }
+                    title={getTooltipContent(tab.value)}
                   >
-                    <Label
-                      variant={
-                        ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') ||
-                        'soft'
-                      }
-                      color={
-                        (tab.value === 'success' && 'success') ||
-                        (tab.value === 'rejected' && 'error') ||
-                        (tab.value === 'scheduled' && 'info') ||
-                        'default'
-                      }
-                    >
-                      {['success', 'pending', 'rejected', 'scheduled'].includes(tab.value)
-                        ? tableData.filter((user) => user.status === tab.value).length
-                        : tableData.length}
-                    </Label>
-
+                    <span>{tab.label}</span>
                   </Tooltip>
                 }
-
+                icon={
+                  <Label
+                    variant={
+                      ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') ||
+                      'soft'
+                    }
+                    color={
+                      (tab.value === 'success' && 'success') ||
+                      (tab.value === 'rejected' && 'error') ||
+                      (tab.value === 'scheduled' && 'info') ||
+                      'default'
+                    }
+                  >
+                    {['success', 'pending', 'rejected', 'scheduled'].includes(tab.value)
+                      ? tableData.filter((user) => user.status === tab.value).length
+                      : tableData.length}
+                  </Label>
+                }
               />
             ))}
           </Tabs>
@@ -203,6 +254,7 @@ export function OrderListViewEvent() {
             filters={filters}
             onResetPage={table.onResetPage}
             dateError={dateError}
+            numSelected={table.selected.length}
           />
 
           {canReset && (
@@ -312,7 +364,6 @@ export function OrderListViewEvent() {
           >
             Delete
           </Button>
-
         }
       />
     </>
