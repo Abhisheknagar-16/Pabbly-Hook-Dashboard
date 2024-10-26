@@ -13,7 +13,6 @@ import { Iconify } from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
-import { QuickShareDialog } from '../dialog-view/quick-share-dailog';
 import { CreateFolderDialog } from '../dialog-view/create-folder-dailog';
 import { RenameFolderDialog } from '../dialog-view/rename-folder-dailog';
 
@@ -164,12 +163,12 @@ const StyledTreeItem = styled((props) => {
                     Rename
                   </MenuItem>
                 </Tooltip>
-                <Tooltip title="Share the folder with others." arrow placement="left">
+                {/* <Tooltip title="Share the folder with others." arrow placement="left">
                   <MenuItem onClick={handleQuickShareDialogClick}>
                     <Iconify icon="solar:share-bold" />
                     Share
                   </MenuItem>
-                </Tooltip>
+                </Tooltip> */}
                 <Divider sx={{ borderStyle: 'dashed' }} />
                 <Tooltip title="Click to delete connection." arrow placement="left">
                   <MenuItem
@@ -193,7 +192,7 @@ const StyledTreeItem = styled((props) => {
 
       <RenameFolderDialog open={renameDialogOpen} onClose={handleRenameFolderClose} />
 
-      <QuickShareDialog open={quickShareDialogOpen} onClose={handleQuickShareDialogClose} />
+      {/* <QuickShareDialog open={quickShareDialogOpen} onClose={handleQuickShareDialogClose} /> */}
 
       <ConfirmDialog
         open={confirm.value}
@@ -219,7 +218,7 @@ const StyledTreeItem = styled((props) => {
   },
   [`& .${treeItemClasses.iconContainer}`]: {
     borderRadius: '50%',
-    backgroundColor: varAlpha(theme.vars.palette.primary.mainChannel, 0.25),
+    // backgroundColor: varAlpha(theme.vars.palette.primary.mainChannel, 0.25),
     [stylesMode.dark]: {
       color: theme.vars.palette.primary.contrastText,
       backgroundColor: theme.vars.palette.primary.dark,

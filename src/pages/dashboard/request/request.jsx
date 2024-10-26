@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { OrderListViewRequest } from 'src/sections/orderrequest/view';
+import { RequestTableView } from 'src/sections/orderrequest/view';
 import { StatsCardRequest } from 'src/sections/statscard-request/view';
 
 // ----------------------------------------------------------------------
@@ -18,7 +18,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
       <StatsCardRequest/>
-      <OrderListViewRequest/>
+      <RequestTableView/>
       </DashboardContent>
     </div>
   );

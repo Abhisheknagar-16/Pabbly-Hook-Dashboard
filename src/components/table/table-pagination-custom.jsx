@@ -25,7 +25,11 @@ export function TablePaginationCustom({
         }
         labelDisplayedRows={({ from, to, count }) => (
           <Tooltip
-            title="Shows the current range of rows being displayed and the total number of rows."
+            title={
+              <div style={{ textAlign: 'center' }}>
+                Shows the current range of rows being displayed and the total number of rows.
+              </div>
+            }
             arrow
             placement="top"
           >
@@ -36,7 +40,7 @@ export function TablePaginationCustom({
         )}
       />
 
-  {/* {onChangeDense && (
+      {/* {onChangeDense && (
         <FormControlLabel
         label={<span>Dense</span>}
         control={

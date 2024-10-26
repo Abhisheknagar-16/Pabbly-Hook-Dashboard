@@ -248,13 +248,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           <Tooltip title="Click to enable connections." arrow placement="left">
             <MenuItem onClick={handleOpenEnableConnnectonSnackbar}>
               <Iconify icon="line-md:switch-off-filled-to-switch-filled-transition" />
-              Enable Connection
+              Enable 
             </MenuItem>
           </Tooltip>
           <Tooltip title="Click to disable connections." arrow placement="left">
             <MenuItem onClick={handleOpenDisabelConnnectonSnackbar}>
               <Iconify icon="line-md:switch-filled-to-switch-off-filled-transition" />
-              Disable Connection
+              Disable 
             </MenuItem>
           </Tooltip>
           {/* <Tooltip title="Move to update." arrow placement="left">
@@ -285,7 +285,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               sx={{ color: 'error.main' }}
             >
               <Iconify icon="solar:trash-bin-trash-bold" />
-              Delete Connection
+              Delete 
             </MenuItem>
           </Tooltip>
         </MenuList>
