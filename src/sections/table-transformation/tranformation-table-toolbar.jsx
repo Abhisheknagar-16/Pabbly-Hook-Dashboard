@@ -184,29 +184,29 @@ export function OrderTableToolbar({
       >
         <MenuList>
           {[
-            {
-              value: 'published',
-              label: 'Move Connection',
-              icon: 'fluent:folder-move-16-filled',
-              tooltip: 'Move to Connection',
-            },
+            // {
+            //   value: 'published',
+            //   label: 'Move Connection',
+            //   icon: 'fluent:folder-move-16-filled',
+            //   tooltip: 'Move to Connection',
+            // },
+            // {
+            //   value: 'draft',
+            //   label: 'Enable Connection',
+            //   icon: 'line-md:switch-off-filled-to-switch-filled-transition',
+            //   tooltip: 'Click to enable connections',
+            // },
+            // {
+            //   value: 'published',
+            //   label: 'Disable Connection',
+            //   icon: 'line-md:switch-filled-to-switch-off-filled-transition',
+            //   tooltip: 'Click to disable connections',
+            // },
             {
               value: 'draft',
-              label: 'Enable Connection',
-              icon: 'line-md:switch-off-filled-to-switch-filled-transition',
-              tooltip: 'Click to enable connections',
-            },
-            {
-              value: 'published',
-              label: 'Disable Connection',
-              icon: 'line-md:switch-filled-to-switch-off-filled-transition',
-              tooltip: 'Click to disable connections',
-            },
-            {
-              value: 'draft',
-              label: 'Delete Connection',
+              label: 'Delete transformation',
               icon: 'solar:trash-bin-trash-bold',
-              tooltip: 'Click to delete connections',
+              tooltip: 'Click to delete ',
               color: 'error.main', // New color property for the delete action
               isDelete: true, // Custom property to indicate this is the delete action
             },
@@ -223,7 +223,7 @@ export function OrderTableToolbar({
                     onChangePublish(option.value);
                   }}
                   sx={{
-                    color: option.label === 'Delete Connection' ? 'error.main' : 'inherit',
+                    color: option.label === 'Delete transformation' ? 'error.main' : 'inherit',
                   }}
                 >
                   {option.icon && (
@@ -233,7 +233,7 @@ export function OrderTableToolbar({
                       height={20}
                       sx={{
                         mr: 2,
-                        color: option.label === 'Delete Connection' ? 'error.main' : 'inherit',
+                        color: option.label === 'Delete ' ? 'error.main' : 'inherit',
                       }}
                     />
                   )}

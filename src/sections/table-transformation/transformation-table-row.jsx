@@ -11,8 +11,6 @@ import TableCell from '@mui/material/TableCell';
 import { useTheme } from '@mui/material/styles';
 import { Alert, Tooltip, Divider, Snackbar, IconButton } from '@mui/material';
 
-import { paths } from 'src/routes/paths';
-
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Label } from 'src/components/label';
@@ -168,7 +166,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             <Box component="span">
               <a
                 style={{ textDecoration: 'none', color: '#078dee' }}
-                href={paths.dashboard.updateconnection}
+                // href={paths.dashboard.updateconnection}
               >
                 <Tooltip
                   disableInteractive

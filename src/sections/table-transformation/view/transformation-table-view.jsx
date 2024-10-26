@@ -79,12 +79,7 @@ const TABLE_HEAD = [
   {
     id: 'id',
     label: (
-      <Tooltip
-        disableInteractive
-        title="View transformation ID's."
-        arrow
-        placement="top"
-      >
+      <Tooltip disableInteractive title="View transformation ID's." arrow placement="top">
         TRANSFORMATION ID
       </Tooltip>
     ),
