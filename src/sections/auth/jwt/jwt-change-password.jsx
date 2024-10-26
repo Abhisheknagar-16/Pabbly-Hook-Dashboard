@@ -117,7 +117,7 @@ export function JwtConfirm() {
       <Field.Text
         name="password"
         label="Password"
-        placeholder="Enter Password"
+        // placeholder="Enter Password"
         type={password.value ? 'text' : 'password'}
    
         InputProps={{
@@ -136,7 +136,7 @@ export function JwtConfirm() {
       <Field.Text
         name="confirmpassword"
         label="Re-enter Password"
-        placeholder="Confirm Password"
+        // placeholder="Confirm Password"
         type={confirmpassword.value ? 'text' : 'password'}
       
         InputProps={{
