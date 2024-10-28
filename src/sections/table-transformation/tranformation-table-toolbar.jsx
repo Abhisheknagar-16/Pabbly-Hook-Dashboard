@@ -24,13 +24,7 @@ import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------.
 
-export function OrderTableToolbar({
-  filters,
-  onResetPage,
-  publish,
-  onChangePublish,
-  numSelected,
-}) {
+export function OrderTableToolbar({ filters, onResetPage, publish, onChangePublish, numSelected }) {
   const theme = useTheme();
   const isBelow900px = useMediaQuery(theme.breakpoints.down('md'));
   const isBelow600px = useMediaQuery(theme.breakpoints.down('sm'));
@@ -42,8 +36,14 @@ export function OrderTableToolbar({
   const [operator, setOperator] = useState('contains');
   const [filterValue, setFilterValue] = useState('');
 
-  const sortconnection = ['Test 1', 'Test 2', 'Test 3', 'Test 4'];
-  const connectionstatus = ['All Status', 'Active', 'Inactive'];
+  const TransformationName = [
+    'Transformation name to the pabbly connect',
+    'Transform request payload',
+    'Transform request headers',
+    'Pabbly chatflow transformation',
+    'Transform request query',
+  ];
+  const transformationstatus = ['All Status', 'In Use', 'Idle'];
   const folder = [
     'Pabbly Connect',
     'Main Folder',
@@ -108,10 +108,10 @@ export function OrderTableToolbar({
         sx={{ p: 2.5, width: '100%' }}
       >
         <Box sx={{ width: '100%' }}>
-        <Tooltip
+          <Tooltip
             title={
               <div style={{ textAlign: 'center' }}>
-                click here to search by transformation name or ID&apos;s.
+                Click here to search by transformation name or ID&apos;s.
               </div>
             }
             arrow
@@ -143,7 +143,7 @@ export function OrderTableToolbar({
             justifyContent: 'flex-end', // Aligns buttons to the right
           }}
         >
-          {numSelected > 0 && (
+          {/* {numSelected > 0 && (
             <Button
               endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
               onClick={handlePopoverOpen}
@@ -156,7 +156,7 @@ export function OrderTableToolbar({
             >
               Select Action
             </Button>
-          )}
+          )} */}
 
           <Tooltip title="Filter transformation by status or folders." arrow placement="top">
             <Button
@@ -318,7 +318,7 @@ export function OrderTableToolbar({
             >
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
                 <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
-                  Connection Name
+                  Transformation Name
                 </Typography>
               </FormControl>
 
@@ -350,7 +350,7 @@ export function OrderTableToolbar({
                     },
                   }}
                   size="small"
-                  options={sortconnection}
+                  options={TransformationName}
                   renderInput={(params) => <TextField {...params} label="Select" />}
                   // sx={{ width: 300 }}
                 />
@@ -370,7 +370,9 @@ export function OrderTableToolbar({
               }}
             >
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
-                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>Connection ID</Typography>
+                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
+                  Transformation ID
+                </Typography>
               </FormControl>
 
               <FormControl
@@ -401,7 +403,7 @@ export function OrderTableToolbar({
                     },
                   }}
                   size="small"
-                  options={connectionstatus}
+                  options={transformationstatus}
                   renderInput={(params) => <TextField {...params} label="Select" />}
                   // sx={{ width: 300 }}
                 />

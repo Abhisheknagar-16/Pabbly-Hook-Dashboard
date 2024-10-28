@@ -116,7 +116,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   };
 
   const renderPrimary = (
-    <TableRow hover selected={selected}>
+    <TableRow hover
+    selected={selected}
+    sx={{
+      '&:hover .copy-button': {
+        opacity: 1,
+      },
+    }}>
       <TableCell padding="checkbox">
         <Tooltip arrow placement="top" title="Select">
           <Checkbox
@@ -161,7 +167,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 {row.status}
               </Label>
             </Tooltip>
-            <Box component="span">
+            {/* <Box component="span">
               <Tooltip
                 title={`Request Name: ${RequestName}`}
                 disableInteractive
@@ -170,7 +176,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               >
                 {RequestName}
               </Tooltip>
-            </Box>
+            </Box> */}
             <Box component="span" sx={{ color: 'text.disabled' }}>
               <Tooltip
                 title={
@@ -190,7 +196,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
       </TableCell>
 
       <TableCell>
-        <Stack spacing={2} direction="row" alignItems="center">
+        <Stack spacing={1} direction="row" alignItems="center">
           <Stack
             sx={{
               typography: 'body2',
@@ -199,17 +205,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             }}
           >
             <Box component="span">
-              <Tooltip title={`Request ID: ${RequestId}`} disableInteractive arrow placement="top">
-                {RequestId}
-              </Tooltip>
-              <Tooltip title="Copy request_id" arrow placement="bottom">
-                <IconButton
-                  edge="end"
-                  sx={{ color: 'text.disabled' }}
-                  onClick={() => navigator.clipboard.writeText(RequestId)} // Use the random ID
-                >
-                  <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
-                </IconButton>
+              <Tooltip
+                title={`Request Name: ${RequestName}`}
+                disableInteractive
+                arrow
+                placement="top"
+              >
+                {RequestName}
               </Tooltip>
             </Box>
             <Box component="span" sx={{ color: 'text.disabled' }} />
@@ -218,7 +220,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
       </TableCell>
 
       <TableCell>
-        <Stack spacing={2} direction="row" alignItems="center">
+        <Stack spacing={2} direction="row" alignItems="right">
           <Stack
             sx={{
               typography: 'body2',
@@ -226,15 +228,30 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-end',
             }}
           >
-            {evtItems.map((item) => (
-              <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Tooltip title="Request details for tracking and debugging." disableInteractive arrow placement="top">
-                  <Typography onClick={handleOpenDrawer} fontSize={14} color="primary.main">
-                    {item.label}
-                  </Typography>
-                </Tooltip>
-              </Box>
-            ))}
+            <Box component="span" onClick={handleOpenDrawer}>
+            <a style={{ textDecoration: 'none', color: '#078dee' }}>
+              <Tooltip title={`Request ID: ${RequestId}`} disableInteractive arrow placement="top">
+                {RequestId}
+              </Tooltip>
+              </a>
+              <Tooltip title="Copy request_id" arrow placement="bottom">
+                <IconButton
+                  className="copy-button"
+                  color={popover.open ? 'inherit' : 'default'}
+                  sx={{
+                   width: '20px',
+                   height: '20px',
+                   opacity: 0,
+                   transition: 'opacity 0.3s',
+                   right: 0,
+                 }}
+                  onClick={() => navigator.clipboard.writeText(RequestId)} // Use the random ID
+                >
+                  <Iconify sx={{ mt: -0.2}} width={14} icon="solar:copy-bold" />
+                </IconButton>
+              </Tooltip>
+            </Box>
+            {/* <Box component="span" sx={{ color: 'text.disabled' }} /> */}
           </Stack>
         </Stack>
       </TableCell>
