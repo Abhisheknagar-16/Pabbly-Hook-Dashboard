@@ -12,7 +12,6 @@ import {
   Button,
   Tooltip,
   Popover,
-  Divider,
   Typography,
   FormControl,
   Autocomplete,
@@ -112,7 +111,7 @@ export function OrderTableToolbar({
         <Tooltip
             title={
               <div style={{ textAlign: 'center' }}>
-                click here to transformation by transformation name or ID&apos;s.
+                click here to search by transformation name or ID&apos;s.
               </div>
             }
             arrow
@@ -213,7 +212,7 @@ export function OrderTableToolbar({
           ].map((option) => (
             <React.Fragment key={option.value}>
               {/* Render Divider above the "Delete Connection" item */}
-              {option.isDelete && <Divider sx={{ borderStyle: 'dashed' }} />}
+              {/* {option.isDelete && <Divider sx={{ borderStyle: 'dashed' }} />} */}
 
               <Tooltip title={option.tooltip} arrow placement="left">
                 <MenuItem

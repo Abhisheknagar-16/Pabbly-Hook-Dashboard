@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
+import React from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -12,40 +11,10 @@ import { useTheme } from '@mui/material/styles';
 import { Alert, Tooltip, Divider, Snackbar, IconButton } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
-
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
-
-
-// Random data generator
-const generateRandomData = () => {
-  const names = [
-    'Transformation name to the pabbly connect',
-    'Pabbly Chatflow Transformation',
-    'Transform request payload',
-    'Transform request headers',
-    'Transform request query',
-  ];
-  const statuses = ['In Use', 'Idle'];
-
-  const randomName = names[Math.floor(Math.random() * names.length)];
-  const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-  const randomRequestId = `trs_ux0g${Math.random().toString(36).substring(2, 36)}`;
-
-  // Generate a random date
-  const randomDate = new Date(Date.now() - Math.random() * 10000000000).toISOString();
-
-  return {
-    connectionName: randomName,
-    status: randomStatus,
-    connectionDate: randomDate,
-    requests: Math.floor(Math.random() * 10),
-    events: Math.floor(Math.random() * 10),
-    RequestId: randomRequestId,
-  };
-};
 
 // Date formatting function
 const formatDate = (dateString) => {
@@ -56,7 +25,7 @@ const formatDate = (dateString) => {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
-    hour12: false, // 24-hour format
+    hour12: false,
   };
   const date = new Date(dateString);
   return date.toLocaleString('en-US', options).replace(',', '');
@@ -65,40 +34,29 @@ const formatDate = (dateString) => {
 export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
   const confirm = useBoolean();
   const popover = usePopover();
-
-  const [openEnabelConnectionSnackbar, setEnabelConnectionSnackbar] = React.useState(false);
-
-  const handleOpenEnableConnnectonSnackbar = () => {
-    setEnabelConnectionSnackbar(true);
-  };
-
-  const handleCloseEnableConnnectonSnackbar = () => {
-    setEnabelConnectionSnackbar(false);
-  };
-
-  const [openDisabelConnectionSnackbar, setDisabelConnectionSnackbar] = React.useState(false);
-
-  const handleOpenDisabelConnnectonSnackbar = () => {
-    setDisabelConnectionSnackbar(true);
-  };
-
-  const handleCloseDisabelConnnectonSnackbar = () => {
-    setDisabelConnectionSnackbar(false);
-  };
-
   const theme = useTheme();
 
-  const [moveToFolderPopoverOpen, setMoveToFolderPopoverOpen] = useState(false);
+  const [openEnabelTransformationSnackbar, setEnabelTransformationSnackbar] = React.useState(false);
+  const [openDisabelTransformationSnackbar, setDisabelTransformationSnackbar] = React.useState(false);
 
-  // State to hold random data
-  const [randomData, setRandomData] = useState({});
+  const handleOpenEnableTransformationSnackbar = () => {
+    setEnabelTransformationSnackbar(true);
+  };
 
-  // Generate random data on component mount
-  useEffect(() => {
-    setRandomData(generateRandomData());
-  }, []); // Empty dependency array ensures it runs once on mount
+  const handleCloseEnableTransformationSnackbar = () => {
+    setEnabelTransformationSnackbar(false);
+  };
 
-  const { connectionName, status, connectionDate, RequestId, events } = randomData;
+  const handleOpenDisabelTransformationSnackbar = () => {
+    setDisabelTransformationSnackbar(true);
+  };
+
+  const handleCloseDisabelTransformationSnackbar = () => {
+    setDisabelTransformationSnackbar(false);
+  };
+
+  // Generate a consistent RequestId based on the row id
+  const RequestId = `trs_${row.id.substring(0, 8)}`;
 
   const renderPrimary = (
     <TableRow hover selected={selected}>
@@ -125,15 +83,17 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               placement="top"
               disableInteractive
               arrow
-              title={status === 'In Use' ? 'Transformation is In Use' : 'Transformation is Idle'}
+              title={row.status === 'In Use' ? 'Transformation is In Use' : 'Transformation is Idle'}
             >
               <Label
                 variant="soft"
                 color={
-                  (status === 'In Use' && 'success') || (status === 'Idle' && 'error') || 'default'
+                  (row.status === 'In Use' && 'success') || 
+                  (row.status === 'Idle' && 'error') || 
+                  'default'
                 }
               >
-                {status}
+                {row.status}
               </Label>
             </Tooltip>
             <Box component="span" sx={{ color: 'text.disabled' }}>
@@ -141,13 +101,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 disableInteractive
                 title={
                   <div style={{ textAlign: 'center' }}>
-                    {`Transformation created: ${formatDate(connectionDate)}(UTC+00:00) America/Danmarkshavn`}
+                    {`Transformation created: ${formatDate(row.createdAt)}(UTC+00:00) America/Danmarkshavn`}
                   </div>
                 }
                 arrow
                 placement="top"
               >
-                {formatDate(connectionDate)}
+                {formatDate(row.createdAt)}
               </Tooltip>
             </Box>
           </Stack>
@@ -164,17 +124,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             }}
           >
             <Box component="span">
-              <a
-                style={{ textDecoration: 'none', color: '#078dee' }}
-                // href={paths.dashboard.updateconnection}
-              >
+              <a style={{ textDecoration: 'none', color: '#078dee' }}>
                 <Tooltip
                   disableInteractive
-                  title={`Transformation Name: ${connectionName}`}
+                  title={`Transformation Name: ${row.items[0].name}`}
                   arrow
                   placement="top"
                 >
-                  {connectionName}
+                  {row.items[0].name}
                 </Tooltip>
               </a>
             </Box>
@@ -193,7 +150,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               <IconButton
                 edge="end"
                 sx={{ color: 'text.disabled' }}
-                onClick={() => navigator.clipboard.writeText(RequestId)} // Use the random ID
+                onClick={() => navigator.clipboard.writeText(RequestId)}
               >
                 <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
               </IconButton>
@@ -209,24 +166,15 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               typography: 'body2',
               flex: '1 1 auto',
               alignItems: 'flex-end',
-              // mr: 4
             }}
           >
             <Box component="span">
               <a style={{ textDecoration: 'none', color: '#078dee' }}>
                 <Tooltip disableInteractive title="Status of the requests" arrow placement="top">
-                  0
+                  {row.totalQuantity}
                 </Tooltip>
               </a>
             </Box>
-
-            {/* <Box component="span" sx={{ color: 'text.disabled' }}>
-              <a style={{ textDecoration: 'none', color: '#919eab' }} href={paths.dashboard.event}>
-                <Tooltip disableInteractive title="Status of the events" arrow placement="top">
-                  {events} events
-                </Tooltip>
-              </a>
-            </Box> */}
           </Stack>
         </Stack>
       </TableCell>
@@ -254,35 +202,17 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
       >
         <MenuList>
           <Tooltip title="Click to enable transformation." arrow placement="left">
-            <MenuItem onClick={handleOpenEnableConnnectonSnackbar}>
+            <MenuItem onClick={handleOpenEnableTransformationSnackbar}>
               <Iconify icon="line-md:switch-off-filled-to-switch-filled-transition" />
               Enable
             </MenuItem>
           </Tooltip>
           <Tooltip title="Click to disable transformation." arrow placement="left">
-            <MenuItem onClick={handleOpenDisabelConnnectonSnackbar}>
+            <MenuItem onClick={handleOpenDisabelTransformationSnackbar}>
               <Iconify icon="line-md:switch-filled-to-switch-off-filled-transition" />
               Disable
             </MenuItem>
           </Tooltip>
-          {/* <Tooltip title="Move to update." arrow placement="left">
-            <MenuItem>
-              <Iconify icon="mingcute:history-fill" />
-              Update
-            </MenuItem>
-          </Tooltip> */}
-          {/* <Tooltip title="Move to folder." arrow placement="left">
-            <MenuItem
-              onClick={() => {
-                setMoveToFolderPopoverOpen(true); // Open the Auto Re-Execution dialog
-                popover.onClose();
-              }}
-              sx={{ color: 'secondary' }}
-            >
-              <Iconify icon="fluent:folder-move-16-filled" />
-              Move To Folder
-            </MenuItem>
-          </Tooltip> */}
           <Divider sx={{ borderStyle: 'dashed' }} />
           <Tooltip title="Click to delete transformation." arrow placement="left">
             <MenuItem
@@ -300,9 +230,9 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
       </CustomPopover>
 
       <Snackbar
-        open={openEnabelConnectionSnackbar}
+        open={openEnabelTransformationSnackbar}
         autoHideDuration={4000}
-        onClose={handleCloseEnableConnnectonSnackbar}
+        onClose={handleCloseEnableTransformationSnackbar}
         Z-index={100}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{
@@ -311,7 +241,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         }}
       >
         <Alert
-          onClose={handleCloseEnableConnnectonSnackbar}
+          onClose={handleCloseEnableTransformationSnackbar}
           severity="success"
           sx={{
             width: '100%',
@@ -324,10 +254,11 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           Transformation enable successfully.
         </Alert>
       </Snackbar>
+      
       <Snackbar
-        open={openDisabelConnectionSnackbar}
+        open={openDisabelTransformationSnackbar}
         autoHideDuration={4000}
-        onClose={handleCloseDisabelConnnectonSnackbar}
+        onClose={handleCloseDisabelTransformationSnackbar}
         Z-index={100}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{
@@ -336,7 +267,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         }}
       >
         <Alert
-          onClose={handleCloseDisabelConnnectonSnackbar}
+          onClose={handleCloseDisabelTransformationSnackbar}
           severity="success"
           sx={{
             width: '100%',
@@ -350,10 +281,6 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         </Alert>
       </Snackbar>
 
-      {/* <MoveToFolderPopover
-        open={moveToFolderPopoverOpen}
-        onClose={() => setMoveToFolderPopoverOpen(false)}
-      /> */}
       <ConfirmDialog
         open={confirm.value}
         onClose={confirm.onFalse}

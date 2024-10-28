@@ -70,6 +70,9 @@ export const _transformation = [...Array(20)].map((_, index) => {
       phoneNumber: '365-374-4961',
     },
     payment: { cardType: 'mastercard', cardNumber: '**** **** **** 5678' },
-    status: index % 2 === 0 ? 'In Use' : 'Idle',
+    status:
+      (index % 2 && 'In Use') ||
+      (index % 5 && 'Idle') ||
+      'Idle',
   };
 });

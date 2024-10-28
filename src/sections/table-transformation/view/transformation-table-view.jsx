@@ -20,9 +20,8 @@ import { useSetState } from 'src/hooks/use-set-state';
 import { fIsAfter, fIsBetween } from 'src/utils/format-time';
 
 import { varAlpha } from 'src/theme/styles';
-import { _connection } from 'src/_mock/connectiontable';
 import { DashboardContent } from 'src/layouts/dashboard';
-import { ORDER_TRANSFORMATION_OPTIONS } from 'src/_mock/transformationtable';
+import { _transformation, ORDER_TRANSFORMATION_OPTIONS } from 'src/_mock/transformationtable';
 
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
@@ -105,7 +104,7 @@ export function TransformationTableView() {
 
   const confirm = useBoolean();
 
-  const [tableData, setTableData] = useState(_connection);
+  const [tableData, setTableData] = useState(_transformation);
 
   const filters = useSetState({
     name: '',
@@ -329,7 +328,8 @@ export function TransformationTableView() {
                         onViewRow={() => handleViewRow(row.id)}
                         sx={{ width: '100%' }} // Full width for each row
                       />
-                    ))}
+                    ))
+                    }
 
                   <TableEmptyRows
                     height={table.dense ? 56 : 56 + 20}
@@ -338,6 +338,7 @@ export function TransformationTableView() {
 
                   <TableNoData notFound={notFound} />
                 </TableBody>
+                
               </Table>
             </Scrollbar>
           </Box>
@@ -394,8 +395,19 @@ function applyFilter({ inputData, comparator, filters, dateError }) {
 
   // Filter status
   if (status !== 'all') {
-    dataFiltered = dataFiltered.filter((item) => item.status === status);
+  //  dataFiltered = dataFiltered.filter((item) => item.status === status);
+  if (status === 'In Use') {
+    dataFiltered = dataFiltered.filter((item) => item.status === 'In Use');
+    console.log(dataFiltered);
   }
+
+  if (status === 'Idle') {
+    dataFiltered = dataFiltered.filter((item) => item.status === 'Idle');
+  }
+  }
+
+  console.log(status);
+  console.log(dataFiltered);
 
   // Filter date
   if (!dateError && startDate && endDate) {
