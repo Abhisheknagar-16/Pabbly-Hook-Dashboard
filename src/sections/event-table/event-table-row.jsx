@@ -275,7 +275,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             color={buttonColor}
             // size='medium'
             onClick={handleOpenDrawer}
-            sx={{ mr: 1 }} // Add margin-right to the button
+            sx={{ mr: 1,cursor:'pointer'  }} // Add margin-right to the button
           >
             Attempt {attemptCount}
           </Label>

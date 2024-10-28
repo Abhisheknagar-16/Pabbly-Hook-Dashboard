@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { RequestTableView } from 'src/sections/orderrequest/view';
+import { RequestTableView } from 'src/sections/request-table/view';
 import { StatsCardRequest } from 'src/sections/statscard-request/view';
 
 // ----------------------------------------------------------------------
