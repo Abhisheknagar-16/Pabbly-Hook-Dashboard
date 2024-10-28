@@ -58,7 +58,7 @@ export function Content({ sx, children, layoutQuery, ...other }) {
         flex: '1 1 auto',
         alignItems: 'center',
         flexDirection: 'column',
-        justifyContent: {xs:"start",sm:"start", md:"center",lg:"center"},
+        justifyContent: {xs:"start",sm:"center", md:"center",lg:"center"},
         background:"white",
         [theme.breakpoints.up(layoutQuery)]: {
           px: 0,
