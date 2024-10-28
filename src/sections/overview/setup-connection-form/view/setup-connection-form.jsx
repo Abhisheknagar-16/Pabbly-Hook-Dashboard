@@ -6,8 +6,8 @@ import { Box, Card, Tooltip, Typography } from '@mui/material';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { ModalVideoView } from 'src/assets/illustrations';
 
-import { HomeTableView} from 'src/sections/orderhome/view';
-import { TrashTableView } from 'src/sections/ordertrash/view';
+import { HomeTableView} from 'src/sections/home-table/view';
+import { TrashTableView } from 'src/sections/trash-table/view';
 import { FolderSection } from 'src/sections/folder-section/folder-section';
 import { CreateConnectionFormDialog } from 'src/sections/dialog-view/create-connection-form-dialog';
 

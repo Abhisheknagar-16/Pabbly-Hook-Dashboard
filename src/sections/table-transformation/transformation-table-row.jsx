@@ -114,13 +114,15 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   };
 
   const renderPrimary = (
-    <TableRow hover
-    selected={selected}
-    sx={{
-      '&:hover .copy-button': {
-        opacity: 1,
-      },
-    }}>
+    <TableRow
+      hover
+      selected={selected}
+      sx={{
+        '&:hover .copy-button': {
+          opacity: 1,
+        },
+      }}
+    >
       <TableCell padding="checkbox">
         <Tooltip disableInteractive title="Select" arrow placement="top">
           <Checkbox
@@ -187,9 +189,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             }}
           >
             <Box component="span" onClick={handleOpenDrawer}>
-              <a style={{ textDecoration: 'none', color: '#078dee' }}>
+              <a style={{ textDecoration: 'none', color: '#078dee', cursor: 'pointer' }}>
                 <Tooltip
-                  title={`Transformation Name: ${TransformationName}`}
+                  title={
+                    <div style={{ textAlign: 'center' }}>
+                      {`Transformation Name: ${TransformationName}`}
+                    </div>
+                  }
                   disableInteractive
                   arrow
                   placement="top"
@@ -215,16 +221,16 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               {TransformationId}
             </Tooltip>
             <Tooltip title="Copy transformation_id" disableInteractive arrow placement="bottom">
-              <IconButton 
-               className="copy-button"
-               color={popover.open ? 'inherit' : 'default'}
-               sx={{
-                width: '20px',
-                height: '20px',
-                opacity: 0,
-                transition: 'opacity 0.3s',
-                right: 0,
-              }}
+              <IconButton
+                className="copy-button"
+                color={popover.open ? 'inherit' : 'default'}
+                sx={{
+                  width: '20px',
+                  height: '20px',
+                  opacity: 0,
+                  transition: 'opacity 0.3s',
+                  right: 0,
+                }}
                 onClick={() => navigator.clipboard.writeText(TransformationId)}
               >
                 <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />

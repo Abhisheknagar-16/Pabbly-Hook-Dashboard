@@ -116,13 +116,15 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   };
 
   const renderPrimary = (
-    <TableRow hover
-    selected={selected}
-    sx={{
-      '&:hover .copy-button': {
-        opacity: 1,
-      },
-    }}>
+    <TableRow
+      hover
+      selected={selected}
+      sx={{
+        '&:hover .copy-button': {
+          opacity: 1,
+        },
+      }}
+    >
       <TableCell padding="checkbox">
         <Tooltip arrow placement="top" title="Select">
           <Checkbox
@@ -228,32 +230,51 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-end',
             }}
           >
-            <Box component="span" onClick={handleOpenDrawer}>
-            <a style={{ textDecoration: 'none', color: '#078dee' }}>
+            <Box
+              component="span"
+              onClick={handleOpenDrawer}
+              sx={{ color: '#078dee', cursor: 'pointer' }}
+            >
               <Tooltip title={`Request ID: ${RequestId}`} disableInteractive arrow placement="top">
                 {RequestId}
               </Tooltip>
-              </a>
-              <Tooltip title="Copy request_id" arrow placement="bottom">
+              {/* <Tooltip title="Copy request_id" arrow placement="bottom">
                 <IconButton
                   className="copy-button"
                   color={popover.open ? 'inherit' : 'default'}
                   sx={{
-                   width: '20px',
-                   height: '20px',
-                   opacity: 0,
-                   transition: 'opacity 0.3s',
-                   right: 0,
-                 }}
+                    width: '20px',
+                    height: '20px',
+                    opacity: 0,
+                    transition: 'opacity 0.3s',
+                    right: 0,
+                  }}
                   onClick={() => navigator.clipboard.writeText(RequestId)} // Use the random ID
                 >
-                  <Iconify sx={{ mt: -0.2}} width={14} icon="solar:copy-bold" />
+                  <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
                 </IconButton>
-              </Tooltip>
+              </Tooltip> */}
             </Box>
-            {/* <Box component="span" sx={{ color: 'text.disabled' }} /> */}
           </Stack>
         </Stack>
+      </TableCell>
+      <TableCell padding="checkbox">
+        <Tooltip title="Copy request_id" arrow placement="bottom">
+          <IconButton
+            className="copy-button"
+            color={popover.open ? 'inherit' : 'default'}
+            sx={{
+              width: '20px',
+              height: '20px',
+              opacity: 0,
+              transition: 'opacity 0.3s',
+              right: 0,
+            }}
+            onClick={() => navigator.clipboard.writeText(RequestId)} // Use the random ID
+          >
+            <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
+          </IconButton>
+        </Tooltip>
       </TableCell>
     </TableRow>
   );
