@@ -236,11 +236,11 @@ export function JwtSignUpView() {
   const renderForm = (
     <Stack spacing={2}>
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="firstName" label="First name" />
-        <Field.Text name="lastName" label="Last name" />
+        <Field.Text name="firstName" label="First Name" />
+        <Field.Text name="lastName" label="Last Name" />
       </Stack>
 
-      <Field.Text name="email" label="Email address"  />
+      <Field.Text name="email" label="Email Address"  />
 
       <Field.Text
         name="password"
@@ -482,7 +482,7 @@ export function JwtSignUpView() {
         alignItems="center" // Centers content vertically
       >
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-        Already have a Pabbly account? 
+        Already have a Pabbly Account? 
         </Typography>
         <Link
           component={RouterLink}
@@ -514,7 +514,7 @@ export function JwtSignUpView() {
       </Link>
       {' and '}
       <Link color="primary">
-        privacy policy
+        Privacy Policy
       </Link>
       .
     </Typography>

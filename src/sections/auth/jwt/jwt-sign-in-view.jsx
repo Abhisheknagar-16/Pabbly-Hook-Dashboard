@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
-import {Card, Button,  Divider, SvgIcon } from '@mui/material';
+import { Card,  Button, Divider, SvgIcon } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -62,6 +62,9 @@ export const SignInSchema = zod.object({
 // ----------------------------------------------------------------------
 
 export function JwtSignInView() {
+
+
+
   const router = useRouter();
 
   const { checkUserSession } = useAuthContext();
@@ -128,7 +131,7 @@ export function JwtSignInView() {
 
   const renderForm = (
     <Stack spacing={2}>
-      <Field.Text name="email" label="Email address" />
+      <Field.Text name="email" label="Email Address" />
 
       <Stack spacing={1.5}>
         {/* <Link
@@ -177,7 +180,7 @@ export function JwtSignInView() {
         alignItems="center" // Centers content vertically
       >
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Unable to Login?
+          Unable to login?
         </Typography>
         <Link
           component={RouterLink}
@@ -186,7 +189,7 @@ export function JwtSignInView() {
           color="primary"
           sx={{ alignSelf: 'center' }} // Aligns this item to the center
         >
-          Forgot password
+          Forgot Password
         </Link>
       </Stack>
     </Stack>
@@ -194,6 +197,8 @@ export function JwtSignInView() {
 
   return (
   
+
+
 
     <Card sx={{p:4,textAlign:"center"}}>
     {renderHead}
@@ -212,8 +217,16 @@ export function JwtSignInView() {
 
 <Form methods={methods} onSubmit={onSubmit}>
   {renderForm}
-</Form>
-    
+</Form>    
 </Card>
+
+
+
+
+
+
+
+
+
   );
 }

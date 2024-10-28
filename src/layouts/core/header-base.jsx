@@ -9,6 +9,10 @@ import { RouterLink } from 'src/routes/components';
 import { varAlpha } from 'src/theme/styles';
 // import { Logo } from 'src/components/logo';
 
+
+
+import { Logo } from 'src/components/logo';
+
 import { HeaderSection } from './header-section';
 import { Searchbar } from '../components/searchbar';
 import { MenuButton } from '../components/menu-button';
@@ -105,7 +109,7 @@ export function HeaderBase({
             )}
 
             {/* -- Logo -- */}
-            {/* <Logo data-slot="logo" /> */}
+            <Logo data-slot="logo" />
 
             {/* -- Divider -- */}
             <StyledDivider data-slot="divider" />
@@ -140,6 +144,8 @@ export function HeaderBase({
                   Need help?
                 </Link>
               )}
+
+
 
               {/* -- Searchbar -- */}
               {searchbar && <Searchbar data-slot="searchbar" data={data?.nav} />}
