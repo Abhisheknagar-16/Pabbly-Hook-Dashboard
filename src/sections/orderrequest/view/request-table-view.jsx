@@ -49,10 +49,10 @@ import { OrderTableFiltersResult } from '../request-table-filters-result';
 const STATUS_REQUEST = [{ value: 'all', label: 'All' }, ...ORDER_REQUEST_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'orderNumber', label: (<Tooltip title="View request status, date and name of creation." arrow placement='top'>STATUS/DATE/NAME</Tooltip>) },
-  // { id: 'name', label: (<Tooltip title="Name of the requests." arrow placement='top'>REQUEST NAME</Tooltip>) },
-  { id: 'name', label: (<Tooltip title="View request ID's." arrow placement='top'>REQUEST ID</Tooltip>) },
-  { id: 'totalAmount', label: (<Tooltip title="View request id and their summary." arrow placement='top'>REQUEST CODE </Tooltip>), align: 'right' },
+  { id: 'orderNumber', label: (<Tooltip title="View request status, date and name of creation." disableInteractive arrow placement='top'>STATUS/DATE</Tooltip>) },
+  { id: 'name', label: (<Tooltip title="Name of the requests." disableInteractive arrow placement='top'>REQUEST NAME</Tooltip>) },
+  { id: 'name', label: (<Tooltip title="View request ID's." disableInteractive arrow placement='top'>REQUEST ID</Tooltip>),align: 'right'},
+  // { id: 'totalAmount', label: (<Tooltip title="View request id and their summary." arrow placement='top'>REQUEST CODE </Tooltip>), align: 'right' },
 
 ];
 

@@ -99,6 +99,16 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
         sx={{ p: 2.5, width: '100%' }}
       >
         <Box sx={{ width: '100%' }}>
+        <Tooltip
+            title={
+              <div style={{ textAlign: 'center' }}>
+                Click here to search by request name or ID&apos;s.
+              </div>
+            }
+            arrow
+            placement="top"
+            disableInteractive
+          >
           <TextField
             fullWidth
             value={filters.state.name}
@@ -112,6 +122,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
               ),
             }}
           />
+          </Tooltip>
         </Box>
 
         <Box

@@ -107,7 +107,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
       >
         <Box sx={{ width: '100%' }}>
           <Tooltip
-            title="click here to event by request name or ID's."
+            title="Click here to event by request name or ID's."
             arrow
             placement="top"
             disableInteractive

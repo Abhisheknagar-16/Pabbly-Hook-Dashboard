@@ -131,7 +131,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   const attemptTooltip = `This is attempt number ${attemptCount} for a ${row.status} event.`;
 
   const renderPrimary = (
-    <TableRow hover selected={selected}>
+    <TableRow hover
+    selected={selected}
+    sx={{
+      '&:hover .copy-button': {
+        opacity: 1,
+      },
+    }}>
       <TableCell padding="checkbox">
         <Tooltip arrow placement="top" title="Select">
           {' '}
@@ -220,8 +226,15 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               </Tooltip>
               <Tooltip title="Copy request_id " disableInteractive arrow placement="bottom">
                 <IconButton
-                  edge="end"
-                  sx={{ color: 'text.disabled' }}
+                  className="copy-button"
+                  color={popover.open ? 'inherit' : 'default'}
+                  sx={{
+                   width: '20px',
+                   height: '20px',
+                   opacity: 0,
+                   transition: 'opacity 0.3s',
+                   right: 0,
+                 }}
                   onClick={() => navigator.clipboard.writeText(RequestId)}
                 >
                   <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
@@ -237,8 +250,15 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               </Tooltip>
               <Tooltip title="Copy event_id" disableInteractive arrow placement="bottom">
                 <IconButton
-                  edge="end"
-                  sx={{ color: 'text.disabled' }}
+                  className="copy-button"
+                  color={popover.open ? 'inherit' : 'default'}
+                  sx={{
+                   width: '20px',
+                   height: '20px',
+                   opacity: 0,
+                   transition: 'opacity 0.3s',
+                   right: 0,
+                 }}
                   onClick={() => navigator.clipboard.writeText(EventId)}
                 >
                   <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
