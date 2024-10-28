@@ -90,7 +90,7 @@ export function JwtForgotpassword() {
 
   const renderForm = (
     <Stack spacing={2}>
-      <Field.Text name="email" label="Email address" />
+      <Field.Text name="email" label="Email Address" />
 
       <LoadingButton
         fullWidth
@@ -103,7 +103,7 @@ export function JwtForgotpassword() {
         onClick={handleOpenSnackbar}
         // loadingIndicator="Reset password..."
       >
-        Reset link
+        Reset Link
       </LoadingButton>
       <Snackbar
         open={openSnackbar}
@@ -143,12 +143,12 @@ export function JwtForgotpassword() {
         alignItems="center" // Centers content vertically
       >
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Remember your Pabbly account password?
-        </Typography>
-
-        <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="subtitle2">
+          Remember your password? <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="subtitle2">
           Login
         </Link>
+        </Typography>
+
+        
       </Stack>
       {/* <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="body2"
           color="inherit"
