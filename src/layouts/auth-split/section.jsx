@@ -155,10 +155,8 @@ export function Section({
       <Box gap={5} display="flex">
         <Tooltip
           title={
-            <Box sx={{ textAlign: 'center' }}>
-              Pabbl&apos;y services are audited and certified for high standards of security,
-              availability, and VD and ISO confidentiality, affirming our ecur commitment to
-              safeguard your data with integrity.
+            <Box sx={{ textAlign: 'left' }}>
+              {`Pabbly's services are audited and certified for high standards of security, availability, and confidentiality, affirming our commitment to safeguard your data with integrity.`}
             </Box>
           }
           placement="top"
@@ -168,7 +166,7 @@ export function Section({
         </Tooltip>
         <Tooltip
           title={
-            <Box sx={{ textAlign: 'center' }}>
+            <Box sx={{ textAlign: 'left' }}>
               Pabbly adheres to rigorous information security standards, ensuring the protection and
               confidentiality of your data within our automation and integration solutions.
             </Box>
