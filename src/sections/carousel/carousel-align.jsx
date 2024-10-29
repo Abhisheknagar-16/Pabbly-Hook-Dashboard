@@ -195,7 +195,7 @@ export function CarouselAutoplay() {
     },
     {
       title: 'Pabbly Email Verification',
-      description: 'Verify and remove bad emails.',
+      description: 'Verify and removes bad emails.',
       icon: (
         <svg
           width="36"
