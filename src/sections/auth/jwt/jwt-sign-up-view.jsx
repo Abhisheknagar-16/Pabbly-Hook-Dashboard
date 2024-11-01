@@ -508,13 +508,14 @@ export function JwtSignUpView() {
     >
       <Divider sx={{mt:1, mb:1}}/>
       {'By signing up, I agree to '}
+     
       <Link color="primary" href="https://www.pabbly.com/terms-conditions/" target="_blank"
         rel="noopener noreferrer">
-        Pabbly terms of service
+      {`Pabbly's Terms of Service`} 
       </Link>
       {' and '}
       <Link color="primary">
-        Privacy Policy
+      Privacy Policy
       </Link>
       .
     </Typography>
