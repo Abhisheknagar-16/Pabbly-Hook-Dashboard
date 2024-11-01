@@ -5,7 +5,6 @@ import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import { TransformationTableView } from 'src/sections/table-transformation/view';
-// import { OrderListViewTransformation } from 'src/sections/ordertransformation/view';
 import { StatsCardTransformation } from 'src/sections/statscard-transformation/view';
 
 
@@ -23,7 +22,6 @@ export default function Page() {
       </Helmet>
 
       <StatsCardTransformation/>
-      {/* <OrderListViewTransformation/> */}
       <TransformationTableView/>
       </DashboardContent>
 

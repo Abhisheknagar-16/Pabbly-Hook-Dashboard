@@ -454,6 +454,24 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           <Divider />
           <Grid container spacing={2} mt={2}>
             <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
+              <Typography variant="body2" >
+                Status
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
+              <Label
+                size="small"
+                variant="soft"
+                color={
+                  (row.status === 'In Use' && 'success') ||
+                  (row.status === 'Idle' && 'error') ||
+                  'default'
+                }
+              >
+                {row.status.charAt(0).toUpperCase() + row.status.slice(1)}
+              </Label>
+            </Grid>
+            <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
                 Name
               </Typography>

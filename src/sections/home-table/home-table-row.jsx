@@ -143,7 +143,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               <Tooltip
                 disableInteractive
                 title={
-                  <div style={{ textAlign: 'center' }}>
+                  <div style={{ textAlign: 'left' }}>
                     {`Connection created: ${formatDate(connectionDate)}(UTC+00:00) America/Danmarkshavn`}
                   </div>
                 }
@@ -206,7 +206,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 style={{ textDecoration: 'none', color: '#078dee' }}
                 href={paths.dashboard.request}
               >
-                <Tooltip disableInteractive title="Status of the requests" arrow placement="top">
+                <Tooltip disableInteractive title="Total number of webhook requests received by connection." arrow placement="top">
                   {requests} Requests
                 </Tooltip>
               </a>
@@ -214,7 +214,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
 
             <Box component="span" sx={{ color: 'text.disabled' }}>
               <a style={{ textDecoration: 'none', color: '#919eab' }} href={paths.dashboard.event}>
-                <Tooltip disableInteractive title="Status of the events" arrow placement="top">
+                <Tooltip disableInteractive title="Total number of events successfully processed from received webhook requests." arrow placement="top">
                   {events} events
                 </Tooltip>
               </a>

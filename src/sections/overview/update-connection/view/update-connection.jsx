@@ -4,9 +4,7 @@ import CodeMirror from '@uiw/react-codemirror';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { javascript } from '@codemirror/lang-javascript';
 
-import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 import {
@@ -14,20 +12,19 @@ import {
   Tab,
   Tabs,
   Card,
-  Dialog,
+  Alert,
   Switch,
   Drawer,
   Divider,
   Tooltip,
   MenuItem,
   Checkbox,
+  Snackbar,
   TextField,
   CardHeader,
   Typography,
   IconButton,
-  DialogTitle,
   FormControl,
-  DialogActions,
   DialogContent,
   InputAdornment,
   FormHelperText,
@@ -39,6 +36,8 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import { Iconify } from 'src/components/iconify';
 
 import { useMockedUser } from 'src/auth/hooks'; // Correct import
+import { paths } from 'src/routes/paths';
+
 import { FolderSection } from 'src/sections/folder-section/folder-section';
 import { TransformationDrawer } from 'src/sections/dialog-view/transformation-drawer';
 import { TransformationDrawerUpdate } from 'src/sections/dialog-view/transformation-drawer-update';
@@ -51,7 +50,7 @@ const currencies = [
   },
   {
     value: 'EUR',
-    label: 'per minute',
+    label: 'per minute', 
   },
   {
     value: 'BTC',
@@ -201,19 +200,30 @@ export function UpdateConnection() {
     setTransformationUpdateDrawerOpen(false);
   };
 
-  const [urlrequired, setUrlrequied] = useState('');
+  // const [urlrequired, setUrlrequied] = useState('');
   const [errorrequired, setError] = useState(false);
 
-  const handleChangetext = (event) => {
-    setUrlrequied(event.target.value);
+  const [urlrequired, setUrlrequired] = useState('');
 
-    // Simple validation: check if the field is empty
-    if (event.target.value === '') {
+  const handleChangetext = (event) => {
+    const { value } = event.target; // Destructure 'value' from event.target
+    setUrlrequired(value);
+    setError(value === '');
+  };
+
+  const handleCreate = () => {
+    if (urlrequired.trim() === '') {
       setError(true);
     } else {
-      setError(false);
+      // If valid, redirect to the next page
+      setTimeout(() => {
+        window.location.href = paths.dashboard.root;
+      }, 2000);
+      setOpenSnackbar(true);
     }
   };
+
+
   const [checkboxState, setCheckboxState] = useState({
     GET: true,
     POST: false,
@@ -482,10 +492,10 @@ export function UpdateConnection() {
 
             <DialogContent sx={{ mb: 2 }}>
               <TextField
-                error={errorrequired}
-                value={urlrequired}
-                onChange={handleChangetext}
-                autoFocus
+                 error={errorrequired}
+                 value={urlrequired}
+                 onChange={handleChangetext}
+                 autoFocus
                 fullWidth
                 required
                 type="email"
@@ -1032,14 +1042,41 @@ export function UpdateConnection() {
                   variant="contained"
                   sx={{ mr: 2 }}
                   color="primary"
-                  onClick={handleClickOpen}
+                  // onClick={handleClickOpen}
+                  onClick={handleCreate}
+                  disabled={urlrequired.trim() === ''}
                 >
                   Update
                 </Button>
-                <Dialog open={open} onClose={handleClose}>
+                <Snackbar
+                      open={openSnackbar}
+                      autoHideDuration={1000}
+                      Z-index={100}
+                      onClose={handleCloseSnackbar}
+                      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                      sx={{
+                        boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+                        mt: 6.5,
+                      }}
+                      
+                    >
+                      <Alert
+                        onClose={handleCloseSnackbar}
+                        severity="success"
+                        sx={{
+                          width: '100%',
+                          fontSize: '14px',
+                          fontWeight: 'bold',
+                          backgroundColor: theme.palette.background.paper,
+                          color: theme.palette.text.primary,
+                        }}
+                      >
+                        Connection successfully setup.
+                      </Alert>
+                    </Snackbar>
+                {/* <Dialog open={open} onClose={handleClose}>
                   <DialogTitle>Connection Successfully Setup!</DialogTitle>
                   <DialogContent>
-                    {/* <Typography>Webhook URL</Typography> */}
                     <TextField
                       autoFocus
                       margin="dense"
@@ -1091,7 +1128,7 @@ export function UpdateConnection() {
                       </Alert>
                     </Snackbar>
                   </DialogActions>
-                </Dialog>
+                </Dialog> */}
               </>
               <Button onClick={handleClose} variant="outlined" color="inherit">
                 Cancel

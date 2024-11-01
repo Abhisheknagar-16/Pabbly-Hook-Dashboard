@@ -67,7 +67,7 @@ const TABLE_HEAD = [
     label: (
       <Tooltip
         disableInteractive
-        title="Name of connection and folder where it is located."
+        title="Name of connections and folder where it is located."
         arrow
         placement="top"
       >
@@ -78,7 +78,7 @@ const TABLE_HEAD = [
   {
     id: 'createdAt',
     label: (
-      <Tooltip disableInteractive title="Status of the requests and events." arrow placement="top">
+      <Tooltip disableInteractive title="View the number of incoming requests and processed events for each connection." arrow placement="top">
         REQUEST/EVENTS
       </Tooltip>
     ),

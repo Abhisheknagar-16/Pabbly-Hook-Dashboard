@@ -4,8 +4,9 @@ import { Helmet } from 'react-helmet-async';
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { StatsCard } from 'src/sections/overview/statscard-connection/view';
+// import { StatsCard } from 'src/sections/overview/statscard-connection/view';
 import { UpdateConnection } from 'src/sections/overview/update-connection/view';
+import { StatsCardUpdateConnection } from 'src/sections/statscard-update-connection/view';
 
 // import { EcommerceWelcome } from 'src/sections/overview/e-commerce/ecommerce-welcome';
 
@@ -22,11 +23,8 @@ export default function Page() {
       <Helmet>
         <title>{metadata.title}</title>
       </Helmet>
-      {/* <BlankView title="Page two" /> */}
-      <StatsCard />
-      {/* <OverviewEcommerceView /> */}
+      <StatsCardUpdateConnection/>
       <UpdateConnection/>
-    
       </DashboardContent>
     </div>
   );
