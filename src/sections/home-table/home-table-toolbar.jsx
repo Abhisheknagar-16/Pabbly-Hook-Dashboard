@@ -109,6 +109,7 @@ export function OrderTableToolbar({
         sx={{ p: 2.5, width: '100%' }}
       >
         <Box sx={{ width: '100%' }}>
+          <Tooltip title="click here to search the connection." arrow placement='top' >
           <TextField
             fullWidth
             value={filters.state.name}
@@ -121,7 +122,7 @@ export function OrderTableToolbar({
                 </InputAdornment>
               ),
             }}
-          />
+          /></Tooltip>
         </Box>
 
         <Box
@@ -148,7 +149,7 @@ export function OrderTableToolbar({
             </Button>
           )}
 
-          <Tooltip title="Filter connection by status or folders." arrow placement="top">
+          <Tooltip title="Filter connections by name, status and folder." arrow placement="top">
             <Button
               sx={{
                 ...buttonStyle,

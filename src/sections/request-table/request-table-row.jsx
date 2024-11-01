@@ -12,13 +12,11 @@ import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import {
   Grid,
-  Alert,
   AppBar,
   Divider,
   Tooltip,
   Toolbar,
   useTheme,
-  Snackbar,
   TextField,
   Typography,
   IconButton,
@@ -392,32 +390,57 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         <Divider />
         <Box sx={{ width: '90%', mt: 2, ml: 5, bgcolor: '#fff', padding: 2 }}>
           <Typography variant="h6" gutterBottom>
-            Request History
+            <Tooltip
+              title="Detailed information for the selected webhook request."
+              disableInteractive
+              placement="top"
+              arrow
+            >
+              Request History
+            </Tooltip>
           </Typography>
           <Divider />
           <Grid container spacing={2} mt={2}>
             <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                Status
+              <Typography variant="body2">
+                <Tooltip
+                  title="Shows the current state of your request (e.g., Accepted, Pending, Failed)."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Status
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <Button
-                onClick={handleOpenSnackbar}
-                variant="soft"
-                size="small"
-                color={
+              <Tooltip
+                title={
                   row.status === 'Accepted'
-                    ? 'success'
+                    ? 'This is an accepted request'
                     : row.status === 'Blocked'
-                      ? 'error'
-                      : 'default'
-                } // Conditionally set the button color
+                      ? 'This request is blocked'
+                      : ''
+                }
+                arrow
+                placement="top"
+                disableHoverListener={row.status !== 'Accepted' && row.status !== 'Blocked'}
+                disableInteractive
               >
-                {row.status}
-              </Button>
+                <Label
+                  size="small"
+                  variant="soft"
+                  color={
+                    (row.status === 'Accepted' && 'success') ||
+                    (row.status === 'Blocked' && 'error') ||
+                    'default'
+                  }
+                >
+                  {row.status}
+                </Label>
+              </Tooltip>
 
-              <Snackbar
+              {/* <Snackbar
                 open={openSnackbar}
                 autoHideDuration={1000}
                 onClose={handleCloseSnackbar}
@@ -450,11 +473,18 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                       ? 'Request is blocked.'
                       : 'Unknown status.'}
                 </Alert>
-              </Snackbar>
+              </Snackbar> */}
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Source
+                <Tooltip
+                  title="Identifies the origin of the request using a unique identifier code."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Source
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
@@ -462,7 +492,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Content lenght{' '}
+                <Tooltip
+                  title="Displays the size of the request content in bytes/characters."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Content lenght{' '}
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
@@ -470,7 +507,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Content type
+                <Tooltip
+                  title="Indicates the format of the request data (e.g., application/json, text/plain)"
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Content type
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
@@ -484,7 +528,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Grid>{' '}
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Method
+                <Tooltip
+                  title="Shows which HTTP method was used to make the request (GET, POST, PUT, DELETE, etc.)."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Method
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
@@ -492,7 +543,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Body
+                <Tooltip
+                  title="Contains the actual data/payload sent with the request."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Body
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
@@ -615,6 +673,40 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                   </Tooltip>
                 </IconButton>
               </Box>
+            </Grid>
+            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                <Tooltip
+                  title='Lists any parameters included in the request URL after the "?" symbol'
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Query Params
+                </Tooltip>
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
+              <TextField
+                disabled
+                value="NA"
+                fullWidth
+                variant="outlined"
+                size="small"
+                InputProps={{
+                  endAdornment: (
+                    <Tooltip title="Copy Text " arrow placement="bottom">
+                      <IconButton
+                        edge="end"
+                        sx={{ color: 'text.disabled' }}
+                        onClick={() => navigator.clipboard.writeText('NA')}
+                      >
+                        <Iconify sx={{ mt: -0.2 }} width={15} icon="solar:copy-bold" />
+                      </IconButton>
+                    </Tooltip>
+                  ),
+                }}
+              />
             </Grid>
           </Grid>
         </Box>

@@ -34,6 +34,8 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
+import { paths } from 'src/routes/paths';
+
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/iconify';
@@ -178,18 +180,14 @@ export function CreateConnection() {
     setTransformationUpdateDrawerOpen(false);
   };
 
-  const [destinationUrl, setDestinationUrl] = useState('');
+  // const [destinationUrl, setDestinationUrl] = useState('');
   const [errorrequired, setError] = useState(false);
+  const [urlrequired, setUrlrequired] = useState('');
 
   const handleChangetext = (event) => {
-    setDestinationUrl(event.target.value);
-
-    // Simple validation: check if the field is empty
-    if (event.target.value === '') {
-      setError(true);
-    } else {
-      setError(false);
-    }
+    const { value } = event.target; // Destructure 'value' from event.target
+    setUrlrequired(value);
+    setError(value === '');
   };
   const [checkboxState, setCheckboxState] = useState({
     GET: true,
@@ -342,6 +340,7 @@ export function CreateConnection() {
             <DialogContent sx={{ mb: 1 }}>
               <TextField
                 autoFocus
+                // value={urlrequired}
                 fullWidth
                 type="email"
                 margin="dense"
@@ -353,43 +352,12 @@ export function CreateConnection() {
               />
             </DialogContent>
 
-            <DialogContent sx={{ mb: 2 }}>
-              <TextField
-                autoFocus
-                fullWidth
-                type="email"
-                margin="dense"
-                variant="outlined"
-                label="Webhook URL"
-                placeholder="Enter URL"
-                helperText="Copy and paste the Pabbly Hook URL into your request source."
-                //  value={url}
-                // onChange={handleChange}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Tooltip
-                        title="Click to copy Pabbly Hook webhook URL."
-                        arrow
-                        placement="top"
-                      >
-                        <IconButton edge="end" onClick={handleCopy}>
-                          <Iconify width={18} icon="solar:copy-bold" />
-                        </IconButton>
-                      </Tooltip>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </DialogContent>
-
-            <DialogContent sx={{ mb: 1 }}>
-              
-            <Typography sx={{ mb: 1 }}>
-    <Tooltip title="Select HTTP Methods." arrow  placement="top">
-      <span>HTTP Methods</span>
-    </Tooltip>
-  </Typography>
+            <DialogContent sx={{ mb: 2, mt: 2 }}>
+              <Typography sx={{ mb: 1 }}>
+                <Tooltip title="Select HTTP Methods." arrow placement="top">
+                  <span>HTTP Methods</span>
+                </Tooltip>
+              </Typography>
 
               <FormControl required error={checkedCount < 1}>
                 <Box flexDirection="row" justifyContent="center" sx={{ ml: 0.3 }}>
@@ -461,7 +429,7 @@ export function CreateConnection() {
             <DialogContent sx={{ mb: 2 }}>
               <TextField
                 error={errorrequired}
-                value={destinationUrl}
+                value={urlrequired}
                 onChange={handleChangetext}
                 autoFocus
                 fullWidth
@@ -688,7 +656,7 @@ export function CreateConnection() {
                     </TextField>
                     <Box sx={{ mt: 3, ml: 1 }}>
                       <IconButton
-                      onClick={handleOpenTranformationUpdateDrawer}
+                        onClick={handleOpenTranformationUpdateDrawer}
                         sx={{
                           alignItems: 'center',
                           // Hide edit button when "Select Transformation" (USD) is selected
@@ -698,24 +666,24 @@ export function CreateConnection() {
                         <Iconify icon="fluent:edit-20-filled" />
                       </IconButton>
                       <Drawer
-                    open={transformationUpdateDrawerOpen}
-                    onClose={handleCloseTransformationUpdateDrawer}
-                    anchor="right"
-                    slotProps={{ backdrop: { invisible: true } }}
-                    PaperProps={{
-                      sx: {
-                        width: { xs: '100%', sm: '100%', md: '80%' }, // Adjust width based on screen size
-                        '@media (max-width: 300px)': {
-                          padding: '16px',
-                        },
-                      },
-                    }}
-                  >
-                    <TransformationDrawerUpdate
-                      transformationDrawerOpen={transformationUpdateDrawerOpen}
-                      setTransformationDrawerOpen={setTransformationUpdateDrawerOpen}
-                    />
-                  </Drawer>
+                        open={transformationUpdateDrawerOpen}
+                        onClose={handleCloseTransformationUpdateDrawer}
+                        anchor="right"
+                        slotProps={{ backdrop: { invisible: true } }}
+                        PaperProps={{
+                          sx: {
+                            width: { xs: '100%', sm: '100%', md: '80%' }, // Adjust width based on screen size
+                            '@media (max-width: 300px)': {
+                              padding: '16px',
+                            },
+                          },
+                        }}
+                      >
+                        <TransformationDrawerUpdate
+                          transformationDrawerOpen={transformationUpdateDrawerOpen}
+                          setTransformationDrawerOpen={setTransformationUpdateDrawerOpen}
+                        />
+                      </Drawer>
                     </Box>
                   </Box>
                   <Button
@@ -1010,6 +978,7 @@ export function CreateConnection() {
                   sx={{ mr: 2 }}
                   color="primary"
                   onClick={handleClickOpen}
+                  disabled={urlrequired.trim() === ''}
                 >
                   Create
                 </Button>
@@ -1037,7 +1006,12 @@ export function CreateConnection() {
                     />
                   </DialogContent>
                   <DialogActions>
-                    <Button onClick={handleClose} variant="outlined" color="inherit">
+                    <Button
+                      onClick={handleClose}
+                      variant="outlined"
+                      color="inherit"
+                      href={paths.dashboard.root}
+                    >
                       Cancel
                     </Button>
                     {/* <Button onClick={handleOpenSnackbar} variant="contained" color="primary">

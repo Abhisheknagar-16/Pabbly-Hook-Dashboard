@@ -12,14 +12,12 @@ import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import {
   Grid,
-  Alert,
   Drawer,
   AppBar,
   Divider,
   Toolbar,
   Tooltip,
   useTheme,
-  Snackbar,
   TextField,
   Typography,
 } from '@mui/material';
@@ -131,13 +129,15 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
   const attemptTooltip = `This is attempt number ${attemptCount} for a ${row.status} event.`;
 
   const renderPrimary = (
-    <TableRow hover
-    selected={selected}
-    sx={{
-      '&:hover .copy-button': {
-        opacity: 1,
-      },
-    }}>
+    <TableRow
+      hover
+      selected={selected}
+      sx={{
+        '&:hover .copy-button': {
+          opacity: 1,
+        },
+      }}
+    >
       <TableCell padding="checkbox">
         <Tooltip arrow placement="top" title="Select">
           {' '}
@@ -229,12 +229,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                   className="copy-button"
                   color={popover.open ? 'inherit' : 'default'}
                   sx={{
-                   width: '20px',
-                   height: '20px',
-                   opacity: 0,
-                   transition: 'opacity 0.3s',
-                   right: 0,
-                 }}
+                    width: '20px',
+                    height: '20px',
+                    opacity: 0,
+                    transition: 'opacity 0.3s',
+                    right: 0,
+                  }}
                   onClick={() => navigator.clipboard.writeText(RequestId)}
                 >
                   <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
@@ -253,12 +253,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                   className="copy-button"
                   color={popover.open ? 'inherit' : 'default'}
                   sx={{
-                   width: '20px',
-                   height: '20px',
-                   opacity: 0,
-                   transition: 'opacity 0.3s',
-                   right: 0,
-                 }}
+                    width: '20px',
+                    height: '20px',
+                    opacity: 0,
+                    transition: 'opacity 0.3s',
+                    right: 0,
+                  }}
                   onClick={() => navigator.clipboard.writeText(EventId)}
                 >
                   <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
@@ -275,7 +275,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             color={buttonColor}
             // size='medium'
             onClick={handleOpenDrawer}
-            sx={{ mr: 1,cursor:'pointer'  }} // Add margin-right to the button
+            sx={{ mr: 1, cursor: 'pointer' }} // Add margin-right to the button
           >
             Attempt {attemptCount}
           </Label>
@@ -409,32 +409,62 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         <Divider />
         <Box sx={{ width: '90%', mt: 2, ml: 5, bgcolor: '#fff', padding: 2 }}>
           <Typography variant="h6" gutterBottom>
-            Event History
+            <Tooltip
+              title="Detailed information for the selected webhook event."
+              disableInteractive
+              placement="top"
+              arrow
+            >
+              Event History
+            </Tooltip>
           </Typography>
           <Divider />
           <Grid container spacing={2} mt={2}>
             <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Status
+                <Tooltip
+                  title="Shows whether the event succeeded, failed, or is in an unknown state."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Status
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <Button
-                onClick={handleOpenSnackbar}
-                // variant="contained"
-                size="small"
-                variant="soft"
-                color={
-                  (row.status === 'success' && 'success') ||
-                  (row.status === 'rejected' && 'error') ||
-                  (row.status === 'scheduled' && 'info') ||
-                  'default'
+              <Tooltip
+                title={
+                  row.status === 'success'
+                    ? 'This is an successful event'
+                    : row.status === 'rejected'
+                      ? 'This event is rejected'
+                      : row.status === 'scheduled'
+                        ? 'This event is scheduled'
+                        : ''
+                }
+                arrow
+                disableInteractive
+                placement="top"
+                disableHoverListener={
+                  row.status !== 'success' &&
+                  row.status !== 'rejected' &&
+                  row.status !== 'scheduled'
                 }
               >
-                {row.status.charAt(0).toUpperCase() + row.status.slice(1)}
-              </Button>
-
-              <Snackbar
+                <Label
+                  variant="soft"
+                  color={
+                    (row.status === 'success' && 'success') ||
+                    (row.status === 'rejected' && 'error') ||
+                    (row.status === 'scheduled' && 'info') ||
+                    'default'
+                  }
+                >
+                  {row.status}
+                </Label>
+              </Tooltip>
+              {/* <Snackbar
                 open={openSnackbar}
                 autoHideDuration={1000}
                 onClose={handleCloseSnackbar}
@@ -467,11 +497,18 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                       ? 'Event is rejected.'
                       : 'Unknown status.'}
                 </Alert>
-              </Snackbar>
+              </Snackbar> */}
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Source
+                <Tooltip
+                  title="Shows which connection or integration triggered this event."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Source
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
@@ -479,7 +516,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Content lenght{' '}
+                <Tooltip
+                  title="Shows how much data was processed in the event."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Content lenght{' '}
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
@@ -487,7 +531,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Content type
+                <Tooltip
+                  title="Indicates what kind of data format was involved in the event."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Content type
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
@@ -501,7 +552,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Grid>{' '}
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Method
+                <Tooltip
+                  title="Shows which type of request action was used in this event."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Method
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
@@ -509,7 +567,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Body
+                <Tooltip
+                  title="Contains any data that was sent during this event."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Body
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
@@ -635,7 +700,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Query Params
+                <Tooltip
+                  title='Shows any additional parameters that were included with the event.'
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Query Params
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>

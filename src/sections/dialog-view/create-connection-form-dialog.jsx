@@ -6,8 +6,7 @@ import Snackbar from '@mui/material/Snackbar';
 import TextField from '@mui/material/TextField';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import { Alert, Tooltip, Divider, MenuItem, useTheme, InputAdornment } from '@mui/material';
+import { Alert, Tooltip, Divider, MenuItem, useTheme, DialogContent, InputAdornment } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 
@@ -15,54 +14,41 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
 
-// ----------------------------------------------------------------------
-
+// Folder selection options
 const selectfolder = [
-  {
-    value: 'USD',
-    label: 'Main',
-  },
-  {
-    value: 'EUR',
-    label: 'Hello',
-  },
-  {
-    value: 'BTC',
-    label: 'Subtree with children',
-  },
-  {
-    value: 'JPY',
-    label: 'world',
-  },
+  { value: 'USD', label: 'Main' },
+  { value: 'EUR', label: 'Hello' },
+  { value: 'BTC', label: 'Subtree with children' },
+  { value: 'JPY', label: 'world' },
 ];
 
 export function CreateConnectionFormDialog({ height, width, variant }) {
-  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const theme = useTheme();
-  // const navigate = useNavigate();
   const dialog = useBoolean();
-  const handleOpenSnackbar = () => {
-    setOpenSnackbar(true);
-    // navigate('/dashboard/CreateConection')
+  const [urlrequired, setUrlrequired] = useState('');
+  const [errorrequired, setError] = useState(false);
+
+  // Handle input change and validation
+  const handleChangetext = (event) => {
+    const { value } = event.target; // Destructure 'value' from event.target
+    setUrlrequired(value);
+    setError(value === '');
   };
-  // console.log(paths.dashboard.six)
+
+  // Handle Create button click with validation check
+  const handleCreate = () => {
+    if (urlrequired.trim() === '') {
+      setError(true);
+    } else {
+      // If valid, redirect to the next page
+      window.location.href = paths.dashboard.CreateConnection;
+      setOpenSnackbar(true);
+    }
+  };
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
-  };
-
-  const [urlrequired, setUrlrequied] = useState('');
-  const [errorrequired, setError] = useState(false);
-
-  const handleChangetext = (event) => {
-    setUrlrequied(event.target.value);
-
-    // Simple validation: check if the field is empty
-    if (event.target.value === '') {
-      setError(true);
-    } else {
-      setError(false);
-    }
   };
 
   return (
@@ -72,7 +58,7 @@ export function CreateConnectionFormDialog({ height, width, variant }) {
           <Button
             sx={{ mt: -1 }}
             size="large"
-            variant={variant || 'contained'} // Apply the variant passed as a prop
+            variant={variant || 'contained'}
             color="primary"
             onClick={dialog.onTrue}
             startIcon={
@@ -83,7 +69,7 @@ export function CreateConnectionFormDialog({ height, width, variant }) {
                 />
               </svg>
             }
-            style={{ width, height, variant }}
+            style={{ width, height }}
           >
             Create Connections
           </Button>
@@ -91,12 +77,8 @@ export function CreateConnectionFormDialog({ height, width, variant }) {
       </Tooltip>
 
       <Dialog open={dialog.value} onClose={dialog.onFalse}>
-        <DialogTitle sx={{fontWeight:700}}>
-          <Tooltip
-            title="Create a connection with a name and folder location."
-            arrow
-            placement="top"
-          >
+        <DialogTitle sx={{ fontWeight: 700 }}>
+          <Tooltip title="Create a connection with a name and folder location." arrow placement="top">
             Create Connection
           </Tooltip>
         </DialogTitle>
@@ -110,7 +92,7 @@ export function CreateConnectionFormDialog({ height, width, variant }) {
             autoFocus
             fullWidth
             required
-            type="email"
+            type="text"
             margin="dense"
             variant="outlined"
             label="Connection Name"
@@ -150,9 +132,8 @@ export function CreateConnectionFormDialog({ height, width, variant }) {
               <>
                 Select the folder or subfolder where you want to create the connection.{' '}
                 <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
-                  {' '}
-                  Learn more{' '}
-                </a>{' '}
+                  Learn more
+                </a>
               </>
             }
           >
@@ -162,36 +143,26 @@ export function CreateConnectionFormDialog({ height, width, variant }) {
               </MenuItem>
             ))}
           </TextField>
-
-          {/* <Typography sx={{ mb:3 ,color:'text.secondary',fontSize:'13px'}}>
-          Select the folder or subfolder where you want to create the connection.
-          </Typography> */}
         </DialogContent>
 
         <DialogActions>
           <Button onClick={dialog.onFalse} variant="outlined">
             Cancel
           </Button>
-
           <Button
-            onClick={handleOpenSnackbar}
-            href={paths.dashboard.CreateConnection}
+            onClick={handleCreate}
             variant="contained"
             color="primary"
             sx={{ ml: 2 }}
+            disabled={urlrequired.trim() === ''}
           >
             Create
           </Button>
-
           <Snackbar
             open={openSnackbar}
             autoHideDuration={4000}
             onClose={handleCloseSnackbar}
-            message="This is an error Alert."
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right', // Changed to 'center' from 'mid 10%' to use a valid Material-UI position
-            }}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
           >
             <Alert
               onClose={handleCloseSnackbar}
