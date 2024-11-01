@@ -27,7 +27,7 @@ export default function Page() {
 
   return (
   
-    < Grid>
+    < Grid   >
 
 {/* <Box
         component="svg"
