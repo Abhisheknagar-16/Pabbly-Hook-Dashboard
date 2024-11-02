@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
+import { useState, useCallback } from 'react';
 
 import {
   Alert,
@@ -8,9 +9,9 @@ import {
   Divider,
   Tooltip,
   Snackbar,
-  MenuItem,
   TextField,
   DialogTitle,
+  Autocomplete,
   DialogContent,
   DialogActions,
   InputAdornment,
@@ -21,6 +22,8 @@ import { Iconify } from 'src/components/iconify';
 export function CreateFolderDialog({ open, onClose }) {
   const theme = useTheme();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [categorylist, setCategorytList] = useState(''); // Initialize empty for validation
+  const [categoryError, setCategoryError] = useState(false); // State to manage error message
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
@@ -30,6 +33,13 @@ export function CreateFolderDialog({ open, onClose }) {
     setSnackbarOpen(true);
     onClose(); // Close the dialog after creating
   };
+
+  const handleChangeCategoryList = useCallback((event, value) => {
+    setCategorytList(value);
+    if (value) {
+      setCategoryError(false); // Reset error when valid selection is made
+    }
+  }, []);
 
   // Sample data for folder options
   const folder = [
@@ -112,30 +122,53 @@ export function CreateFolderDialog({ open, onClose }) {
               </>
             }
           />
-
-          <TextField
-            select
-            fullWidth
-            margin="dense"
-            label="Select Parent Folder"
-            defaultValue={folder[0].value}
-            sx={{ mt: 2 }}
-            helperText={
-              <>
-                Select the parent folder or subfolder where you want to create the connection.{' '}
-                <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
-                  Learn more
-                </a>
-              </>
-            }
-          >
-            {folder.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </DialogContent>
+        <Autocomplete
+          sx={{
+            '& .MuiInputBase-input': {
+              fontSize: '14px',
+            },
+            '& .MuiInputLabel-root': {
+              fontSize: '14px',
+            },
+            mt: 1.2,
+          }}
+          options={folder}
+          onChange={handleChangeCategoryList}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={
+                <Tooltip
+                  title="Select folder to which the connection needs to be moved."
+                  arrow
+                  placement="top"
+                >
+                  <span>Select Folder</span>
+                </Tooltip>
+              }
+              helperText={
+                <span>
+                  {categoryError ? (
+                    'Please select a required folder.'
+                  ) : (
+                    <>
+                      Select the parent folder or subfolder where you want to create the connection.{' '}
+                      <Link
+                        // href="https://forum.pabbly.com/threads/folders.20987/"
+                        style={{ color: '#078DEE' }}
+                        underline="always"
+                      >
+                        Learn more
+                      </Link>
+                    </>
+                  )}
+                </span>
+              }
+              error={categoryError}
+            />
+          )}
+        />
+      </DialogContent>
         <DialogActions>
           {/* <Button onClick={onClose} variant="outlined">
             Cancel

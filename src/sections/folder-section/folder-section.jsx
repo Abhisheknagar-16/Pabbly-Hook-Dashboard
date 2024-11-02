@@ -31,6 +31,15 @@ const selectfolder = [
 // Wrap the component with memo to prevent unnecessary re-renders
 const FolderSection = memo(({ handleTrashClick, handleHomeClick }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [urlrequired, setUrlrequired] = useState('');
+  const [errorrequired, setError] = useState(false);
+
+  // Handle input change and validation
+  const handleChangetext = (event) => {
+    const { value } = event.target; // Destructure 'value' from event.target
+    setUrlrequired(value);
+    setError(value === '');
+  };
 
   // Memoize handlers
   const handleOpen = useCallback(() => {
@@ -100,6 +109,9 @@ const FolderSection = memo(({ handleTrashClick, handleHomeClick }) => {
         <Divider sx={{ borderStyle: 'dashed', mb: 2 }} />
         <DialogContent>
           <TextField
+          error={errorrequired}
+          value={urlrequired}
+          onChange={handleChangetext}
             autoFocus
             fullWidth
             required
@@ -154,7 +166,7 @@ const FolderSection = memo(({ handleTrashClick, handleHomeClick }) => {
           <Button onClick={handleClose} variant="outlined">
             Cancel
           </Button>
-          <Button onClick={handleClose} variant="contained" color="primary">
+          <Button onClick={handleClose} variant="contained" color="primary"  disabled={urlrequired.trim() === ''}>
             Create
           </Button>
         </DialogActions>
