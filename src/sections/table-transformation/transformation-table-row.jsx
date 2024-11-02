@@ -447,33 +447,61 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         <Divider />
         <Box sx={{ width: '90%', mt: 2, ml: 5, bgcolor: '#fff', padding: 2 }}>
           <Typography variant="h6" gutterBottom>
-            <Tooltip title="Transformation status" arrow placement="top">
+            <Tooltip
+              title="Detailed information for the selected webhook transformation."
+              disableInteractive
+              arrow
+              placement="top"
+            >
               Transformation Details
             </Tooltip>
           </Typography>
           <Divider />
           <Grid container spacing={2} mt={2}>
             <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" >
-                Status
+              <Typography variant="body2">
+                <Tooltip
+                  title="Shows the current state of your transformation (e.g., In Use, Idle, Failed)."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Status
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <Label
-                size="small"
-                variant="soft"
-                color={
-                  (row.status === 'In Use' && 'success') ||
-                  (row.status === 'Idle' && 'error') ||
-                  'default'
+              <Tooltip
+                placement="top"
+                disableInteractive
+                arrow
+                title={
+                  row.status === 'In Use' ? 'Transformation is In Use' : 'Transformation is Idle'
                 }
               >
-                {row.status.charAt(0).toUpperCase() + row.status.slice(1)}
-              </Label>
+                <Label
+                  size="small"
+                  variant="soft"
+                  color={
+                    (row.status === 'In Use' && 'success') ||
+                    (row.status === 'Idle' && 'error') ||
+                    'default'
+                  }
+                >
+                  {row.status.charAt(0).toUpperCase() + row.status.slice(1)}
+                </Label>
+              </Tooltip>
             </Grid>
             <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Name
+                <Tooltip
+                  title="Transformatiom name is created"
+                  arrow
+                  placement="top"
+                  disableInteractive
+                >
+                  Name
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
@@ -481,7 +509,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Created
+                <Tooltip
+                  title="Transformatiom date is created"
+                  arrow
+                  placement="top"
+                  disableInteractive
+                >
+                  Created
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={100} sm={8} md={9} lg={10} xl={10}>
@@ -489,7 +524,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             </Grid>
             <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
               <Typography variant="body2" sx={{ mt: 1 }}>
-                ID
+                <Tooltip
+                  title="Transformatiom ID is created"
+                  arrow
+                  placement="top"
+                  disableInteractive
+                >
+                  ID
+                </Tooltip>
               </Typography>
             </Grid>
             <Grid item xs={100} sm={8} md={9} lg={10} xl={10}>
