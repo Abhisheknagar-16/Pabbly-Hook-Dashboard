@@ -7,14 +7,7 @@ import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import {
-  Box,
-  Button,
-  Tooltip,
-  Popover,
-  Divider,
-  useMediaQuery,
-} from '@mui/material';
+import { Box, Button, Tooltip, Popover, Divider, useMediaQuery } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -22,14 +15,7 @@ import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-
-export function OrderTableToolbar({
-  filters,
-  onResetPage,
-  publish,
-  onChangePublish,
-  numSelected,
-}) {
+export function OrderTableToolbar({ filters, onResetPage, publish, onChangePublish, numSelected }) {
   const theme = useTheme();
   const isBelow900px = useMediaQuery(theme.breakpoints.down('md'));
   const isBelow600px = useMediaQuery(theme.breakpoints.down('sm'));
@@ -107,19 +93,21 @@ export function OrderTableToolbar({
         sx={{ p: 2.5, width: '100%' }}
       >
         <Box sx={{ width: '100%' }}>
-          <TextField
-            fullWidth
-            value={filters.state.name}
-            onChange={handleFilterName} // Handle changes for search input
-            placeholder="Search your Connetion name or ID's..."
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
-                </InputAdornment>
-              ),
-            }}
-          />
+          <Tooltip title="Click here to search the connection." disableInteractive arrow placement="top">
+            <TextField
+              fullWidth
+              value={filters.state.name}
+              onChange={handleFilterName} // Handle changes for search input
+              placeholder="Search your Connetion name or ID's..."
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Tooltip>
         </Box>
 
         <Box
@@ -132,33 +120,26 @@ export function OrderTableToolbar({
           }}
         >
           {numSelected > 0 && (
-            <Button
-              endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
-              onClick={handlePopoverOpen}
-              // variant="outlined"
-              color="primary"
-              sx={{
-                ...buttonStyle,
-                width: isBelow600px ? '155px' : '155px', // Fixed width for "Select Action"
-              }}
+            <Tooltip
+              title="Click here to modify connection status, or to move and delete connection."
+              arrow
+              disableInteractive
+              placement="top"
             >
-              Select Action
-            </Button>
+              <Button
+                endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
+                onClick={handlePopoverOpen}
+                // variant="outlined"
+                color="primary"
+                sx={{
+                  ...buttonStyle,
+                  width: isBelow600px ? '155px' : '155px', // Fixed width for "Select Action"
+                }}
+              >
+                Select Action
+              </Button>
+            </Tooltip>
           )}
-
-          {/* <Tooltip title="Filter connection by status or folders." arrow placement="top">
-            <Button
-              sx={{
-                ...buttonStyle,
-                width: isBelow600px ? (numSelected > 0 ? '104.34px' : '104.34px') : '104.34px', // Fixed width for "Filters"
-              }}
-              // variant="outlined"
-              startIcon={<Iconify icon="mdi:filter" />}
-              onClick={handleFilterClick}
-            >
-              Filters
-            </Button>
-          </Tooltip> */}
         </Box>
       </Stack>
 

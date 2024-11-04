@@ -75,16 +75,31 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
     '- Child Folder 4',
   ];
 
-  const handlePopoverOpen = (event) => setAnchorEl(event.currentTarget);
   const handlePopoverClose = () => setAnchorEl(null);
-  const handleFilterClick = (event) => setFilterAnchorEl(event.currentTarget);
+
   const handleFilterClose = () => setFilterAnchorEl(null);
 
+  const [isFilterApplied, setFilterApplied] = useState(false); // Local filter state
+
+  const handleFilterIconClick = (e) => {
+    e.stopPropagation();
+    if (isFilterApplied) {
+      handleFilterClose();
+      setFilterApplied(false);
+    }
+  };
+
+  const handleFilterButtonClick = (e) => {
+    if (!isFilterApplied || e.target.tagName !== 'svg') {
+      setFilterAnchorEl(e.currentTarget);
+    }
+  };
+
   const handleApplyFilter = () => {
-    console.log('Applying filter:', { column: selectedColumn, operator, value: filterValue });
     filters.setState({ [selectedColumn.toLowerCase()]: filterValue });
     onResetPage();
     handleFilterClose();
+    setFilterApplied(true);
   };
 
   const handleFilterName = (event) => {
@@ -96,7 +111,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
     fontSize: '15px',
     height: '48px',
     textTransform: 'none',
-    padding: '0 16px',
+    // padding: '0 16px',
   };
 
   return (
@@ -143,32 +158,46 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
             justifyContent: 'flex-end', // Aligns buttons to the right
           }}
         >
-          {/* {numSelected > 0 && (
-            <Button
-              endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
-              onClick={handlePopoverOpen}
-              // variant="outlined"
-              color="primary"
-              sx={{
-                ...buttonStyle,
-                width: isBelow600px ? '155px' : '155px', // Fixed width for "Select Action"
-              }}
-            >
-              Select Action
-            </Button>
-          )} */}
-
           <Tooltip title="Filter transformation by status or folders." arrow placement="top">
             <Button
               sx={{
                 ...buttonStyle,
-                width: isBelow600px ? (numSelected > 0 ? '104.34px' : '104.34px') : '104.34px', // Fixed width for "Filters"
+                width: isBelow600px ? '158px' : '158px',
+                p: isBelow600px ? '0px 8px 0px 8px' : '16px',
+                position: 'relative',
+                '& .MuiButton-startIcon': {
+                  pointerEvents: 'auto',
+                  marginRight: '8px',
+                  display: 'flex',
+                },
               }}
-              // variant="outlined"
-              startIcon={<Iconify icon="mdi:filter" />}
-              onClick={handleFilterClick}
+              startIcon={!isFilterApplied && <Iconify icon="mdi:filter" />}
+              endIcon={
+                isFilterApplied && (
+                  <Box
+                    component="span"
+                    onClick={handleFilterIconClick}
+                    sx={{
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Iconify
+                      icon="uil:times"
+                      style={{
+                        width: 22,
+                        height: 22,
+                        cursor: 'pointer',
+                      }}
+                    />
+                  </Box>
+                )
+              }
+              onClick={handleFilterButtonClick}
             >
-              Filters
+              {isFilterApplied ? 'Filter Applied' : 'Filters'}
             </Button>
           </Tooltip>
         </Box>
@@ -183,24 +212,6 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
       >
         <MenuList>
           {[
-            // {
-            //   value: 'published',
-            //   label: 'Move Connection',
-            //   icon: 'fluent:folder-move-16-filled',
-            //   tooltip: 'Move to Connection',
-            // },
-            // {
-            //   value: 'draft',
-            //   label: 'Enable Connection',
-            //   icon: 'line-md:switch-off-filled-to-switch-filled-transition',
-            //   tooltip: 'Click to enable connections',
-            // },
-            // {
-            //   value: 'published',
-            //   label: 'Disable Connection',
-            //   icon: 'line-md:switch-filled-to-switch-off-filled-transition',
-            //   tooltip: 'Click to disable connections',
-            // },
             {
               value: 'draft',
               label: 'Delete transformation',
@@ -211,8 +222,6 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
             },
           ].map((option) => (
             <React.Fragment key={option.value}>
-              {/* Render Divider above the "Delete Connection" item */}
-              {/* {option.isDelete && <Divider sx={{ borderStyle: 'dashed' }} />} */}
 
               <Tooltip title={option.tooltip} arrow placement="left">
                 <MenuItem
