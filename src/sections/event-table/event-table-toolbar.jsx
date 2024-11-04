@@ -75,11 +75,27 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
   const handleFilterClick = (event) => setFilterAnchorEl(event.currentTarget);
   const handleFilterClose = () => setFilterAnchorEl(null);
 
+  const [isFilterApplied, setFilterApplied] = useState(false); // Local filter state
+
   const handleApplyFilter = () => {
-    console.log('Applying filter:', { column: selectedColumn, operator, value: filterValue });
     filters.setState({ [selectedColumn.toLowerCase()]: filterValue });
     onResetPage();
     handleFilterClose();
+    setFilterApplied(true);
+  };
+
+  const handleFilterIconClick = (e) => {
+    e.stopPropagation();
+    if (isFilterApplied) {
+      handleFilterClose();
+      setFilterApplied(false);
+    }
+  };
+
+  const handleFilterButtonClick = (e) => {
+    if (!isFilterApplied || e.target.tagName !== 'svg') {
+      setFilterAnchorEl(e.currentTarget);
+    }
   };
 
   const handleFilterName = (event) => {
@@ -131,33 +147,36 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
         <Box
           sx={{
             display: 'flex',
-            gap: 2,
+            gap: isBelow600px ? '8px' : '16px',
             flexDirection: 'row',
             width: isBelow600px ? '100%' : 'auto',
             justifyContent: 'flex-end', // Aligns buttons to the right
           }}
         >
           {numSelected > 0 && (
-            <Button
-              endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
-              onClick={handlePopoverOpen}
-              // variant="outlined"
-              color="primary"
-              sx={{
-                ...buttonStyle,
-                width: isBelow600px ? '155px' : '155px', // Fixed width for "Select Action"
-              }}
+            <Tooltip
+              title="Click here to modify connection status, or to move and delete connection."
+              arrow
+              placement="top"
             >
-              Select Action
-            </Button>
+              <Button
+                endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
+                onClick={handlePopoverOpen}
+                color="primary"
+                sx={{
+                  ...buttonStyle,
+                  p: isBelow600px ? '0px 8px 0px 8px' : '16px',
+
+                  width: isBelow600px ? '155px' : '155px',
+                }}
+              >
+                Select Action
+              </Button>
+            </Tooltip>
           )}
 
           <Tooltip
-            title={
-              <div style={{ textAlign: 'center' }}>
-                Filter event by date, connection, request ID and folder.
-              </div>
-            }
+            title="Filter events by date, connection, request ID and folder."
             disableInteractive
             arrow
             placement="top"
@@ -165,13 +184,42 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
             <Button
               sx={{
                 ...buttonStyle,
-                width: isBelow600px ? (numSelected > 0 ? '104.34px' : '104.34px') : '104.34px', // Fixed width for "Filters"
+                width: isBelow600px ? '158px' : '158px',
+                p: isBelow600px ? '0px 8px 0px 8px' : '16px',
+                position: 'relative',
+                '& .MuiButton-startIcon': {
+                  pointerEvents: 'auto',
+                  marginRight: '8px',
+                  display: 'flex',
+                },
               }}
-              // variant="outlined"
-              startIcon={<Iconify icon="mdi:filter" />}
-              onClick={handleFilterClick}
+              startIcon={!isFilterApplied && <Iconify icon="mdi:filter" />}
+              endIcon={
+                isFilterApplied && (
+                  <Box
+                    component="span"
+                    onClick={handleFilterIconClick}
+                    sx={{
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Iconify
+                      icon="uil:times"
+                      style={{
+                        width: 22,
+                        height: 22,
+                        cursor: 'pointer',
+                      }}
+                    />
+                  </Box>
+                )
+              }
+              onClick={handleFilterButtonClick}
             >
-              Filters
+              {isFilterApplied ? 'Filter Applied' : 'Filters'}
             </Button>
           </Tooltip>
         </Box>
