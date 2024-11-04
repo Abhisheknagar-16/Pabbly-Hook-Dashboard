@@ -105,6 +105,13 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
     // padding: '0 16px',
   };
 
+  const [isError, setIsError] = useState(true);
+
+  const handleAutocompleteChange = (event, value) => {
+    // setSelectedOption(value);
+    setIsError(!value); // If no value is selected, set error to true
+  };
+
   return (
     <>
       <Stack
@@ -398,6 +405,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
                   }}
                   size="small"
                   options={sortconnection}
+                  onChange={handleAutocompleteChange}
                   renderInput={(params) => <TextField {...params} label="Select" />}
                   // sx={{ width: 300 }}
                 />
@@ -449,6 +457,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
                   }}
                   size="small"
                   options={connectionstatus}
+                  onChange={handleAutocompleteChange}
                   renderInput={(params) => <TextField {...params} label="Select" />}
                   // sx={{ width: 300 }}
                 />
@@ -501,6 +510,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
                   }}
                   size="small"
                   options={folder}
+                  onChange={handleAutocompleteChange}
                   renderInput={(params) => <TextField {...params} label="Select" />}
                   // sx={{ width: 300 }}
                 />
@@ -521,7 +531,12 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
             {/* <Button variant="outlined" color="inherit" onClick={handleFilterClose}>
               Cancel
             </Button> */}
-            <Button variant="contained" color="primary" onClick={handleApplyFilter}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleApplyFilter}
+              disabled={isError}
+            >
               Apply Filter
             </Button>
           </Box>

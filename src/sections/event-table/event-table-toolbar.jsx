@@ -113,6 +113,23 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
     padding: '0 16px',
   };
 
+  const [isError, setIsError] = useState(true);
+
+  const handleAutocompleteChange = (event, value) => {
+    // setSelectedOption(value);
+    setIsError(!value); // If no value is selected, set error to true
+  };
+
+  const [urlrequired, setUrlrequired] = useState('');
+  const [errorrequired, setError] = useState(false);
+
+  // Handle input change and validation
+  const handleChangetext = (event) => {
+    const { value } = event.target; // Destructure 'value' from event.target
+    setUrlrequired(value);
+    setError(value === '');
+  };
+
   return (
     <>
       <Stack
@@ -484,6 +501,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
                   }}
                   size="small"
                   options={sortconnection}
+                  onChange={handleAutocompleteChange}
                   renderInput={(params) => <TextField {...params} label="Select" />}
                   // sx={{ width: 300 }}
                 />
@@ -525,7 +543,14 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
               </FormControl>
 
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
-                <TextField fullWidth size="small" label="Request ID" />
+                <TextField
+                  error={errorrequired}
+                  value={urlrequired}
+                  onChange={handleChangetext}
+                  fullWidth
+                  size="small"
+                  label="Request ID"
+                />
               </FormControl>
             </Box>
           </Box>
@@ -543,7 +568,12 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
             {/* <Button variant="outlined" color="inherit" onClick={handleFilterClose}>
               Cancel
             </Button> */}
-            <Button variant="contained" color="primary" onClick={handleApplyFilter}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleApplyFilter}
+              disabled={isError || urlrequired.trim() === ''}
+            >
               Apply Filter
             </Button>
           </Box>

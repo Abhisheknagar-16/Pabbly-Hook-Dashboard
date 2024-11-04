@@ -12,11 +12,13 @@ import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import {
   Grid,
+  Alert,
   AppBar,
   Divider,
   Tooltip,
   Toolbar,
   useTheme,
+  Snackbar,
   TextField,
   Typography,
   IconButton,
@@ -111,6 +113,16 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
 
   const handleCloseDrawer = () => {
     setDrawerOpen(false);
+  };
+
+  const [openCopySnackbar, setOpenCopySnackbar] = React.useState(false);
+
+  const handleOpenCopySnackbar = () => {
+    setOpenCopySnackbar(true);
+  };
+
+  const handleCloseCopySnackbar = () => {
+    setOpenCopySnackbar(false);
   };
 
   const renderPrimary = (
@@ -268,12 +280,42 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               transition: 'opacity 0.3s',
               right: 0,
             }}
-            onClick={() => navigator.clipboard.writeText(RequestId)} // Use the random ID
+            onClick={() => {
+              navigator.clipboard.writeText(RequestId); // Use the random ID
+              handleOpenCopySnackbar();
+            }}
           >
             <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
           </IconButton>
         </Tooltip>
       </TableCell>
+      <Snackbar
+        open={openCopySnackbar}
+        autoHideDuration={1000}
+        onClose={handleCloseCopySnackbar}
+        message="This is an error Alert."
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        // sx={{
+        //   boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+        //   mt: 6.5,
+        // }}
+      >
+        <Alert
+          onClose={handleCloseCopySnackbar}
+          severity="success"
+          sx={{
+            width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+            boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+            mt: 6.5,
+          }}
+        >
+          Request id copied successfully.
+        </Alert>
+      </Snackbar>
     </TableRow>
   );
 
@@ -375,11 +417,41 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               <IconButton
                 edge="end"
                 sx={{ color: 'text.disabled' }}
-                onClick={() => navigator.clipboard.writeText(RequestId)}
+                onClick={() => {
+                  navigator.clipboard.writeText(RequestId); // Use the random ID
+                  handleOpenCopySnackbar();
+                }}
               >
                 <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
               </IconButton>
             </Tooltip>
+            <Snackbar
+              open={openCopySnackbar}
+              autoHideDuration={1000}
+              onClose={handleCloseCopySnackbar}
+              message="This is an error Alert."
+              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+              // sx={{
+              //   boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+              //   mt: 6.5,
+              // }}
+            >
+              <Alert
+                onClose={handleCloseCopySnackbar}
+                severity="success"
+                sx={{
+                  width: '100%',
+                  fontSize: '14px',
+                  fontWeight: 'bold',
+                  backgroundColor: theme.palette.background.paper,
+                  color: theme.palette.text.primary,
+                  boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+                  // mt: 6.5,
+                }}
+              >
+                Request id copied successfully.
+              </Alert>
+            </Snackbar>
           </Typography>
           <Typography
             sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}

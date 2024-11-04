@@ -42,7 +42,9 @@ export function CreateConnectionFormDialog({ height, width, variant }) {
       setError(true);
     } else {
       // If valid, redirect to the next page
-      window.location.href = paths.dashboard.CreateConnection;
+      setTimeout(() => {
+        window.location.href = paths.dashboard.CreateConnection;
+      }, 1000);
       setOpenSnackbar(true);
     }
   };

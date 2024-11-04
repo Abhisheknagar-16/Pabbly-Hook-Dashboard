@@ -206,7 +206,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                 style={{ textDecoration: 'none', color: '#078dee' }}
                 href={paths.dashboard.request}
               >
-                <Tooltip disableInteractive title="Total number of webhook requests received by connection." arrow placement="top">
+                <Tooltip
+                  disableInteractive
+                  title="Total number of webhook requests received by connection."
+                  arrow
+                  placement="top"
+                >
                   {requests} Requests
                 </Tooltip>
               </a>
@@ -214,7 +219,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
 
             <Box component="span" sx={{ color: 'text.disabled' }}>
               <a style={{ textDecoration: 'none', color: '#919eab' }} href={paths.dashboard.event}>
-                <Tooltip disableInteractive title="Total number of events successfully processed from received webhook requests." arrow placement="top">
+                <Tooltip
+                  disableInteractive
+                  title="Total number of events successfully processed from received webhook requests."
+                  arrow
+                  placement="top"
+                >
                   {events} events
                 </Tooltip>
               </a>
@@ -248,13 +258,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
           <Tooltip title="Click to enable connections." arrow placement="left">
             <MenuItem onClick={handleOpenEnableConnnectonSnackbar}>
               <Iconify icon="line-md:switch-off-filled-to-switch-filled-transition" />
-              Enable 
+              Enable
             </MenuItem>
           </Tooltip>
           <Tooltip title="Click to disable connections." arrow placement="left">
             <MenuItem onClick={handleOpenDisabelConnnectonSnackbar}>
               <Iconify icon="line-md:switch-filled-to-switch-off-filled-transition" />
-              Disable 
+              Disable
             </MenuItem>
           </Tooltip>
           {/* <Tooltip title="Move to update." arrow placement="left">
@@ -285,7 +295,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               sx={{ color: 'error.main' }}
             >
               <Iconify icon="solar:trash-bin-trash-bold" />
-              Delete 
+              Delete
             </MenuItem>
           </Tooltip>
         </MenuList>
@@ -297,10 +307,10 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         onClose={handleCloseEnableConnnectonSnackbar}
         Z-index={100}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        sx={{
-          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-          mt: 6.5,
-        }}
+        // sx={{
+        //   boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+        //   mt: 6.5,
+        // }}
       >
         <Alert
           onClose={handleCloseEnableConnnectonSnackbar}
@@ -311,6 +321,8 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             fontWeight: 'bold',
             backgroundColor: theme.palette.background.paper,
             color: theme.palette.text.primary,
+            boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+            mt: 6.5,
           }}
         >
           Connection enable successfully.
@@ -322,10 +334,10 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         onClose={handleCloseDisabelConnnectonSnackbar}
         Z-index={100}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        sx={{
-          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-          mt: 6.5,
-        }}
+        // sx={{
+        //   boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+        //   mt: 6.5,
+        // }}
       >
         <Alert
           onClose={handleCloseDisabelConnnectonSnackbar}
@@ -336,6 +348,8 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             fontWeight: 'bold',
             backgroundColor: theme.palette.background.paper,
             color: theme.palette.text.primary,
+            boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+            mt: 6.5,
           }}
         >
           Connection disabled successfully.

@@ -378,7 +378,7 @@ export function UpdateConnection() {
             <Divider sx={{ borderStyle: 'dashed', mt: 2 }} />
             <DialogContent sx={{ mb: 1 }}>
               <TextField
-                autoFocus
+                // autoFocus
                 fullWidth
                 type="email"
                 margin="dense"
@@ -392,7 +392,7 @@ export function UpdateConnection() {
 
             <DialogContent sx={{ mb: 2 }}>
               <TextField
-                autoFocus
+                // autoFocus
                 fullWidth
                 type="email"
                 margin="dense"
@@ -495,7 +495,7 @@ export function UpdateConnection() {
                  error={errorrequired}
                  value={urlrequired}
                  onChange={handleChangetext}
-                 autoFocus
+                //  autoFocus
                 fullWidth
                 required
                 type="email"
@@ -636,14 +636,14 @@ export function UpdateConnection() {
               />
               {showDelayField && (
                 <>
-                  <Typography sx={{ mt: 1, fontSize: '15px' }}>Backoff Interval</Typography>
+                  <Typography sx={{ mt: 1, fontSize: '15px' }}>Delay Interval</Typography>
                   <TextField
                     id="outlined-Rate-limit"
                     select
                     fullWidth
                     // label="Delay between retries"
                     defaultValue="USD"
-                    helperText="Incase destination endpoint is down."
+                    helperText="Request will reach destination after the specified delay interval."
                     sx={{ mt: 1 }}
                   >
                     {Ratelimit.map((option) => (

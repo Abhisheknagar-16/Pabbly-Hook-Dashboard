@@ -61,7 +61,6 @@ const StyledTreeItem = styled((props) => {
   const popover = usePopover();
   const [createFolderOpen, setCreateFolderOpen] = useState(false);
   const [renameDialogOpen, setRenameDialogOpen] = useState(false);
-  const [quickShareDialogOpen, setQuickShareDialogOpen] = useState(false);
 
   const handleItemClick = (event) => {
     if (props.label.includes('Trash')) {
@@ -77,18 +76,12 @@ const StyledTreeItem = styled((props) => {
 
   const handleCreateFolderOpen = () => {
     setCreateFolderOpen(true);
-    popover.onClose(); // Close the popover when opening dialog
+    popover.onClose();
   };
 
-  const handleRenameFolderClick = (event) => {
+  const handleRenameFolderClick = () => {
     setRenameDialogOpen(true);
     popover.onClose();
-  };
-
-  const handleQuickShareDialogClick = (event) => {
-    setQuickShareDialogOpen(true);
-    popover.onClose();
-    // handleMenuClose(event);
   };
 
   const handleCreateFolderClose = () => {
@@ -97,10 +90,6 @@ const StyledTreeItem = styled((props) => {
 
   const handleRenameFolderClose = () => {
     setRenameDialogOpen(false);
-  };
-
-  const handleQuickShareDialogClose = () => {
-    setQuickShareDialogOpen(false);
   };
 
   return (
@@ -115,28 +104,14 @@ const StyledTreeItem = styled((props) => {
               alignItems: 'center',
               justifyContent: 'space-between',
               width: '100%',
+              height:"36px"
             }}
           >
             <Tooltip title={`Folder Name: ${props.label}`} placement="top" arrow>
               <span>{props.label}</span>
             </Tooltip>
 
-            {props.label.includes('Trash') ? (
-              <Tooltip
-                title={
-                  <div style={{ textAlign: 'center' }}>
-                    Trash folder holds all connections that have been deleted.
-                  </div>
-                }
-                disableInteractive
-                placement="top"
-                arrow
-              >
-                <IconButton>
-                  <Iconify icon="solar:trash-bin-trash-bold" />
-                </IconButton>
-              </Tooltip>
-            ) : (
+            {!props.label.includes('Home') && !props.label.includes('Trash') && (
               <Tooltip title="Click to see options." disableInteractive arrow placement="top">
                 <IconButton onClick={popover.onOpen}>
                   <Iconify icon="eva:more-vertical-fill" />
@@ -163,12 +138,6 @@ const StyledTreeItem = styled((props) => {
                     Rename
                   </MenuItem>
                 </Tooltip>
-                {/* <Tooltip title="Share the folder with others." arrow placement="left">
-                  <MenuItem onClick={handleQuickShareDialogClick}>
-                    <Iconify icon="solar:share-bold" />
-                    Share
-                  </MenuItem>
-                </Tooltip> */}
                 <Divider sx={{ borderStyle: 'dashed' }} />
                 <Tooltip title="Click to delete connection." arrow placement="left">
                   <MenuItem
@@ -189,16 +158,13 @@ const StyledTreeItem = styled((props) => {
       />
 
       <CreateFolderDialog open={createFolderOpen} onClose={handleCreateFolderClose} />
-
       <RenameFolderDialog open={renameDialogOpen} onClose={handleRenameFolderClose} />
-
-      {/* <QuickShareDialog open={quickShareDialogOpen} onClose={handleQuickShareDialogClose} /> */}
 
       <ConfirmDialog
         open={confirm.value}
         onClose={confirm.onFalse}
         title="Delete"
-        content="Are you sure want to delete?"
+        content="Are you sure you want to delete?"
         action={
           <Button variant="contained" color="error">
             Delete
@@ -218,7 +184,6 @@ const StyledTreeItem = styled((props) => {
   },
   [`& .${treeItemClasses.iconContainer}`]: {
     borderRadius: '50%',
-    // backgroundColor: varAlpha(theme.vars.palette.primary.mainChannel, 0.25),
     [stylesMode.dark]: {
       color: theme.vars.palette.primary.contrastText,
       backgroundColor: theme.vars.palette.primary.dark,

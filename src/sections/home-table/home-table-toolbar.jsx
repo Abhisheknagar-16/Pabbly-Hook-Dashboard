@@ -25,13 +25,7 @@ import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------.
 
-export function OrderTableToolbar({
-  filters,
-  onResetPage,
-  publish,
-  onChangePublish,
-  numSelected,
-}) {
+export function OrderTableToolbar({ filters, onResetPage, publish, onChangePublish, numSelected }) {
   const theme = useTheme();
   const isBelow900px = useMediaQuery(theme.breakpoints.down('md'));
   const isBelow600px = useMediaQuery(theme.breakpoints.down('sm'));
@@ -116,6 +110,14 @@ export function OrderTableToolbar({
     // padding: '0 16px',
   };
 
+  // const [selectedOption, setSelectedOption] = useState('');
+  const [isError, setIsError] = useState(true);
+
+  const handleAutocompleteChange = (event, value) => {
+    // setSelectedOption(value);
+    setIsError(!value); // If no value is selected, set error to true
+  };
+
   return (
     <>
       <Stack
@@ -125,20 +127,26 @@ export function OrderTableToolbar({
         sx={{ p: 2.5, width: '100%' }}
       >
         <Box sx={{ width: '100%' }}>
-          <Tooltip title="Click here to search the connection." disableInteractive arrow placement='top' >
-          <TextField
-            fullWidth
-            value={filters.state.name}
-            onChange={handleFilterName} // Handle changes for search input
-            placeholder="Search your Connetion name or ID's..."
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
-                </InputAdornment>
-              ),
-            }}
-          /></Tooltip>
+          <Tooltip
+            title="Click here to search the connection."
+            disableInteractive
+            arrow
+            placement="top"
+          >
+            <TextField
+              fullWidth
+              value={filters.state.name}
+              onChange={handleFilterName} // Handle changes for search input
+              placeholder="Search your Connetion name or ID's..."
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Tooltip>
         </Box>
 
         <Box
@@ -390,18 +398,18 @@ export function OrderTableToolbar({
 
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
                 <Autocomplete
-                  sx={{
-                    '& .MuiInputBase-input': {
-                      fontSize: '14px',
-                    },
-                    '& .MuiInputLabel-root': {
-                      fontSize: '14px',
-                    },
-                  }}
-                  size="small"
                   options={sortconnection}
-                  renderInput={(params) => <TextField {...params} label="Select" />}
-                  // sx={{ width: 300 }}
+                  // value={selectedOption}
+                  onChange={handleAutocompleteChange}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Select"
+                      // error={isError}
+                      // helperText={isError ? 'Please select an option' : ''}
+                    />
+                  )}
+                  size="small"
                 />
               </FormControl>
             </Box>
@@ -451,6 +459,7 @@ export function OrderTableToolbar({
                   }}
                   size="small"
                   options={connectionstatus}
+                  onChange={handleAutocompleteChange}
                   renderInput={(params) => <TextField {...params} label="Select" />}
                   // sx={{ width: 300 }}
                 />
@@ -503,6 +512,7 @@ export function OrderTableToolbar({
                   }}
                   size="small"
                   options={folder}
+                  onChange={handleAutocompleteChange}
                   renderInput={(params) => <TextField {...params} label="Select" />}
                   // sx={{ width: 300 }}
                 />
@@ -523,7 +533,12 @@ export function OrderTableToolbar({
             {/* <Button variant="outlined" color="inherit" onClick={handleFilterClose}>
               Cancel
             </Button> */}
-            <Button variant="contained" color="primary" onClick={handleApplyFilter}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleApplyFilter}
+              disabled={isError}
+            >
               Apply Filter
             </Button>
           </Box>

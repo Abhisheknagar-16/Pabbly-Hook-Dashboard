@@ -247,7 +247,16 @@ export function CreateConnection() {
   };
 
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const [openCopySnackbar, setOpenCopySnackbar] = React.useState(false);
   const [url, setUrl] = useState('');
+
+  const handleOpenCopySnackbar = () => {
+    setOpenCopySnackbar(true);
+  };
+
+  const handleCloseCopySnackbar = () => {
+    setOpenCopySnackbar(false);
+  };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(url);
@@ -339,7 +348,7 @@ export function CreateConnection() {
             <Divider sx={{ borderStyle: 'dashed', mt: 2 }} />
             <DialogContent sx={{ mb: 1 }}>
               <TextField
-                autoFocus
+                // autoFocus
                 // value={urlrequired}
                 fullWidth
                 type="email"
@@ -431,7 +440,7 @@ export function CreateConnection() {
                 error={errorrequired}
                 value={urlrequired}
                 onChange={handleChangetext}
-                autoFocus
+                // autoFocus
                 fullWidth
                 required
                 type="email"
@@ -572,14 +581,14 @@ export function CreateConnection() {
               />
               {showDelayField && (
                 <>
-                  <Typography sx={{ mt: 1, fontSize: '15px' }}>Backoff Interval</Typography>
+                  <Typography sx={{ mt: 1, fontSize: '15px' }}>Delay Interval</Typography>
                   <TextField
                     id="outlined-Rate-limit"
                     select
                     fullWidth
                     // label="Delay between retries"
                     defaultValue="USD"
-                    helperText="Incase destination endpoint is down."
+                    helperText="Request will reach destination after the specified delay interval."
                     sx={{ mt: 1 }}
                   >
                     {Ratelimit.map((option) => (
@@ -997,9 +1006,33 @@ export function CreateConnection() {
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <IconButton edge="end">
+                            <IconButton edge="end" onClick={handleOpenCopySnackbar}>
                               <Iconify width={18} icon="solar:copy-bold" />
                             </IconButton>
+                            <Snackbar
+                              open={openCopySnackbar}
+                              autoHideDuration={1000}
+                              onClose={handleCloseCopySnackbar}
+                              message="This is an error Alert."
+                              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                              sx={{
+                                boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+                              }}
+                            >
+                              <Alert
+                                onClose={handleCloseCopySnackbar}
+                                severity="success"
+                                sx={{
+                                  width: '100%',
+                                  fontSize: '14px',
+                                  fontWeight: 'bold',
+                                  backgroundColor: theme.palette.background.paper,
+                                  color: theme.palette.text.primary,
+                                }}
+                              >
+                                Webhook URL copied successfully.
+                              </Alert>
+                            </Snackbar>
                           </InputAdornment>
                         ),
                       }}
