@@ -227,6 +227,8 @@ export function CreateConnection() {
 
   const [plainText, setPlainText] = useState('');
 
+  const [codeText, setCodeText] = useState('');
+
   const handleCodeChange = (value) => {
     setCode(value); // Update code as a string
 
@@ -244,6 +246,10 @@ export function CreateConnection() {
 
   const handlePlainTextChange = (event) => {
     setPlainText(event.target.value);
+  };
+
+  const handleCodeTextChange = (event) => {
+    setCodeText(event.target.value);
   };
 
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
@@ -810,7 +816,7 @@ export function CreateConnection() {
                         value={code}
                         height="200px"
                         extensions={[javascript()]}
-                        onChange={handleCodeChange}
+                        // onChange={handleCodeChange}
                         theme="light"
                       />
                     ) : (
@@ -859,7 +865,7 @@ export function CreateConnection() {
                   <Tooltip
                     title={
                       <div style={{ textAlign: 'center' }}>
-                        Filter the event based on the request body, headers, query or path.
+                        Filter the event based on the request body, headers, query, or path.
                       </div>
                     }
                     disableInteractive
@@ -880,101 +886,92 @@ export function CreateConnection() {
                     <Tab label="Query" />
                     <Tab label="Path" />
                   </Tabs>
-                  <Box sx={{ pt: 2 }}>
-                    {selectedTab === 0 && (
-                      <TextField
-                        fullWidth
-                        // label="Body Content"
-                        placeholder="Body Content"
-                        variant="outlined"
-                        helperText="Set the body content."
-                        multiline
-                        rows={4}
-                        value={url}
-                        onChange={handleChange}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Click here to copy." arrow placement="top">
-                                <IconButton edge="end" onClick={handleCopy}>
-                                  <Iconify width={18} icon="solar:copy-bold" />
-                                </IconButton>
-                              </Tooltip>
-                            </InputAdornment>
-                          ),
+                  <Box
+                    sx={{
+                      border: '1px solid #ccc',
+                      borderRadius: 1,
+                      padding: 1,
+                      mt: 2,
+                      mb: 2,
+                      height: '200px',
+                      overflow: 'hidden',
+                      position: 'relative',
+                    }}
+                  >
+                    {/* CodeMirror components */}
+                    <Box
+                      sx={{ display: selectedTab === 0 ? 'block' : 'none', position: 'relative' }}
+                    >
+                      <CodeMirror height="200px" extensions={[javascript()]} theme="light" />
+                      <IconButton
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          right: 0,
+                          zIndex: 10, // Ensure it appears above the CodeMirror component
                         }}
-                      />
-                    )}
-                    {selectedTab === 1 && (
-                      <TextField
-                        fullWidth
-                        // label="Headers Content"
-                        placeholder="Header Content"
-                        variant="outlined"
-                        helperText="Set the headers content."
-                        multiline
-                        rows={4}
-                        value={url}
-                        onChange={handleChange}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Click here to copy." arrow placement="top">
-                                <IconButton edge="end" onClick={handleCopy}>
-                                  <Iconify width={18} icon="solar:copy-bold" />
-                                </IconButton>
-                              </Tooltip>
-                            </InputAdornment>
-                          ),
+                        onClick={() => navigator.clipboard.writeText(plainText)}
+                      >
+                        <Tooltip title="Copy" arrow placement="bottom">
+                          <Iconify width={18} icon="solar:copy-bold" />
+                        </Tooltip>
+                      </IconButton>
+                    </Box>
+                    <Box
+                      sx={{ display: selectedTab === 1 ? 'block' : 'none', position: 'relative' }}
+                    >
+                      <CodeMirror height="200px" extensions={[javascript()]} theme="light" />
+                      <IconButton
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          right: 0,
+                          zIndex: 10,
                         }}
-                      />
-                    )}
-                    {selectedTab === 2 && (
-                      <TextField
-                        fullWidth
-                        // label="Query Parameters"
-                        placeholder="Query Parameters"
-                        variant="outlined"
-                        helperText="Set the query parameters."
-                        multiline
-                        rows={4}
-                        value={url}
-                        onChange={handleChange}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Click here to copy." arrow placement="top">
-                                <IconButton edge="end" onClick={handleCopy}>
-                                  <Iconify width={18} icon="solar:copy-bold" />
-                                </IconButton>
-                              </Tooltip>
-                            </InputAdornment>
-                          ),
+                        onClick={() => navigator.clipboard.writeText(plainText)}
+                      >
+                        <Tooltip title="Copy" arrow placement="bottom">
+                          <Iconify width={18} icon="solar:copy-bold" />
+                        </Tooltip>
+                      </IconButton>
+                    </Box>
+                    <Box
+                      sx={{ display: selectedTab === 2 ? 'block' : 'none', position: 'relative' }}
+                    >
+                      <CodeMirror height="200px" extensions={[javascript()]} theme="light" />
+                      <IconButton
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          right: 0,
+                          zIndex: 10,
                         }}
-                      />
-                    )}
-                    {selectedTab === 3 && (
-                      <TextField
-                        fullWidth
-                        // label="Path Parameters"
-                        placeholder="Path Parameters"
-                        variant="outlined"
-                        helperText="Set the path parameters."
-                        multiline
-                        rows={4}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Click here to copy." arrow placement="top">
-                                <IconButton edge="end" onClick={handleCopy}>
-                                  <Iconify width={18} icon="solar:copy-bold" />
-                                </IconButton>
-                              </Tooltip>
-                            </InputAdornment>
-                          ),
+                        onClick={() => navigator.clipboard.writeText(plainText)}
+                      >
+                        <Tooltip title="Copy" arrow placement="bottom">
+                          <Iconify width={18} icon="solar:copy-bold" />
+                        </Tooltip>
+                      </IconButton>
+                    </Box>
+                    <Box
+                      sx={{ display: selectedTab === 3 ? 'block' : 'none', position: 'relative' }}
+                    >
+                      <CodeMirror value={codeText}
+                        onChange={handleCodeTextChange} height="200px" extensions={[javascript()]} theme="light" />
+                      <IconButton
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          right: 0,
+                          zIndex: 10,
                         }}
-                      />
-                    )}
+                        onClick={() => navigator.clipboard.writeText(codeText)}
+                      >
+                        <Tooltip title="Copy" arrow placement="bottom">
+                          <Iconify width={18} icon="solar:copy-bold" />
+                        </Tooltip>
+                      </IconButton>
+                    </Box>
                   </Box>
                 </Box>
               )}

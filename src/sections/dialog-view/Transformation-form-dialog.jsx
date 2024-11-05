@@ -66,7 +66,7 @@ export function TransformationDialog() {
               </svg>
             }
           >
-            Create Transformations
+            Create Transformation
           </Button>
         </div>
       </Tooltip>

@@ -156,7 +156,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
           </Tooltip>
         </Box>
 
-        <Box
+        {/* <Box
           sx={{
             display: 'flex',
             gap: 2,
@@ -207,7 +207,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
               {isFilterApplied ? 'Filter Applied' : 'Filters'}
             </Button>
           </Tooltip>
-        </Box>
+        </Box> */}
       </Stack>
 
       <Popover

@@ -73,7 +73,7 @@ export function CreateConnectionFormDialog({ height, width, variant }) {
             }
             style={{ width, height }}
           >
-            Create Connections
+            Create Connection
           </Button>
         </div>
       </Tooltip>

@@ -124,7 +124,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
           <Tooltip
             title={
               <div style={{ textAlign: 'center' }}>
-                Click here to search by request name or ID&apos;s.
+                Click here to search by connection name or ID&apos;s.
               </div>
             }
             arrow
@@ -135,7 +135,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
               fullWidth
               value={filters.state.name}
               onChange={handleFilterName} // Handle changes for search input
-              placeholder="Search your request name or ID's..."
+              placeholder="Search by connection name or ID's..."
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">

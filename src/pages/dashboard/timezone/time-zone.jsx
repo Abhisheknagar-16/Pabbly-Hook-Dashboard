@@ -96,6 +96,7 @@ export default function Page() {
                         Choose the time zone for your account. All the date and time in your account will align with the time zone that you set here.
                       </div>
                     }
+                    disableInteractive
                     arrow
                     placement="top"
                   >
@@ -163,7 +164,7 @@ export default function Page() {
                   </Box>
                   {filteredTimeZones.map((tz) => (
                     <MenuItem key={tz} value={tz}>
-                    <Tooltip
+                    {/* <Tooltip
                     title={
                       <div style={{ textAlign: 'center' }}>
                         {tz}
@@ -171,9 +172,9 @@ export default function Page() {
                     }
                     arrow
                     placement="top"
-                  >
+                  > */}
                       {tz}
-                    </Tooltip>
+                    {/* </Tooltip> */}
                     </MenuItem>
                   ))}
                 </Select>
