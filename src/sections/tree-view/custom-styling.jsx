@@ -59,6 +59,7 @@ const ITEMS1 = [{ id: '16', label: 'Trash (0)' }];
 const StyledTreeItem = styled((props) => {
   const confirm = useBoolean();
   const popover = usePopover();
+  const [anchorEl, setAnchorEl] = useState(null);
   const [createFolderOpen, setCreateFolderOpen] = useState(false);
   const [renameDialogOpen, setRenameDialogOpen] = useState(false);
 
@@ -72,6 +73,16 @@ const StyledTreeItem = styled((props) => {
       event.preventDefault();
       props.onHomeClick();
     }
+  };
+
+  const handleIconClick = (event) => {
+    event.stopPropagation();
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = (event) => {
+    event.stopPropagation();
+    setAnchorEl(null);
   };
 
   const handleCreateFolderOpen = () => {
@@ -104,7 +115,7 @@ const StyledTreeItem = styled((props) => {
               alignItems: 'center',
               justifyContent: 'space-between',
               width: '100%',
-              height:"36px"
+              height: '36px',
             }}
           >
             <Tooltip title={`Folder Name: ${props.label}`} placement="top" arrow>
@@ -113,16 +124,16 @@ const StyledTreeItem = styled((props) => {
 
             {!props.label.includes('Home') && !props.label.includes('Trash') && (
               <Tooltip title="Click to see options." disableInteractive arrow placement="top">
-                <IconButton onClick={popover.onOpen}>
+                <IconButton onClick={handleIconClick}>
                   <Iconify icon="eva:more-vertical-fill" />
                 </IconButton>
               </Tooltip>
             )}
 
             <CustomPopover
-              open={popover.open}
-              anchorEl={popover.anchorEl}
-              onClose={popover.onClose}
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
               slotProps={{ arrow: { placement: 'right-top' } }}
             >
               <MenuList>

@@ -98,7 +98,7 @@ export function OrderTableToolbar({ filters, onResetPage, publish, onChangePubli
               fullWidth
               value={filters.state.name}
               onChange={handleFilterName} // Handle changes for search input
-              placeholder="Search your Connetion name or ID's..."
+              placeholder="Search by Connetion name or ID's..."
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">

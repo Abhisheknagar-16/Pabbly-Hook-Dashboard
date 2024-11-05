@@ -125,6 +125,16 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     setOpenCopySnackbar(false);
   };
 
+  const [openCopyCodeSnackbar, setOpenCopyCodeSnackbar] = React.useState(false);
+
+  const handleOpenCopyCodeSnackbar = () => {
+    setOpenCopyCodeSnackbar(true);
+  };
+
+  const handleCloseCopyCodeSnackbar = () => {
+    setOpenCopyCodeSnackbar(false);
+  };
+
   const renderPrimary = (
     <TableRow
       hover
@@ -704,7 +714,8 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                     right: 10, // Adjust as needed
                     color: 'text.disabled',
                   }}
-                  onClick={() =>
+                  onClick={() => {
+                    // Copy text to clipboard
                     navigator.clipboard.writeText((request, context) => {
                       // Initialize a counter
                       let itemCounter = 0;
@@ -737,13 +748,43 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                       }
 
                       return request;
-                    })
-                  }
+                    });
+
+                    // Open Snackbar
+                    handleOpenCopyCodeSnackbar();
+                  }}
                 >
                   <Tooltip title="Copy request_code" arrow placement="top">
                     <Iconify width={16} icon="solar:copy-bold" />
                   </Tooltip>
                 </IconButton>
+                <Snackbar
+                  open={openCopyCodeSnackbar}
+                  autoHideDuration={1000}
+                  onClose={handleCloseCopyCodeSnackbar}
+                  message="This is an error Alert."
+                  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                  // sx={{
+                  //   boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+                  //   mt: 6.5,
+                  // }}
+                >
+                  <Alert
+                    onClose={handleCloseCopyCodeSnackbar}
+                    severity="success"
+                    sx={{
+                      width: '100%',
+                      fontSize: '14px',
+                      fontWeight: 'bold',
+                      backgroundColor: theme.palette.background.paper,
+                      color: theme.palette.text.primary,
+                      boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+                      // mt: 6.5,
+                    }}
+                  >
+                    Request code copied successfully.
+                  </Alert>
+                </Snackbar>
               </Box>
             </Grid>
             <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
@@ -771,7 +812,10 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
                       <IconButton
                         edge="end"
                         sx={{ color: 'text.disabled' }}
-                        onClick={() => navigator.clipboard.writeText('NA')}
+                        onClick={() => {
+                          navigator.clipboard.writeText('NA');
+                          handleOpenCopyCodeSnackbar();
+                        }}
                       >
                         <Iconify sx={{ mt: -0.2 }} width={15} icon="solar:copy-bold" />
                       </IconButton>

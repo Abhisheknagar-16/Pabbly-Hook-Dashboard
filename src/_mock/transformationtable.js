@@ -10,7 +10,7 @@ export const ORDER_TRANSFORMATION_OPTIONS = [
 const ITEMS = [...Array(3)].map((_, index) => ({
   id: _mock.id(index),
   sku: `16H9UR${index}`,
-  quantity: index + 1,
+  quantity: index + 0,
   name: _mock.productName(index),
   coverUrl: _mock.image.product(index),
   price: _mock.number.price(index),
