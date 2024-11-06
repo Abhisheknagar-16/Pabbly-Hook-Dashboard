@@ -61,7 +61,6 @@ export const navData = [
       { title: 'Events', path: paths.dashboard.event, icon: ICONS.events},
       // { title: 'Issues', path: paths.dashboard.two, icon: ICONS.issues },
       { title: 'Transformations', path: paths.dashboard.transformation, icon: ICONS.transformations},
-      // { title: 'Time-Zone', path: paths.dashboard.Seven, icon: ICONS.timezone},
     ],
   },
   /**
