@@ -50,7 +50,7 @@ const currencies = [
   },
   {
     value: 'EUR',
-    label: 'per minute', 
+    label: 'per minute',
   },
   {
     value: 'BTC',
@@ -179,7 +179,6 @@ const Time = [
 export function UpdateConnection() {
   const [open, setOpen] = useState(false);
 
-
   const [transformationDrawerOpen, setTransformationDrawerOpen] = useState(false);
 
   const handleOpenTranformationDrawer = () => {
@@ -223,7 +222,6 @@ export function UpdateConnection() {
     }
   };
 
-
   const [checkboxState, setCheckboxState] = useState({
     GET: true,
     POST: false,
@@ -245,7 +243,7 @@ export function UpdateConnection() {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzRhZDgwMzU2MDZjMTM1Zjk5NTgxZiIsIm5hbWUiOiJBaVNlbnN5IERlbW8gQWNjb3VudCIsImFwcE5hbWUiOiJBaVNlbnN5IiwiY2xpZW50SWQiOiI2MzAyOWM3Mjg1ODcxODUxYTQ5MzJmNTgiLCJhY3RpdmVQbGFuIjoiUFJPX01PTlRITFkiLCJpYXQiOjE3MjgzNzQ5ODV9.6N7-Y7rYAIkyYkf_ti5TRfCChwKyWY0Gai5tzP2QnVI',
     campaignName: 'New Camp 16 Oct',
     destination: '919581984489',
-    userName: 'AiSensy Demo Account',
+    userName: 'Pabbly Hook Account',
     templateParams: ['$FirstName', '$FirstName'],
     source: 'new-landing-page form',
     media: {},
@@ -290,7 +288,7 @@ export function UpdateConnection() {
 
   const handleChange = (event) => {
     setUrl(event.target.value);
-    navigator.clipboard.writeText(event.target.value); // Automatically copies the text as you type
+    // navigator.clipboard.writeText(event.target.value); // Automatically copies the text as you type
   };
 
   const handleOpenSnackbar = () => {
@@ -301,12 +299,10 @@ export function UpdateConnection() {
     setOpenSnackbar(false);
   };
 
-  
   // Function to handle dialog close
   const handleClose = () => {
     setOpen(false);
   };
-
 
   const { user } = useMockedUser();
 
@@ -345,16 +341,45 @@ export function UpdateConnection() {
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
+
+    // Clear the content of the CodeMirror when switching tabs
+    if (newValue !== selectedTab) {
+      if (newValue === 0) {
+        setBodyFilterText('');
+      } else if (newValue === 1) {
+        setHeadersFilterText('');
+      } else if (newValue === 2) {
+        setQueryFilterText('');
+      } else if (newValue === 3) {
+        setPathFilterText('');
+      }
+    }
   };
 
   const [selectedTransformation, setSelectedTransformation] = useState('USD');
+  const [bodyFilterText, setBodyFilterText] = useState('');
+  const [headersFilterText, setHeadersFilterText] = useState('');
+  const [queryFilterText, setQueryFilterText] = useState('');
+  const [pathFilterText, setPathFilterText] = useState('');
+
+  const handleFilterTextChange = (tabIndex, value) => {
+    if (tabIndex === 0) {
+      setBodyFilterText(value);
+    } else if (tabIndex === 1) {
+      setHeadersFilterText(value);
+    } else if (tabIndex === 2) {
+      setQueryFilterText(value);
+    } else if (tabIndex === 3) {
+      setPathFilterText(value);
+    }
+  };
 
   return (
     <DashboardContent maxWidth="xl" sx={{ px: { xs: 0, sm: 0, lg: 5, xl: 0 } }}>
       <Grid container spacing={3}>
         {/* folder section */}
         <Grid item xs={12} md={3} lg={3}>
-          <FolderSection/>
+          <FolderSection />
         </Grid>
 
         {/* Update connection form */}
@@ -492,9 +517,9 @@ export function UpdateConnection() {
 
             <DialogContent sx={{ mb: 2 }}>
               <TextField
-                 error={errorrequired}
-                 value={urlrequired}
-                 onChange={handleChangetext}
+                error={errorrequired}
+                value={urlrequired}
+                onChange={handleChangetext}
                 //  autoFocus
                 fullWidth
                 required
@@ -720,7 +745,7 @@ export function UpdateConnection() {
                     </TextField>
                     <Box sx={{ mt: 3, ml: 1 }}>
                       <IconButton
-                      onClick={handleOpenTranformationUpdateDrawer}
+                        onClick={handleOpenTranformationUpdateDrawer}
                         sx={{
                           alignItems: 'center',
                           // Hide edit button when "Select Transformation" (USD) is selected
@@ -913,11 +938,7 @@ export function UpdateConnection() {
                 }
                 label={
                   <Tooltip
-                    title={
-                      <div style={{ textAlign: 'center' }}>
-                        Filter the event based on the request body, headers, query or path.
-                      </div>
-                    }
+                    title="Filter the event based on the request body, headers, query, or path."
                     disableInteractive
                     arrow
                     placement="top"
@@ -936,100 +957,101 @@ export function UpdateConnection() {
                     <Tab label="Query" />
                     <Tab label="Path" />
                   </Tabs>
-                  <Box sx={{ pt: 2 }}>
-                    {selectedTab === 0 && (
-                      <TextField
-                        fullWidth
-                        // label="Body Content"
-                        placeholder="Body Content"
-                        variant="outlined"
-                        helperText="Set the body content."
-                        multiline
-                        rows={4}
-                        value={url}
-                        onChange={handleChange}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Copy Text" arrow placement="bottom">
-                                <IconButton edge="end" onClick={handleCopy}>
+                  <Box
+                    sx={{
+                      border: '1px solid #ccc',
+                      borderRadius: 1,
+                      padding: 1,
+                      mt: 2,
+                      mb: 2,
+                      height: '240px',
+                      overflow: 'hidden',
+                      position: 'relative',
+                    }}
+                  >
+                    {[0, 1, 2, 3].map(
+                      (tabIndex) =>
+                        selectedTab === tabIndex && (
+                          <Box key={tabIndex} sx={{ position: 'relative', height: '100%' }}>
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                mb: 1,
+                                minHeight: '40px',
+                              }}
+                            >
+                              <Typography
+                                variant="body2"
+                                sx={{
+                                  color: 'gray',
+                                  whiteSpace: 'nowrap',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                }}
+                              >
+                                {tabIndex === 0 &&
+                                  'Specify the filter logic for the body of the request using JavaScript syntax.'}
+                                {tabIndex === 1 &&
+                                  'Define the filter conditions for the request headers here.'}
+                                {tabIndex === 2 &&
+                                  'Set the filtering rules for query parameters in the request URL.'}
+                                {tabIndex === 3 &&
+                                  'Create filters based on specific paths in the request URL.'}
+                              </Typography>
+
+                              <IconButton
+                                sx={{
+                                  position: 'relative',
+                                  zIndex: 10,
+                                }}
+                                onClick={() => {
+                                  let codeContent = '';
+                                  if (tabIndex === 3) {
+                                    codeContent = pathFilterText; // 'Path' tab filter text
+                                  } else if (tabIndex === 0) {
+                                    codeContent = bodyFilterText; // 'Body' tab filter text
+                                  } else if (tabIndex === 1) {
+                                    codeContent = headersFilterText; // 'Headers' tab filter text
+                                  } else if (tabIndex === 2) {
+                                    codeContent = queryFilterText; // 'Query' tab filter text
+                                  }
+
+                                  navigator.clipboard
+                                    .writeText(codeContent)
+                                    .then(() => {
+                                      console.log('Code copied to clipboard');
+                                    })
+                                    .catch((err) => {
+                                      console.error('Failed to copy text: ', err);
+                                    });
+                                }}
+                              >
+                                <Tooltip title="Copy" arrow placement="bottom">
                                   <Iconify width={18} icon="solar:copy-bold" />
-                                </IconButton>
-                              </Tooltip>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    )}
-                    {selectedTab === 1 && (
-                      <TextField
-                        fullWidth
-                        // label="Headers Content"
-                        placeholder="Header Content"
-                        variant="outlined"
-                        helperText="Set the headers content."
-                        multiline
-                        rows={4}
-                        value={url}
-                        onChange={handleChange}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Copy Text" arrow placement="bottom">
-                                <IconButton edge="end" onClick={handleCopy}>
-                                  <Iconify width={18} icon="solar:copy-bold" />
-                                </IconButton>
-                              </Tooltip>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    )}
-                    {selectedTab === 2 && (
-                      <TextField
-                        fullWidth
-                        // label="Query Parameters"
-                        placeholder="Query Parameters"
-                        variant="outlined"
-                        helperText="Set the query parameters."
-                        multiline
-                        rows={4}
-                        value={url}
-                        onChange={handleChange}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Copy Text" arrow placement="bottom">
-                                <IconButton edge="end" onClick={handleCopy}>
-                                  <Iconify width={18} icon="solar:copy-bold" />
-                                </IconButton>
-                              </Tooltip>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    )}
-                    {selectedTab === 3 && (
-                      <TextField
-                        fullWidth
-                        // label="Path Parameters"
-                        placeholder="Path Parameters"
-                        variant="outlined"
-                        helperText="Set the path parameters."
-                        multiline
-                        rows={4}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment sx={{ mt: -9.5 }}>
-                              <Tooltip title="Copy Text" arrow placement="bottom">
-                                <IconButton edge="end" onClick={handleCopy}>
-                                  <Iconify width={18} icon="solar:copy-bold" />
-                                </IconButton>
-                              </Tooltip>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
+                                </Tooltip>
+                              </IconButton>
+                            </Box>
+
+                            {/* CodeMirror for each tab */}
+                            <CodeMirror
+                              value={
+                                tabIndex === 0
+                                  ? bodyFilterText
+                                  : tabIndex === 1
+                                    ? headersFilterText
+                                    : tabIndex === 2
+                                      ? queryFilterText
+                                      : pathFilterText
+                              }
+                              onChange={(newValue) => handleFilterTextChange(tabIndex, newValue)}
+                              height="200px"
+                              extensions={[javascript()]}
+                              theme="light"
+                            />
+                          </Box>
+                        )
                     )}
                   </Box>
                 </Box>
@@ -1049,31 +1071,30 @@ export function UpdateConnection() {
                   Update
                 </Button>
                 <Snackbar
-                      open={openSnackbar}
-                      autoHideDuration={1000}
-                      Z-index={100}
-                      onClose={handleCloseSnackbar}
-                      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                      sx={{
-                        boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-                        mt: 6.5,
-                      }}
-                      
-                    >
-                      <Alert
-                        onClose={handleCloseSnackbar}
-                        severity="success"
-                        sx={{
-                          width: '100%',
-                          fontSize: '14px',
-                          fontWeight: 'bold',
-                          backgroundColor: theme.palette.background.paper,
-                          color: theme.palette.text.primary,
-                        }}
-                      >
-                        Connection successfully setup.
-                      </Alert>
-                    </Snackbar>
+                  open={openSnackbar}
+                  autoHideDuration={1000}
+                  Z-index={100}
+                  onClose={handleCloseSnackbar}
+                  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                  sx={{
+                    boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+                    mt: 6.5,
+                  }}
+                >
+                  <Alert
+                    onClose={handleCloseSnackbar}
+                    severity="success"
+                    sx={{
+                      width: '100%',
+                      fontSize: '14px',
+                      fontWeight: 'bold',
+                      backgroundColor: theme.palette.background.paper,
+                      color: theme.palette.text.primary,
+                    }}
+                  >
+                    Connection successfully setup.
+                  </Alert>
+                </Snackbar>
                 {/* <Dialog open={open} onClose={handleClose}>
                   <DialogTitle>Connection Successfully Setup!</DialogTitle>
                   <DialogContent>

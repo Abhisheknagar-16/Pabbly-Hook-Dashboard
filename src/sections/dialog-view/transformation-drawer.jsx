@@ -47,7 +47,13 @@ export function TransformationDrawer({ transformationDrawerOpen, setTransformati
 
   const handleOpenSnackbar = () => {
     setOpenSnackbar(true);
+  
+    // Add a delay before closing the drawer
+    setTimeout(() => {
+      setTransformationDrawerOpen(false); // Close the drawer after the delay
+    }, 2000); // Delay in milliseconds (2000ms = 2 seconds)
   };
+  
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);

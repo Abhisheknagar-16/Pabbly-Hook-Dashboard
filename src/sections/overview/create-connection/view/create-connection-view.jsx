@@ -210,7 +210,7 @@ export function CreateConnection() {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzRhZDgwMzU2MDZjMTM1Zjk5NTgxZiIsIm5hbWUiOiJBaVNlbnN5IERlbW8gQWNjb3VudCIsImFwcE5hbWUiOiJBaVNlbnN5IiwiY2xpZW50SWQiOiI2MzAyOWM3Mjg1ODcxODUxYTQ5MzJmNTgiLCJhY3RpdmVQbGFuIjoiUFJPX01PTlRITFkiLCJpYXQiOjE3MjgzNzQ5ODV9.6N7-Y7rYAIkyYkf_ti5TRfCChwKyWY0Gai5tzP2QnVI',
     campaignName: 'New Camp 16 Oct',
     destination: '919581984489',
-    userName: 'AiSensy Demo Account',
+    userName: 'Pabbly Hook Account',
     templateParams: ['$FirstName', '$FirstName'],
     source: 'new-landing-page form',
     media: {},
@@ -227,18 +227,41 @@ export function CreateConnection() {
 
   const [plainText, setPlainText] = useState('');
 
-  const [codeText, setCodeText] = useState('');
+  // const [codeText, setCodeText] = useState('');
 
-  const handleCodeChange = (value) => {
-    setCode(value); // Update code as a string
+  const [bodyFilterText, setBodyFilterText] = useState('');
+  const [headersFilterText, setHeadersFilterText] = useState('');
+  const [queryFilterText, setQueryFilterText] = useState('');
+  const [pathFilterText, setPathFilterText] = useState('');
+  // const [codeText, setCodeText] = useState('');
+  // const [selectedTab, setSelectedTab] = useState(0); // Track the active tab
+  // const [showFilterField, setShowFilterField] = useState(true); // Show or hide filter section
 
-    try {
-      const parsedData = JSON.parse(value); // Attempt to parse JSON
-      console.log('Parsed JSON:', parsedData); // For debugging or additional handling
-    } catch (error) {
-      console.error('Invalid JSON format:', error); // Handle invalid JSON
+  // Handle filter toggle switch
+
+  // Handle filter text change for each tab (Body, Headers, Query, Path)
+  const handleFilterTextChange = (tabIndex, value) => {
+    if (tabIndex === 0) {
+      setBodyFilterText(value);
+    } else if (tabIndex === 1) {
+      setHeadersFilterText(value);
+    } else if (tabIndex === 2) {
+      setQueryFilterText(value);
+    } else if (tabIndex === 3) {
+      setPathFilterText(value);
     }
   };
+
+  // const handleCodeChange = (value) => {
+  //   setCode(value); // Update code as a string
+
+  //   try {
+  //     const parsedData = JSON.parse(value); // Attempt to parse JSON
+  //     console.log('Parsed JSON:', parsedData); // For debugging or additional handling
+  //   } catch (error) {
+  //     console.error('Invalid JSON format:', error); // Handle invalid JSON
+  //   }
+  // };
 
   const handleFormatChange = (event) => {
     setSelectedFormat(event.target.value);
@@ -248,13 +271,13 @@ export function CreateConnection() {
     setPlainText(event.target.value);
   };
 
-  const handleCodeTextChange = (event) => {
-    setCodeText(event.target.value);
-  };
+  // const handleCodeTextChange = (event) => {
+  //   setCodeText(event.target.value);
+  // };
 
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [openCopySnackbar, setOpenCopySnackbar] = React.useState(false);
-  const [url, setUrl] = useState('');
+  // const [url, setUrl] = useState('');
 
   const handleOpenCopySnackbar = () => {
     setOpenCopySnackbar(true);
@@ -264,18 +287,18 @@ export function CreateConnection() {
     setOpenCopySnackbar(false);
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(url);
-  };
+  // const handleCopy = () => {
+  //   navigator.clipboard.writeText(url);
+  // };
 
-  const handleChange = (event) => {
-    setUrl(event.target.value);
-    navigator.clipboard.writeText(event.target.value); // Automatically copies the text as you type
-  };
+  // const handleChange = (event) => {
+  //   setUrl(event.target.value);
+  //   navigator.clipboard.writeText(event.target.value); // Automatically copies the text as you type
+  // };
 
-  const handleOpenSnackbar = () => {
-    setOpenSnackbar(true);
-  };
+  // const handleOpenSnackbar = () => {
+  //   setOpenSnackbar(true);
+  // };
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
@@ -321,6 +344,19 @@ export function CreateConnection() {
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
+
+    // Clear the content of the CodeMirror when switching tabs
+    if (newValue !== selectedTab) {
+      if (newValue === 0) {
+        setBodyFilterText('');
+      } else if (newValue === 1) {
+        setHeadersFilterText('');
+      } else if (newValue === 2) {
+        setQueryFilterText('');
+      } else if (newValue === 3) {
+        setPathFilterText('');
+      }
+    }
   };
 
   const [selectedTransformation, setSelectedTransformation] = useState('USD');
@@ -863,11 +899,7 @@ export function CreateConnection() {
                 }
                 label={
                   <Tooltip
-                    title={
-                      <div style={{ textAlign: 'center' }}>
-                        Filter the event based on the request body, headers, query, or path.
-                      </div>
-                    }
+                    title="Filter the event based on the request body, headers, query, or path."
                     disableInteractive
                     arrow
                     placement="top"
@@ -893,85 +925,95 @@ export function CreateConnection() {
                       padding: 1,
                       mt: 2,
                       mb: 2,
-                      height: '200px',
+                      height: '240px',
                       overflow: 'hidden',
                       position: 'relative',
                     }}
                   >
-                    {/* CodeMirror components */}
-                    <Box
-                      sx={{ display: selectedTab === 0 ? 'block' : 'none', position: 'relative' }}
-                    >
-                      <CodeMirror height="200px" extensions={[javascript()]} theme="light" />
-                      <IconButton
-                        sx={{
-                          position: 'absolute',
-                          top: 0,
-                          right: 0,
-                          zIndex: 10, // Ensure it appears above the CodeMirror component
-                        }}
-                        onClick={() => navigator.clipboard.writeText(plainText)}
-                      >
-                        <Tooltip title="Copy" arrow placement="bottom">
-                          <Iconify width={18} icon="solar:copy-bold" />
-                        </Tooltip>
-                      </IconButton>
-                    </Box>
-                    <Box
-                      sx={{ display: selectedTab === 1 ? 'block' : 'none', position: 'relative' }}
-                    >
-                      <CodeMirror height="200px" extensions={[javascript()]} theme="light" />
-                      <IconButton
-                        sx={{
-                          position: 'absolute',
-                          top: 0,
-                          right: 0,
-                          zIndex: 10,
-                        }}
-                        onClick={() => navigator.clipboard.writeText(plainText)}
-                      >
-                        <Tooltip title="Copy" arrow placement="bottom">
-                          <Iconify width={18} icon="solar:copy-bold" />
-                        </Tooltip>
-                      </IconButton>
-                    </Box>
-                    <Box
-                      sx={{ display: selectedTab === 2 ? 'block' : 'none', position: 'relative' }}
-                    >
-                      <CodeMirror height="200px" extensions={[javascript()]} theme="light" />
-                      <IconButton
-                        sx={{
-                          position: 'absolute',
-                          top: 0,
-                          right: 0,
-                          zIndex: 10,
-                        }}
-                        onClick={() => navigator.clipboard.writeText(plainText)}
-                      >
-                        <Tooltip title="Copy" arrow placement="bottom">
-                          <Iconify width={18} icon="solar:copy-bold" />
-                        </Tooltip>
-                      </IconButton>
-                    </Box>
-                    <Box
-                      sx={{ display: selectedTab === 3 ? 'block' : 'none', position: 'relative' }}
-                    >
-                      <CodeMirror value={codeText}
-                        onChange={handleCodeTextChange} height="200px" extensions={[javascript()]} theme="light" />
-                      <IconButton
-                        sx={{
-                          position: 'absolute',
-                          top: 0,
-                          right: 0,
-                          zIndex: 10,
-                        }}
-                        onClick={() => navigator.clipboard.writeText(codeText)}
-                      >
-                        <Tooltip title="Copy" arrow placement="bottom">
-                          <Iconify width={18} icon="solar:copy-bold" />
-                        </Tooltip>
-                      </IconButton>
-                    </Box>
+                    {[0, 1, 2, 3].map(
+                      (tabIndex) =>
+                        selectedTab === tabIndex && (
+                          <Box key={tabIndex} sx={{ position: 'relative', height: '100%' }}>
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                mb: 1,
+                                minHeight: '40px',
+                              }}
+                            >
+                              <Typography
+                                variant="body2"
+                                sx={{
+                                  color: 'gray',
+                                  whiteSpace: 'nowrap',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                }}
+                              >
+                                {tabIndex === 0 &&
+                                  'Specify the filter logic for the body of the request using JavaScript syntax.'}
+                                {tabIndex === 1 &&
+                                  'Define the filter conditions for the request headers here.'}
+                                {tabIndex === 2 &&
+                                  'Set the filtering rules for query parameters in the request URL.'}
+                                {tabIndex === 3 &&
+                                  'Create filters based on specific paths in the request URL.'}
+                              </Typography>
+
+                              <IconButton
+                                sx={{
+                                  position: 'relative',
+                                  zIndex: 10,
+                                }}
+                                onClick={() => {
+                                  let codeContent = '';
+                                  if (tabIndex === 3) {
+                                    codeContent = pathFilterText; // 'Path' tab filter text
+                                  } else if (tabIndex === 0) {
+                                    codeContent = bodyFilterText; // 'Body' tab filter text
+                                  } else if (tabIndex === 1) {
+                                    codeContent = headersFilterText; // 'Headers' tab filter text
+                                  } else if (tabIndex === 2) {
+                                    codeContent = queryFilterText; // 'Query' tab filter text
+                                  }
+
+                                  navigator.clipboard
+                                    .writeText(codeContent)
+                                    .then(() => {
+                                      console.log('Code copied to clipboard');
+                                    })
+                                    .catch((err) => {
+                                      console.error('Failed to copy text: ', err);
+                                    });
+                                }}
+                              >
+                                <Tooltip title="Copy" arrow placement="bottom">
+                                  <Iconify width={18} icon="solar:copy-bold" />
+                                </Tooltip>
+                              </IconButton>
+                            </Box>
+
+                            {/* CodeMirror for each tab */}
+                            <CodeMirror
+                              value={
+                                tabIndex === 0
+                                  ? bodyFilterText
+                                  : tabIndex === 1
+                                    ? headersFilterText
+                                    : tabIndex === 2
+                                      ? queryFilterText
+                                      : pathFilterText
+                              }
+                              onChange={(newValue) => handleFilterTextChange(tabIndex, newValue)}
+                              height="200px"
+                              extensions={[javascript()]}
+                              theme="light"
+                            />
+                          </Box>
+                        )
+                    )}
                   </Box>
                 </Box>
               )}
