@@ -186,7 +186,7 @@ export function JwtConfirm() {
           <Typography 
           variant='body2'>
 
-          Your password has been changed successfully.Use your new password to <Link component={RouterLink}  href={paths.auth.jwt.signIn} >login here</Link>
+          Your password has been changed successfully. Use your new password to <Link component={RouterLink}  href={paths.auth.jwt.signIn} >Login here .</Link> 
           </Typography>
     
         </Alert>

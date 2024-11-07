@@ -202,15 +202,12 @@ export function JwtSignUpView() {
   const renderHead = (
     <Stack spacing={0} mb={1} textAlign="">
       <Typography variant="h5">Create Pabbly Account</Typography>
-      {/* <Stack direction="row" spacing={0}> */}
+ 
         <Typography variant="body2" sx={{ color: 'text.secondary',mb:2 }}>
         Sign up in seconds. No credit card required.
         </Typography>
 
-        {/* <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="subtitle2">
-          Sign In
-        </Link> */}
-      {/* </Stack> */}
+  
       <Stack direction="row" sx={{mb:1}} >
         <Button
           fullWidth
@@ -514,7 +511,7 @@ export function JwtSignUpView() {
       {`Pabbly's Terms of Service`} 
       </Link>
       {' and '}
-      <Link color="primary">
+      <Link href="https://www.pabbly.com/privacy-policy/" target="_blank"color="primary">
       Privacy Policy
       </Link>
       .

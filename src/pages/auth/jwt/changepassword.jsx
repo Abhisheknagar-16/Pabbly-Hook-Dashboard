@@ -4,13 +4,11 @@ import { Box, Button, Typography } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 
-import { CONFIG } from 'src/config-global';
-
 import { JwtConfirm } from 'src/sections/auth/jwt/jwt-change-password';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Confirm Email | Jwt - ${CONFIG.site.name}` };
+const metadata = { title: `Reset Password | Pabbly` };
 
 export default function Page() {
   return (
