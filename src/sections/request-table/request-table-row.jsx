@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
@@ -11,16 +9,10 @@ import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import {
-  Grid,
   Alert,
-  AppBar,
-  Divider,
   Tooltip,
-  Toolbar,
   useTheme,
   Snackbar,
-  TextField,
-  Typography,
   IconButton,
 } from '@mui/material';
 
@@ -30,6 +22,8 @@ import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
+
+import { RequestDrawer } from '../drawer/request-drawer';
 
 const generateRandomData = () => {
   const names = [
@@ -88,13 +82,13 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
 
   const { RequestName, Requestdate, RequestId } = randomData; // Destructure the new ID
 
-  const handleOpenSnackbar = () => {
-    setOpenSnackbar(true);
-  };
+  // const handleOpenSnackbar = () => {
+  //   setOpenSnackbar(true);
+  // };
 
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
-  };
+  // const handleCloseSnackbar = () => {
+  //   setOpenSnackbar(false);
+  // };
   const evtItems = [
     { id: 1, label: '(request,context) =>' },
 
@@ -125,15 +119,15 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
     setOpenCopySnackbar(false);
   };
 
-  const [openCopyCodeSnackbar, setOpenCopyCodeSnackbar] = React.useState(false);
+  // const [openCopyCodeSnackbar, setOpenCopyCodeSnackbar] = React.useState(false);
 
-  const handleOpenCopyCodeSnackbar = () => {
-    setOpenCopyCodeSnackbar(true);
-  };
+  // const handleOpenCopyCodeSnackbar = () => {
+  //   setOpenCopyCodeSnackbar(true);
+  // };
 
-  const handleCloseCopyCodeSnackbar = () => {
-    setOpenCopyCodeSnackbar(false);
-  };
+  // const handleCloseCopyCodeSnackbar = () => {
+  //   setOpenCopyCodeSnackbar(false);
+  // };
 
   const renderPrimary = (
     <TableRow
@@ -372,461 +366,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
         }
       />
       {/* request drawer which is on click to open the drawer */}
-      <Drawer
-        open={drawerOpen}
-        onClose={handleCloseDrawer}
-        anchor="right"
-        slotProps={{ backdrop: { invisible: true } }}
-        PaperProps={{
-          sx: {
-            width: { xs: '100%', sm: 700, md: 850 }, // Adjust width based on screen size
-            '@media (max-width: 300px)': {
-              padding: '16px',
-            },
-          },
-        }}
-      >
-        {/* <Card component="ul" position="relative" float="left"> */}
-        <AppBar
-          sx={{ bgcolor: '#fff', padding: 2 }}
-          position="relative"
-          color="default"
-          display="flex"
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              edge="start"
-              sx={{
-                position: 'absolute',
-                top: 12, // Adjust top position as needed
-                right: 28, // Adjust right position as needed
-              }}
-              onClick={handleCloseDrawer}
-            >
-              <Iconify icon="mingcute:close-line" />
-            </IconButton>
-          </Toolbar>
-          <Typography
-            sx={{
-              mt: -8,
-              flex: 1,
-              ml: 2,
-              color: 'primary',
-              fontSize: '24px',
-              fontWeight: 700,
-            }}
-          >
-            {RequestName} {/* Display the random name */}
-          </Typography>
-          <Typography
-            sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}
-          >
-            Request ID - {RequestId} {/* Display the random ID */}
-            <Tooltip title="Copy request_id " arrow placement="bottom">
-              <IconButton
-                edge="end"
-                sx={{ color: 'text.disabled' }}
-                onClick={() => {
-                  navigator.clipboard.writeText(RequestId); // Use the random ID
-                  handleOpenCopySnackbar();
-                }}
-              >
-                <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
-              </IconButton>
-            </Tooltip>
-            <Snackbar
-              open={openCopySnackbar}
-              autoHideDuration={1000}
-              onClose={handleCloseCopySnackbar}
-              message="This is an error Alert."
-              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-              // sx={{
-              //   boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-              //   mt: 6.5,
-              // }}
-            >
-              <Alert
-                onClose={handleCloseCopySnackbar}
-                severity="success"
-                sx={{
-                  width: '100%',
-                  fontSize: '14px',
-                  fontWeight: 'bold',
-                  backgroundColor: theme.palette.background.paper,
-                  color: theme.palette.text.primary,
-                  boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-                  // mt: 6.5,
-                }}
-              >
-                Request id copied successfully.
-              </Alert>
-            </Snackbar>
-          </Typography>
-          <Typography
-            sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}
-          >
-            Executed at {formatDate(Requestdate)}
-          </Typography>
-        </AppBar>
-        <Divider />
-        <Box sx={{ width: '90%', mt: 2, ml: 5, bgcolor: '#fff', padding: 2 }}>
-          <Typography variant="h6" gutterBottom>
-            <Tooltip
-              title="Detailed information for the selected webhook request."
-              disableInteractive
-              placement="top"
-              arrow
-            >
-              Request History
-            </Tooltip>
-          </Typography>
-          <Divider />
-          <Grid container spacing={2} mt={2}>
-            <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2">
-                <Tooltip
-                  title="Shows the current state of your request (e.g., Accepted, Pending, Failed)."
-                  disableInteractive
-                  placement="top"
-                  arrow
-                >
-                  Status
-                </Tooltip>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <Tooltip
-                title={
-                  row.status === 'Accepted'
-                    ? 'This is an accepted request'
-                    : row.status === 'Blocked'
-                      ? 'This request is blocked'
-                      : ''
-                }
-                arrow
-                placement="top"
-                disableHoverListener={row.status !== 'Accepted' && row.status !== 'Blocked'}
-                disableInteractive
-              >
-                <Label
-                  size="small"
-                  variant="soft"
-                  color={
-                    (row.status === 'Accepted' && 'success') ||
-                    (row.status === 'Blocked' && 'error') ||
-                    'default'
-                  }
-                >
-                  {row.status}
-                </Label>
-              </Tooltip>
-
-              {/* <Snackbar
-                open={openSnackbar}
-                autoHideDuration={1000}
-                onClose={handleCloseSnackbar}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-              >
-                <Alert
-                  onClose={handleCloseSnackbar}
-                  severity={
-                    row.status === 'Accepted'
-                      ? 'success'
-                      : row.status === 'Blocked'
-                        ? 'error'
-                        : 'info'
-                  }
-                  sx={{
-                    width: '100%',
-                    fontSize: '14px',
-                    fontWeight: 'bold',
-                    backgroundColor: theme.palette.background.paper,
-                    color: theme.palette.text.primary,
-                    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-                  }}
-                >
-                  {row.status === 'Accepted'
-                    ? 'Request successfully setup.'
-                    : row.status === 'Blocked'
-                      ? 'Request is blocked.'
-                      : 'Unknown status.'}
-                </Alert>
-              </Snackbar> */}
-            </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                <Tooltip
-                  title="Identifies the origin of the request using a unique identifier code."
-                  disableInteractive
-                  placement="top"
-                  arrow
-                >
-                  Source
-                </Tooltip>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField disabled size="small" fullWidth value={formatDate(Requestdate)} />
-            </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                <Tooltip
-                  title="Displays the size of the request content in bytes/characters."
-                  disableInteractive
-                  placement="top"
-                  arrow
-                >
-                  Content lenght{' '}
-                </Tooltip>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField disabled size="small" fullWidth value={RequestId} />
-            </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                <Tooltip
-                  title="Indicates the format of the request data (e.g., application/json, text/plain)"
-                  disableInteractive
-                  placement="top"
-                  arrow
-                >
-                  Content type
-                </Tooltip>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField
-                disabled
-                value="2024-08-23T12:06:44.930Z"
-                fullWidth
-                variant="outlined"
-                size="small"
-              />
-            </Grid>{' '}
-            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                <Tooltip
-                  title="Shows which HTTP method was used to make the request (GET, POST, PUT, DELETE, etc.)."
-                  disableInteractive
-                  placement="top"
-                  arrow
-                >
-                  Method
-                </Tooltip>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField disabled value="Get" fullWidth variant="outlined" size="small" />
-            </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                <Tooltip
-                  title="Contains the actual data/payload sent with the request."
-                  disableInteractive
-                  placement="top"
-                  arrow
-                >
-                  Body
-                </Tooltip>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <Box
-                sx={{
-                  position: 'relative',
-                  maxHeight: 400,
-                  overflowY: 'auto', // Control vertical overflow
-                  overflowX: 'hidden', // Hide horizontal overflow to avoid scroll
-                  border: '1px solid #E5E8EB',
-                  borderRadius: 1,
-                  // Custom scrollbar styling
-                  '&::-webkit-scrollbar': {
-                    width: '8px', // Set the width of the scrollbar
-                  },
-                  '&::-webkit-scrollbar-thumb': {
-                    backgroundColor: '#888', // Color of the scrollbar thumb
-                    borderRadius: '10px', // Border radius for rounded scrollbar
-                  },
-                  '&::-webkit-scrollbar-thumb:hover': {
-                    backgroundColor: '#555', // Color on hover
-                  },
-                  '&::-webkit-scrollbar-track': {
-                    backgroundColor: '#f1f1f1', // Background of the scrollbar track
-                    borderRadius: '10px', // Border radius for the track
-                  },
-                }}
-              >
-                <SyntaxHighlighter
-                  language="javascript"
-                  customStyle={{
-                    backgroundColor: 'transparent',
-                    wordWrap: 'break-word', // Ensure long lines wrap
-                    whiteSpace: 'pre-wrap', // Maintain formatting while allowing wrapping
-                  }}
-                  wrapLongLines // Ensure code lines don't overflow horizontally
-                >
-                  {`(request, context) => {
-    // Initialize a counter
-    let itemCounter = 0;
-    // Process a list of items
-    request.payload.items = request.payload.items || [];
-    request.payload.items.forEach(item => {
-      if (item.status === 'active') {
-        itemCounter++;
-        item.updated_at = new Date().toISOString();
-      } else {
-        item.status = 'inactive';
-      }
-    });
-
-    // Add a summary field
-    request.payload.summary = {
-      activeItemCount: itemCounter,
-      totalItems: request.payload.items.length
-    };
-
-    // Add a new header
-    request.headers['X-Item-Count'] = itemCounter.toString();
-
-    // Process query parameters
-    request.queryParams.processedAt = new Date().toISOString();
-
-    // Error handling for missing fields
-    if (!request.payload.items.length) {
-      throw new Error('No items to process');
-    }
-
-    return request;
-  }`}
-                </SyntaxHighlighter>
-
-                {/* Copy button */}
-                <IconButton
-                  edge="end"
-                  sx={{
-                    position: 'absolute',
-                    top: 15, // Adjust as needed
-                    right: 10, // Adjust as needed
-                    color: 'text.disabled',
-                  }}
-                  onClick={() => {
-                    // Copy text to clipboard
-                    navigator.clipboard.writeText((request, context) => {
-                      // Initialize a counter
-                      let itemCounter = 0;
-                      // Process a list of items
-                      request.payload.items = request.payload.items || [];
-                      request.payload.items.forEach((item) => {
-                        if (item.status === 'active') {
-                          itemCounter += 1; // Avoiding ++ operator
-                          item.updated_at = new Date().toISOString();
-                        } else {
-                          item.status = 'inactive';
-                        }
-                      });
-
-                      // Add a summary field
-                      request.payload.summary = {
-                        activeItemCount: itemCounter,
-                        totalItems: request.payload.items.length,
-                      };
-
-                      // Add a new header
-                      request.headers['X-Item-Count'] = itemCounter.toString();
-
-                      // Process query parameters
-                      request.queryParams.processedAt = new Date().toISOString();
-
-                      // Error handling for missing fields
-                      if (!request.payload.items.length) {
-                        throw new Error('No items to process');
-                      }
-
-                      return request;
-                    });
-
-                    // Open Snackbar
-                    handleOpenCopyCodeSnackbar();
-                  }}
-                >
-                  <Tooltip title="Copy request_code" arrow placement="top">
-                    <Iconify width={16} icon="solar:copy-bold" />
-                  </Tooltip>
-                </IconButton>
-                <Snackbar
-                  open={openCopyCodeSnackbar}
-                  autoHideDuration={1000}
-                  onClose={handleCloseCopyCodeSnackbar}
-                  message="This is an error Alert."
-                  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                  // sx={{
-                  //   boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-                  //   mt: 6.5,
-                  // }}
-                >
-                  <Alert
-                    onClose={handleCloseCopyCodeSnackbar}
-                    severity="success"
-                    sx={{
-                      width: '100%',
-                      fontSize: '14px',
-                      fontWeight: 'bold',
-                      backgroundColor: theme.palette.background.paper,
-                      color: theme.palette.text.primary,
-                      boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-                      // mt: 6.5,
-                    }}
-                  >
-                    Request code copied successfully.
-                  </Alert>
-                </Snackbar>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                <Tooltip
-                  title='Lists any parameters included in the request URL after the "?" symbol'
-                  disableInteractive
-                  placement="top"
-                  arrow
-                >
-                  Query Params
-                </Tooltip>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField
-                disabled
-                value="NA"
-                fullWidth
-                variant="outlined"
-                size="small"
-                InputProps={{
-                  endAdornment: (
-                    <Tooltip title="Copy Text " arrow placement="bottom">
-                      <IconButton
-                        edge="end"
-                        sx={{ color: 'text.disabled' }}
-                        onClick={() => {
-                          navigator.clipboard.writeText('NA');
-                          handleOpenCopyCodeSnackbar();
-                        }}
-                      >
-                        <Iconify sx={{ mt: -0.2 }} width={15} icon="solar:copy-bold" />
-                      </IconButton>
-                    </Tooltip>
-                  ),
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Box>
-      </Drawer>
+      <RequestDrawer open={drawerOpen} onClose={handleCloseDrawer} row={row} RequestName={RequestName} RequestId={RequestId} Requestdate={Requestdate}/>
     </>
   );
 }
