@@ -493,7 +493,7 @@ export function CreateConnection() {
                 helperText={
                   errorrequired
                     ? 'This field is required.'
-                    : 'Enter the destination webhook URL where Pabbly Hook will forward the webhook data for processing.'
+                    : 'Enter the destination URL where Pabbly Hook will forward the webhook data for processing.'
                 }
               />
             </DialogContent>
@@ -574,7 +574,15 @@ export function CreateConnection() {
                     fullWidth
                     // label="Select"
                     defaultValue="USD"
-                    helperText="Select the time period for the rate limit (e.g., per second, per minute, per hours)."
+                    helperText={
+                      <>
+                        Select the time period for the rate limit (e.g., per second, per minute, per
+                        hours).{' '}
+                        <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                          Learn more
+                        </a>
+                      </>
+                    }
                   >
                     {currencies.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
@@ -589,8 +597,8 @@ export function CreateConnection() {
             <Divider sx={{ borderStyle: 'dashed' }} />
             <CardHeader
               title="Set Connections Rules"
-              subheader="Configure rules to change the behavior of events traveling through your connection."
-              sx={{ mb: 2 }}
+              subheader="Set rules for how events are routed to your destination."
+              sx={{ mb: 1 }}
             />
 
             <DialogContent>
@@ -606,21 +614,36 @@ export function CreateConnection() {
                   </Tooltip>
                 }
                 label={
-                  <Tooltip
-                    title={
-                      <div style={{ textAlign: 'center' }}>
-                        Set the delay between receiving an event and delivering it.
-                      </div>
-                    }
-                    disableInteractive
-                    arrow
-                    placement="top"
-                  >
-                    <Typography sx={{ fontSize: '15px' }}>Delay</Typography>
-                  </Tooltip>
+                  <>
+                    <Tooltip
+                      title={
+                        <div style={{ textAlign: 'center' }}>
+                          Set the delay between receiving an event and delivering it.
+                        </div>
+                      }
+                      disableInteractive
+                      arrow
+                      placement="top"
+                    >
+                      <Typography sx={{ fontSize: '15px' }}>Delay</Typography>
+                    </Tooltip>
+                    {/* <Typography sx={{ fontSize: '12px', color: '#637381' }}>
+                      Set the delay between receiving an event and delivering it to your
+                      destination.{' '}
+                      <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                        Learn more
+                      </a>
+                    </Typography> */}
+                  </>
                 }
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
+              <Typography sx={{ fontSize: '12px', color: '#637381', ml: 5.9, mt: -1 }}>
+                Set the delay between receiving an event and delivering it to your destination.{' '}
+                <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                  Learn more
+                </a>
+              </Typography>
               {showDelayField && (
                 <>
                   <Typography sx={{ mt: 1, fontSize: '15px' }}>Delay Interval</Typography>
@@ -630,7 +653,14 @@ export function CreateConnection() {
                     fullWidth
                     // label="Delay between retries"
                     defaultValue="USD"
-                    helperText="Request will reach destination after the specified delay interval."
+                    helperText={
+                      <>
+                        Request will reach the destination after the specified delay interval.{' '}
+                        <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                          Learn more
+                        </a>
+                      </>
+                    }
                     sx={{ mt: 1 }}
                   >
                     {Ratelimit.map((option) => (
@@ -645,7 +675,7 @@ export function CreateConnection() {
                     select
                     fullWidth
                     defaultValue="USD"
-                    helperText="Select the time unit."
+                    helperText="Specify the unit for the delay interval (e.g., seconds, minutes)."
                     sx={{ mb: 2 }}
                   >
                     {Time.map((option) => (
@@ -683,10 +713,23 @@ export function CreateConnection() {
                     placement="top"
                   >
                     <Typography sx={{ fontSize: '15px' }}>Transformation</Typography>
+                    {/* <Typography sx={{ fontSize: '12px', color: '#637381' }}>
+                      Use transformation to modify an event&apos;s payload before it&apos;s
+                      delivered.{' '}
+                      <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                        Learn more
+                      </a>
+                    </Typography> */}
                   </Tooltip>
                 }
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
+              <Typography sx={{ fontSize: '12px', color: '#637381', ml: 5.9, mt: -1 }}>
+                Use transformation to modify an event&apos;s payload before it&apos;s delivered.{' '}
+                <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                  Learn more
+                </a>
+              </Typography>
               {showTransformationField && (
                 <>
                   <Box sx={{ display: 'flex' }}>
@@ -696,7 +739,14 @@ export function CreateConnection() {
                       fullWidth
                       value={selectedTransformation}
                       onChange={(e) => setSelectedTransformation(e.target.value)}
-                      helperText="Select a transformation."
+                      helperText={
+                        <>
+                          Select a transformation.{' '}
+                          <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                            Learn more
+                          </a>
+                        </>
+                      }
                       sx={{ mb: 2, mt: 2 }}
                     >
                       {Transformation.map((option) => (
@@ -761,7 +811,7 @@ export function CreateConnection() {
                       display: selectedTransformation === 'USD' ? 'flex' : 'none',
                     }}
                   >
-                    Create Transformation
+                    Create transformation
                   </Button>
 
                   <Drawer
@@ -812,10 +862,24 @@ export function CreateConnection() {
                     placement="top"
                   >
                     <Typography sx={{ fontSize: '15px' }}>Custom Response</Typography>
+                    {/* <Typography sx={{ fontSize: '12px', color: '#637381' }}>
+                      Customize the default Pabbly Hook HTTP response with a static response in JSON
+                      or TXT format.{' '}
+                      <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                        Learn more
+                      </a>
+                    </Typography> */}
                   </Tooltip>
                 }
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
+              <Typography sx={{ fontSize: '12px', color: '#637381', ml: 5.9, mt: -1 }}>
+                Customize the default Pabbly Hook HTTP response with a static response in JSON or
+                TXT format.{' '}
+                <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                  Learn more
+                </a>
+              </Typography>
               {showCustomresponseField && (
                 <>
                   <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Content Type</Typography>
@@ -825,7 +889,7 @@ export function CreateConnection() {
                     fullWidth
                     value={selectedFormat}
                     onChange={handleFormatChange}
-                    helperText="Select the format of response."
+                    helperText="Select the format for the response content, such as JSON or Plain field."
                     sx={{ mb: 1 }}
                   >
                     {Strategy.map((option) => (
@@ -905,10 +969,22 @@ export function CreateConnection() {
                     placement="top"
                   >
                     <Typography sx={{ fontSize: '15px' }}>Filter</Typography>
+                    {/* <Typography sx={{ fontSize: '12px', color: '#637381' }}>
+                      Filter events based on the request body, headers, query parameters, or path.{' '}
+                      <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                        Learn more
+                      </a>
+                    </Typography> */}
                   </Tooltip>
                 }
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
+              <Typography sx={{ fontSize: '12px', color: '#637381', ml: 5.9, mt: -1 }}>
+                Filter events based on the request body, headers, query parameters, or path.{' '}
+                <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                  Learn more
+                </a>
+              </Typography>
 
               {showFilterField && (
                 <Box sx={{ width: '100%' }}>
@@ -1030,18 +1106,36 @@ export function CreateConnection() {
                 >
                   Create
                 </Button>
-                <Dialog open={open} onClose={handleClose}>
+                <Dialog
+                  sx={{
+                    '& .MuiDialog-paper': {
+                      width: '550px', // Adjust the width as needed
+                      maxWidth: 'none', // Optional: Disable the default max-width
+                    },
+                  }}
+                  open={open}
+                  onClose={handleClose}
+                >
                   <DialogTitle>Connection Successfully Setup!</DialogTitle>
                   <DialogContent>
                     {/* <Typography>Webhook URL</Typography> */}
                     <TextField
                       autoFocus
                       margin="dense"
-                      label="Webhook URL"
-                      placeholder="webhook URL copy"
+                      label="Pabbly Hook URL"
+                      placeholder="Pabbly Hook URL copy"
                       fullWidth
                       variant="outlined"
-                      helperText='Use this URL to receive your requests from "dfsg". Valid requests to this URL will be sent to your destination "dfaddf", and Hookdeck will reply immediately with an HTTP 200.'
+                      helperText={
+                        <div style={{ lineHeight: '1.8', marginTop: '8px' }}>
+                          • Use this URL to receive your requests from the source.
+                          <br />
+                          • Paste this URL to the destination.
+                          <br />
+                          • Valid requests to this URL will be sent to your destination.
+                          <br />• Pabbly Hook will reply immediately with an HTTP 200.
+                        </div>
+                      }
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">

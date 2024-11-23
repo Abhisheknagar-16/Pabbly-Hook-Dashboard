@@ -47,7 +47,7 @@ export function StatsCardEvent() {
             >
               <div>
                 <Typography sx={{ mt: -0.2, mb: 0.2 }} variant="h4">
-                  Events
+                Events (Webhooks Forwarded to Destination)
                 </Typography>
                 <Typography sx={{ color: 'text.secondary' }}>
                   Events in Pabbly Hook provide a comprehensive view of all past activities,

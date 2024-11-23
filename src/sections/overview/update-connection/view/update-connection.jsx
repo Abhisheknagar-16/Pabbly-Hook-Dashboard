@@ -422,9 +422,9 @@ export function UpdateConnection() {
                 type="email"
                 margin="dense"
                 variant="outlined"
-                label="Webhook URL"
+                label="Pabbly Hook URL"
                 placeholder="Enter URL"
-                helperText="Copy and paste the Pabbly Hook URL into your request source."
+                helperText="Use the Pabbly Hook URL above to receive requests from source applications. All valid requests sent to the URL will be seamlessly forwarded to the destination you have configured."
                 value={url}
                 onChange={handleChange}
                 InputProps={{
@@ -531,7 +531,7 @@ export function UpdateConnection() {
                 helperText={
                   errorrequired
                     ? 'This field is required.'
-                    : 'Enter the destination webhook URL where Pabbly Hook will forward the webhook data for processing.'
+                    : 'Enter the destination URL where Pabbly Hook will forward the webhook data for processing.'
                 }
               />
             </DialogContent>
@@ -612,7 +612,14 @@ export function UpdateConnection() {
                     fullWidth
                     // label="Select"
                     defaultValue="USD"
-                    helperText="Select the time period for the rate limit (e.g., per second, per minute, per hours)."
+                    helperText={
+                      <>
+                        Select the time period for the rate limit (e.g., per second, per minute, per hours).{' '}
+                        <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                          Learn more
+                        </a>
+                      </>
+                    }
                   >
                     {currencies.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
@@ -627,8 +634,8 @@ export function UpdateConnection() {
             <Divider sx={{ borderStyle: 'dashed' }} />
             <CardHeader
               title="Set Connections Rules"
-              subheader="Configure rules to change the behavior of events traveling through your connection."
-              sx={{ mb: 2 }}
+              subheader="Set rules for how events are routed to your destination."
+              sx={{ mb: 1 }}
             />
 
             <DialogContent>
@@ -659,6 +666,12 @@ export function UpdateConnection() {
                 }
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
+              <Typography sx={{ fontSize: '12px', color: '#637381', ml: 5.9, mt: -1 }}>
+                Set the delay between receiving an event and delivering it to your destination.{' '}
+                <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                  Learn more
+                </a>
+              </Typography>
               {showDelayField && (
                 <>
                   <Typography sx={{ mt: 1, fontSize: '15px' }}>Delay Interval</Typography>
@@ -666,9 +679,15 @@ export function UpdateConnection() {
                     id="outlined-Rate-limit"
                     select
                     fullWidth
-                    // label="Delay between retries"
                     defaultValue="USD"
-                    helperText="Request will reach destination after the specified delay interval."
+                    helperText={
+                      <>
+                        Request will reach the destination after the specified delay interval.{' '}
+                        <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                          Learn more
+                        </a>
+                      </>
+                    }
                     sx={{ mt: 1 }}
                   >
                     {Ratelimit.map((option) => (
@@ -683,7 +702,7 @@ export function UpdateConnection() {
                     select
                     fullWidth
                     defaultValue="USD"
-                    helperText="Select the time unit."
+                    helperText="Specify the unit for the delay interval (e.g., seconds, minutes)."
                     sx={{ mb: 2 }}
                   >
                     {Time.map((option) => (
@@ -725,6 +744,12 @@ export function UpdateConnection() {
                 }
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
+              <Typography sx={{ fontSize: '12px', color: '#637381', ml: 5.9, mt: -1 }}>
+                Use transformation to modify an event&apos;s payload before it&apos;s delivered.{' '}
+                <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                  Learn more
+                </a>
+              </Typography>
               {showTransformationField && (
                 <>
                   <Box sx={{ display: 'flex' }}>
@@ -734,7 +759,14 @@ export function UpdateConnection() {
                       fullWidth
                       value={selectedTransformation}
                       onChange={(e) => setSelectedTransformation(e.target.value)}
-                      helperText="Select a transformation."
+                      helperText={
+                        <>
+                          Select a transformation.{' '}
+                          <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                            Learn more
+                          </a>
+                        </>
+                      }
                       sx={{ mb: 2, mt: 2 }}
                     >
                       {Transformation.map((option) => (
@@ -800,7 +832,7 @@ export function UpdateConnection() {
                       display: selectedTransformation === 'USD' ? 'flex' : 'none',
                     }}
                   >
-                    Create Transformation
+                    Create transformation
                   </Button>
 
                   <Drawer
@@ -855,6 +887,13 @@ export function UpdateConnection() {
                 }
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
+              <Typography sx={{ fontSize: '12px', color: '#637381', ml: 5.9, mt: -1 }}>
+                Customize the default Pabbly Hook HTTP response with a static response in JSON or
+                TXT format.{' '}
+                <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                  Learn more
+                </a>
+              </Typography>
               {showCustomresponseField && (
                 <>
                   <Typography sx={{ mb: 1, mt: 1, fontSize: '15px' }}>Content Type</Typography>
@@ -864,7 +903,7 @@ export function UpdateConnection() {
                     fullWidth
                     value={selectedFormat}
                     onChange={handleFormatChange}
-                    helperText="Select the format of response."
+                    helperText="Select the format for the response content, such as JSON or Plain field."
                     sx={{ mb: 1 }}
                   >
                     {Strategy.map((option) => (
@@ -948,7 +987,12 @@ export function UpdateConnection() {
                 }
                 sx={{ '& .MuiFormControlLabel-label': { fontSize: '15px' } }}
               />
-
+              <Typography sx={{ fontSize: '12px', color: '#637381', ml: 5.9, mt: -1 }}>
+                Filter events based on the request body, headers, query parameters, or path.{' '}
+                <a href="#" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                  Learn more
+                </a>
+              </Typography>
               {showFilterField && (
                 <Box sx={{ width: '100%' }}>
                   <Tabs value={selectedTab} onChange={handleTabChange} variant="fullWidth">
