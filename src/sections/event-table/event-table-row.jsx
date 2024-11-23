@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -11,14 +10,9 @@ import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import {
-  Grid,
-  Drawer,
-  AppBar,
   Divider,
-  Toolbar,
   Tooltip,
   useTheme,
-  TextField,
   Typography,
 } from '@mui/material';
 
@@ -28,6 +22,8 @@ import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
+
+import { EventsDrawer } from '../drawer/event-drawer';
 
 const generateRandomData = () => {
   const names = [
@@ -218,9 +214,12 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
               alignItems: 'flex-start',
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box
+              sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+              onClick={handleOpenDrawer}
+            >
               <Tooltip title={`Request ID: ${RequestId}`} disableInteractive arrow placement="top">
-                <Typography fontSize={14} color="#1c252e">
+                <Typography fontSize={14} color="#078dee">
                   {RequestId}
                 </Typography>
               </Tooltip>
@@ -274,8 +273,8 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
             // variant="soft"
             color={buttonColor}
             // size='medium'
-            onClick={handleOpenDrawer}
-            sx={{ mr: 1, cursor: 'pointer' }} // Add margin-right to the button
+            // onClick={handleOpenDrawer}
+            // sx={{ mr: 1, cursor: 'pointer' }} // Add margin-right to the button
           >
             Attempt {attemptCount}
           </Label>
@@ -340,401 +339,14 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
       />
 
       {/* Event Drawer */}
-      <Drawer
+      <EventsDrawer
         open={drawerOpen}
         onClose={handleCloseDrawer}
-        anchor="right"
-        slotProps={{ backdrop: { invisible: true } }}
-        PaperProps={{
-          sx: {
-            width: { xs: '100%', sm: 700, md: 850 }, // Adjust width based on screen size
-            '@media (max-width: 300px)': {
-              padding: '16px',
-            },
-          },
-        }}
-      >
-        <AppBar
-          sx={{ bgcolor: '#fff', padding: 2 }}
-          position="relative"
-          color="default"
-          display="flex"
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              edge="start"
-              sx={{
-                position: 'absolute',
-                top: 12, // Adjust top position as needed
-                right: 28, // Adjust right position as needed
-              }}
-              onClick={handleCloseDrawer}
-            >
-              <Iconify icon="mingcute:close-line" />
-            </IconButton>
-          </Toolbar>
-          <Typography
-            sx={{
-              mt: -8,
-              flex: 1,
-              ml: 2,
-              color: 'primary',
-              fontSize: '24px',
-              fontWeight: 700,
-            }}
-          >
-            {EventName} {/* Display the random name */}
-          </Typography>
-          <Typography
-            sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}
-          >
-            Event ID - {EventId} {/* Display the random ID */}
-            <Tooltip title="Copy event_id " arrow placement="bottom">
-              <IconButton
-                edge="end"
-                sx={{ color: 'text.disabled' }}
-                onClick={() => navigator.clipboard.writeText(EventId)}
-              >
-                <Iconify sx={{ mt: -0.2 }} width={14} icon="solar:copy-bold" />
-              </IconButton>
-            </Tooltip>
-          </Typography>
-          <Typography
-            sx={{ flex: 1, ml: 2, color: 'text.disabled', fontSize: '16px', fontWeight: 400 }}
-          >
-            Executed at {formatDate(Eventdate)}
-          </Typography>
-        </AppBar>
-        <Divider />
-        <Box sx={{ width: '90%', mt: 2, ml: 5, bgcolor: '#fff', padding: 2 }}>
-          <Typography variant="h6" gutterBottom>
-            <Tooltip
-              title="Detailed information for the selected webhook event."
-              disableInteractive
-              placement="top"
-              arrow
-            >
-              Event History
-            </Tooltip>
-          </Typography>
-          <Divider />
-          <Grid container spacing={2} mt={2}>
-            <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                <Tooltip
-                  title="Shows whether the event succeeded, failed, or is in an unknown state."
-                  disableInteractive
-                  placement="top"
-                  arrow
-                >
-                  Status
-                </Tooltip>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <Tooltip
-                title={
-                  row.status === 'success'
-                    ? 'This is an successful event'
-                    : row.status === 'rejected'
-                      ? 'This event is rejected'
-                      : row.status === 'scheduled'
-                        ? 'This event is scheduled'
-                        : ''
-                }
-                arrow
-                disableInteractive
-                placement="top"
-                disableHoverListener={
-                  row.status !== 'success' &&
-                  row.status !== 'rejected' &&
-                  row.status !== 'scheduled'
-                }
-              >
-                <Label
-                  variant="soft"
-                  color={
-                    (row.status === 'success' && 'success') ||
-                    (row.status === 'rejected' && 'error') ||
-                    (row.status === 'scheduled' && 'info') ||
-                    'default'
-                  }
-                >
-                  {row.status}
-                </Label>
-              </Tooltip>
-              {/* <Snackbar
-                open={openSnackbar}
-                autoHideDuration={1000}
-                onClose={handleCloseSnackbar}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-              >
-                <Alert
-                  onClose={handleCloseSnackbar}
-                  severity={
-                    row.status === 'success'
-                      ? 'success'
-                      : row.status === 'rejected'
-                        ? 'error'
-                        : 'info'
-                  }
-                  sx={{
-                    width: '100%',
-                    fontSize: '14px',
-                    fontWeight: 'bold',
-                    backgroundColor: theme.palette.background.paper,
-                    color: theme.palette.text.primary,
-                    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-                  }}
-                >
-                  {row.status === 'success'
-                    ? 'Event successfully setup.'
-                    : row.status === 'rejected'
-                      ? 'Event is rejected.'
-                      : 'Unknown status.'}
-                </Alert>
-              </Snackbar> */}
-            </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                <Tooltip
-                  title="Shows which connection or integration triggered this event."
-                  disableInteractive
-                  placement="top"
-                  arrow
-                >
-                  Source
-                </Tooltip>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField disabled size="small" fullWidth value={formatDate(Eventdate)} />
-            </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                <Tooltip
-                  title="Shows how much data was processed in the event."
-                  disableInteractive
-                  placement="top"
-                  arrow
-                >
-                  Content lenght{' '}
-                </Tooltip>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField disabled size="small" fullWidth value={EventId} />
-            </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                <Tooltip
-                  title="Indicates what kind of data format was involved in the event."
-                  disableInteractive
-                  placement="top"
-                  arrow
-                >
-                  Content type
-                </Tooltip>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField
-                disabled
-                value="2024-08-23T12:06:44.930Z"
-                fullWidth
-                variant="outlined"
-                size="small"
-              />
-            </Grid>{' '}
-            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                <Tooltip
-                  title="Shows which type of request action was used in this event."
-                  disableInteractive
-                  placement="top"
-                  arrow
-                >
-                  Method
-                </Tooltip>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField disabled value="Get" fullWidth variant="outlined" size="small" />
-            </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                <Tooltip
-                  title="Contains any data that was sent during this event."
-                  disableInteractive
-                  placement="top"
-                  arrow
-                >
-                  Body
-                </Tooltip>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <Box
-                sx={{
-                  position: 'relative',
-                  maxHeight: 400,
-                  overflowY: 'auto', // Control vertical overflow
-                  overflowX: 'hidden', // Hide horizontal overflow to avoid scroll
-                  border: '1px solid #E5E8EB',
-                  borderRadius: 1,
-                  // Custom scrollbar styling
-                  '&::-webkit-scrollbar': {
-                    width: '8px', // Set the width of the scrollbar
-                  },
-                  '&::-webkit-scrollbar-thumb': {
-                    backgroundColor: '#888', // Color of the scrollbar thumb
-                    borderRadius: '10px', // Border radius for rounded scrollbar
-                  },
-                  '&::-webkit-scrollbar-thumb:hover': {
-                    backgroundColor: '#555', // Color on hover
-                  },
-                  '&::-webkit-scrollbar-track': {
-                    backgroundColor: '#f1f1f1', // Background of the scrollbar track
-                    borderRadius: '10px', // Border radius for the track
-                  },
-                }}
-              >
-                <SyntaxHighlighter
-                  language="javascript"
-                  customStyle={{
-                    backgroundColor: 'transparent',
-                    wordWrap: 'break-word', // Ensure long lines wrap
-                    whiteSpace: 'pre-wrap', // Maintain formatting while allowing wrapping
-                  }}
-                  wrapLongLines // Ensure code lines don't overflow horizontally
-                >
-                  {`(event, context) => {
-    // Initialize a counter
-    let itemCounter = 0;
-    // Process a list of items
-    event.payload.items = event.payload.items || [];
-    event.payload.items.forEach(item => {
-      if (item.status === 'active') {
-        itemCounter++;
-        item.updated_at = new Date().toISOString();
-      } else {
-        item.status = 'inactive';
-      }
-    });
-
-    // Add a summary field
-    event.payload.summary = {
-      activeItemCount: itemCounter,
-      totalItems: event.payload.items.length
-    };
-
-    // Add a new header
-    event.headers['X-Item-Count'] = itemCounter.toString();
-
-    // Process query parameters
-    event.queryParams.processedAt = new Date().toISOString();
-
-    // Error handling for missing fields
-    if (!event.payload.items.length) {
-      throw new Error('No items to process');
-    }
-
-    return event;
-  }`}
-                </SyntaxHighlighter>
-
-                {/* Copy button */}
-                <IconButton
-                  edge="end"
-                  sx={{
-                    position: 'absolute',
-                    top: 15, // Adjust as needed
-                    right: 10, // Adjust as needed
-                    color: 'text.disabled',
-                  }}
-                  onClick={() =>
-                    navigator.clipboard.writeText((event, context) => {
-                      // Initialize a counter
-                      let itemCounter = 0;
-                      // Process a list of items
-                      event.payload.items = event.payload.items || [];
-                      event.payload.items.forEach((item) => {
-                        if (item.status === 'active') {
-                          itemCounter += 1; // Avoiding ++ operator
-                          item.updated_at = new Date().toISOString();
-                        } else {
-                          item.status = 'inactive';
-                        }
-                      });
-
-                      // Add a summary fieldevent
-                      event.payload.summary = {
-                        activeItemCount: itemCounter,
-                        totalItems: event.payload.items.length,
-                      };
-
-                      // Add a new header
-                      event.headers['X-Item-Count'] = itemCounter.toString();
-
-                      // Process query parameters
-                      event.queryParams.processedAt = new Date().toISOString();
-
-                      // Error handling for missing fields
-                      if (!event.payload.items.length) {
-                        throw new Error('No items to process');
-                      }
-
-                      return event;
-                    })
-                  }
-                >
-                  <Tooltip title="Copy request_code" arrow placement="bottom">
-                    <Iconify width={16} icon="solar:copy-bold" />
-                  </Tooltip>
-                </IconButton>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-              <Typography variant="body2" sx={{ mt: 1 }}>
-                <Tooltip
-                  title='Shows any additional parameters that were included with the event.'
-                  disableInteractive
-                  placement="top"
-                  arrow
-                >
-                  Query Params
-                </Tooltip>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-              <TextField
-                disabled
-                value="NA"
-                fullWidth
-                variant="outlined"
-                size="small"
-                InputProps={{
-                  endAdornment: (
-                    <Tooltip title="Copy Text " arrow placement="bottom">
-                      <IconButton
-                        edge="end"
-                        sx={{ color: 'text.disabled' }}
-                        onClick={() => navigator.clipboard.writeText('NA')}
-                      >
-                        <Iconify sx={{ mt: -0.2 }} width={15} icon="solar:copy-bold" />
-                      </IconButton>
-                    </Tooltip>
-                  ),
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Box>
-      </Drawer>
+        row={row}
+        EventName={EventName}
+        EventId={EventId}
+        Eventdate={Eventdate}
+      />
     </>
   );
 }
