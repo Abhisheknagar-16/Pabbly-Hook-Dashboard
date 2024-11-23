@@ -47,7 +47,7 @@ export function StatsCardRequest() {
             >
               <div>
                 <Typography sx={{ mt: -0.2, mb: 0.2 }} variant="h4">
-                  Requests
+                Requests (Incoming Webhooks from Source)
                 </Typography>
                 <Typography sx={{ color: 'text.secondary' }}>
                   View the HTTP request that Pabbly Hook receives from the source. &nbsp;
