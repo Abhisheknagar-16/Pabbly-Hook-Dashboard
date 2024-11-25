@@ -114,7 +114,7 @@ export function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteR
       : row.status === 'rejected'
         ? 2
         : row.status === 'scheduled'
-          ? 3
+          ? 0
           : 0;
 
   // Determine button color based on status
