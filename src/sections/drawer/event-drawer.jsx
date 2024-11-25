@@ -4,8 +4,8 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
   Box,
   Grid,
+  Card,
   Alert,
-  AppBar,
   Drawer,
   Divider,
   Toolbar,
@@ -101,20 +101,37 @@ export function EventsDrawer({ open, onClose, row, EventName, Eventdate, EventId
         },
       }}
     >
-      <AppBar
-        sx={{ bgcolor: '#fff', padding: 2 }}
-        position="relative"
-        color="default"
-        display="flex"
-      >
+      <Box
+          display="flex"
+          sx={{
+            py: 2,
+            pr: 1,
+            pl: 2.5,
+            flexGrow: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            borderBottom: '1px dashed #919eab33',
+            borderBottomRightRadius: '0px',
+            borderBottomLeftRadius: '0px',
+            // p: 3,
+            position: 'sticky',
+            top: 0,
+            zIndex: 1,
+            bgcolor:'#fff'
+          }}
+        >
         <Toolbar>
           <IconButton
             color="inherit"
-            edge="start"
+            edge="center"
             sx={{
               position: 'absolute',
-              top: 12, // Adjust top position as needed
-              right: 28, // Adjust right position as needed
+              top: 0, // Default for larger screens
+              right: 8, // Default for larger screens
+              [theme.breakpoints.down('sm')]: {
+                top: -8, // Adjust top position for mobile
+                right: 8, // Adjust right position for mobile
+              },
             }}
             onClick={onClose}
           >
@@ -182,9 +199,11 @@ export function EventsDrawer({ open, onClose, row, EventName, Eventdate, EventId
         >
           Executed at {formatDate(Eventdate)}
         </Typography>
-      </AppBar>
-      <Divider />
-      <Box sx={{ width: '90%', mt: 2, ml: 5, bgcolor: '#fff', padding: 2 }}>
+      </Box>
+      {/* <Divider /> */}
+      <Box sx={{ display: 'flex', width: '100%' }}>
+      <Card sx={{  m:3, bgcolor: '#fff', padding: 2 }}>
+        <Box>
         <Typography variant="h6" gutterBottom>
           <Tooltip
             title="Detailed information for the selected webhook event."
@@ -498,7 +517,8 @@ export function EventsDrawer({ open, onClose, row, EventName, Eventdate, EventId
               }}
             />
           </Grid>
-        </Grid>
+        </Grid></Box>
+        </Card>
       </Box>
     </Drawer>
   );
