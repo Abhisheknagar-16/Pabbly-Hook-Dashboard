@@ -64,13 +64,13 @@ const formatDate = (dateString) => {
   return date.toLocaleString('en-US', options).replace(',', '');
 };
 const CustomBackdrop = (props) => (
-    <MuiBackdrop
-      {...props}
-      sx={{ backgroundColor: 'transparent' }} // Make the backdrop transparent
-    />
-  );
+  <MuiBackdrop
+    {...props}
+    sx={{ backgroundColor: 'transparent' }} // Make the backdrop transparent
+  />
+);
 
-export function RequestDrawer({ open, onClose,row,RequestName,Requestdate, RequestId }) {
+export function RequestDrawer({ open, onClose, row, RequestName, Requestdate, RequestId }) {
   const theme = useTheme();
 
   const [randomData, setRandomData] = useState({});
@@ -79,7 +79,7 @@ export function RequestDrawer({ open, onClose,row,RequestName,Requestdate, Reque
     setRandomData(generateRandomData());
   }, []); // Empty dependency array ensures it runs once on mount
 
-//   const { RequestName, Requestdate, RequestId } = randomData; // Destructure the new ID
+  //   const { RequestName, Requestdate, RequestId } = randomData; // Destructure the new ID
 
   const [openCopySnackbar, setOpenCopySnackbar] = React.useState(false);
 
@@ -121,32 +121,36 @@ export function RequestDrawer({ open, onClose,row,RequestName,Requestdate, Reque
     >
       {/* <Card component="ul" position="relative" float="left"> */}
       <Box
-          display="flex"
-          sx={{
-            py: 2,
-            pr: 1,
-            pl: 2.5,
-            flexGrow: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            borderBottom: '1px dashed #919eab33',
-            borderBottomRightRadius: '0px',
-            borderBottomLeftRadius: '0px',
-            p: 3,
-            position: 'sticky',
-            top: 0,
-            zIndex: 1,
-            bgcolor:'#fff'
-          }}
-        >
+        display="flex"
+        sx={{
+          py: 2,
+          pr: 1,
+          pl: 2.5,
+          flexGrow: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          borderBottom: '1px dashed #919eab33',
+          borderBottomRightRadius: '0px',
+          borderBottomLeftRadius: '0px',
+          // p: 3,
+          position: 'sticky',
+          top: 0,
+          zIndex: 1,
+          bgcolor: '#fff',
+        }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
-            edge="start"
+            edge="center"
             sx={{
               position: 'absolute',
-              top: 12, // Adjust top position as needed
-              right: 28, // Adjust right position as needed
+              top: 0, // Default for larger screens
+              right: 8, // Default for larger screens
+              [theme.breakpoints.down('sm')]: {
+                top: -8, // Adjust top position for mobile
+                right: 8, // Adjust right position for mobile
+              },
             }}
             onClick={onClose}
           >
@@ -216,60 +220,60 @@ export function RequestDrawer({ open, onClose,row,RequestName,Requestdate, Reque
         </Typography>
       </Box>
       {/* <Divider /> */}
-      <Box sx={{ display: 'flex', height: '100%', width: '100%' }}>
-      <Card sx={{  m:3, bgcolor: '#fff', padding: 2 }}>
-        <Typography variant="h6" gutterBottom>
-          <Tooltip
-            title="Detailed information for the selected webhook request."
-            disableInteractive
-            placement="top"
-            arrow
-          >
-            Request History
-          </Tooltip>
-        </Typography>
-        <Divider />
-        <Grid container spacing={2} mt={2}>
-          <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
-            <Typography variant="body2">
-              <Tooltip
-                title="Shows the current state of your request (e.g., Accepted, Pending, Failed)."
-                disableInteractive
-                placement="top"
-                arrow
-              >
-                Status
-              </Tooltip>
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
+      <Box sx={{ display: 'flex', width: '100%' }}>
+        <Card sx={{ m: 3, bgcolor: '#fff', padding: 2 }}>
+          <Typography variant="h6" gutterBottom>
             <Tooltip
-              title={
-                row.status === 'Accepted'
-                  ? 'This is an accepted request'
-                  : row.status === 'Blocked'
-                    ? 'This request is blocked'
-                    : ''
-              }
-              arrow
-              placement="top"
-              disableHoverListener={row.status !== 'Accepted' && row.status !== 'Blocked'}
+              title="Detailed information for the selected webhook request."
               disableInteractive
+              placement="top"
+              arrow
             >
-              <Label
-                size="small"
-                variant="soft"
-                color={
-                  (row.status === 'Accepted' && 'success') ||
-                  (row.status === 'Blocked' && 'error') ||
-                  'default'
-                }
-              >
-                {row.status}
-              </Label>
+              Request History
             </Tooltip>
+          </Typography>
+          <Divider />
+          <Grid container spacing={2} mt={2}>
+            <Grid item xs={100} sm={4} md={3} lg={2} xl={2}>
+              <Typography variant="body2">
+                <Tooltip
+                  title="Shows the current state of your request (e.g., Accepted, Pending, Failed)."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Status
+                </Tooltip>
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
+              <Tooltip
+                title={
+                  row.status === 'Accepted'
+                    ? 'This is an accepted request'
+                    : row.status === 'Blocked'
+                      ? 'This request is blocked'
+                      : ''
+                }
+                arrow
+                placement="top"
+                disableHoverListener={row.status !== 'Accepted' && row.status !== 'Blocked'}
+                disableInteractive
+              >
+                <Label
+                  size="small"
+                  variant="soft"
+                  color={
+                    (row.status === 'Accepted' && 'success') ||
+                    (row.status === 'Blocked' && 'error') ||
+                    'default'
+                  }
+                >
+                  {row.status}
+                </Label>
+              </Tooltip>
 
-            {/* <Snackbar
+              {/* <Snackbar
                 open={openSnackbar}
                 autoHideDuration={1000}
                 onClose={handleCloseSnackbar}
@@ -303,144 +307,148 @@ export function RequestDrawer({ open, onClose,row,RequestName,Requestdate, Reque
                       : 'Unknown status.'}
                 </Alert>
               </Snackbar> */}
-          </Grid>
-          <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-            <Typography variant="body2" sx={{ mt: 1 }}>
-              <Tooltip
-                title="Identifies the origin of the request using a unique identifier code."
-                disableInteractive
-                placement="top"
-                arrow
-              >
-                Source
-              </Tooltip>
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-            <TextField disabled
-              value="PostmanRuntime/7.42.0"
-              fullWidth
-              variant="outlined"
-              size="small" />
-          </Grid>
-          <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-            <Typography variant="body2" sx={{ mt: 1 }}>
-              <Tooltip
-                title="Shows which connection or integration triggered this event."
-                disableInteractive
-                placement="top"
-                arrow
-              >
-                Destination URL
-              </Tooltip>
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-            <TextField disabled
-              value="https://webhook.site/13d732dc-21cf-4f72-b076-4821c21a8b46"
-              fullWidth
-              variant="outlined"
-              size="small" />
-          </Grid>
-          <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-            <Typography variant="body2" sx={{ mt: 1 }}>
-              <Tooltip
-                title="Displays the size of the request content in bytes/characters."
-                disableInteractive
-                placement="top"
-                arrow
-              >
-                Content lenght{' '}
-              </Tooltip>
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-            <TextField disabled size="small" fullWidth value="37" />
-          </Grid>
-          <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-            <Typography variant="body2" sx={{ mt: 1 }}>
-              <Tooltip
-                title="Indicates the format of the request data (e.g., application/json, text/plain)"
-                disableInteractive
-                placement="top"
-                arrow
-              >
-                Content type
-              </Tooltip>
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-            <TextField
-              disabled
-              value="application/json"
-              fullWidth
-              variant="outlined"
-              size="small"
-            />
-          </Grid>{' '}
-          <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-            <Typography variant="body2" sx={{ mt: 1 }}>
-              <Tooltip
-                title="Shows which HTTP method was used to make the request (GET, POST, PUT, DELETE, etc.)."
-                disableInteractive
-                placement="top"
-                arrow
-              >
-                Method
-              </Tooltip>
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-            <TextField disabled value="POST" fullWidth variant="outlined" size="small" />
-          </Grid>
-          <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-            <Typography variant="body2" sx={{ mt: 1 }}>
-              <Tooltip
-                title="Contains the actual data/payload sent with the request."
-                disableInteractive
-                placement="top"
-                arrow
-              >
-                Body
-              </Tooltip>
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-            <Box
-              sx={{
-                position: 'relative',
-                maxHeight: 400,
-                overflowY: 'auto', // Control vertical overflow
-                overflowX: 'hidden', // Hide horizontal overflow to avoid scroll
-                border: '1px solid #E5E8EB',
-                borderRadius: 1,
-                // Custom scrollbar styling
-                '&::-webkit-scrollbar': {
-                  width: '8px', // Set the width of the scrollbar
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  backgroundColor: '#888', // Color of the scrollbar thumb
-                  borderRadius: '10px', // Border radius for rounded scrollbar
-                },
-                '&::-webkit-scrollbar-thumb:hover': {
-                  backgroundColor: '#555', // Color on hover
-                },
-                '&::-webkit-scrollbar-track': {
-                  backgroundColor: '#f1f1f1', // Background of the scrollbar track
-                  borderRadius: '10px', // Border radius for the track
-                },
-              }}
-            >
-              <SyntaxHighlighter
-                language="javascript"
-                customStyle={{
-                  backgroundColor: 'transparent',
-                  wordWrap: 'break-word', // Ensure long lines wrap
-                  whiteSpace: 'pre-wrap', // Maintain formatting while allowing wrapping
+            </Grid>
+            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                <Tooltip
+                  title="Identifies the origin of the request using a unique identifier code."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Source
+                </Tooltip>
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
+              <TextField
+                disabled
+                value="PostmanRuntime/7.42.0"
+                fullWidth
+                variant="outlined"
+                size="small"
+              />
+            </Grid>
+            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                <Tooltip
+                  title="Shows which connection or integration triggered this event."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Destination URL
+                </Tooltip>
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
+              <TextField
+                disabled
+                value="https://webhook.site/13d732dc-21cf-4f72-b076-4821c21a8b46"
+                fullWidth
+                variant="outlined"
+                size="small"
+              />
+            </Grid>
+            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                <Tooltip
+                  title="Displays the size of the request content in bytes/characters."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Content lenght{' '}
+                </Tooltip>
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
+              <TextField disabled size="small" fullWidth value="37" />
+            </Grid>
+            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                <Tooltip
+                  title="Indicates the format of the request data (e.g., application/json, text/plain)"
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Content type
+                </Tooltip>
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
+              <TextField
+                disabled
+                value="application/json"
+                fullWidth
+                variant="outlined"
+                size="small"
+              />
+            </Grid>{' '}
+            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                <Tooltip
+                  title="Shows which HTTP method was used to make the request (GET, POST, PUT, DELETE, etc.)."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Method
+                </Tooltip>
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
+              <TextField disabled value="POST" fullWidth variant="outlined" size="small" />
+            </Grid>
+            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                <Tooltip
+                  title="Contains the actual data/payload sent with the request."
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Body
+                </Tooltip>
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
+              <Box
+                sx={{
+                  position: 'relative',
+                  maxHeight: 400,
+                  overflowY: 'auto', // Control vertical overflow
+                  overflowX: 'hidden', // Hide horizontal overflow to avoid scroll
+                  border: '1px solid #E5E8EB',
+                  borderRadius: 1,
+                  // Custom scrollbar styling
+                  '&::-webkit-scrollbar': {
+                    width: '8px', // Set the width of the scrollbar
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: '#888', // Color of the scrollbar thumb
+                    borderRadius: '10px', // Border radius for rounded scrollbar
+                  },
+                  '&::-webkit-scrollbar-thumb:hover': {
+                    backgroundColor: '#555', // Color on hover
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    backgroundColor: '#f1f1f1', // Background of the scrollbar track
+                    borderRadius: '10px', // Border radius for the track
+                  },
                 }}
-                wrapLongLines // Ensure code lines don't overflow horizontally
               >
-                {`(request, context) => {
+                <SyntaxHighlighter
+                  language="javascript"
+                  customStyle={{
+                    backgroundColor: 'transparent',
+                    wordWrap: 'break-word', // Ensure long lines wrap
+                    whiteSpace: 'pre-wrap', // Maintain formatting while allowing wrapping
+                  }}
+                  wrapLongLines // Ensure code lines don't overflow horizontally
+                >
+                  {`(request, context) => {
     // Initialize a counter
     let itemCounter = 0;
     // Process a list of items
@@ -473,129 +481,129 @@ export function RequestDrawer({ open, onClose,row,RequestName,Requestdate, Reque
 
     return request;
   }`}
-              </SyntaxHighlighter>
+                </SyntaxHighlighter>
 
-              {/* Copy button */}
-              <IconButton
-                edge="end"
-                sx={{
-                  position: 'absolute',
-                  top: 15, // Adjust as needed
-                  right: 10, // Adjust as needed
-                  color: 'text.disabled',
-                }}
-                onClick={() => {
-                  // Copy text to clipboard
-                  navigator.clipboard.writeText((request, context) => {
-                    // Initialize a counter
-                    let itemCounter = 0;
-                    // Process a list of items
-                    request.payload.items = request.payload.items || [];
-                    request.payload.items.forEach((item) => {
-                      if (item.status === 'active') {
-                        itemCounter += 1; // Avoiding ++ operator
-                        item.updated_at = new Date().toISOString();
-                      } else {
-                        item.status = 'inactive';
+                {/* Copy button */}
+                <IconButton
+                  edge="end"
+                  sx={{
+                    position: 'absolute',
+                    top: 15, // Adjust as needed
+                    right: 10, // Adjust as needed
+                    color: 'text.disabled',
+                  }}
+                  onClick={() => {
+                    // Copy text to clipboard
+                    navigator.clipboard.writeText((request, context) => {
+                      // Initialize a counter
+                      let itemCounter = 0;
+                      // Process a list of items
+                      request.payload.items = request.payload.items || [];
+                      request.payload.items.forEach((item) => {
+                        if (item.status === 'active') {
+                          itemCounter += 1; // Avoiding ++ operator
+                          item.updated_at = new Date().toISOString();
+                        } else {
+                          item.status = 'inactive';
+                        }
+                      });
+
+                      // Add a summary field
+                      request.payload.summary = {
+                        activeItemCount: itemCounter,
+                        totalItems: request.payload.items.length,
+                      };
+
+                      // Add a new header
+                      request.headers['X-Item-Count'] = itemCounter.toString();
+
+                      // Process query parameters
+                      request.queryParams.processedAt = new Date().toISOString();
+
+                      // Error handling for missing fields
+                      if (!request.payload.items.length) {
+                        throw new Error('No items to process');
                       }
+
+                      return request;
                     });
 
-                    // Add a summary field
-                    request.payload.summary = {
-                      activeItemCount: itemCounter,
-                      totalItems: request.payload.items.length,
-                    };
-
-                    // Add a new header
-                    request.headers['X-Item-Count'] = itemCounter.toString();
-
-                    // Process query parameters
-                    request.queryParams.processedAt = new Date().toISOString();
-
-                    // Error handling for missing fields
-                    if (!request.payload.items.length) {
-                      throw new Error('No items to process');
-                    }
-
-                    return request;
-                  });
-
-                  // Open Snackbar
-                  handleOpenCopyCodeSnackbar();
-                }}
-              >
-                <Tooltip title="Copy request_code" arrow placement="top">
-                  <Iconify width={16} icon="solar:copy-bold" />
-                </Tooltip>
-              </IconButton>
-              <Snackbar
-                open={openCopyCodeSnackbar}
-                autoHideDuration={1000}
-                onClose={handleCloseCopyCodeSnackbar}
-                message="This is an error Alert."
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                // sx={{
-                //   boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-                //   mt: 6.5,
-                // }}
-              >
-                <Alert
-                  onClose={handleCloseCopyCodeSnackbar}
-                  severity="success"
-                  sx={{
-                    width: '100%',
-                    fontSize: '14px',
-                    fontWeight: 'bold',
-                    backgroundColor: theme.palette.background.paper,
-                    color: theme.palette.text.primary,
-                    boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-                    // mt: 6.5,
+                    // Open Snackbar
+                    handleOpenCopyCodeSnackbar();
                   }}
                 >
-                  Request code copied successfully.
-                </Alert>
-              </Snackbar>
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
-            <Typography variant="body2" sx={{ mt: 1 }}>
-              <Tooltip
-                title='Lists any parameters included in the request URL after the "?" symbol'
-                disableInteractive
-                placement="top"
-                arrow
-              >
-                Query Params
-              </Tooltip>
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
-            <TextField
-              disabled
-              value="NA"
-              fullWidth
-              variant="outlined"
-              size="small"
-              InputProps={{
-                endAdornment: (
-                  <Tooltip title="Copy Text " arrow placement="bottom">
-                    <IconButton
-                      edge="end"
-                      sx={{ color: 'text.disabled' }}
-                      onClick={() => {
-                        navigator.clipboard.writeText('NA');
-                        handleOpenCopyCodeSnackbar();
-                      }}
-                    >
-                      <Iconify sx={{ mt: -0.2 }} width={15} icon="solar:copy-bold" />
-                    </IconButton>
+                  <Tooltip title="Copy request_code" arrow placement="top">
+                    <Iconify width={16} icon="solar:copy-bold" />
                   </Tooltip>
-                ),
-              }}
-            />
+                </IconButton>
+                <Snackbar
+                  open={openCopyCodeSnackbar}
+                  autoHideDuration={1000}
+                  onClose={handleCloseCopyCodeSnackbar}
+                  message="This is an error Alert."
+                  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                  // sx={{
+                  //   boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+                  //   mt: 6.5,
+                  // }}
+                >
+                  <Alert
+                    onClose={handleCloseCopyCodeSnackbar}
+                    severity="success"
+                    sx={{
+                      width: '100%',
+                      fontSize: '14px',
+                      fontWeight: 'bold',
+                      backgroundColor: theme.palette.background.paper,
+                      color: theme.palette.text.primary,
+                      boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+                      // mt: 6.5,
+                    }}
+                  >
+                    Request code copied successfully.
+                  </Alert>
+                </Snackbar>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={4} md={3} lg={2} xl={2}>
+              <Typography variant="body2" sx={{ mt: 1 }}>
+                <Tooltip
+                  title='Lists any parameters included in the request URL after the "?" symbol'
+                  disableInteractive
+                  placement="top"
+                  arrow
+                >
+                  Query Params
+                </Tooltip>
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={8} md={9} lg={10} xl={10}>
+              <TextField
+                disabled
+                value="NA"
+                fullWidth
+                variant="outlined"
+                size="small"
+                InputProps={{
+                  endAdornment: (
+                    <Tooltip title="Copy Text " arrow placement="bottom">
+                      <IconButton
+                        edge="end"
+                        sx={{ color: 'text.disabled' }}
+                        onClick={() => {
+                          navigator.clipboard.writeText('NA');
+                          handleOpenCopyCodeSnackbar();
+                        }}
+                      >
+                        <Iconify sx={{ mt: -0.2 }} width={15} icon="solar:copy-bold" />
+                      </IconButton>
+                    </Tooltip>
+                  ),
+                }}
+              />
+            </Grid>
           </Grid>
-        </Grid>
-      </Card>
+        </Card>
       </Box>
     </Drawer>
   );
