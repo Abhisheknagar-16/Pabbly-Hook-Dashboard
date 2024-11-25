@@ -83,10 +83,10 @@ export function StatsCard() {
               },
             }}
           >
-            <Tooltip title="Number of connections created in your account." disableInteractive arrow placement="top">
+            <Tooltip title="Number of events allotted to your account." disableInteractive arrow placement="top">
               <div>
                 <CourseWidgetSummary
-                  title="Total Connections"
+                  title="EVENTS ALLOTTED"
                   total={232}
                   icon={`${CONFIG.site.basePath}/assets/icons/courses/connectionicon.png`}
                 />
@@ -95,13 +95,13 @@ export function StatsCard() {
 
             <Tooltip
               disableInteractive
-              title="When the source sends a webhook event to Pabbly Hooks, Pabbly generates a request in response."
+              title="Number of  events consumed till now in your account."
               arrow
               placement="top"
             >
               <div>
                 <CourseWidgetSummary
-                  title="Total Requests (Webhooks Received)"
+                  title="EVENTS CONSUMED "
                   total={986470}
                   color="secondary"
                   icon={`${CONFIG.site.basePath}/assets/icons/courses/requesticon.png`}
@@ -111,13 +111,13 @@ export function StatsCard() {
 
             <Tooltip
               disableInteractive
-              title="When Pabbly Hooks forwards a webhook event to the destination, it generates an event upon receiving the response. This event is created regardless of the response status code by the destination. (2XX, 3XX, 4XX, or 5XX)."
+              title="Number of events remaining in your account."
               arrow
               placement="top"
             >
               <div>
                 <CourseWidgetSummary
-                  title="Total Events (Webhooks Forwarded)"
+                  title="EVENTS REMAINING"
                   total={986414}
                   color="success"
                   icon={`${CONFIG.site.basePath}/assets/icons/courses/eventicon.png`}
